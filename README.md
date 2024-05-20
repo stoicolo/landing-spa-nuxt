@@ -1,6 +1,6 @@
 # Landing page and Content Management Nuxt App
 
-## Setup SoftStoic
+## Setup SoftStoic 1.0
 
 Make sure to install the dependencies:
 
