@@ -40,7 +40,7 @@
         >
           <img
             class="xl:absolute inset-0 lg:h-full lg:w-full rounded-2xl bg-gray-800 object-cover shadow-2xl"
-            src="/img/melissa_founder.png"
+            src=""
             alt="Melissa Founder"
           />
         </div>

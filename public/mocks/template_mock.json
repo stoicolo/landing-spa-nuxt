@@ -1,0 +1,23 @@
+{
+    "structure": {
+      "page_template": {
+        "id": 0,
+        "sections": [
+          {
+            "id": 0,
+            "position": 0,
+            "widget": {
+              "id": 1,
+              "name": "header",
+              "element": {
+                "backgroundImage": "https://via.placeholder.com/1200x300",
+                "title": "Welcome to my WOLRD",
+                "icon": "https://via.placeholder.com/150"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+  
