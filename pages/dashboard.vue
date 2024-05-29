@@ -202,7 +202,7 @@
       <main class="py-10">
         <div class="px-4 sm:px-6 lg:px-8">
           <!-- BUILDER -->
-          <Builder :structure="pageStructure.structure" />
+          <Builder />
         </div>
       </main>
     </div>
@@ -235,6 +235,7 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
 import Builder from '~/components/dashboard/builder.vue';
 import { ref, onMounted } from 'vue';
 import { useCompanyStore } from '~/stores/company';
+import { useTemplateStore } from '~/stores/template';
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
@@ -268,24 +269,12 @@ const userNavigation = [
 
 const sidebarOpen = ref(false);
 const companyStore = useCompanyStore();
+const templateStore = useTemplateStore();
 
 const logout = () => { };
 
-//Esta es la estructura de la página que se obtendrá de la API
-const pageStructure = ref({});
-
 onMounted(async () => {
-  try {
-    const response = await fetch('mocks/template_mock.json'); // Cambiar para obtener de BD
-    if (!response.ok) {
-      throw new Error('Failed to fetch page structure');
-    }
-    const data = await response.json();
-    pageStructure.value = data;
-
-  } catch (error) {
-    console.error('Error loading the page structure:', error);
-  }
+  templateStore.loadTemplateStructure();
 });
 
 </script>
