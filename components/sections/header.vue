@@ -13,6 +13,10 @@ const templateStore = useTemplateStore();
 export default {
     name: 'header',
     props: {
+        id: {
+            type: Number,
+            required: 0
+        },
         title: {
             type: String,
             default: 'Header Title'
@@ -41,7 +45,7 @@ export default {
             }, 2000);
         },
         updateStoreElement() {
-            templateStore.updateWidgetInSection(0, {
+            templateStore.updateWidgetInSection(this.id, {
                     title: this.localTitle,
                     icon: this.icon,
                     backgroundImage: this.backgroundImage
