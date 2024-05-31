@@ -1,59 +1,61 @@
 <template>
-    <header :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
-        <h1><input class="styled-input-h1" :value="title" @input="onInput"></h1>
-        <img :src="icon" alt="icon" />
-    </header>
+    <div v-if="viewMode">
+        <header :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
+            <h1><input class="styled-input-h1" :value="localTitle" @input="onInput" disabled="disabled"></h1>
+            <img :src="icon" alt="icon" />
+        </header>
+    </div>
+    <div v-else>
+        <header :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
+            <h1><input class="styled-input-h1" :value="localTitle" @input="onInput"></h1>
+            <img :src="icon" alt="icon" />
+        </header>
+    </div>
 </template>
 
-<script>
+<script setup>
+import { ref, watch } from 'vue';
 import { useTemplateStore } from '~/stores/template';
+
+const props = defineProps({
+    id: {
+        type: Number,
+        required: false // Cambiado de 0 a false
+    },
+    viewMode: {
+        type: Boolean,
+        default: false
+    },
+    title: {
+        type: String,
+        default: 'Header Title'
+    },
+    icon: {
+        type: String,
+        default: 'https://via.placeholder.com/150'
+    },
+    backgroundImage: {
+        type: String,
+        default: 'https://via.placeholder.com/1200x300'
+    }
+});
+
+const localTitle = ref(props.title);
+
+function onInput(event) {
+    localTitle.value = event.target.value;
+    updateStoreElement();
+}
 
 const templateStore = useTemplateStore();
 
-export default {
-    name: 'header',
-    props: {
-        id: {
-            type: Number,
-            required: 0
-        },
-        title: {
-            type: String,
-            default: 'Header Title'
-        },
-        icon: {
-            type: String,
-            default: 'https://via.placeholder.com/150'
-        },
-        backgroundImage: {
-            type: String,
-            default: 'https://via.placeholder.com/1200x300'
-        }
-    },
-    data() {
-        return {
-            debounceTimer: null,
-            localTitle: this.title
-        };
-    },
-    methods: {
-        onInput(event) {
-            this.localTitle = event.target.value;
-            clearTimeout(this.debounceTimer);
-            this.debounceTimer = setTimeout(() => {
-                this.updateStoreElement();
-            }, 2000);
-        },
-        updateStoreElement() {
-            templateStore.updateWidgetInSection(this.id, {
-                    title: this.localTitle,
-                    icon: this.icon,
-                    backgroundImage: this.backgroundImage
-                }
-            );
-        }
-    }
-};
+function updateStoreElement() {
+    templateStore.updateWidgetInSection(props.id, {
+        title: localTitle.value,
+        icon: props.icon,
+        backgroundImage: props.backgroundImage
+    });
+}
 </script>
 
 <style scoped>

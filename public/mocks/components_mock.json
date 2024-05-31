@@ -1,0 +1,15 @@
+{
+    "components": [{
+      "id": 0,
+      "name": "header",
+      "category": "basics",
+      "image": "https://via.placeholder.com/150",
+      "available": true,
+      "default": {
+        "backgroundImage": "https://via.placeholder.com/1200x300",
+        "title": "New Header",
+        "icon": "https://via.placeholder.com/150"
+      }
+    }]
+}
+  

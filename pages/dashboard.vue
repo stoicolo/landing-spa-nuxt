@@ -235,7 +235,6 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
 import Builder from '~/components/dashboard/builder.vue';
 import { ref, onMounted } from 'vue';
 import { useCompanyStore } from '~/stores/company';
-import { useTemplateStore } from '~/stores/template';
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
@@ -272,10 +271,6 @@ const companyStore = useCompanyStore();
 const templateStore = useTemplateStore();
 
 const logout = () => { };
-
-onMounted(async () => {
-  templateStore.loadTemplateStructure();
-});
 
 </script>
 

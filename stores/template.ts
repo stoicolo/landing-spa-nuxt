@@ -24,6 +24,7 @@ export const useTemplateStore = defineStore('template_store', {
               throw new Error('Failed to fetch page structure');
             }
             const data = await response.json();
+            console.log('Loaded page structure:', data);
             this.structure = data;
             this.isLoading = false;
           } catch (error) {
@@ -52,44 +53,60 @@ export const useTemplateStore = defineStore('template_store', {
       }
     },
     // Añadir una nueva sección
-    addSection(position) {
-      this.structure.structure.page_template.sections.push(
-        {
-            "id": Math.random().toString(36).substr(2, 9),
-            "position": position,
-            "widget": {
-              "id": Math.random().toString(36).substr(2, 9),
-              "name": "header",
-              "element": {
-                "backgroundImage": "https://via.placeholder.com/1200x300",
-                "title": "New Header",
-                "icon": "https://via.placeholder.com/150"
-              }
+    addSection(component, position) {
+        // Calculate the new position for the added section
+        let newPosition = position;
+
+
+        const newComponent = { 
+          id: Math.random().toString(36).substr(2, 9),
+          position: newPosition,
+          widget: {
+            id: Math.random().toString(36).substr(2, 9),
+            name: component.name,
+            element: {
+              ...component.default
             }
           }
-      );
+        }
+
+        this.structure.structure.page_template.sections.push(newComponent);
+
+        // Update positions of other sections
+        this.structure.structure.page_template.sections.forEach((section) => {
+            if (section.id !== this.structure.structure.page_template.sections[this.structure.structure.page_template.sections.length - 1].id) {
+                if (section.position >= newPosition) {
+                    section.position++;
+                }
+            }
+        });
+
+        this.matchPositionWithIndex();
     },
     // Eliminar una sección por ID
     removeSectionById(sectionId) {
-      const sectionIndex = this.structure.structure.page_template.sections.findIndex(s => s.id === sectionId);
-      if (sectionIndex !== -1) {
-        this.structure.structure.page_template.sections.splice(sectionIndex, 1);
-      }
-    },
-    moveWidgetInSection(sectionId, direction) {
         const sectionIndex = this.structure.structure.page_template.sections.findIndex(s => s.id === sectionId);
         if (sectionIndex !== -1) {
-            const section = this.structure.structure.page_template.sections[sectionIndex];
-            const newPosition = direction === 'up' ? section.position - 1 : section.position + 1;
+            this.structure.structure.page_template.sections.splice(sectionIndex, 1);
+            this.structure.structure.page_template.sections.forEach((section, index) => {
+                section.position = index;
+            });
+        }
+    },
+    moveWidgetInSection(sectionId, direction) {
+        const section = this.structure.structure.page_template.sections.find(s => s.id === sectionId);
+        if (section) {
+            const currentPosition = section.position;
+            const newPosition = direction === 'up' ? currentPosition - 1 : currentPosition + 1;
             
             // Check if it's the first element and trying to move up
-            if (direction === 'up' && sectionIndex === 0) {
+            if (direction === 'up' && currentPosition === 0) {
                 console.log('Cannot move up. It is the first element.');
                 return;
             }
             
             // Check if it's the last element and trying to move down
-            if (direction === 'down' && sectionIndex === this.structure.structure.page_template.sections.length - 1) {
+            if (direction === 'down' && currentPosition === this.structure.structure.page_template.sections.length - 1) {
                 console.log('Cannot move down. It is the last element.');
                 return;
             }
@@ -97,7 +114,7 @@ export const useTemplateStore = defineStore('template_store', {
             section.position = newPosition;
             
             // Update positions of other sections
-            this.structure.structure.page_template.sections.forEach((s, index) => {
+            this.structure.structure.page_template.sections.forEach(s => {
                 if (s.id !== sectionId) {
                     if (direction === 'up' && s.position === newPosition) {
                         s.position += 1;
@@ -106,7 +123,16 @@ export const useTemplateStore = defineStore('template_store', {
                     }
                 }
             });
+
+            this.matchPositionWithIndex();
         }
+    },
+    matchPositionWithIndex() {
+        this.structure.structure.page_template.sections.sort((a, b) => a.position - b.position);
+        console.log('Sorted sections:', this.structure.structure.page_template.sections);
+        this.structure.structure.page_template.sections.forEach((section, index) => {
+            section.position = index;
+        });
     }
   },
   persist: true
