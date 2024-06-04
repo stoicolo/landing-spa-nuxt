@@ -1,0 +1,44 @@
+{
+    "components": [
+      {
+        "id": 0,
+        "name": "header",
+        "category": "basics",
+        "image": "https://via.placeholder.com/150",
+        "available": true,
+        "default": {
+          "backgroundImage": "img/header1.png",
+          "title": "New Header",
+          "icon": "https://via.placeholder.com/150",
+          "template": "0"
+        }
+      },
+      {
+        "id": 1,
+        "name": "header",
+        "category": "basics",
+        "image": "https://via.placeholder.com/150",
+        "available": true,
+        "default": {
+          "backgroundImage": "img/header1.png",
+          "title": "New Header",
+          "icon": "https://via.placeholder.com/150",
+          "template": "0"
+        }
+      },
+      {
+        "id": 2,
+        "name": "header",
+        "category": "basics",
+        "image": "https://via.placeholder.com/150",
+        "available": true,
+        "default": {
+          "backgroundImage": "img/header1.png",
+          "title": "New Header",
+          "icon": "https://via.placeholder.com/150",
+          "template": "0"
+        }
+      }
+    ]
+}
+  
