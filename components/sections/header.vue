@@ -1,26 +1,39 @@
 <template>
     <div v-if="viewMode">
-        <header :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
+        <!--Template 1-->
+        <header :style="{ backgroundImage: 'url(' + backgroundImage + ')', backgroundSize:'100%' }" v-if="Number(localTemplate) === 0">
             <h1><input class="styled-input-h1" :value="localTitle" @input="onInput" disabled="disabled"></h1>
+            <img :src="icon" alt="icon" />
+        </header>
+        <!--Template 2-->
+        <header :style="{ backgroundImage: 'url(' + backgroundImage + ')', backgroundSize:'100%' }" v-if="Number(localTemplate) === 1">
+            <h1><input class="styled-input-h1" :value="localTitle" @input="onInput" disabled="disabled"> - Plantilla 2</h1>
             <img :src="icon" alt="icon" />
         </header>
     </div>
     <div v-else>
-        <header :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
+        <!--Template 1-->
+        <header :style="{ backgroundImage: 'url(' + backgroundImage + ')', backgroundSize:'100%' }" v-if="Number(localTemplate) === 0">
             <h1><input class="styled-input-h1" :value="localTitle" @input="onInput"></h1>
+            <img :src="icon" alt="icon" />
+        </header>
+        <!--Template 2-->
+        <header :style="{ backgroundImage: 'url(' + backgroundImage + ')', backgroundSize:'100%' }" v-if="Number(localTemplate) === 1">
+            <h1><input class="styled-input-h1" :value="localTitle" @input="onInput"></h1>
+            <p>- Plantilla 2</p>
             <img :src="icon" alt="icon" />
         </header>
     </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { useTemplateStore } from '~/stores/template';
 
 const props = defineProps({
     id: {
         type: Number,
-        required: false // Cambiado de 0 a false
+        required: false
     },
     viewMode: {
         type: Boolean,
@@ -37,23 +50,34 @@ const props = defineProps({
     backgroundImage: {
         type: String,
         default: 'https://via.placeholder.com/1200x300'
+    },
+    template: {
+        type: Number,
+        default: 0
     }
 });
 
+const templateStore = useTemplateStore();
 const localTitle = ref(props.title);
+
+const localTemplate = computed(() => {
+    var currentTemplate = "0";
+    templateStore.structure.structure.page_template.sections.forEach((section, index) => {
+        if (section.id === props.id) {
+            currentTemplate = section.widget.element.template;
+        }
+    });
+    return currentTemplate;
+});
 
 function onInput(event) {
     localTitle.value = event.target.value;
-    updateStoreElement();
+    updateTitle();
 }
 
-const templateStore = useTemplateStore();
-
-function updateStoreElement() {
+function updateTitle() {
     templateStore.updateWidgetInSection(props.id, {
-        title: localTitle.value,
-        icon: props.icon,
-        backgroundImage: props.backgroundImage
+        title: localTitle.value
     });
 }
 </script>

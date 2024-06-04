@@ -31,8 +31,22 @@ export const useTemplateStore = defineStore('template_store', {
             console.error('Error loading the page structure:', error);
           }
     },
+    // Actualiza el estado de template
+    updateTemplateStructure(sectionId: any, newTemplate: any) {
+      const section = this.structure.structure.page_template.sections.find(s => s.id === sectionId);
+      if (section) {
+        section.widget.element.template = newTemplate;
+      }
+    },
+    // Selecciona el estado de template por ID
+    selectTemplateStructure(sectionId: any) {
+      const section = this.structure.structure.page_template.sections.find(s => s.id === sectionId);
+      if (section) {
+        return section.widget.element.template;
+      }
+    },
     // Encuentra una sección por su ID y actualiza la sección completa
-    updateSectionById(sectionId, newSectionData) {
+    updateSectionById(sectionId: any, newSectionData: any) {
       const sectionIndex = this.structure.structure.page_template.sections.findIndex(s => s.id === sectionId);
       if (sectionIndex !== -1) {
         this.structure.structure.page_template.sections[sectionIndex] = {...this.structure.structure.page_template.sections[sectionIndex], ...newSectionData};
