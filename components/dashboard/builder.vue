@@ -1,9 +1,15 @@
 <template>
     <div class="flex items-center p-2">
-        <span class="mr-3">Preview</span>
+        <span class="mr-3">Vista Previa</span>
         <button @click="viewModeChange" :class="{'bg-blue-600': viewMode, 'bg-gray-200': !viewMode}" class="relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
             <span class="sr-only">Enable view mode</span>
             <span :class="{'translate-x-6': viewMode, 'translate-x-1': !viewMode}" class="inline-block w-4 h-4 transform bg-white rounded-full transition-transform"></span>
+        </button>
+        <button @click="saveTemplate" :disabled="loading" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3"
+        :class="{ 'hover:bg-blue-700': loading, 'bg-gray-300 text-gray-500 cursor-not-allowed hover:bg-gray-300': loading }"
+        >
+            <span v-if="!loading">Guardar Cambios</span>
+            <span v-else="loading" class="flex">...Guardando <span class="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900 block ml-3 mt-[2px]"></span></span>
         </button>
     </div>
     <div v-if="sortedSections.length">
@@ -70,17 +76,21 @@ import { ref, computed } from 'vue';
 import ComponentsSelector from '~/components/dashboard/componentsSelector.vue';
 import { useTemplateStore } from '~/stores/template';
 import { useComponentsStore } from '~/stores/components';
+import PageTemplateService from '@/services/page_template';
 
 const templateStore = useTemplateStore();
 const viewMode = ref(false);
 const showComponentsModal = ref(false);
 let currentPosition = ref(0);
+const loading = ref(false);
 
-templateStore.loadTemplateStructure();
+//TODO: necesitamos obtener el ID del template de alguna parte, de momento el 1 es de pruebas
+templateStore.loadTemplateStructure(1);
 
 // Computed para ordenar las secciones basado en su posición
 const sortedSections = computed(() => {
-  const objectTemplate = JSON.parse(JSON.stringify(templateStore.structure.structure.page_template.sections));
+    console.log("templateStore.structure", templateStore.structure);
+  const objectTemplate = JSON.parse(JSON.stringify(templateStore.structure.page_template.sections));
   if (!objectTemplate) {
     console.error("Estructura no definida o incompleta en sections");
     return [];
@@ -105,6 +115,15 @@ function getComponent(widgetName, element) {
         console.error('Failed to load component:', error);
       })
   );
+}
+
+async function saveTemplate() {
+    const getCurrentTemplateSections = templateStore.structure.page_template.sections;
+    const templateId = templateStore.structure.page_template.id;
+    //Llamada a servicio de guardar
+    loading.value = true;
+    const savedTemplate = await PageTemplateService.updatePageTemplate(templateId, getCurrentTemplateSections);
+    loading.value = false;
 }
 
 function viewModeChange() {

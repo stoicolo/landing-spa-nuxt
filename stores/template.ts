@@ -1,67 +1,67 @@
 // Importa las dependencias necesarias de Pinia
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
+import PageTemplateService from '@/services/page_template';
 
 // Define el store
 export const useTemplateStore = defineStore('template_store', {
   state: () => ({
     isLoading: false,
     structure: {
-      page_template: {
-        id: 0,
-        sections: []
-      }
+      page_template: {}
     }
   }),
   getters: {
     // Aquí puedes añadir getters si necesitas calcular algún valor derivado del estado
   },
   actions: {
-    async loadTemplateStructure() {
-        this.isLoading = true;
-        try {
-            const response = await fetch('mocks/template_mock.json'); // Cambiar para obtener de BD
-            if (!response.ok) {
+    async loadTemplateStructure(templateId: number) {
+      this.isLoading = true;
+      try {
+          const data = await PageTemplateService.fetchPageTemplate(templateId);
+          if (!data) {
               throw new Error('Failed to fetch page structure');
-            }
-            const data = await response.json();
-            console.log('Loaded page structure:', data);
-            this.structure = data;
-            this.isLoading = false;
-          } catch (error) {
-            console.error('Error loading the page structure:', error);
           }
-    },
+          console.log('Loaded page structure:', data);
+          this.structure = {
+            page_template: {...data}
+        };
+      } catch (error) {
+          console.error('Error loading the page structure:', error);
+      } finally {
+          this.isLoading = false;
+      }
+  },
     // Actualiza el estado de template
     updateTemplateStructure(sectionId: any, newTemplate: any) {
-      const section = this.structure.structure.page_template.sections.find(s => s.id === sectionId);
+      const section = this.structure.page_template.sections.find(s => s.id === sectionId);
       if (section) {
         section.widget.element.template = newTemplate;
       }
     },
     // Selecciona el estado de template por ID
     selectTemplateStructure(sectionId: any) {
-      const section = this.structure.structure.page_template.sections.find(s => s.id === sectionId);
+      const section = this.structure.page_template.sections.find(s => s.id === sectionId);
       if (section) {
         return section.widget.element.template;
       }
     },
     // Encuentra una sección por su ID y actualiza la sección completa
     updateSectionById(sectionId: any, newSectionData: any) {
-      const sectionIndex = this.structure.structure.page_template.sections.findIndex(s => s.id === sectionId);
+      const sectionIndex = this.structure.page_template.sections.findIndex(s => s.id === sectionId);
       if (sectionIndex !== -1) {
-        this.structure.structure.page_template.sections[sectionIndex] = {...this.structure.structure.page_template.sections[sectionIndex], ...newSectionData};
+        this.structure.page_template.sections[sectionIndex] = {...this.structure.page_template.sections[sectionIndex], ...newSectionData};
       }
     },
     // Actualiza solo la posición de una sección específica
     updateSectionPosition(sectionId, newPosition) {
-      const section = this.structure.structure.page_template.sections.find(s => s.id === sectionId);
+      const section = this.structure.page_template.sections.find(s => s.id === sectionId);
       if (section) {
         section.position = newPosition;
       }
     },
     // Actualiza solo el widget de una sección específica
     updateWidgetInSection(sectionId, newWidgetElementData) {
-      const section = this.structure.structure.page_template.sections.find(s => s.id === sectionId);
+      const section = this.structure.page_template.sections.find(s => s.id === sectionId);
       if (section && section.widget) {
         section.widget.element = {...section.widget.element, ...newWidgetElementData};
       }
@@ -71,7 +71,6 @@ export const useTemplateStore = defineStore('template_store', {
         // Calculate the new position for the added section
         let newPosition = position;
 
-
         const newComponent = { 
           id: Math.random().toString(36).substr(2, 9),
           position: newPosition,
@@ -79,16 +78,16 @@ export const useTemplateStore = defineStore('template_store', {
             id: Math.random().toString(36).substr(2, 9),
             name: component.name,
             element: {
-              ...component.default
+              ...component.element
             }
           }
         }
 
-        this.structure.structure.page_template.sections.push(newComponent);
+        this.structure.page_template.sections.push(newComponent);
 
         // Update positions of other sections
-        this.structure.structure.page_template.sections.forEach((section) => {
-            if (section.id !== this.structure.structure.page_template.sections[this.structure.structure.page_template.sections.length - 1].id) {
+        this.structure.page_template.sections.forEach((section) => {
+            if (section.id !== this.structure.page_template.sections[this.structure.page_template.sections.length - 1].id) {
                 if (section.position >= newPosition) {
                     section.position++;
                 }
@@ -99,16 +98,16 @@ export const useTemplateStore = defineStore('template_store', {
     },
     // Eliminar una sección por ID
     removeSectionById(sectionId) {
-        const sectionIndex = this.structure.structure.page_template.sections.findIndex(s => s.id === sectionId);
+        const sectionIndex = this.structure.page_template.sections.findIndex(s => s.id === sectionId);
         if (sectionIndex !== -1) {
-            this.structure.structure.page_template.sections.splice(sectionIndex, 1);
-            this.structure.structure.page_template.sections.forEach((section, index) => {
+            this.structure.page_template.sections.splice(sectionIndex, 1);
+            this.structure.page_template.sections.forEach((section, index) => {
                 section.position = index;
             });
         }
     },
     moveWidgetInSection(sectionId, direction) {
-        const section = this.structure.structure.page_template.sections.find(s => s.id === sectionId);
+        const section = this.structure.page_template.sections.find(s => s.id === sectionId);
         if (section) {
             const currentPosition = section.position;
             const newPosition = direction === 'up' ? currentPosition - 1 : currentPosition + 1;
@@ -120,7 +119,7 @@ export const useTemplateStore = defineStore('template_store', {
             }
             
             // Check if it's the last element and trying to move down
-            if (direction === 'down' && currentPosition === this.structure.structure.page_template.sections.length - 1) {
+            if (direction === 'down' && currentPosition === this.structure.page_template.sections.length - 1) {
                 console.log('Cannot move down. It is the last element.');
                 return;
             }
@@ -128,7 +127,7 @@ export const useTemplateStore = defineStore('template_store', {
             section.position = newPosition;
             
             // Update positions of other sections
-            this.structure.structure.page_template.sections.forEach(s => {
+            this.structure.page_template.sections.forEach(s => {
                 if (s.id !== sectionId) {
                     if (direction === 'up' && s.position === newPosition) {
                         s.position += 1;
@@ -142,9 +141,9 @@ export const useTemplateStore = defineStore('template_store', {
         }
     },
     matchPositionWithIndex() {
-        this.structure.structure.page_template.sections.sort((a, b) => a.position - b.position);
-        console.log('Sorted sections:', this.structure.structure.page_template.sections);
-        this.structure.structure.page_template.sections.forEach((section, index) => {
+        this.structure.page_template.sections.sort((a, b) => a.position - b.position);
+        console.log('Sorted sections:', this.structure.page_template.sections);
+        this.structure.page_template.sections.forEach((section, index) => {
             section.position = index;
         });
     }
