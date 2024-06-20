@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const baseURL = 'http://localhost:4000'; // Asegúrate de cambiar esto por la URL correcta de tu API.
+const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcxODg0MTAwOCwiZXhwIjoxNzE5NDQ1ODA4LCJ0eXBlIjoiYWNjZXNzIn0.OTvHVw-b_rKraFHLVEI5Vie3ut9E3tYQOqNr-6FJWVQ';
 
 interface Section {
     id: number;
@@ -22,26 +23,52 @@ interface PageTemplate {
     sections: Section[] | undefined;
 }
 
+interface Page {
+    id: number;
+    templateId: number;
+    userId: number;
+    pageName: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
 class PageTemplateService {
-    // Obtener un template por ID
-    static async fetchPageTemplate(templateid: number = 0): Promise<PageTemplate | null> {
+    static async fetchPage(pageName: string): Promise<Page | null> {
         try {
-            // Asume que tienes el token guardado o accesible desde algún lugar seguro
-            const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcxNzk4MzA0NiwiZXhwIjoxNzE3OTg0ODQ2LCJ0eXBlIjoiYWNjZXNzIn0.A9-Qqrc-g_3kARGXox6DpQ63FyLfcZVZkXBoCuBhRT0'; // Reemplaza con la forma de obtener tu token real
-            let response = null;
+            let page = null;
 
             const config = {
                 headers: {
                     'Authorization': `Bearer ${authToken}`
                 }
             };
+            //TODO: fijo se va anecesitar pasarle el user ID aqui
+            page = await axios.get<Page>(`${baseURL}/v1/pages/page/${pageName}`, config);
+            
 
-            //TODO: deberiamos obtener este array de page_template en base al id del usuario
-            response = await axios.get<PageTemplate[]>(`${baseURL}/v1/page_templates`, config);
+            return page ? page.data : null;
+        } catch (error) {
+            console.error('Error fetching page:', error);
+            return null;
+        }
+    }
+    // Obtener un template por ID
+    static async fetchPageTemplate(userId: number = 0, pageName: string): Promise<PageTemplate | null> {
+        try {
+            let response = null;
+            let page = null;
 
-            const templateSelected = response.data.find((template) => template.id === templateid);
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                }
+            };
+            //TODO, necesitamos el userID para saber de cual esuario obtener la page
+            page = await this.fetchPage(pageName);
 
-            return templateSelected ? templateSelected : null;
+            response = await axios.get<PageTemplate>(`${baseURL}/v1/page_templates/${page?.templateId}`, config);
+
+            return response ? response.data : null;
         } catch (error) {
             console.error('Error fetching page template:', error);
             return null;
@@ -62,7 +89,6 @@ class PageTemplateService {
     // Actualizar un template existente
     static async updatePageTemplate(id: number, sections: Section[]): Promise<PageTemplate | null> {
         try {
-            const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcxNzk4MzA0NiwiZXhwIjoxNzE3OTg0ODQ2LCJ0eXBlIjoiYWNjZXNzIn0.A9-Qqrc-g_3kARGXox6DpQ63FyLfcZVZkXBoCuBhRT0';
             let response = null;
     
             const config = {
@@ -82,7 +108,7 @@ class PageTemplateService {
             console.error('Error updating page template:', error);
             return null;
         }
-    }    
+    } 
 
     // Eliminar un template
     static async deletePageTemplate(id: number): Promise<void> {
@@ -92,6 +118,87 @@ class PageTemplateService {
             console.error('Error deleting page template:', error);
         }
     }
+
+    //Obtener lista de backups
+    static async getBackups(userId: number): Promise<any | null> {
+        try {
+            let response = null;
+    
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                }
+            };
+
+            const data = {
+                "userId": userId
+              };
+
+            response = await axios.post<any>(`${baseURL}/v1/page_template_backups/user`, data, config);
+            console.log("Backups List", response.data);
+            return response ? response.data : null;
+            
+        } catch (error) {
+            console.error('Error getting backups list:', error);
+            return null;
+        }
+    }
+    
+    // Crear nuevo Backup
+    static async backupPageTemplate(userId: number, sections: Section[], backupName: string, pageTemplateId: number, pageName: string): Promise<PageTemplate | null> {
+        try {
+            let response = null;
+    
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                }
+            };
+    
+            const data = {
+                "userId": userId,
+                "sections": [...sections],
+                "backupName": backupName,
+                "pageTemplateId": pageTemplateId,
+                "pageName": pageName
+              };
+    
+            // Realizar la petición PATCH y obtener directamente la propiedad data del resultado
+            const axiosResponse = await axios.post<PageTemplate>(`${baseURL}/v1/page_template_backups`, data, config);
+            response = axiosResponse.data; // Accediendo a los datos directamente
+    
+            return response;
+        } catch (error) {
+            console.error('Error backup page template:', error);
+            return null;
+        }
+    }  
+
+     //Obtener lista de backups
+     static async removeBackupById(backupId: number): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'delete',
+                url: `${baseURL}/v1/page_template_backups/id`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: {
+                  pageTemplateBackupId: backupId
+                }
+              });
+            console.log("Backups List", response.data);
+            return response ? response.data : null;
+            
+        } catch (error) {
+            console.error('Error delete backups by id:', error);
+            return null;
+        }
+    }
+
+    
 }
 
 export default PageTemplateService;

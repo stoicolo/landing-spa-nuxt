@@ -14,10 +14,11 @@ export const useTemplateStore = defineStore('template_store', {
     // Aquí puedes añadir getters si necesitas calcular algún valor derivado del estado
   },
   actions: {
-    async loadTemplateStructure(templateId: number) {
+    async loadTemplateStructure(pageName: string = "default", userId: number = 0) {
       this.isLoading = true;
       try {
-          const data = await PageTemplateService.fetchPageTemplate(templateId);
+          //TODO aqui se debe pasar el User ID
+          const data = await PageTemplateService.fetchPageTemplate(userId, pageName);
           if (!data) {
               throw new Error('Failed to fetch page structure');
           }
