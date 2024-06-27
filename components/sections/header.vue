@@ -62,7 +62,7 @@ const localTitle = ref(props.title);
 
 const localTemplate = computed(() => {
     var currentTemplate = "0";
-    templateStore.structure.structure.page_template.sections.forEach((section, index) => {
+    templateStore.structure.page_template.sections.forEach((section, index) => {
         if (section.id === props.id) {
             currentTemplate = section.widget.element.template;
         }

@@ -201,8 +201,7 @@
 
       <main class="py-10">
         <div class="px-4 sm:px-6 lg:px-8">
-          <!-- BUILDER -->
-          <Builder />
+          <slot />
         </div>
       </main>
     </div>
@@ -232,8 +231,7 @@ import {
   XMarkIcon,
 } from "@heroicons/vue/24/outline";
 import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
-import Builder from '~/components/dashboard/builder.vue';
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { useCompanyStore } from '~/stores/company';
 
 const navigation = [
