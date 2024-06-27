@@ -1,4 +1,14 @@
 <script setup lang="ts">
+import { useAuth } from '@/services/useAuth';
+
+const { 
+  isOnSession, 
+  decodedToken, 
+  signIn, 
+  signOut, 
+  isAuthorized 
+} = useAuth();
+
 const {
   public: { apiBaseUrl },
 } = useRuntimeConfig();
@@ -22,11 +32,23 @@ const isLoggingIn = ref(false);
 
 const loginButtonText = ref("Iniciar Sesion");
 
-const loginUser = async (event: Event) => {
+const loginUser = async (email: string, password: string) => {
+  try {
+    const response =  await signIn({ email, password });
+    console.log("response: ", response);
+  } catch (error) {
+    console.error("error while login in: ", error);
+    isLoggingIn.value = false;
+    loginButtonText.value = "Ocurrio un error, intentalo otra vez";
+  }
+};
+
+const loginUser2 = async (event: Event) => {
   event.preventDefault();
   isLoggingIn.value = true;
   loginButtonText.value = "Iniciando Sesion....";
   try {
+    
     const response = await $fetch(`${apiBaseUrl}/auth/login`, {
       method: "POST",
       body: {
@@ -34,7 +56,7 @@ const loginUser = async (event: Event) => {
         password: password.value,
       },
     });
-
+    
     if (response && response.user && response.tokens) {
       // Save auth token to cookies
       accessToken.value = response.tokens.access.token;
@@ -64,8 +86,8 @@ const loginUser = async (event: Event) => {
           <img
             class="h-28 w-auto"
             src="/img/footprint_initiative.png"
-            alt="Footprint Initiative"
-          />
+            alt="logo image"
+          >
           <h2
             class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900"
           >
@@ -93,15 +115,15 @@ const loginUser = async (event: Event) => {
                 >
                 <div class="mt-2">
                   <input
-                    v-model="email"
                     id="email"
+                    v-model="email"
                     name="email"
                     type="email"
                     autocomplete="email"
                     placeholder="company@email.com"
                     required
                     class="focus:ring-fountain-blue-600 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                  />
+                  >
                 </div>
               </div>
 
@@ -113,48 +135,23 @@ const loginUser = async (event: Event) => {
                 >
                 <div class="mt-2">
                   <input
-                    v-model="password"
                     id="password"
+                    v-model="password"
                     name="password"
                     type="password"
                     autocomplete="current-password"
                     required
                     class="focus:ring-fountain-blue-600 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                  />
+                  >
                 </div>
               </div>
-
-              <!--              <div class="flex items-center justify-between">-->
-              <!--                <div class="flex items-center">-->
-              <!--                  <input-->
-              <!--                    id="remember-me"-->
-              <!--                    name="remember-me"-->
-              <!--                    type="checkbox"-->
-              <!--                    class="h-4 w-4 rounded border-gray-300 text-fountain-blue-600 focus:ring-fountain-blue-600"-->
-              <!--                  />-->
-              <!--                  <label-->
-              <!--                    for="remember-me"-->
-              <!--                    class="ml-3 block text-sm leading-6 text-gray-700"-->
-              <!--                    >Recordarme</label-->
-              <!--                  >-->
-              <!--                </div>-->
-
-              <!--                <div class="text-sm leading-6">-->
-              <!--                  <a-->
-              <!--                    href="#"-->
-              <!--                    class="font-semibold text-fountain-blue-600 hover:text-fountain-blue-500"-->
-              <!--                    >¿Olvidaste tu contraseña?</a-->
-              <!--                  >-->
-              <!--                </div>-->
-              <!--              </div>-->
-
               <div>
                 <button
                   type="submit"
                   class="bg-fountain-blue-500 hover:bg-fountain-blue-600 focus-visible:outline-fountain-blue-600 flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                  @click="loginUser"
-                  :disabled="isLoggingIn"
                   :class="{ 'opacity-50': isLoggingIn }"
+                  :disabled="isLoggingIn"
+                  @click="loginUser"
                 >
                   {{ loginButtonText }}
                 </button>
@@ -168,8 +165,8 @@ const loginUser = async (event: Event) => {
       <img
         class="absolute inset-0 h-full w-full object-cover"
         src="https://images.unsplash.com/photo-1496917756835-20cb06e75b4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
-        alt=""
-      />
+        alt="imagen de fondo de login"
+      >
     </div>
   </div>
 </template>
