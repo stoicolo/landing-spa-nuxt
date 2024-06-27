@@ -1,4 +1,30 @@
 <template>
+    <div class="container mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
+    <!-- Texto del lado izquierdo -->
+    <div class="md:w-1/2 mb-8 md:mb-0">
+      <h1 class="text-4xl md:text-5xl font-bold text-indigo-900 mb-4">
+        Get to know a variety of features
+      </h1>
+      <p class="text-gray-600 mb-6">
+        Only Emry gives you a totally customizable messaging suite to drive growth at every stage of the lifecycle.
+      </p>
+      <button class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-full">
+        GET STARTED
+      </button>
+    </div>
+    
+    <!-- Ilustración del lado derecho -->
+    <div class="md:w-1/2 relative">
+      <div class="w-full h-96 bg-yellow-100 rounded-full absolute top-0 right-0 -z-10"></div>
+      <div class="relative z-10">
+        <!-- Aquí irían los elementos de la ilustración -->
+        <!-- Por simplicidad, se usa un placeholder -->
+        <div class="w-full h-96 bg-gray-300 rounded-lg flex items-center justify-center">
+          <p class="text-gray-600">Ilustración aquí</p>
+        </div>
+      </div>
+    </div>
+  </div>
     <div class="flex items-center p-2">
         <span class="mr-3">Vista Previa</span>
         <button @click="viewModeChange" :class="{'bg-blue-600': viewMode, 'bg-gray-200': !viewMode}" class="relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
@@ -117,10 +143,14 @@ const modalDescriptionRemoveSection = 'Esta acción no se puede deshacer, a meno
 const idSelectedSectionToDelete = ref({});
 const fullscreen = ref(false);
 
+const { $toaster } = useNuxtApp();
+
 const emit = defineEmits(['change-to-full-screen']);
 
 //TODO: necesitamos obtener el ID usuario, de momento el 1 es de pruebas
 templateStore.loadTemplateStructure("inicio", 1);
+
+
 
 // Computed para ordenar las secciones basado en su posición
 const sortedSections = computed(() => {
@@ -128,6 +158,13 @@ const sortedSections = computed(() => {
   const objectTemplate = JSON.parse(JSON.stringify(templateStore.structure.page_template.sections));
   if (!objectTemplate) {
     console.error("Estructura no definida o incompleta en sections");
+    $toaster.show({
+            title: "Error",
+            description: "Estructura no definida o incompleta en sections.",
+            delay: 3,
+            position: "top-right",
+            type: "error"
+        });
     return [];
   }
   return objectTemplate.sort((a, b) => a.position - b.position);
@@ -138,6 +175,13 @@ const components = computed(() => {
   const objectComponents = JSON.parse(JSON.stringify(componentsStore.components));
   if (!objectComponents) {
     console.error("Estructura no definida o incompleta en components");
+    $toaster.show({
+            title: "Error",
+            description: "Estructura no definida o incompleta en components.",
+            delay: 3,
+            position: "top-right",
+            type: "error"
+        });
     return [];
   }
   return objectComponents;
@@ -154,6 +198,13 @@ function getComponent(widgetName, element) {
     import(`@/components/sections/${widgetName}.vue`)
       .catch(error => {
         console.error('Failed to load component:', error);
+        $toaster.show({
+            title: "Error",
+            description: "Falló al cargar el componente, refresque el navegador.",
+            delay: 3,
+            position: "top-right",
+            type: "error"
+        });
       })
   );
 }
@@ -162,9 +213,28 @@ async function saveTemplate() {
     const getCurrentTemplateSections = templateStore.structure.page_template.sections;
     const templateId = templateStore.structure.page_template.id;
     //Llamada a servicio de guardar
-    loading.value = true;
-    const savedTemplate = await PageTemplateService.updatePageTemplate(templateId, getCurrentTemplateSections);
-    loading.value = false;
+    try {
+        loading.value = true;
+        const savedTemplate = await PageTemplateService.updatePageTemplate(templateId, getCurrentTemplateSections);
+        loading.value = false;
+        $toaster.show({
+            title: "Guardado",
+            description: "Se han guardado los cambios.",
+            delay: 3,
+            position: "top-right",
+            type: "success"
+        });
+    } catch (error) {
+        console.error('Failed to save template:', error);
+        loading.value = false;
+        $toaster.show({
+            title: "Error",
+            description: "Fallo al guardar cambios.",
+            delay: 3,
+            position: "top-right",
+            type: "error"
+        });
+    }
 }
 
 async function handleSaveBackup(name) {
@@ -174,10 +244,28 @@ async function handleSaveBackup(name) {
     const templateId = templateStore.structure.page_template.id;
     const userId = 1;
     //Llamada a servicio de guardar backup
-    loading.value = true;
-    //TODO: hay que agregar el page name dinamicamente
-    const backupTemplate = await PageTemplateService.backupPageTemplate(userId, getCurrentTemplateSections, name, templateId, "inicio");
-    loading.value = false;
+    try {
+        loading.value = true;
+        const backupTemplate = await PageTemplateService.backupPageTemplate(userId, getCurrentTemplateSections, name, templateId, "inicio");
+        loading.value = false;
+        $toaster.show({
+            title: "Success",
+            description: "Se ha guardado el respaldo con éxito.",
+            delay: 3,
+            position: "top-right",
+            type: "success"
+        });
+    } catch (error) {
+        console.error('Failed to save backup:', error);
+        loading.value = false;
+        $toaster.show({
+            title: "Error",
+            description: "Fallo al guardar el respaldo.",
+            delay: 3,
+            position: "top-right",
+            type: "error"
+        });
+    }
 }
 
 function viewModeChange() {

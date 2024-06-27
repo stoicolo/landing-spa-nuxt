@@ -25,6 +25,9 @@ export default defineNuxtConfig({
     "@pinia-plugin-persistedstate/nuxt",
     "@nuxt/image"
   ],
+  plugins: [
+    '~/plugins/toaster.js'
+  ],
   i18n: {
     defaultLocale: "en",
   },
