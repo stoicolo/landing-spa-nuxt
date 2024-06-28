@@ -1,13 +1,7 @@
 <script setup lang="ts">
-import { useAuth } from '@/services/useAuth';
+import { useAuth } from "@/services/useAuth";
 
-const { 
-  isOnSession, 
-  decodedToken, 
-  signIn, 
-  signOut, 
-  isAuthorized 
-} = useAuth();
+const {  signIn } = useAuth();
 
 const {
   public: { apiBaseUrl },
@@ -32,44 +26,27 @@ const isLoggingIn = ref(false);
 
 const loginButtonText = ref("Iniciar Sesion");
 
-const loginUser = async (email: string, password: string) => {
-  try {
-    const response =  await signIn({ email, password });
-    console.log("response: ", response);
-  } catch (error) {
-    console.error("error while login in: ", error);
-    isLoggingIn.value = false;
-    loginButtonText.value = "Ocurrio un error, intentalo otra vez";
-  }
-};
-
-const loginUser2 = async (event: Event) => {
+const loginUser = async (event: Event) => {
   event.preventDefault();
   isLoggingIn.value = true;
   loginButtonText.value = "Iniciando Sesion....";
   try {
-    
-    const response = await $fetch(`${apiBaseUrl}/auth/login`, {
-      method: "POST",
-      body: {
-        email: email.value,
-        password: password.value,
-      },
+    const response = await signIn({
+      email: email.value,
+      password: password.value,
     });
-    
-    if (response && response.user && response.tokens) {
+    if (response && response.token && response.user) {
       // Save auth token to cookies
-      accessToken.value = response.tokens.access.token;
-      refreshToken.value = response.tokens.refresh.token;
+      accessToken.value = response.token;
       // save user data to store
-      userStore.id = response.user.id;
+      userStore.id = response.user.personalId;
       userStore.email = response.user.email;
-      userStore.name = response.user.name;
+      userStore.name = `${response.user.firstName} ${response.user.lastName}`;
       // Redirect to dashboard if all is ok
       navigateTo("/dashboard");
     }
   } catch (error) {
-    console.error("error while login in: ", error);
+    console.error("error while logging in: ", error);
     isLoggingIn.value = false;
     loginButtonText.value = "Ocurrio un error, intentalo otra vez";
   }
@@ -98,7 +75,7 @@ const loginUser2 = async (event: Event) => {
             {{ " " }}
             <NuxtLink
               href="register"
-              class="text-fountain-blue-600 hover:text-fountain-blue-500 font-semibold"
+              class="font-semibold text-fountain-blue-600 hover:text-fountain-blue-500"
               >Registrate aqui</NuxtLink
             >
           </p>
@@ -122,7 +99,7 @@ const loginUser2 = async (event: Event) => {
                     autocomplete="email"
                     placeholder="company@email.com"
                     required
-                    class="focus:ring-fountain-blue-600 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                    class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-fountain-blue-600 sm:text-sm sm:leading-6"
                   >
                 </div>
               </div>
@@ -141,17 +118,17 @@ const loginUser2 = async (event: Event) => {
                     type="password"
                     autocomplete="current-password"
                     required
-                    class="focus:ring-fountain-blue-600 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                    class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-fountain-blue-600 sm:text-sm sm:leading-6"
                   >
                 </div>
               </div>
               <div>
                 <button
                   type="submit"
-                  class="bg-fountain-blue-500 hover:bg-fountain-blue-600 focus-visible:outline-fountain-blue-600 flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                  class="flex w-full justify-center rounded-md bg-fountain-blue-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-fountain-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fountain-blue-600"
                   :class="{ 'opacity-50': isLoggingIn }"
                   :disabled="isLoggingIn"
-                  @click="loginUser"
+                  @click.prevent="loginUser"
                 >
                   {{ loginButtonText }}
                 </button>
