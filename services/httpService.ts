@@ -1,4 +1,3 @@
-// httpService.ts
 import { type AxiosResponse, type InternalAxiosRequestConfig } from "axios";
 import { axiosClient, fetchClient } from "./apiClient";
 import { jwtDecode } from "jwt-decode";
