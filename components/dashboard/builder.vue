@@ -1,30 +1,4 @@
 <template>
-    <div class="container mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
-    <!-- Texto del lado izquierdo -->
-    <div class="md:w-1/2 mb-8 md:mb-0">
-      <h1 class="text-4xl md:text-5xl font-bold text-indigo-900 mb-4">
-        Get to know a variety of features
-      </h1>
-      <p class="text-gray-600 mb-6">
-        Only Emry gives you a totally customizable messaging suite to drive growth at every stage of the lifecycle.
-      </p>
-      <button class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-full">
-        GET STARTED
-      </button>
-    </div>
-    
-    <!-- Ilustración del lado derecho -->
-    <div class="md:w-1/2 relative">
-      <div class="w-full h-96 bg-yellow-100 rounded-full absolute top-0 right-0 -z-10"></div>
-      <div class="relative z-10">
-        <!-- Aquí irían los elementos de la ilustración -->
-        <!-- Por simplicidad, se usa un placeholder -->
-        <div class="w-full h-96 bg-gray-300 rounded-lg flex items-center justify-center">
-          <p class="text-gray-600">Ilustración aquí</p>
-        </div>
-      </div>
-    </div>
-  </div>
     <div class="flex items-center p-2">
         <span class="mr-3">Vista Previa</span>
         <button @click="viewModeChange" :class="{'bg-blue-600': viewMode, 'bg-gray-200': !viewMode}" class="relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
@@ -52,7 +26,7 @@
             <div class="section-wrapper relative" :class="{'bg-blue-200 p-2 border-t-2 border-gray-500': !viewMode}">
                 <component v-if="section.widget && section.widget.element"
                     :is="getComponent(section.widget.name, section.widget.element)" v-bind="section.widget.element" :viewMode="viewMode" :id="section.id" />
-                <div class="section-actions absolute top-[8px] z-[100] flex justify-center items-center w-[300px] mx-auto right-[8px] bg-blue-200 rounded-bl-[20px]" v-if="!viewMode">
+                <div class="section-actions absolute top-[8px] z-[50] flex justify-center items-center w-[300px] mx-auto right-[8px] bg-blue-200 rounded-bl-[20px]" v-if="!viewMode">
                     <button @click="confirmationModal(section.id)">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
@@ -122,7 +96,7 @@
 
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import ComponentsSelector from '~/components/dashboard/componentsSelector.vue';
 import { useTemplateStore } from '~/stores/template';
 import { useComponentsStore } from '~/stores/components';
@@ -142,18 +116,24 @@ const modalTitleRemoveSection = '¿Estás seguro de eliminar esta sección?';
 const modalDescriptionRemoveSection = 'Esta acción no se puede deshacer, a menos que tengas un respaldo creado.';
 const idSelectedSectionToDelete = ref({});
 const fullscreen = ref(false);
+const isStructureLoaded = ref(false);
 
 const { $toaster } = useNuxtApp();
 
 const emit = defineEmits(['change-to-full-screen']);
 
 //TODO: necesitamos obtener el ID usuario, de momento el 1 es de pruebas
-templateStore.loadTemplateStructure("inicio", 1);
-
+onMounted(async () => {
+  await templateStore.loadTemplateStructure("inicio", 1);
+  isStructureLoaded.value = true;
+});
 
 
 // Computed para ordenar las secciones basado en su posición
 const sortedSections = computed(() => {
+    if (!isStructureLoaded.value) {
+        return [];
+    }
     console.log("templateStore.structure", templateStore.structure);
   const objectTemplate = JSON.parse(JSON.stringify(templateStore.structure.page_template.sections));
   if (!objectTemplate) {

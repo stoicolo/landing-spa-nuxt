@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const baseURL = 'http://localhost:4000'; // Asegúrate de cambiar esto por la URL correcta de tu API.
-const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcxODg0MTAwOCwiZXhwIjoxNzE5NDQ1ODA4LCJ0eXBlIjoiYWNjZXNzIn0.OTvHVw-b_rKraFHLVEI5Vie3ut9E3tYQOqNr-6FJWVQ';
+const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcxOTUzNTg2OCwiZXhwIjoxNzE5NTM3NjY4LCJ0eXBlIjoiYWNjZXNzIn0.zj84GKJqx2BJIJjknmpPfBuqfDP-7XQcxEPWfn3P4oU';
 
 interface Section {
     id: number;
