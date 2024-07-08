@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia';
+import PageTemplateService from '@/services/page_template';
+import { useUserStore } from '~/stores/user';
 
 interface MenuItem {
   name: string;
@@ -29,6 +31,7 @@ export const useMenuStore = defineStore('menu', {
       console.log('Menu loaded');
     },
     addMenuItem(item: MenuItem) {
+      this.saveNewItemOnDB(item);
       this.menu.push(item);
     },
     getCombinedNavigation() {
@@ -38,6 +41,23 @@ export const useMenuStore = defineStore('menu', {
       this.navigation.forEach(item => {
         item.current = item.name === name;
       });
+    },
+    async saveNewItemOnDB(item: MenuItem) {
+        const userStore = useUserStore();
+        debugger;
+        const currentUser = parseInt(userStore.id);
+        debugger;
+        try {
+            const newWebSite = await PageTemplateService.createWebSite(currentUser);
+            const newPageTemplate = await PageTemplateService.createPageTemplate(currentUser, []);
+            const newPage = await PageTemplateService.createNewPage(currentUser, newPageTemplate?.id ? newPageTemplate?.id : 0, item.name, newWebSite?.id);
+
+            if (newPage) {
+                navigateTo("/builder/" + newPage.id);
+            }
+        } catch (error) {
+            console.error('Error creating page:', error);
+        }
     }
   }
 });

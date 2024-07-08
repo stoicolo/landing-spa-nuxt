@@ -99,7 +99,7 @@ const goToNextStep = async () => {
   scrollTo({ top: 0, behavior: "smooth" });
   step.value = step.value + 1;
   if (step.value > 3) {
-    await navigateTo("/dashboard");
+    await navigateTo("/builder/0");
   }
 };
 

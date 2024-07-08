@@ -97,15 +97,19 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
+import { useRoute } from 'vue-router'
 import ComponentsSelector from '~/components/dashboard/componentsSelector.vue';
 import { useTemplateStore } from '~/stores/template';
-import { useComponentsStore } from '~/stores/components';
+import { useMenuStore } from '~/stores/menu';
+import { useUserStore } from '~/stores/user';
 import PageTemplateService from '@/services/page_template';
 import ConfirmationModal from '~/components/helpers/confirmationModal.vue';
 import SaveBackupModal from '~/components/helpers/saveBackupModal.vue';
 import { defineEmits } from 'vue';
 
 const templateStore = useTemplateStore();
+const userStore = useUserStore();
+const menuStore = useMenuStore();
 const viewMode = ref(false);
 const showComponentsModal = ref(false);
 const isConfirmationModalOpen = ref(false);
@@ -122,11 +126,44 @@ const { $toaster } = useNuxtApp();
 
 const emit = defineEmits(['change-to-full-screen']);
 
-//TODO: necesitamos obtener el ID usuario, de momento el 1 es de pruebas
+const route = useRoute()
+const pageId = parseInt(route.params.id);
+
 onMounted(async () => {
-  await templateStore.loadTemplateStructure("inicio", 1);
-  isStructureLoaded.value = true;
+  createNewPageAndPageTemplate();
+  if(pageId) {
+      await templateStore.loadTemplateStructure(pageId, userStore.id);
+      isStructureLoaded.value = true;
+  }
 });
+
+async function createNewPageAndPageTemplate() {
+    const pageExist = await PageTemplateService.checkIfPageExist(pageId, userStore.id);
+    //TODO: Debo limpiar states
+    if(!pageId && !pageExist.length) {
+        try {
+            menuStore.addMenuItem({
+                name: 'Inicio',
+                href: '/',
+                target: '_self',
+                order: 0,
+                current: true
+            });
+        } catch (error) {
+            console.error('Failed to create new page and page template:', error);
+            $toaster.show({
+                title: "Error",
+                description: "Fallo al crear nueva página y plantilla.",
+                delay: 3,
+                position: "top-right",
+                type: "error"
+            });
+        }
+    } else {
+        navigateTo("/builder/" + pageExist[0].id)
+    }
+    return
+}
 
 
 // Computed para ordenar las secciones basado en su posición
@@ -226,7 +263,7 @@ async function handleSaveBackup(name) {
     //Llamada a servicio de guardar backup
     try {
         loading.value = true;
-        const backupTemplate = await PageTemplateService.backupPageTemplate(userId, getCurrentTemplateSections, name, templateId, "inicio");
+        const backupTemplate = await PageTemplateService.backupPageTemplate(userId, getCurrentTemplateSections, name, templateId, pageId);
         loading.value = false;
         $toaster.show({
             title: "Success",
