@@ -42,7 +42,7 @@ const userNavigation = [
 ];
 
 onMounted(() => {
-  menuStore.loadMenu();
+
 });
 
 const logout = () => {

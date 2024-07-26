@@ -25,6 +25,5 @@ export const useComponentsStore = defineStore('component_store', {
             console.error('Error loading the components structure:', error);
           }
     },
-  },
-  persist: true
+  }
 });

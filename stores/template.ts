@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 import PageTemplateService from '@/services/page_template';
+import { useCurrentStore } from '~/stores/current';
 
-// Definimos interfaces para nuestras estructuras de datos
+// TODO: Sacar modelos de aqui
 interface Section {
   id: string | number;
   position: number;
@@ -27,6 +28,8 @@ interface TemplateState {
   };
 }
 
+const currentStore = useCurrentStore();
+
 export const useTemplateStore = defineStore('template_store', {
   state: (): TemplateState => ({
     isLoading: false,
@@ -45,6 +48,7 @@ export const useTemplateStore = defineStore('template_store', {
         if (!data) {
           throw new Error('Failed to fetch page structure');
         }
+        currentStore.setPageTemplateId(data.id ? data.id : 0);
         console.log('Loaded page structure:', data);
         this.structure.page_template = {
           ...data,
@@ -174,6 +178,5 @@ export const useTemplateStore = defineStore('template_store', {
         });
       }
     }
-  },
-  persist: true
+  }
 });

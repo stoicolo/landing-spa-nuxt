@@ -33,8 +33,8 @@
                     <ul role="list" class="flex flex-1 flex-col gap-y-7">
                       <li>
                         <ul role="list" class="-mx-2 space-y-1">
-                          <li v-for="item in menuStore.navigation" :key="item.name">
-                            <template v-if="item.name !== 'Menu'">
+                          <li v-for="item in menuStore.navigation" :key="item.menuName">
+                            <template v-if="item.menuName !== 'Menu'">
                               <a :href="item.href" :class="[
                                 item.current
                                   ? 'bg-gray-800 text-white'
@@ -42,7 +42,7 @@
                                 'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
                               ]">
                                 <component :is="getIcon(item.iconName)" class="h-6 w-6 shrink-0" aria-hidden="true" />
-                                {{ item.name }}
+                                {{ item.menuName }}
                               </a>
                             </template>
                             <template v-else>
@@ -50,7 +50,7 @@
                                 <button @click="toggleMenu"
                                   class="text-left text-gray-400 hover:bg-gray-800 hover:text-white group flex items-center gap-x-3 rounded-md p-2 text-sm font-semibold leading-6">
                                   <component :is="getIcon(item.iconName)" class="h-6 w-6 shrink-0" aria-hidden="true" />
-                                  {{ item.name }}
+                                  {{ item.menuName }}
                                   <ChevronDownIcon
                                     :class="[isMenuOpen ? 'rotate-180' : '', 'ml-auto h-5 w-5 shrink-0 transition-transform duration-200']"
                                     aria-hidden="true" />
@@ -67,7 +67,7 @@
                                 leave-from-class="transform opacity-100 scale-100"
                                 leave-to-class="transform opacity-0 scale-95">
                                 <ul v-if="isMenuOpen" class="mt-1 space-y-1">
-                                  <li v-for="menuItem in menuStore.menu" :key="menuItem.name">
+                                  <li v-for="menuItem in menuStore.menu" :key="menuItem.menuName">
                                     <div class="flex items-center justify-between">
                                       <a :href="menuItem.href" :target="menuItem.target" :class="[
                                         menuItem.current
@@ -75,7 +75,7 @@
                                           : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                         'group flex gap-x-3 rounded-md p-2 text-sm font-medium leading-6 pl-11',
                                       ]">
-                                        {{ menuItem.name }}
+                                        {{ menuItem.menuName }}
                                       </a>
                                       <button @click.stop="openAddMenuItemModal(menuItem)"
                                         class="p-2 text-gray-400 hover:text-white">
@@ -83,14 +83,14 @@
                                       </button>
                                     </div>
                                     <ul v-if="menuItem.subitems" class="mt-1 space-y-1">
-                                      <li v-for="subItem in menuItem.subitems" :key="subItem.name">
+                                      <li v-for="subItem in menuItem.subitems" :key="subItem.menuName">
                                         <a :href="subItem.href" :target="subItem.target" :class="[
                                           subItem.current
                                             ? 'bg-gray-600 text-white'
                                             : 'text-gray-300 hover:bg-gray-600 hover:text-white',
                                           'group flex gap-x-3 rounded-md p-2 text-sm font-medium leading-6 pl-16',
                                         ]">
-                                          {{ subItem.name }}
+                                          {{ subItem.menuName }}
                                         </a>
                                       </li>
                                     </ul>
@@ -218,13 +218,15 @@
   import { useCompanyStore } from '~/stores/company';
   import AddMenuItemModal from '~/components/helpers/addMenuItemModal.vue';
   
+  //TODO: Crear un modelo separado
   interface MenuItem {
-    name: string;
-    href: string;
+    menuName: string;
+    href?: string;
     iconName?: string;
     target?: string;
     order: number;
-    current: boolean;
+    current?: boolean;
+    slug?: string;
     subitems?: MenuItem[];
   }
   

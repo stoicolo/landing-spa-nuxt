@@ -91,7 +91,7 @@ class PageTemplateService {
                 response = await axios.get<PageTemplate>(`${baseURL}/v1/page_templates/${page?.templateId}`, config);
             } else {
                 //TODO: Hacer un page de 404 para redirigir
-                navigateTo("/builder/2");
+                navigateTo("/");
             }
 
             return response ? response.data : null;
@@ -307,6 +307,162 @@ class PageTemplateService {
             
         } catch (error) {
             console.error('Error creating page:', error);
+            return null;
+        }
+    }
+
+    //TODO: SACAR ESTA LOGICA A UN NUEVO SERVICIO DE MENU SERVICE
+
+    static async createNewMenu(userId: number, websiteId: number, menuDetails: any): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'Post',
+                url: `${baseURL}/v1/menus/create-menu-with-details/`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: {
+                    userId,
+                    websiteId,
+                    menuDetails
+                }
+              });
+            console.log("New Menu Created", response.data);
+            return response ? response.data : null;
+            
+        } catch (error) {
+            console.error('Error creating menu:', error);
+            return null;
+        }
+    }
+
+    static async getMenuHeader(userId: number, websiteId: number): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'Post',
+                url: `${baseURL}/v1/menus/menu/`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: {
+                    userId,
+                    websiteId
+                }
+              });
+            console.log("Get Menu Header Success", response.data);
+            return response ? response.data : null;
+            
+        } catch (error) {
+            console.error('Error getting menu header:', error);
+            return null;
+        }
+    }
+
+    static async getMenuByHeaderId(menuHeaderId: number): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'Post',
+                url: `${baseURL}/v1/menus/get-menu-pages/`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: {
+                    menuHeaderId
+                }
+              });
+            console.log("Get Menu Success", response.data);
+            return response ? response.data : null;
+            
+        } catch (error) {
+            console.error('Error getting menu:', error);
+            return null;
+        }
+    }
+
+    static async updateMenu(menuHeaderId: number, pageId: number, item: any): Promise<any | null> {
+        try {
+            let response = null;
+
+            const itemData = {
+                menuHeaderId,
+                pageId,
+                ...item
+            }
+
+            response = await axios({
+                method: 'Patch',
+                url: `${baseURL}/v1/menus/menu-page/`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: itemData
+              });
+            console.log("Update Menu Success", response.data);
+            return response ? response.data : null;
+            
+        } catch (error) {
+            console.error('Error updating menu:', error);
+            return null;
+        }
+    }
+
+    //TODO: Sacar esto a un servicio de WEBSITE
+    static async createPublishRequest(domain: string, websiteId: number, userId: number, menuHeaderId: number, isActive: boolean, isPublic: boolean): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'Post',
+                url: `${baseURL}/v1/publish_histories/`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: {
+                    domain,
+                    websiteId,
+                    userId,
+                    menuHeaderId,
+                    isActive,
+                    isPublic
+                }
+            });
+            console.log("Publish Request Created", response.data);
+            return response ? response.data : null;
+
+        } catch (error) {
+            console.error('Error creating publish request:', error);
+            return null;
+        }
+    }
+
+    static async changeActiveSite(publishHistoryId: number, domain: string, isActive: boolean, isPublic: boolean): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'Patch',
+                url: `${baseURL}/v1/publish_histories/website/`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: {
+                    publishHistoryId,
+                    domain,
+                    isActive,
+                    isPublic
+                }
+            });
+            console.log("Change Active Site Success", response.data);
+            return response ? response.data : null;
+
+        } catch (error) {
+            console.error('Error changing active site:', error);
             return null;
         }
     }

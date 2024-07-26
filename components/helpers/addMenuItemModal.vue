@@ -5,30 +5,15 @@
         <form @submit.prevent="confirm" class="space-y-4">
           <div>
             <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
-            <input v-model="menuItem.name" id="name" type="text" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+            <input v-model="menuItem.menuName" id="name" type="text" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
           </div>
           <div>
-            <label for="href" class="block text-sm font-medium text-gray-700">Enlace (href)</label>
-            <input v-model="menuItem.href" id="href" type="text" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-          </div>
-          <div>
-            <label for="target" class="block text-sm font-medium text-gray-700">Target</label>
-            <select v-model="menuItem.target" id="target" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-              <option value="_self">_self</option>
-              <option value="_blank">_blank</option>
-            </select>
+            <label for="href" class="block text-sm font-medium text-gray-700">Slug</label>
+            <input v-model="menuItem.slug" id="href" type="text" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
           </div>
           <div>
             <label for="order" class="block text-sm font-medium text-gray-700">Orden</label>
             <input v-model.number="menuItem.order" id="order" type="number" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-          </div>
-          <div class="flex items-start">
-            <div class="flex items-center h-5">
-              <input v-model="menuItem.current" id="current" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" />
-            </div>
-            <div class="ml-3 text-sm">
-              <label for="current" class="font-medium text-gray-700">Actual</label>
-            </div>
           </div>
           <div class="flex justify-end space-x-4 mt-5">
             <button @click="cancel" type="button" class="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded">
@@ -51,11 +36,9 @@
   const menuStore = useMenuStore();
   
   const menuItem = ref({
-    name: '',
-    href: '',
-    target: '_self',
+    menuName: '',
     order: 0,
-    current: false
+    slug: ''
   });
   
   const confirm = () => {

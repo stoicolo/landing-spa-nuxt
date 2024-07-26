@@ -2,9 +2,8 @@ export const useUserStore = defineStore("user", {
   state: () => ({
     id: "",
     email: "",
-    name: "",
+    name: ""
   }),
   getters: {},
-  actions: {},
-  persist: true,
+  actions: {}
 });

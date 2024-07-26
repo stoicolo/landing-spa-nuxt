@@ -20,6 +20,13 @@
             <span v-if="!loading">Guardar Respaldo</span>
             <span v-else="loading" class="flex">...Guardando <span class="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900 block ml-3 mt-[2px]"></span></span>
         </button>
+        <div class="ml-2">
+            <span class="mr-3">Publicar Web Site</span>
+            <button @click="changeStatusWebSite" :class="{'bg-blue-600': activeWebSite, 'bg-gray-200': !activeWebSite}" class="relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                <span class="sr-only">Publicar Web Site</span>
+                <span :class="{'translate-x-6': activeWebSite, 'translate-x-1': !activeWebSite}" class="inline-block w-4 h-4 transform bg-white rounded-full transition-transform"></span>
+            </button>
+        </div>
     </div>
     <div v-if="sortedSections.length">
         <template v-for="(section, index) in sortedSections" :key="section.id" v-memo="[section.position, viewMode]">
@@ -102,6 +109,7 @@ import ComponentsSelector from '~/components/dashboard/componentsSelector.vue';
 import { useTemplateStore } from '~/stores/template';
 import { useMenuStore } from '~/stores/menu';
 import { useUserStore } from '~/stores/user';
+import { useCurrentStore } from '~/stores/current';
 import PageTemplateService from '@/services/page_template';
 import ConfirmationModal from '~/components/helpers/confirmationModal.vue';
 import SaveBackupModal from '~/components/helpers/saveBackupModal.vue';
@@ -110,7 +118,9 @@ import { defineEmits } from 'vue';
 const templateStore = useTemplateStore();
 const userStore = useUserStore();
 const menuStore = useMenuStore();
+const currentStore = useCurrentStore();
 const viewMode = ref(false);
+const activeWebSite = ref(false);
 const showComponentsModal = ref(false);
 const isConfirmationModalOpen = ref(false);
 const saveBackupModal = ref(false);
@@ -122,32 +132,40 @@ const idSelectedSectionToDelete = ref({});
 const fullscreen = ref(false);
 const isStructureLoaded = ref(false);
 
+// Llamada al plugin custom toaster
 const { $toaster } = useNuxtApp();
 
 const emit = defineEmits(['change-to-full-screen']);
 
 const route = useRoute()
-const pageId = parseInt(route.params.id);
+let pageId;
+currentStore.setPageId(pageId);
 
 onMounted(async () => {
-  createNewPageAndPageTemplate();
-  if(pageId) {
-      await templateStore.loadTemplateStructure(pageId, userStore.id);
-      isStructureLoaded.value = true;
-  }
+    if(currentStore.pageId) {
+        pageId = currentStore.pageId;
+    } else {
+        pageId = parseInt(route.params.id);
+    }
+    createNewPageAndPageTemplate();
+    if(pageId) {
+        await templateStore.loadTemplateStructure(pageId, userStore.id);
+        await menuStore.loadMenu();
+        isStructureLoaded.value = true;
+    }
 });
 
 async function createNewPageAndPageTemplate() {
+    debugger;
     const pageExist = await PageTemplateService.checkIfPageExist(pageId, userStore.id);
     //TODO: Debo limpiar states
     if(!pageId && !pageExist.length) {
         try {
-            menuStore.addMenuItem({
-                name: 'Inicio',
-                href: '/',
-                target: '_self',
-                order: 0,
-                current: true
+            menuStore.createFirstPageAndMenuItem({
+                menuName: "Inicio",
+                href: "/inicio",
+                slug: "inicio",
+                order: 1
             });
         } catch (error) {
             console.error('Failed to create new page and page template:', error);
@@ -287,6 +305,47 @@ async function handleSaveBackup(name) {
 
 function viewModeChange() {
   viewMode.value = !viewMode.value;
+}
+
+async function changeStatusWebSite() {
+    activeWebSite.value = !activeWebSite.value;
+
+    const domain = "test.com"; //TODO: Obtener esto del dominio registrado, aun no existe el modulo para esto
+    const websiteId = currentStore.websiteId;
+    const userId = currentStore.userId;
+    const menuHeaderId = currentStore.menuHeaderId;
+    const isActive = activeWebSite.value;
+    const isPublic = true;
+    const publishHistoryId = currentStore.publishHistoryId;
+    
+    if(activeWebSite.value ){
+        if(!publishHistoryId){
+            const resPublish = await PageTemplateService.createPublishRequest(
+                 domain,
+                 websiteId,
+                 userId,
+                 menuHeaderId,
+                 isActive,
+                 isPublic
+             );
+     
+             currentStore.setPublishHistoryId(resPublish.id);
+        } else {
+            await PageTemplateService.changeActiveSite(
+                publishHistoryId,
+                domain,
+                isActive,
+                isPublic
+            );
+        }
+    } else {
+        await PageTemplateService.changeActiveSite(
+            publishHistoryId,
+            domain,
+            isActive,
+            isPublic
+        );
+    }
 }
 
 function toggleComponentsModal() {
