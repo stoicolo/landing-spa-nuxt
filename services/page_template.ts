@@ -11,9 +11,6 @@ interface Section {
         id: number;
         name: string;
         element: {
-            backgroundImage: string;
-            title: string;
-            icon: string;
             template: string;
         };
     };
@@ -385,18 +382,20 @@ class PageTemplateService {
         }
     }
 
-    static async updateMenu(menuHeaderId: number, pageId: number, item: any): Promise<any | null> {
+    static async updateMenu(websiteId: number, menuHeaderId: number, pageId: number, item: any): Promise<any | null> {
         try {
             let response = null;
 
             const itemData = {
+                websiteId,
                 menuHeaderId,
                 pageId,
+                href: `/builder/${pageId}`,
                 ...item
             }
 
             response = await axios({
-                method: 'Patch',
+                method: 'Post',
                 url: `${baseURL}/v1/menus/menu-page/`,
                 headers: {
                     'Authorization': `Bearer ${authToken}`
@@ -437,6 +436,29 @@ class PageTemplateService {
 
         } catch (error) {
             console.error('Error creating publish request:', error);
+            return null;
+        }
+    }
+
+    static async getPublishHistoryByWebsiteId(websiteId: number): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'Post',
+                url: `${baseURL}/v1/publish_histories/website/`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: {
+                    websiteId
+                }
+            });
+            console.log("Getting PublishHistory Success", response.data);
+            return response ? response.data : null;
+
+        } catch (error) {
+            console.error('Error Getting PublishHistory:', error);
             return null;
         }
     }

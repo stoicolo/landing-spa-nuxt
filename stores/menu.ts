@@ -56,21 +56,34 @@ export const useMenuStore = defineStore('menu', {
       }
     },
     async addMenuItem(item: MenuItem) {
+      let newPageTemplate;
+      let newPage;
+      let newItemMenu;
       try {
-        //Creo un nuevo item en el menu y una nueva pagina, se lo asigno al menu y redirijo a la pagina de builder
-        const newPageTemplate = await PageTemplateService.createPageTemplate(currentStore.userId, []);
-        const newPage = await PageTemplateService.createNewPage(currentStore.userId, newPageTemplate?.id ? newPageTemplate?.id : 0, item.menuName, currentStore.websiteId);
-        const newItemMenu = await PageTemplateService.updateMenu(currentStore.menuHeaderId, newPage?.id, item);
+        newPageTemplate = await PageTemplateService.createPageTemplate(currentStore.userId, []);
+      } catch(error){
+        console.error('Error creating new Page Template:', error);
+      }
+      try {
+        newPage = await PageTemplateService.createNewPage(currentStore.userId, newPageTemplate?.id ? newPageTemplate?.id : 0, item.menuName, currentStore.websiteId);
+      } catch(error){
+        console.error('Error creating new Page:', error);
+      }
+      try {
+        //Creo un nuevo item en el menu, se lo asigno al menu y redirijo a la pagina de builder
+        newItemMenu = await PageTemplateService.updateMenu(currentStore.websiteId, currentStore.menuHeaderId, newPage?.id, item);
 
-        //Agrego el nuevo item al menu y asigno el href con el id de la pagina creada
-        this.menu.push({...item, href: `/builder/${newItemMenu.id}`});
+        if(newItemMenu){
+          //Agrego el nuevo item al menu y asigno el href con el id de la pagina creada
+          this.menu.push({...item, href: `/builder/${newItemMenu.id}`});
+        }
 
         if (newPage) {
           navigateTo("/builder/" + newPage.id);
         }
 
-      }catch(error) {
-        console.error('Error creating page:', error);
+      } catch(error) {
+        console.error('Error creating new Item Menu:', error);
       }
     },
     getCombinedNavigation() {

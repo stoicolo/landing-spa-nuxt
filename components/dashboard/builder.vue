@@ -178,7 +178,14 @@ async function createNewPageAndPageTemplate() {
             });
         }
     } else {
-        navigateTo("/builder/" + pageExist[0].id)
+        debugger;
+        const publishHistoryId =  await PageTemplateService.getPublishHistoryByWebsiteId(currentStore.websiteId);
+        currentStore.setPublishHistoryId(publishHistoryId[0].id);
+        navigateTo("/builder/" + pageExist[0].id);
+        if(publishHistoryId[0].isActive){
+            activeWebSite.value = true;
+        }
+        
     }
     return
 }
@@ -317,7 +324,7 @@ async function changeStatusWebSite() {
     const isActive = activeWebSite.value;
     const isPublic = true;
     const publishHistoryId = currentStore.publishHistoryId;
-    
+    debugger;
     if(activeWebSite.value ){
         if(!publishHistoryId){
             const resPublish = await PageTemplateService.createPublishRequest(

@@ -14,7 +14,7 @@ export const useComponentsStore = defineStore('component_store', {
     async loadComponentStructure() {
         this.isLoading = true;
         try {
-            const response = await fetch('mocks/components_mock.json'); // Cambiar para obtener de BD
+            const response = await fetch('../mocks/components_mock.json'); // Cambiar para obtener de BD
             if (!response.ok) {
               throw new Error('Failed to fetch components structure');
             }
