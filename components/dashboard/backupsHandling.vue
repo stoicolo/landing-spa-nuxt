@@ -45,6 +45,7 @@
   import { useRouter } from 'vue-router';
   import PageTemplateService from '@/services/page_template';
   import ConfirmationModal from '~/components/helpers/confirmationModal.vue';
+  import { useUserStore } from '~/stores/user';
 
   const backupsList = ref([]);
   const modalTitleRemoveBackup = '¿Estás seguro de que deseas eliminar este respaldo?';
@@ -56,11 +57,14 @@
   const router = useRouter();
   const backupIdSelected = ref(null);
   const templateIdSelected = ref(null);
+  const userStore = useUserStore();
+  const pageId = ref(0);
+  const pagesList = ref([]);
   
   onMounted(async () => {
-    //TODO: agregar usuario dinamicamente
-    backupsList.value = await PageTemplateService.getBackups(1);
+    backupsList.value = await PageTemplateService.getBackups(userStore.id);
     console.log(backupsList.value);
+    pagesList.value = await PageTemplateService.fetchPagesListByUserId(userStore.id);
   });
   
   function useBackup(backupId, templateId) {
@@ -68,25 +72,21 @@
     isConfirmationModalRestoreOpen.value = true;
     backupIdSelected.value = backupId;
     templateIdSelected.value = templateId;
-    // Implementar lógica de uso del backup
   }
   
   function deleteBackup(backupId) {
     console.log('Deleting backup:', backupId);
     isConfirmationModalOpen.value = true;
     backupIdSelected.value = backupId;
-    // Implementar lógica de eliminación del backup
   }
 
   async function handleConfirmRemoveBackup() {
     console.log('Confirmed removal');
     isConfirmationModalOpen.value = false;
     try {
-        // Implementar lógica de eliminación del backup
         await PageTemplateService.removeBackupById(backupIdSelected.value);
         console.log('Backup deleted successfully');
-        //TODO: agregar usuario dinámicamente
-        backupsList.value = await PageTemplateService.getBackups(1);
+        backupsList.value = await PageTemplateService.getBackups(userStore.id);
     } catch (error) {
         console.error('Error during backup deletion:', error);
     }
@@ -101,13 +101,12 @@
     async function handleConfirmRestoreBackup() {
         console.log('Confirmed restoration');
         isConfirmationModalRestoreOpen.value = false;
-        // Implementar lógica de restauración del backup
         const backupToRestore = backupsList.value.find(backup => backup.id === backupIdSelected.value);
+        pageId.value = pagesList.value?.find(p => p.pageName === backupToRestore.pageName);
         try {
-            // TODO: agregar el ID del page_template dinámicamente
             await PageTemplateService.updatePageTemplate(templateIdSelected.value, backupToRestore.sections);
             console.log('Backup restored successfully');
-            router.push('/builder');
+            router.push('/builder/' + JSON.stringify(pageId.value.id));
         } catch (error) {
             console.error('Error restoring backup:', error);
         }

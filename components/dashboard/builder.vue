@@ -1,30 +1,4 @@
 <template>
-    <div class="container mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
-    <!-- Texto del lado izquierdo -->
-    <div class="md:w-1/2 mb-8 md:mb-0">
-      <h1 class="text-4xl md:text-5xl font-bold text-indigo-900 mb-4">
-        Get to know a variety of features
-      </h1>
-      <p class="text-gray-600 mb-6">
-        Only Emry gives you a totally customizable messaging suite to drive growth at every stage of the lifecycle.
-      </p>
-      <button class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-full">
-        GET STARTED
-      </button>
-    </div>
-    
-    <!-- Ilustración del lado derecho -->
-    <div class="md:w-1/2 relative">
-      <div class="w-full h-96 bg-yellow-100 rounded-full absolute top-0 right-0 -z-10"></div>
-      <div class="relative z-10">
-        <!-- Aquí irían los elementos de la ilustración -->
-        <!-- Por simplicidad, se usa un placeholder -->
-        <div class="w-full h-96 bg-gray-300 rounded-lg flex items-center justify-center">
-          <p class="text-gray-600">Ilustración aquí</p>
-        </div>
-      </div>
-    </div>
-  </div>
     <div class="flex items-center p-2">
         <span class="mr-3">Vista Previa</span>
         <button @click="viewModeChange" :class="{'bg-blue-600': viewMode, 'bg-gray-200': !viewMode}" class="relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
@@ -46,13 +20,20 @@
             <span v-if="!loading">Guardar Respaldo</span>
             <span v-else="loading" class="flex">...Guardando <span class="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900 block ml-3 mt-[2px]"></span></span>
         </button>
+        <div class="ml-2">
+            <span class="mr-3">Publicar Web Site</span>
+            <button @click="changeStatusWebSite" :class="{'bg-blue-600': activeWebSite, 'bg-gray-200': !activeWebSite}" class="relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                <span class="sr-only">Publicar Web Site</span>
+                <span :class="{'translate-x-6': activeWebSite, 'translate-x-1': !activeWebSite}" class="inline-block w-4 h-4 transform bg-white rounded-full transition-transform"></span>
+            </button>
+        </div>
     </div>
     <div v-if="sortedSections.length">
         <template v-for="(section, index) in sortedSections" :key="section.id" v-memo="[section.position, viewMode]">
             <div class="section-wrapper relative" :class="{'bg-blue-200 p-2 border-t-2 border-gray-500': !viewMode}">
                 <component v-if="section.widget && section.widget.element"
                     :is="getComponent(section.widget.name, section.widget.element)" v-bind="section.widget.element" :viewMode="viewMode" :id="section.id" />
-                <div class="section-actions absolute top-[8px] z-[100] flex justify-center items-center w-[300px] mx-auto right-[8px] bg-blue-200 rounded-bl-[20px]" v-if="!viewMode">
+                <div class="section-actions absolute top-[8px] z-[50] flex justify-center items-center w-[300px] mx-auto right-[8px] bg-blue-200 rounded-bl-[20px]" v-if="!viewMode">
                     <button @click="confirmationModal(section.id)">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
@@ -122,17 +103,24 @@
 
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { useRoute } from 'vue-router'
 import ComponentsSelector from '~/components/dashboard/componentsSelector.vue';
 import { useTemplateStore } from '~/stores/template';
-import { useComponentsStore } from '~/stores/components';
+import { useMenuStore } from '~/stores/menu';
+import { useUserStore } from '~/stores/user';
+import { useCurrentStore } from '~/stores/current';
 import PageTemplateService from '@/services/page_template';
 import ConfirmationModal from '~/components/helpers/confirmationModal.vue';
 import SaveBackupModal from '~/components/helpers/saveBackupModal.vue';
 import { defineEmits } from 'vue';
 
 const templateStore = useTemplateStore();
+const userStore = useUserStore();
+const menuStore = useMenuStore();
+const currentStore = useCurrentStore();
 const viewMode = ref(false);
+const activeWebSite = ref(false);
 const showComponentsModal = ref(false);
 const isConfirmationModalOpen = ref(false);
 const saveBackupModal = ref(false);
@@ -142,18 +130,72 @@ const modalTitleRemoveSection = '¿Estás seguro de eliminar esta sección?';
 const modalDescriptionRemoveSection = 'Esta acción no se puede deshacer, a menos que tengas un respaldo creado.';
 const idSelectedSectionToDelete = ref({});
 const fullscreen = ref(false);
+const isStructureLoaded = ref(false);
 
+// Llamada al plugin custom toaster
 const { $toaster } = useNuxtApp();
 
 const emit = defineEmits(['change-to-full-screen']);
 
-//TODO: necesitamos obtener el ID usuario, de momento el 1 es de pruebas
-templateStore.loadTemplateStructure("inicio", 1);
+const route = useRoute()
+let pageId;
+currentStore.setPageId(pageId);
 
+onMounted(async () => {
+    if(currentStore.pageId) {
+        pageId = currentStore.pageId;
+    } else {
+        pageId = parseInt(route.params.id);
+    }
+    createNewPageAndPageTemplate();
+    if(pageId) {
+        await templateStore.loadTemplateStructure(pageId, userStore.id);
+        await menuStore.loadMenu();
+        isStructureLoaded.value = true;
+    }
+});
+
+async function createNewPageAndPageTemplate() {
+    debugger;
+    const pageExist = await PageTemplateService.checkIfPageExist(pageId, userStore.id);
+    //TODO: Debo limpiar states
+    if(!pageId && !pageExist.length) {
+        try {
+            menuStore.createFirstPageAndMenuItem({
+                menuName: "Inicio",
+                href: "/inicio",
+                slug: "inicio",
+                order: 1
+            });
+        } catch (error) {
+            console.error('Failed to create new page and page template:', error);
+            $toaster.show({
+                title: "Error",
+                description: "Fallo al crear nueva página y plantilla.",
+                delay: 3,
+                position: "top-right",
+                type: "error"
+            });
+        }
+    } else {
+        debugger;
+        const publishHistoryId =  await PageTemplateService.getPublishHistoryByWebsiteId(currentStore.websiteId);
+        currentStore.setPublishHistoryId(publishHistoryId[0].id);
+        navigateTo("/builder/" + pageExist[0].id);
+        if(publishHistoryId[0].isActive){
+            activeWebSite.value = true;
+        }
+        
+    }
+    return
+}
 
 
 // Computed para ordenar las secciones basado en su posición
 const sortedSections = computed(() => {
+    if (!isStructureLoaded.value) {
+        return [];
+    }
     console.log("templateStore.structure", templateStore.structure);
   const objectTemplate = JSON.parse(JSON.stringify(templateStore.structure.page_template.sections));
   if (!objectTemplate) {
@@ -246,7 +288,7 @@ async function handleSaveBackup(name) {
     //Llamada a servicio de guardar backup
     try {
         loading.value = true;
-        const backupTemplate = await PageTemplateService.backupPageTemplate(userId, getCurrentTemplateSections, name, templateId, "inicio");
+        const backupTemplate = await PageTemplateService.backupPageTemplate(userId, getCurrentTemplateSections, name, templateId, pageId);
         loading.value = false;
         $toaster.show({
             title: "Success",
@@ -270,6 +312,47 @@ async function handleSaveBackup(name) {
 
 function viewModeChange() {
   viewMode.value = !viewMode.value;
+}
+
+async function changeStatusWebSite() {
+    activeWebSite.value = !activeWebSite.value;
+
+    const domain = "test.com"; //TODO: Obtener esto del dominio registrado, aun no existe el modulo para esto
+    const websiteId = currentStore.websiteId;
+    const userId = currentStore.userId;
+    const menuHeaderId = currentStore.menuHeaderId;
+    const isActive = activeWebSite.value;
+    const isPublic = true;
+    const publishHistoryId = currentStore.publishHistoryId;
+    debugger;
+    if(activeWebSite.value ){
+        if(!publishHistoryId){
+            const resPublish = await PageTemplateService.createPublishRequest(
+                 domain,
+                 websiteId,
+                 userId,
+                 menuHeaderId,
+                 isActive,
+                 isPublic
+             );
+     
+             currentStore.setPublishHistoryId(resPublish.id);
+        } else {
+            await PageTemplateService.changeActiveSite(
+                publishHistoryId,
+                domain,
+                isActive,
+                isPublic
+            );
+        }
+    } else {
+        await PageTemplateService.changeActiveSite(
+            publishHistoryId,
+            domain,
+            isActive,
+            isPublic
+        );
+    }
 }
 
 function toggleComponentsModal() {

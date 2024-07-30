@@ -44,6 +44,5 @@ export const useCompanyStore = defineStore("company", {
       this.contactEmail = companyData.contactEmail;
       this.contactPhone = companyData.contactPhone;
     },
-  },
-  persist: true,
+  }
 });

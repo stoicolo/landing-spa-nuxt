@@ -44,7 +44,7 @@ const loginUser = async (event: Event) => {
       userStore.email = response.user.email;
       userStore.name = response.user.name;
       // Redirect to dashboard if all is ok
-      navigateTo("/dashboard");
+      navigateTo("/builder/0");
     }
   } catch (error) {
     console.error("error while login in: ", error);

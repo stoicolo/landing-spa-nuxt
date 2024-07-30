@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const baseURL = 'http://localhost:4000'; // Asegúrate de cambiar esto por la URL correcta de tu API.
-const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcxODg0MTAwOCwiZXhwIjoxNzE5NDQ1ODA4LCJ0eXBlIjoiYWNjZXNzIn0.OTvHVw-b_rKraFHLVEI5Vie3ut9E3tYQOqNr-6FJWVQ';
+const accessToken = useCookie('accessToken')
+const authToken = accessToken.value;
 
 interface Section {
     id: number;
@@ -10,9 +11,6 @@ interface Section {
         id: number;
         name: string;
         element: {
-            backgroundImage: string;
-            title: string;
-            icon: string;
             template: string;
         };
     };
@@ -33,8 +31,28 @@ interface Page {
 }
 
 class PageTemplateService {
-    static async fetchPage(pageName: string): Promise<Page | null> {
+    static async fetchPagesListByUserId(userId: number): Promise<Page[] | null> {
         try {
+            let pages = null;
+
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                }
+            };
+
+            pages = await axios.get<Page[]>(`${baseURL}/v1/pages/user/${userId}`, config);
+
+            return pages.data ? pages.data : null;
+            
+        } catch (error) {
+            console.error('Error fetching page:', error);
+            return null;
+        }
+    }
+    static async fetchPage(userId: number, pageId: number): Promise<Page | null> {
+        try {
+            let pages = null;
             let page = null;
 
             const config = {
@@ -42,18 +60,18 @@ class PageTemplateService {
                     'Authorization': `Bearer ${authToken}`
                 }
             };
-            //TODO: fijo se va anecesitar pasarle el user ID aqui
-            page = await axios.get<Page>(`${baseURL}/v1/pages/page/${pageName}`, config);
-            
 
-            return page ? page.data : null;
+            pages = await this.fetchPagesListByUserId(userId);
+            page = pages?.find((p: Page) => p.id === pageId);
+
+            return page ? page : null;
         } catch (error) {
             console.error('Error fetching page:', error);
             return null;
         }
     }
     // Obtener un template por ID
-    static async fetchPageTemplate(userId: number = 0, pageName: string): Promise<PageTemplate | null> {
+    static async fetchPageTemplate(userId: number = 0, pageId: number): Promise<PageTemplate | null> {
         try {
             let response = null;
             let page = null;
@@ -63,10 +81,15 @@ class PageTemplateService {
                     'Authorization': `Bearer ${authToken}`
                 }
             };
-            //TODO, necesitamos el userID para saber de cual esuario obtener la page
-            page = await this.fetchPage(pageName);
 
-            response = await axios.get<PageTemplate>(`${baseURL}/v1/page_templates/${page?.templateId}`, config);
+            page = await this.fetchPage(userId, pageId);
+
+            if(page) {
+                response = await axios.get<PageTemplate>(`${baseURL}/v1/page_templates/${page?.templateId}`, config);
+            } else {
+                //TODO: Hacer un page de 404 para redirigir
+                navigateTo("/");
+            }
 
             return response ? response.data : null;
         } catch (error) {
@@ -78,8 +101,22 @@ class PageTemplateService {
     // Crear un nuevo template
     static async createPageTemplate(userId: number, sections: Section[]): Promise<PageTemplate | null> {
         try {
-            const response = await axios.post<PageTemplate>(`${baseURL}/v1/page_templates`, { userId, sections });
-            return response.data;
+            let response = null;
+
+            response = await axios({
+                method: 'Post',
+                url: `${baseURL}/v1/page_templates`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: {
+                    userId,
+                    sections
+                }
+              });
+            console.log("New Page Template Created", response.data);
+            return response ? response.data : null;
+            
         } catch (error) {
             console.error('Error creating page template:', error);
             return null;
@@ -145,22 +182,25 @@ class PageTemplateService {
     }
     
     // Crear nuevo Backup
-    static async backupPageTemplate(userId: number, sections: Section[], backupName: string, pageTemplateId: number, pageName: string): Promise<PageTemplate | null> {
+    static async backupPageTemplate(userId: number, sections: Section[], backupName: string, pageTemplateId: number, pageId: number): Promise<PageTemplate | null> {
         try {
             let response = null;
+            let page = null;
     
             const config = {
                 headers: {
                     'Authorization': `Bearer ${authToken}`
                 }
             };
+
+            page = await this.fetchPage(userId, pageId);
     
             const data = {
                 "userId": userId,
                 "sections": [...sections],
                 "backupName": backupName,
                 "pageTemplateId": pageTemplateId,
-                "pageName": pageName
+                "pageName": page?.pageName
               };
     
             // Realizar la petición PATCH y obtener directamente la propiedad data del resultado
@@ -194,6 +234,257 @@ class PageTemplateService {
             
         } catch (error) {
             console.error('Error delete backups by id:', error);
+            return null;
+        }
+    }
+
+    //TODO: SACAR ESTA LOGICA A UN NUEVO SERVICIO DE WEBPAGE SERVICE
+
+    static async createWebSite(userId: number, websiteName: string = "Default Page"): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'Post',
+                url: `${baseURL}/v1/websites/`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: {
+                    userId,
+                    websiteName
+                }
+              });
+            console.log("New Site Created", response.data);
+            return response ? response.data : null;
+            
+        } catch (error) {
+            console.error('Error creating site:', error);
+            return null;
+        }
+    }
+
+    //TODO: SACAR ESTA LOGICA A UN NUEVO SERVICIO DE PAGE SERVICE
+
+    static async checkIfPageExist(pageId: number, userId: number) {
+        let listPages = null;
+        let pageExists = null;
+        try {
+            listPages = await this.fetchPagesListByUserId(userId);
+        } catch (error) {
+            console.log("No hay paginas para este usuario");
+        }
+        
+        if(listPages){
+            pageExists = listPages?.filter((page: Page) => page.id === pageId || page.pageName === 'Inicio');
+        }
+        
+        return pageExists;
+    }
+
+    static async createNewPage(userId: number, templateId: number, pageName: string, websiteId: number): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'Post',
+                url: `${baseURL}/v1/pages/`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: {
+                    userId,
+                    templateId,
+                    pageName,
+                    websiteId
+                }
+              });
+            console.log("New Page Created", response.data);
+            return response ? response.data : null;
+            
+        } catch (error) {
+            console.error('Error creating page:', error);
+            return null;
+        }
+    }
+
+    //TODO: SACAR ESTA LOGICA A UN NUEVO SERVICIO DE MENU SERVICE
+
+    static async createNewMenu(userId: number, websiteId: number, menuDetails: any): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'Post',
+                url: `${baseURL}/v1/menus/create-menu-with-details/`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: {
+                    userId,
+                    websiteId,
+                    menuDetails
+                }
+              });
+            console.log("New Menu Created", response.data);
+            return response ? response.data : null;
+            
+        } catch (error) {
+            console.error('Error creating menu:', error);
+            return null;
+        }
+    }
+
+    static async getMenuHeader(userId: number, websiteId: number): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'Post',
+                url: `${baseURL}/v1/menus/menu/`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: {
+                    userId,
+                    websiteId
+                }
+              });
+            console.log("Get Menu Header Success", response.data);
+            return response ? response.data : null;
+            
+        } catch (error) {
+            console.error('Error getting menu header:', error);
+            return null;
+        }
+    }
+
+    static async getMenuByHeaderId(menuHeaderId: number): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'Post',
+                url: `${baseURL}/v1/menus/get-menu-pages/`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: {
+                    menuHeaderId
+                }
+              });
+            console.log("Get Menu Success", response.data);
+            return response ? response.data : null;
+            
+        } catch (error) {
+            console.error('Error getting menu:', error);
+            return null;
+        }
+    }
+
+    static async updateMenu(websiteId: number, menuHeaderId: number, pageId: number, item: any): Promise<any | null> {
+        try {
+            let response = null;
+
+            const itemData = {
+                websiteId,
+                menuHeaderId,
+                pageId,
+                href: `/builder/${pageId}`,
+                ...item
+            }
+
+            response = await axios({
+                method: 'Post',
+                url: `${baseURL}/v1/menus/menu-page/`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: itemData
+              });
+            console.log("Update Menu Success", response.data);
+            return response ? response.data : null;
+            
+        } catch (error) {
+            console.error('Error updating menu:', error);
+            return null;
+        }
+    }
+
+    //TODO: Sacar esto a un servicio de WEBSITE
+    static async createPublishRequest(domain: string, websiteId: number, userId: number, menuHeaderId: number, isActive: boolean, isPublic: boolean): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'Post',
+                url: `${baseURL}/v1/publish_histories/`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: {
+                    domain,
+                    websiteId,
+                    userId,
+                    menuHeaderId,
+                    isActive,
+                    isPublic
+                }
+            });
+            console.log("Publish Request Created", response.data);
+            return response ? response.data : null;
+
+        } catch (error) {
+            console.error('Error creating publish request:', error);
+            return null;
+        }
+    }
+
+    static async getPublishHistoryByWebsiteId(websiteId: number): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'Post',
+                url: `${baseURL}/v1/publish_histories/website/`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: {
+                    websiteId
+                }
+            });
+            console.log("Getting PublishHistory Success", response.data);
+            return response ? response.data : null;
+
+        } catch (error) {
+            console.error('Error Getting PublishHistory:', error);
+            return null;
+        }
+    }
+
+    static async changeActiveSite(publishHistoryId: number, domain: string, isActive: boolean, isPublic: boolean): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'Patch',
+                url: `${baseURL}/v1/publish_histories/website/`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: {
+                    publishHistoryId,
+                    domain,
+                    isActive,
+                    isPublic
+                }
+            });
+            console.log("Change Active Site Success", response.data);
+            return response ? response.data : null;
+
+        } catch (error) {
+            console.error('Error changing active site:', error);
             return null;
         }
     }

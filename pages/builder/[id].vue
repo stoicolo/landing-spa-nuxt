@@ -1,3 +1,4 @@
+<!--pages/builder/[id].vue-->
 <template>
     <div>
         <Builder @change-to-full-screen="updateLayout" />
@@ -11,6 +12,7 @@ function updateLayout(fullscreen) {
     if(fullscreen) {setPageLayout('site'); return};
     setPageLayout('dashboard');
 }
+
 definePageMeta({
     layout: 'dashboard',
 });
