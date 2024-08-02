@@ -46,13 +46,12 @@ export const useMenuStore = defineStore('menu', {
         //TODO: Chequear error aqui cuando se crea usuario nuevo
         console.log("fullMenu:::", fullMenu);
         
-        this.menu.push(fullMenu[0]);
+        // this.menu.push(fullMenu[0]);
       } else {
         //Si ya existe un menuHeaderId en el currentStore, lo uso para cargar el menu
         const fullMenu = await PageTemplateService.getMenuByHeaderId(currentStore.menuHeaderId);
         console.log("fullMenu:::", fullMenu);
         
-        this.menu.push(fullMenu[0]);
       }
     },
     async addMenuItem(item: MenuItem) {
@@ -119,6 +118,13 @@ export const useMenuStore = defineStore('menu', {
         } catch (error) {
             console.error('Error creating page:', error);
         }
+    },
+
+    setMenuList(items: MenuItem[]){
+      this.menu = [];
+      items.forEach(item => {
+        this.menu.push(item);
+      });
     },
 
     async getMenuBySlug(slug: string): Promise<MenuItem | null> {

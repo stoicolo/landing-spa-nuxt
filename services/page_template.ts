@@ -411,6 +411,30 @@ class PageTemplateService {
         }
     }
 
+    static async getMenuList(websiteId: number, userId: number): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'Post',
+                url: `${baseURL}/v1/menus/get-menu-with-details/`,
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                },
+                data: {
+                    websiteId,
+                    userId
+                }
+              });
+            console.log("Get Menu List Success", response.data);
+            return response ? response.data : null;
+            
+        } catch (error) {
+            console.error('Error getting menu list:', error);
+            return null;
+        }
+    }
+
     //TODO: Sacar esto a un servicio de WEBSITE
     static async createPublishRequest(domain: string, websiteId: number, userId: number, menuHeaderId: number, isActive: boolean, isPublic: boolean): Promise<any | null> {
         try {
