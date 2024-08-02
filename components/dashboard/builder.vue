@@ -163,7 +163,7 @@ async function createNewPageAndPageTemplate() {
         try {
             menuStore.createFirstPageAndMenuItem({
                 menuName: "Inicio",
-                href: "/inicio",
+                href: "/builder/1",
                 slug: "inicio",
                 order: 1
             });
@@ -178,29 +178,28 @@ async function createNewPageAndPageTemplate() {
             });
         }
     } else {
-        let publishHistoryId;
-        let menusResponse;
-        let menuList;
+        const routeId = parseInt(route.params.id);
+        
+        if (routeId) {
+            const [publishHistory, menusResponse] = await Promise.all([
+                PageTemplateService.getPublishHistoryByWebsiteId(currentStore.websiteId),
+                PageTemplateService.getMenuList(currentStore.websiteId, currentStore.userId)
+            ]);
 
-        if(parseInt(route.params.id)){
-            publishHistoryId =  await PageTemplateService.getPublishHistoryByWebsiteId(currentStore.websiteId);
-            menusResponse = await PageTemplateService.getMenuList(currentStore.websiteId, currentStore.userId);
-            menuList = menusResponse.menuDetails;
-        }
-        currentStore.setPageId(pageId);
-        if(publishHistoryId){
-            if(publishHistoryId.length){
-                currentStore.setPublishHistoryId(publishHistoryId[0].id);
-                navigateTo("/builder/" + pageId);
-                menuStore.setMenuList(menuList);
-                if(publishHistoryId[0].isActive){
-                    activeWebSite.value = true;
-                }
+            currentStore.setPageId(pageId);
+
+            if (publishHistory && publishHistory.length) {
+                const latestPublishHistory = publishHistory[0];
+                currentStore.setPublishHistoryId(latestPublishHistory.id);
+                menuStore.setMenuList(menusResponse.menuDetails);
+                activeWebSite.value = latestPublishHistory.isActive;
+                navigateTo(`/builder/${pageId}`);
+            } else {
+                navigateTo(`/builder/${pageExist[0].id}`);
             }
         } else {
-            navigateTo("/builder/" + pageExist[0].id);
+            navigateTo(`/builder/${pageExist[0].id}`);
         }
-        
     }
     return
 }
