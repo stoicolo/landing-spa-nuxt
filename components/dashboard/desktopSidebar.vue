@@ -10,15 +10,18 @@
               <ul role="list" class="-mx-2 space-y-1">
                 <li v-for="item in sortedNavigation" :key="item.menuName">
                   <template v-if="item.menuName !== 'Menu'">
-                    <a :href="item.href" :class="[
-                      item.current
-                        ? 'bg-gray-800 text-white'
-                        : 'text-gray-400 hover:bg-gray-800 hover:text-white',
-                      'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
-                    ]">
+                    <span
+                      @click="navigateTo(item.href)"
+                      :class="[
+                        item.current
+                          ? 'bg-gray-800 text-white'
+                          : 'text-gray-400 hover:bg-gray-800 hover:text-white',
+                        'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 cursor-pointer',
+                      ]"
+                    >
                       <component :is="getIcon(item.iconName)" class="h-6 w-6 shrink-0" aria-hidden="true" />
                       {{ item.menuName }}
-                    </a>
+                  </span>
                   </template>
                   <template v-else>
                     <div class="flex items-center justify-between">
@@ -45,26 +48,34 @@
                       <ul v-if="isMenuOpen" class="mt-1 space-y-1">
                         <li v-for="menuItem in sortedMenu" :key="menuItem.menuName">
                           <div class="flex items-center justify-between">
-                            <a :href="menuItem.href" :target="menuItem.target" :class="[
-                              menuItem.current
-                                ? 'bg-gray-700 text-white'
-                                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                              'group flex gap-x-3 rounded-md p-2 text-sm font-medium leading-6 pl-11 w-full',
-                            ]">
-                              {{ menuItem.menuName }}
-                            </a>
-                            
+
+                            <span
+                                  @click="navigateTo(menuItem.href)"
+                                  :class="[
+                                    menuItem.current
+                                      ? 'bg-gray-800 text-white'
+                                      : 'text-gray-400 hover:bg-gray-800 hover:text-white',
+                                    'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 cursor-pointer',
+                                  ]"
+                                  :target="menuItem.target"
+                                >
+                                  {{ menuItem.menuName }}
+                              </span>
                           </div>
                           <ul v-if="menuItem.subitems" class="mt-1 space-y-1">
                             <li v-for="subItem in menuItem.subitems" :key="subItem.menuName">
-                              <a :href="subItem.href" :target="subItem.target" :class="[
-                                subItem.current
-                                  ? 'bg-gray-600 text-white'
-                                  : 'text-gray-300 hover:bg-gray-600 hover:text-white',
-                                'group flex gap-x-3 rounded-md p-2 text-sm font-medium leading-6 pl-16',
-                              ]">
-                                {{ subItem.menuName }}
-                              </a>
+                                <span
+                                  @click="navigateTo(item.href)"
+                                  :class="[
+                                    item.current
+                                      ? 'bg-gray-800 text-white'
+                                      : 'text-gray-400 hover:bg-gray-800 hover:text-white',
+                                    'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 cursor-pointer',
+                                  ]"
+                                  :target="subItem.target"
+                                >
+                                  {{ item.menuName }}
+                              </span>
                             </li>
                           </ul>
                         </li>

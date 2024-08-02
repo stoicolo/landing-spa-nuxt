@@ -178,12 +178,27 @@ async function createNewPageAndPageTemplate() {
             });
         }
     } else {
-        debugger;
-        const publishHistoryId =  await PageTemplateService.getPublishHistoryByWebsiteId(currentStore.websiteId);
-        currentStore.setPublishHistoryId(publishHistoryId[0].id);
-        navigateTo("/builder/" + pageExist[0].id);
-        if(publishHistoryId[0].isActive){
-            activeWebSite.value = true;
+        let publishHistoryId;
+        let menusResponse;
+        let menuList;
+
+        if(parseInt(route.params.id)){
+            publishHistoryId =  await PageTemplateService.getPublishHistoryByWebsiteId(currentStore.websiteId);
+            menusResponse = await PageTemplateService.getMenuList(currentStore.websiteId, currentStore.userId);
+            menuList = menusResponse.menuDetails;
+        }
+        currentStore.setPageId(pageId);
+        if(publishHistoryId){
+            if(publishHistoryId.length){
+                currentStore.setPublishHistoryId(publishHistoryId[0].id);
+                navigateTo("/builder/" + pageId);
+                menuStore.setMenuList(menuList);
+                if(publishHistoryId[0].isActive){
+                    activeWebSite.value = true;
+                }
+            }
+        } else {
+            navigateTo("/builder/" + pageExist[0].id);
         }
         
     }
