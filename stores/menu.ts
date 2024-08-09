@@ -94,6 +94,7 @@ export const useMenuStore = defineStore('menu', {
       });
     },
     async createFirstPageAndMenuItem(item: MenuItem) {
+      debugger
         try {
             //Creo todos los datos de un nuevo website
             const newWebSite = await PageTemplateService.createWebSite(currentStore.userId);

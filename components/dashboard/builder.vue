@@ -20,8 +20,14 @@
             <span v-if="!loading">Guardar Respaldo</span>
             <span v-else="loading" class="flex">...Guardando <span class="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900 block ml-3 mt-[2px]"></span></span>
         </button>
+        <button @click="publishLastChanges" :disabled="loading" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-3"
+        :class="{ 'hover:bg-blue-700': loading, 'bg-gray-300 text-gray-500 cursor-not-allowed hover:bg-gray-300': loading }"
+        >
+            <span v-if="!loading">Publicar Cambios</span>
+            <span v-else="loading" class="flex">...publicando <span class="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900 block ml-3 mt-[2px]"></span></span>
+        </button>
         <div class="ml-2">
-            <span class="mr-3">Publicar Web Site</span>
+            <span class="mr-3">Activar Web Site</span>
             <button @click="changeStatusWebSite" :class="{'bg-blue-600': activeWebSite, 'bg-gray-200': !activeWebSite}" class="relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                 <span class="sr-only">Publicar Web Site</span>
                 <span :class="{'translate-x-6': activeWebSite, 'translate-x-1': !activeWebSite}" class="inline-block w-4 h-4 transform bg-white rounded-full transition-transform"></span>
@@ -147,10 +153,11 @@ onMounted(async () => {
     } else {
         pageId = parseInt(route.params.id);
     }
-    createNewPageAndPageTemplate();
+    await createNewPageAndPageTemplate();
     if(pageId) {
         await templateStore.loadTemplateStructure(pageId, userStore.id);
         await menuStore.loadMenu();
+        await publishWebSite();
         isStructureLoaded.value = true;
     }
 });
@@ -328,45 +335,56 @@ function viewModeChange() {
   viewMode.value = !viewMode.value;
 }
 
-async function changeStatusWebSite() {
-    activeWebSite.value = !activeWebSite.value;
 
+async function publishLastChanges() {
+    const domain = "test.com"; //TODO: Obtener esto del dominio registrado, aun no existe el modulo para esto
+    const publishHistoryId = currentStore.publishHistoryId;
+    const isActive = activeWebSite.value;
+    const publishedAt = JSON.stringify(Date());
+    await PageTemplateService.changeActiveSite(
+                publishHistoryId,
+                domain,
+                isActive,
+                true,
+                publishedAt
+            );
+}
+
+async function publishWebSite() {
     const domain = "test.com"; //TODO: Obtener esto del dominio registrado, aun no existe el modulo para esto
     const websiteId = currentStore.websiteId;
     const userId = currentStore.userId;
     const menuHeaderId = currentStore.menuHeaderId;
-    const isActive = activeWebSite.value;
-    const isPublic = true;
     const publishHistoryId = currentStore.publishHistoryId;
-    debugger;
-    if(activeWebSite.value ){
-        if(!publishHistoryId){
+    if(!publishHistoryId){
             const resPublish = await PageTemplateService.createPublishRequest(
                  domain,
                  websiteId,
                  userId,
                  menuHeaderId,
-                 isActive,
-                 isPublic
+                 false,
+                 true
              );
      
              currentStore.setPublishHistoryId(resPublish.id);
-        } else {
-            await PageTemplateService.changeActiveSite(
-                publishHistoryId,
-                domain,
-                isActive,
-                isPublic
-            );
-        }
-    } else {
-        await PageTemplateService.changeActiveSite(
-            publishHistoryId,
-            domain,
-            isActive,
-            isPublic
-        );
     }
+}
+
+async function changeStatusWebSite() {
+    activeWebSite.value = !activeWebSite.value;
+    const domain = "test.com"; //TODO: Obtener esto del dominio registrado, aun no existe el modulo para esto
+    const isActive = activeWebSite.value;
+    const isPublic = true;
+    const publishHistoryId = currentStore.publishHistoryId;
+    const publishedAt = JSON.stringify(Date());
+    debugger;
+    await PageTemplateService.changeActiveSite(
+        publishHistoryId,
+        domain,
+        isActive,
+        isPublic,
+        publishedAt
+    );
 }
 
 function toggleComponentsModal() {

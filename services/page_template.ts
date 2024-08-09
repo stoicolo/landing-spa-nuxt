@@ -452,7 +452,8 @@ class PageTemplateService {
                     userId,
                     menuHeaderId,
                     isActive,
-                    isPublic
+                    isPublic,
+                    publishedAt: new Date().toISOString()
                 }
             });
             console.log("Publish Request Created", response.data);
@@ -487,7 +488,7 @@ class PageTemplateService {
         }
     }
 
-    static async changeActiveSite(publishHistoryId: number, domain: string, isActive: boolean, isPublic: boolean): Promise<any | null> {
+    static async changeActiveSite(publishHistoryId: number, domain: string, isActive: boolean, isPublic: boolean, publishedAt: string): Promise<any | null> {
         try {
             let response = null;
 
@@ -501,7 +502,8 @@ class PageTemplateService {
                     publishHistoryId,
                     domain,
                     isActive,
-                    isPublic
+                    isPublic,
+                    publishedAt
                 }
             });
             console.log("Change Active Site Success", response.data);
