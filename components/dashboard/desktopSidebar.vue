@@ -2,7 +2,8 @@
     <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
       <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-fountain-blue-950 px-6 pb-4">
         <div class="flex h-28 shrink-0 items-center">
-          <img class="h-20 w-auto" src="/img/footprint_initiative_white.png" alt="Footprint initiative logo" />
+          <img class="h-20 w-auto" src="/img/logo-weblox.png" alt="Footprint initiative logo" />
+          <span class="text-white ml-2 text-[30px]">WEBLOX</span>
         </div>
         <nav class="flex flex-1 flex-col">
           <ul role="list" class="flex flex-1 flex-col gap-y-7">

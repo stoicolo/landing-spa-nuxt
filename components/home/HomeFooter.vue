@@ -21,7 +21,7 @@ const footerNavigation = {
       <div class="xl:grid xl:grid-cols-3 xl:gap-8">
         <img
           class="h-36"
-          src="/img/footprint_initiative_white.png"
+          src="/img/logo-weblox.png"
           alt="The Footprint Initiative"
         />
         <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">

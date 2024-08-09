@@ -21,7 +21,7 @@ const mobileMenuOpen = ref(false);
           <span class="sr-only">The Footprint Initiative</span>
           <img
             class="h-20 w-auto"
-            src="/img/footprint_initiative_white.png"
+            src="/img/logo-weblox.png"
             alt="The footprint initiative"
           />
         </a>
