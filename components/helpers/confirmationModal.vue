@@ -5,10 +5,10 @@
         <p class="mb-4">{{ description }}</p>
         <div class="flex justify-end space-x-4">
           <button @click="cancel" class="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded">
-            Cancelar
+            {{ cancelBtn }}
           </button>
           <button @click="confirm" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Aceptar
+            {{ acceptBtn }}
           </button>
         </div>
       </div>
@@ -19,8 +19,24 @@
   import { ref } from 'vue';
   
   const props = defineProps({
-    title: String,
-    description: String
+    title: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      required: true
+    },
+    cancelBtn: {
+      type: String,
+      required: false,
+      default: 'Cancelar'
+    },
+    acceptBtn: {
+      type: String,
+      required: false,
+      default: 'Aceptar'
+    }
   });
   
   const emit = defineEmits(['confirm', 'cancel']);

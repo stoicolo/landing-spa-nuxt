@@ -24,8 +24,8 @@ currentStore.setUserId(parseInt(userStore.id));
 export const useMenuStore = defineStore('menu', {
   state: () => ({
     navigation: [
-      { menuName: "Dashboard", href: "#", iconName: "HomeIcon", current: true, order: 0 },
-      { menuName: "Reportes", href: "#", iconName: "CursorArrowRippleIcon", current: false, order: 1 },
+      { menuName: "Dashboard", href: "/builder/1", iconName: "HomeIcon", current: true, order: 0 },
+      { menuName: "Respaldos", href: "/backups", iconName: "DocumentDuplicateIcon", current: false, order: 1 },
       { menuName: "Menu", href: "#", iconName: "Bars3Icon", current: false, order: 2 },
     ] as MenuItem[],
     menu: [] as MenuItem[]
@@ -94,6 +94,7 @@ export const useMenuStore = defineStore('menu', {
       });
     },
     async createFirstPageAndMenuItem(item: MenuItem) {
+      debugger
         try {
             //Creo todos los datos de un nuevo website
             const newWebSite = await PageTemplateService.createWebSite(currentStore.userId);

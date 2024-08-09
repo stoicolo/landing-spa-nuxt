@@ -179,11 +179,7 @@
         </div>
       </div>
   
-      <main class="py-10">
-        <div class="px-4 sm:px-6 lg:px-8">
-          <slot />
-        </div>
-      </main>
+      <slot />
   
       <AddMenuItemModal v-if="isAddMenuItemModalOpen" :parentItem="selectedParentItem" @close="closeAddMenuItemModal" />
     </div>
@@ -206,6 +202,7 @@
     BellIcon,
     Cog6ToothIcon,
     CursorArrowRippleIcon,
+    DocumentDuplicateIcon,
     FolderArrowDownIcon,
     FolderIcon,
     HomeIcon,
@@ -247,6 +244,7 @@
     SquaresPlusIcon,
     Cog6ToothIcon,
     Bars3Icon,
+    DocumentDuplicateIcon
   };
   
   const getIcon = (iconName: string | undefined) => {
