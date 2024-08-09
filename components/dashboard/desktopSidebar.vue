@@ -99,11 +99,13 @@
     HomeIcon,
     FolderIcon,
     CursorArrowRippleIcon,
+    DocumentDuplicateIcon,
     Bars3Icon,
     ChevronDownIcon,
     SquaresPlusIcon,
     PlusIcon
   } from "@heroicons/vue/24/outline";
+  
   import AddMenuItemModal from '~/components/helpers/addMenuItemModal.vue';
   
   const menuStore = useMenuStore();
@@ -116,7 +118,8 @@
     FolderIcon,
     CursorArrowRippleIcon,
     Bars3Icon,
-    SquaresPlusIcon
+    SquaresPlusIcon,
+    DocumentDuplicateIcon
   };
   
   const getIcon = (iconName: string | undefined) => {

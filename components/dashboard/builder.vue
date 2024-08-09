@@ -1,5 +1,58 @@
 <template>
-    <div class="flex items-center p-2">
+    <div class="bg-white border-b border-gray-200 py-2 px-4">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="text-sm font-medium text-gray-700">Vista Previa</span>
+        <button @click="viewModeChange" class="relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" :class="{'bg-indigo-600': viewMode, 'bg-gray-200': !viewMode}">
+          <span class="sr-only">Habilitar modo de vista</span>
+          <span :class="{'translate-x-4': viewMode, 'translate-x-0': !viewMode}" class="pointer-events-none relative inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+        </button>
+      </div>
+      
+      <div class="flex items-center space-x-2">
+        <button @click="changeToSiteView" class="inline-flex items-center px-2 py-1 text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500">
+          <svg class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+          </svg>
+          Pantalla Completa
+        </button>
+        
+        <button @click="() => saveModal = !saveModal" :disabled="loading" class="inline-flex items-center px-2 py-1 text-xs font-medium rounded text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500" :class="{ 'opacity-50 cursor-not-allowed': loading }">
+          <svg v-if="!loading" class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+          </svg>
+          <svg v-else class="animate-spin mr-1 h-3 w-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          {{ loading ? 'Guardando...' : 'Guardar' }}
+        </button>
+        
+        <button @click="() => saveBackupModal = !saveBackupModal" :disabled="loading" class="inline-flex items-center px-2 py-1 text-xs font-medium rounded text-yellow-700 bg-yellow-100 hover:bg-yellow-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-yellow-500" :class="{ 'opacity-50 cursor-not-allowed': loading }">
+          <svg class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+          </svg>
+          Respaldo
+        </button>
+        
+        <button @click="publishLastChanges" :disabled="loading" class="inline-flex items-center px-2 py-1 text-xs font-medium rounded text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-green-500" :class="{ 'opacity-50 cursor-not-allowed': loading }">
+          <svg class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          {{ loading ? 'Publicando...' : 'Publicar' }}
+        </button>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <span class="text-sm font-medium text-gray-700">Activar Web Site</span>
+        <button @click="changeStatusWebSite" class="relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" :class="{'bg-indigo-600': activeWebSite, 'bg-gray-200': !activeWebSite}">
+          <span class="sr-only">Publicar Web Site</span>
+          <span :class="{'translate-x-4': activeWebSite, 'translate-x-0': !activeWebSite}" class="pointer-events-none relative inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+    <!-- <div class="flex items-center p-2">
         <span class="mr-3">Vista Previa</span>
         <button @click="viewModeChange" :class="{'bg-blue-600': viewMode, 'bg-gray-200': !viewMode}" class="relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
             <span class="sr-only">Enable view mode</span>
@@ -33,7 +86,7 @@
                 <span :class="{'translate-x-6': activeWebSite, 'translate-x-1': !activeWebSite}" class="inline-block w-4 h-4 transform bg-white rounded-full transition-transform"></span>
             </button>
         </div>
-    </div>
+    </div> -->
     <div v-if="sortedSections.length">
         <template v-for="(section, index) in sortedSections" :key="section.id" v-memo="[section.position, viewMode]">
             <div class="section-wrapper relative" :class="{'bg-blue-200 p-2 border-t-2 border-gray-500': !viewMode}">
@@ -100,6 +153,15 @@
       @confirm="handleConfirmRemoveSection"
       @cancel="handleCancelRemoveSection"
     />
+    <ConfirmationModal 
+      v-if="saveModal"
+      :title="modalTitleSave" 
+      :description="modalDescriptionSave"
+      :cancelBtn="'Solo Guardar'"
+      :acceptBtn="'Guardar y Publicar'"
+      @confirm="handleConfirmSave"
+      @cancel="handleCancelSave"
+    />
     <SaveBackupModal 
     v-if="saveBackupModal"
     @confirm="name => handleSaveBackup(name)"
@@ -130,10 +192,13 @@ const activeWebSite = ref(false);
 const showComponentsModal = ref(false);
 const isConfirmationModalOpen = ref(false);
 const saveBackupModal = ref(false);
+const saveModal = ref(false);
 let currentPosition = ref(0);
 const loading = ref(false);
+const modalTitleSave = '¿Te gustaría publicar de inmediato estos cambios?';
 const modalTitleRemoveSection = '¿Estás seguro de eliminar esta sección?';
 const modalDescriptionRemoveSection = 'Esta acción no se puede deshacer, a menos que tengas un respaldo creado.';
+const modalDescriptionSave = "Puedes publicar los cambios para que sean visibles en tu pagina web o puedes solo guardarlos para publicarlos luego.";
 const idSelectedSectionToDelete = ref({});
 const fullscreen = ref(false);
 const isStructureLoaded = ref(false);
@@ -283,7 +348,7 @@ async function saveTemplate() {
         $toaster.show({
             title: "Guardado",
             description: "Se han guardado los cambios.",
-            delay: 3,
+            delay: 6,
             position: "top-right",
             type: "success"
         });
@@ -348,6 +413,13 @@ async function publishLastChanges() {
                 true,
                 publishedAt
             );
+    $toaster.show({
+        title: "Publicado",
+        description: "Se han publicado los cambios.",
+        delay: 3,
+        position: "top-right",
+        type: "success"
+    });
 }
 
 async function publishWebSite() {
@@ -425,5 +497,16 @@ function handleConfirmRemoveSection() {
 
 function handleCancelRemoveSection() {
     isConfirmationModalOpen.value = false;
+}
+
+async function handleConfirmSave() {
+    await saveTemplate();
+    await publishLastChanges();
+    saveModal.value = false;
+}
+
+function handleCancelSave() {
+    saveTemplate();
+    saveModal.value = false;
 }
 </script>
