@@ -1,58 +1,38 @@
-<script setup lang="ts">
-import HomeHeader from "~/components/home/HomeHeader.vue";
-import HeroSection from "~/components/home/HeroSection.vue";
-import FeatureSection from "~/components/home/FeatureSection.vue";
-import TestimonialSection from "~/components/home/TestimonialSection.vue";
-import PricingSection from "~/components/home/PricingSection.vue";
-import FAQSection from "~/components/home/FAQSection.vue";
-import HomeFooter from "~/components/home/HomeFooter.vue";
+<script setup>
+import ClientRender from '~/components/home/ClientRender.vue';
 
 useHead({
-  title: "Plataforma de Emprendimientos Circulares",
+  title: "Weblox - Crea páginas web sin saber programar",
   meta: [
     {
-      name: "Plataforma de Emprendimientos Circulares",
+      name: "Weblox - Crea páginas web sin saber programar",
       content:
-        "Éste es un espacio pensado para dignificar los esfuerzos y brindar acompañamiento en el camino de la Economía Circular a pequeñas, medianas y grandes empresas.",
+        "Weblox es una aplicación que te permite crear páginas web de forma fácil, económica y rápida, sin necesidad de saber programar.",
     },
   ],
 });
 
 useSeoMeta({
-  title: "Plataforma de Emprendimientos Circulares",
-  ogTitle: "Plataforma de Emprendimientos Circulares",
+  title: "Weblox - Crea páginas web sin saber programar",
+  ogTitle: "Weblox - Crea páginas web sin saber programar",
   description:
-    "Éste es un espacio pensado para dignificar los esfuerzos y brindar acompañamiento en el camino de la Economía Circular a pequeñas, medianas y grandes empresas.",
+    "Weblox es una aplicación que te permite crear páginas web de forma fácil, económica y rápida, sin necesidad de saber programar.",
   ogDescription:
-    "Éste es un espacio pensado para dignificar los esfuerzos y brindar acompañamiento en el camino de la Economía Circular a pequeñas, medianas y grandes empresas.",
-  ogImage: "/img/footprint_initiative.png",
+    "Weblox es una aplicación que te permite crear páginas web de forma fácil, económica y rápida, sin necesidad de saber programar.",
+  ogImage: "/img/weblox_logo.png",
   twitterCard: "summary_large_image",
 });
 </script>
 
 <template>
   <div class="bg-white">
-    <!-- Header -->
-    <HomeHeader />
-
     <main>
-      <!-- Hero section -->
-      <HeroSection />
-
-      <!-- Feature section -->
-      <FeatureSection />
-
-      <!-- Testimonial section -->
-      <TestimonialSection />
-
-      <!-- Pricing section -->
-      <PricingSection />
-
-      <!-- FAQ section -->
-      <FAQSection />
+      <div>
+        <NuxtLink to="/login" class="text-sm font-semibold leading-6 text-black"
+          >Login <span aria-hidden="true">&rarr;</span></NuxtLink
+        >
+        <ClientRender />
+    </div>
     </main>
-
-    <!-- Footer -->
-    <HomeFooter />
   </div>
 </template>
