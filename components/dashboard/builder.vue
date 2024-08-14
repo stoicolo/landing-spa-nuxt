@@ -200,16 +200,14 @@ function changeActiveItemMenu() {
 }
 
 async function createNewPageAndPageTemplate() {
-    debugger;
     const pageExist = await PageTemplateService.checkIfPageExist(pageId, userStore.id);
-    //TODO: Debo limpiar states
     if(!pageId && !pageExist.length) {
         try {
             menuStore.createFirstPageAndMenuItem({
                 menuName: "Inicio",
                 href: "/builder/1",
                 slug: "inicio",
-                order: 1
+                order: 0
             });
         } catch (error) {
             console.error('Failed to create new page and page template:', error);
@@ -254,7 +252,6 @@ const sortedSections = computed(() => {
     if (!isStructureLoaded.value) {
         return [];
     }
-    console.log("templateStore.structure", templateStore.structure);
   const objectTemplate = JSON.parse(JSON.stringify(templateStore.structure.page_template.sections));
   if (!objectTemplate) {
     console.error("Estructura no definida o incompleta en sections");
@@ -461,7 +458,6 @@ function confirmationModal(section) {
 }
 
 function handleConfirmRemoveSection() {
-    console.log("idSelectedSectionToDelete.value", idSelectedSectionToDelete.value);
     templateStore.removeSectionById(idSelectedSectionToDelete.value);
     saveTemplate();
     isConfirmationModalOpen.value = false;

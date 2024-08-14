@@ -66,7 +66,6 @@
   
   onMounted(async () => {
     backupsList.value = await PageTemplateService.getBackups(userStore.id);
-    console.log(backupsList.value);
     pagesList.value = await PageTemplateService.fetchPagesListByUserId(userStore.id);
     changeActiveItemMenu();
   });
@@ -76,20 +75,17 @@
 }
   
   function useBackup(backupId, templateId) {
-    console.log('Using backup:', backupId);
     isConfirmationModalRestoreOpen.value = true;
     backupIdSelected.value = backupId;
     templateIdSelected.value = templateId;
   }
   
   function deleteBackup(backupId) {
-    console.log('Deleting backup:', backupId);
     isConfirmationModalOpen.value = true;
     backupIdSelected.value = backupId;
   }
 
   async function handleConfirmRemoveBackup() {
-    console.log('Confirmed removal');
     isConfirmationModalOpen.value = false;
     try {
         await PageTemplateService.removeBackupById(backupIdSelected.value);
@@ -102,12 +98,10 @@
   }
 
     function handleCancelRemoveBackup() {
-        console.log('Cancelled removal');
         isConfirmationModalOpen.value = false;
     }
 
     async function handleConfirmRestoreBackup() {
-        console.log('Confirmed restoration');
         isConfirmationModalRestoreOpen.value = false;
         const backupToRestore = backupsList.value.find(backup => backup.id === backupIdSelected.value);
         pageId.value = pagesList.value?.find(p => p.pageName === backupToRestore.pageName);
@@ -122,7 +116,6 @@
     }
 
     async function handleCancelRestoreBackup() {
-        console.log('Cancelled restoration');
         isConfirmationModalRestoreOpen.value = false;
     }
   </script>

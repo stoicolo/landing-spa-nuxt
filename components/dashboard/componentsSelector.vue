@@ -19,9 +19,8 @@ function selectComponent(component) {
 
 <template>
   <div class="modal-background">
-    <div class="modal-container max-w-full relative"> <!-- Añadido relative aquí -->
+    <div class="modal-container max-w-full relative">
       <div class="modal-header flex justify-between items-center p-4 border-b">
-        <!-- Texto alineado a la izquierda -->
         <span class="text-gray-700 text-lg">
           <strong>Lista de Componentes</strong> | Seleccione un componente haciendo clic en él.
         </span>
@@ -45,7 +44,7 @@ function selectComponent(component) {
           <img :src="component.image" alt="" class="max-h-full w-full object-cover">
         </div>
       </div>
-      <div class="modal-actions flex justify-end p-4"> <!-- Ajustes al layout de los botones -->
+      <div class="modal-actions flex justify-end p-4">
         <button 
           @click="$emit('add-component', selectedComponent)"
           :disabled="!selectedComponent"
@@ -65,11 +64,11 @@ function selectComponent(component) {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Color de fondo negro con transparencia */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Alto z-index para asegurar que está en frente */
+  z-index: 1000;
 }
 .modal-container {
   background-color: white;
@@ -77,24 +76,24 @@ function selectComponent(component) {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  width: 95%; /* Asegura un pequeño margen */
+  width: 95%;
   max-height: 90vh;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Opcional: añade sombra para mejor visibilidad */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   overflow: hidden;
 }
 .component-item {
   cursor: pointer;
   height: auto;
-  height: 300px; /* Altura máxima de 300px */
+  height: 300px;
   overflow: hidden;
 }
 .modal-header {
   width: 100%;
-  background-color: white; /* Fondo blanco para el encabezado */
+  background-color: white;
 }
 .component-item img {
-  width: 100%; /* Asegura que la imagen abarque todo el ancho */
-  max-height: 100%; /* Asegura que la imagen no exceda la altura del contenedor */
-  object-fit: cover; /* Ajusta la imagen para cubrir el espacio disponible */
+  width: 100%;
+  max-height: 100%;
+  object-fit: cover;
 }
 </style>

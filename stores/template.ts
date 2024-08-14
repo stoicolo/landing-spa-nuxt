@@ -43,17 +43,21 @@ export const useTemplateStore = defineStore('template_store', {
   actions: {
     async loadTemplateStructure(pageId: number = 0, userId: number = 0) {
       this.isLoading = true;
+
       try {
         const data = await PageTemplateService.fetchPageTemplate(userId, pageId);
+
         if (!data) {
           throw new Error('Failed to fetch page structure');
         }
+
         currentStore.setPageTemplateId(data.id ? data.id : 0);
-        console.log('Loaded page structure:', data);
+
         this.structure.page_template = {
           ...data,
           sections: Array.isArray(data.sections) ? data.sections : []
         };
+
       } catch (error) {
         console.error('Error loading the page structure:', error);
       } finally {
@@ -172,7 +176,7 @@ export const useTemplateStore = defineStore('template_store', {
     matchPositionWithIndex() {
       if (this.structure.page_template.sections) {
         this.structure.page_template.sections.sort((a, b) => a.position - b.position);
-        console.log('Sorted sections:', this.structure.page_template.sections);
+        
         this.structure.page_template.sections.forEach((section, index) => {
           section.position = index;
         });
