@@ -24,7 +24,7 @@ currentStore.setUserId(parseInt(userStore.id));
 export const useMenuStore = defineStore('menu', {
   state: () => ({
     navigation: [
-      { menuName: "Dashboard", href: "/builder/1", iconName: "HomeIcon", current: true, order: 0 },
+      { menuName: "Dashboard", href: "/builder/1", iconName: "HomeIcon", current: false, order: 0 },
       { menuName: "Respaldos", href: "/backups", iconName: "DocumentDuplicateIcon", current: false, order: 1 },
       { menuName: "Menu", href: "#", iconName: "Bars3Icon", current: false, order: 2 },
     ] as MenuItem[],
@@ -40,20 +40,19 @@ export const useMenuStore = defineStore('menu', {
         //Si no existe un menuHeaderId en el currentStore, lo busco y lo guardo
         const menuHeaderLoaded = await PageTemplateService.getMenuHeader(currentStore.userId, currentStore.websiteId);
         currentStore.setMenuHeaderId(menuHeaderLoaded[0].id);
-        console.log("menuLoaded:::", menuHeaderLoaded);
-        debugger;
-        const fullMenu = await PageTemplateService.getMenuByHeaderId(menuHeaderLoaded[0].id);
-        //TODO: Chequear error aqui cuando se crea usuario nuevo
-        console.log("fullMenu:::", fullMenu);
-        
-        // this.menu.push(fullMenu[0]);
-      } else {
-        //Si ya existe un menuHeaderId en el currentStore, lo uso para cargar el menu
-        const fullMenu = await PageTemplateService.getMenuByHeaderId(currentStore.menuHeaderId);
-        console.log("fullMenu:::", fullMenu);
-        
       }
     },
+
+    setActiveMenu(path: string) {
+      debugger;
+      this.navigation.forEach((item) => {
+        item.current = path === item.href;
+      });
+      this.menu.forEach((item) => {
+        item.current = path === item.href;
+      });
+    },
+
     async addMenuItem(item: MenuItem) {
       let newPageTemplate;
       let newPage;
@@ -85,16 +84,12 @@ export const useMenuStore = defineStore('menu', {
         console.error('Error creating new Item Menu:', error);
       }
     },
+
     getCombinedNavigation() {
       return [...this.sortedNavigation, ...this.sortedMenu];
     },
-    setCurrentNavigationItem(name: string) {
-      this.navigation.forEach(item => {
-        item.current = item.menuName === name;
-      });
-    },
+
     async createFirstPageAndMenuItem(item: MenuItem) {
-      debugger
         try {
             //Creo todos los datos de un nuevo website
             const newWebSite = await PageTemplateService.createWebSite(currentStore.userId);
@@ -124,14 +119,9 @@ export const useMenuStore = defineStore('menu', {
     setMenuList(items: MenuItem[]){
       this.menu = [];
       items.forEach(item => {
-        this.menu.push(item);
+        const itemMenuValue = {...item, current: false};
+        this.menu.push(itemMenuValue);
       });
     },
-
-    async getMenuBySlug(slug: string): Promise<MenuItem | null> {
-      debugger;
-      const menuList = await PageTemplateService.getMenuByHeaderId(currentStore.menuHeaderId);
-      return menuList.find((item: any) => item.slug === slug) || null;
-    }
   }
 });

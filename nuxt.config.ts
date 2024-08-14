@@ -8,8 +8,10 @@ export default defineNuxtConfig({
   },
   telemetry: false,
   devtools: { enabled: true },
+  ssr: true, // o false, dependiendo de tus necesidades
 
   app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
     head: {
       link: [
         {
@@ -18,6 +20,12 @@ export default defineNuxtConfig({
         },
       ],
     },
+  },
+
+  router: {
+    options: {
+      strict: false
+    }
   },
 
   runtimeConfig: {

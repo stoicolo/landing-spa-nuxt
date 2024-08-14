@@ -106,7 +106,6 @@
     SquaresPlusIcon,
     PlusIcon
   } from "@heroicons/vue/24/outline";
-  
   import AddMenuItemModal from '~/components/helpers/addMenuItemModal.vue';
   
   const menuStore = useMenuStore();
@@ -148,4 +147,5 @@
   const closeAddMenuItemModal = () => {
     isAddMenuItemModalOpen.value = false;
   };
+  
   </script>
