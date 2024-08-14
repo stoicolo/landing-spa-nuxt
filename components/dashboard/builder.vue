@@ -1,172 +1,139 @@
 <template>
-    <div class="bg-white border-b border-gray-200 py-2 px-4">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <span class="text-sm font-medium text-gray-700">Vista Previa</span>
-        <button @click="viewModeChange" class="relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" :class="{'bg-indigo-600': viewMode, 'bg-gray-200': !viewMode}">
-          <span class="sr-only">Habilitar modo de vista</span>
-          <span :class="{'translate-x-4': viewMode, 'translate-x-0': !viewMode}" class="pointer-events-none relative inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
-        </button>
-      </div>
-      
-      <div class="flex items-center space-x-2">
-        <button @click="changeToSiteView" class="inline-flex items-center px-2 py-1 text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500">
-          <svg class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-          </svg>
-          Pantalla Completa
-        </button>
-        
-        <button @click="() => saveModal = !saveModal" :disabled="loading" class="inline-flex items-center px-2 py-1 text-xs font-medium rounded text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500" :class="{ 'opacity-50 cursor-not-allowed': loading }">
-          <svg v-if="!loading" class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
-          </svg>
-          <svg v-else class="animate-spin mr-1 h-3 w-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-          {{ loading ? 'Guardando...' : 'Guardar' }}
-        </button>
-        
-        <button @click="() => saveBackupModal = !saveBackupModal" :disabled="loading" class="inline-flex items-center px-2 py-1 text-xs font-medium rounded text-yellow-700 bg-yellow-100 hover:bg-yellow-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-yellow-500" :class="{ 'opacity-50 cursor-not-allowed': loading }">
-          <svg class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
-          </svg>
-          Respaldo
-        </button>
-        
-        <button @click="publishLastChanges" :disabled="loading" class="inline-flex items-center px-2 py-1 text-xs font-medium rounded text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-green-500" :class="{ 'opacity-50 cursor-not-allowed': loading }">
-          <svg class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-          </svg>
-          {{ loading ? 'Publicando...' : 'Publicar' }}
-        </button>
-      </div>
+    <div class="m-6">
+        <div class="bg-white border-b border-gray-200 py-2 px-4">
+            <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="text-sm font-medium text-gray-700">Vista Previa</span>
+                <button @click="viewModeChange" class="relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" :class="{'bg-indigo-600': viewMode, 'bg-gray-200': !viewMode}">
+                <span class="sr-only">Habilitar modo de vista</span>
+                <span :class="{'translate-x-4': viewMode, 'translate-x-0': !viewMode}" class="pointer-events-none relative inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+                </button>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+                <button @click="changeToSiteView" class="inline-flex items-center px-2 py-1 text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500">
+                <svg class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                </svg>
+                Pantalla Completa
+                </button>
+                
+                <button @click="() => saveModal = !saveModal" :disabled="loading" class="inline-flex items-center px-2 py-1 text-xs font-medium rounded text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500" :class="{ 'opacity-50 cursor-not-allowed': loading }">
+                <svg v-if="!loading" class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                </svg>
+                <svg v-else class="animate-spin mr-1 h-3 w-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                {{ loading ? 'Guardando...' : 'Guardar' }}
+                </button>
+                
+                <button @click="() => saveBackupModal = !saveBackupModal" :disabled="loading" class="inline-flex items-center px-2 py-1 text-xs font-medium rounded text-yellow-700 bg-yellow-100 hover:bg-yellow-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-yellow-500" :class="{ 'opacity-50 cursor-not-allowed': loading }">
+                <svg class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                </svg>
+                Respaldo
+                </button>
+                
+                <button @click="publishLastChanges" :disabled="loading" class="inline-flex items-center px-2 py-1 text-xs font-medium rounded text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-green-500" :class="{ 'opacity-50 cursor-not-allowed': loading }">
+                <svg class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                {{ loading ? 'Publicando...' : 'Publicar' }}
+                </button>
+            </div>
 
-      <div class="flex items-center space-x-2">
-        <span class="text-sm font-medium text-gray-700">Activar Web Site</span>
-        <button @click="changeStatusWebSite" class="relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" :class="{'bg-indigo-600': activeWebSite, 'bg-gray-200': !activeWebSite}">
-          <span class="sr-only">Publicar Web Site</span>
-          <span :class="{'translate-x-4': activeWebSite, 'translate-x-0': !activeWebSite}" class="pointer-events-none relative inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
-        </button>
-      </div>
-    </div>
-  </div>
-    <!-- <div class="flex items-center p-2">
-        <span class="mr-3">Vista Previa</span>
-        <button @click="viewModeChange" :class="{'bg-blue-600': viewMode, 'bg-gray-200': !viewMode}" class="relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-            <span class="sr-only">Enable view mode</span>
-            <span :class="{'translate-x-6': viewMode, 'translate-x-1': !viewMode}" class="inline-block w-4 h-4 transform bg-white rounded-full transition-transform"></span>
-        </button>
-        <button @click="changeToSiteView" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">
-            <span>Ver pantalla completa</span>
-        </button>
-        <button @click="saveTemplate" :disabled="loading" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3"
-        :class="{ 'hover:bg-blue-700': loading, 'bg-gray-300 text-gray-500 cursor-not-allowed hover:bg-gray-300': loading }"
-        >
-            <span v-if="!loading">Guardar Cambios</span>
-            <span v-else="loading" class="flex">...Guardando <span class="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900 block ml-3 mt-[2px]"></span></span>
-        </button>
-        <button @click="() => saveBackupModal = !saveBackupModal" :disabled="loading" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-3"
-        :class="{ 'hover:bg-blue-700': loading, 'bg-gray-300 text-gray-500 cursor-not-allowed hover:bg-gray-300': loading }"
-        >
-            <span v-if="!loading">Guardar Respaldo</span>
-            <span v-else="loading" class="flex">...Guardando <span class="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900 block ml-3 mt-[2px]"></span></span>
-        </button>
-        <button @click="publishLastChanges" :disabled="loading" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-3"
-        :class="{ 'hover:bg-blue-700': loading, 'bg-gray-300 text-gray-500 cursor-not-allowed hover:bg-gray-300': loading }"
-        >
-            <span v-if="!loading">Publicar Cambios</span>
-            <span v-else="loading" class="flex">...publicando <span class="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900 block ml-3 mt-[2px]"></span></span>
-        </button>
-        <div class="ml-2">
-            <span class="mr-3">Activar Web Site</span>
-            <button @click="changeStatusWebSite" :class="{'bg-blue-600': activeWebSite, 'bg-gray-200': !activeWebSite}" class="relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            <div class="flex items-center space-x-2">
+                <span class="text-sm font-medium text-gray-700">Activar Web Site</span>
+                <button @click="changeStatusWebSite" class="relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" :class="{'bg-indigo-600': activeWebSite, 'bg-gray-200': !activeWebSite}">
                 <span class="sr-only">Publicar Web Site</span>
-                <span :class="{'translate-x-6': activeWebSite, 'translate-x-1': !activeWebSite}" class="inline-block w-4 h-4 transform bg-white rounded-full transition-transform"></span>
-            </button>
+                <span :class="{'translate-x-4': activeWebSite, 'translate-x-0': !activeWebSite}" class="pointer-events-none relative inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+                </button>
+            </div>
+            </div>
         </div>
-    </div> -->
-    <div v-if="sortedSections.length">
-        <template v-for="(section, index) in sortedSections" :key="section.id" v-memo="[section.position, viewMode]">
-            <div class="section-wrapper relative" :class="{'bg-blue-200 p-2 border-t-2 border-gray-500': !viewMode}">
-                <component v-if="section.widget && section.widget.element"
-                    :is="getComponent(section.widget.name, section.widget.element)" v-bind="section.widget.element" :viewMode="viewMode" :id="section.id" />
-                <div class="section-actions absolute top-[8px] z-[50] flex justify-center items-center w-[300px] mx-auto right-[8px] bg-blue-200 rounded-bl-[20px]" v-if="!viewMode">
-                    <button @click="confirmationModal(section.id)">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                        </svg>
-                    </button>
-                    <button @click="templateStore.moveWidgetInSection(section.id, 'up')">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75 12 3m0 0 3.75 3.75M12 3v18" />
-                        </svg>
-                    </button>
-                    <button @click="templateStore.moveWidgetInSection(section.id, 'down')">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25 12 21m0 0-3.75-3.75M12 21V3" />
-                        </svg>
-                    </button> 
-                    
-                    <div class="p-2">
-                        <div class="select-template max-w-xs ml-auto">
-                            <label for="template" class="block text-sm font-medium text-gray-700">Selecciona una plantilla</label>
-                            <select @change="event => onSelect(event, section)" :value="section.widget.element.template" id="template" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                                <option value="0">Plantilla 1</option>
-                                <option value="1">Plantilla 2</option>
-                            </select>
+        <div v-if="sortedSections.length">
+            <template v-for="(section, index) in sortedSections" :key="section.id" v-memo="[section.position, viewMode]">
+                <div class="section-wrapper relative" :class="{'bg-blue-200 p-2 border-t-2 border-gray-500': !viewMode}">
+                    <component v-if="section.widget && section.widget.element"
+                        :is="getComponent(section.widget.name, section.widget.element)" v-bind="section.widget.element" :viewMode="viewMode" :id="section.id" />
+                    <div class="section-actions absolute top-[8px] z-[50] flex justify-center items-center w-[300px] mx-auto right-[8px] bg-blue-200 rounded-bl-[20px]" v-if="!viewMode">
+                        <button @click="confirmationModal(section.id)">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                            </svg>
+                        </button>
+                        <button @click="templateStore.moveWidgetInSection(section.id, 'up')">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75 12 3m0 0 3.75 3.75M12 3v18" />
+                            </svg>
+                        </button>
+                        <button @click="templateStore.moveWidgetInSection(section.id, 'down')">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25 12 21m0 0-3.75-3.75M12 21V3" />
+                            </svg>
+                        </button> 
+                        
+                        <div class="p-2">
+                            <div class="select-template max-w-xs ml-auto">
+                                <label for="template" class="block text-sm font-medium text-gray-700">Selecciona una plantilla</label>
+                                <select @change="event => onSelect(event, section)" :value="section.widget.element.template" id="template" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                    <option value="0">Plantilla 1</option>
+                                    <option value="1">Plantilla 2</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div v-if="!viewMode" class="flex justify-center items-center mt-2 mb-2 cursor-pointer" @click="openComponentsSelectedWithCurrentPosition(section.position + 1)">
-                <button>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
-                </button>
-                <span class="ml-2">Agregar Sección</span>
-            </div>
-        </template>
-    </div>
-    <div v-else>
-        <div
-            class="empty-state flex flex-col items-center justify-center p-10 border-2 border-dashed border-gray-400 rounded-lg">
-            <div class="icon-container mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-500" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-                </svg>
-            </div>
-            <h2 class="text-lg font-semibold text-gray-700 mb-4">¡Añade tu primer sección!</h2>
-            <button @click="showComponentsModal = !showComponentsModal"
-                class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Añadir
-                sección</button>
+                <div v-if="!viewMode" class="flex justify-center items-center mt-2 mb-2 cursor-pointer" @click="openComponentsSelectedWithCurrentPosition(section.position + 1)">
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </button>
+                    <span class="ml-2">Agregar Sección</span>
+                </div>
+            </template>
         </div>
+        <div v-else>
+            <div
+                class="empty-state flex flex-col items-center justify-center p-10 border-2 border-dashed border-gray-400 rounded-lg">
+                <div class="icon-container mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-500" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                    </svg>
+                </div>
+                <h2 class="text-lg font-semibold text-gray-700 mb-4">¡Añade tu primer sección!</h2>
+                <button @click="showComponentsModal = !showComponentsModal"
+                    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Añadir
+                    sección</button>
+            </div>
+        </div>
+        <ComponentsSelector v-if="showComponentsModal" @close="toggleComponentsModal" @add-component="component => addComponentSelected(component, currentPosition)" />
+        <ConfirmationModal 
+            v-if="isConfirmationModalOpen" 
+            :title="modalTitleRemoveSection" 
+            :description="modalDescriptionRemoveSection"
+            @confirm="handleConfirmRemoveSection"
+            @cancel="handleCancelRemoveSection"
+        />
+        <ConfirmationModal 
+            v-if="saveModal"
+            :title="modalTitleSave" 
+            :description="modalDescriptionSave"
+            :cancelBtn="'Solo Guardar'"
+            :acceptBtn="'Guardar y Publicar'"
+            @confirm="handleConfirmSave"
+            @cancel="handleCancelSave"
+        />
+        <SaveBackupModal 
+            v-if="saveBackupModal"
+            @confirm="name => handleSaveBackup(name)"
+            @cancel="() => saveBackupModal = !saveBackupModal"
+        />
     </div>
-    <ComponentsSelector v-if="showComponentsModal" @close="toggleComponentsModal" @add-component="component => addComponentSelected(component, currentPosition)" />
-    <ConfirmationModal 
-      v-if="isConfirmationModalOpen" 
-      :title="modalTitleRemoveSection" 
-      :description="modalDescriptionRemoveSection"
-      @confirm="handleConfirmRemoveSection"
-      @cancel="handleCancelRemoveSection"
-    />
-    <ConfirmationModal 
-      v-if="saveModal"
-      :title="modalTitleSave" 
-      :description="modalDescriptionSave"
-      :cancelBtn="'Solo Guardar'"
-      :acceptBtn="'Guardar y Publicar'"
-      @confirm="handleConfirmSave"
-      @cancel="handleCancelSave"
-    />
-    <SaveBackupModal 
-    v-if="saveBackupModal"
-    @confirm="name => handleSaveBackup(name)"
-    @cancel="() => saveBackupModal = !saveBackupModal"
-    />
 </template>
 
 
@@ -195,10 +162,10 @@ const saveBackupModal = ref(false);
 const saveModal = ref(false);
 let currentPosition = ref(0);
 const loading = ref(false);
-const modalTitleSave = '¿Te gustaría publicar de inmediato estos cambios?';
+const modalTitleSave = '¿Quieres publicar estos cambios ahora mismo?';
 const modalTitleRemoveSection = '¿Estás seguro de eliminar esta sección?';
 const modalDescriptionRemoveSection = 'Esta acción no se puede deshacer, a menos que tengas un respaldo creado.';
-const modalDescriptionSave = "Puedes publicar los cambios para que sean visibles en tu pagina web o puedes solo guardarlos para publicarlos luego.";
+const modalDescriptionSave = "Puedes hacer que los cambios sean visibles en tu página web de inmediato, o simplemente guardarlos para publicarlos más tarde.";
 const idSelectedSectionToDelete = ref({});
 const fullscreen = ref(false);
 const isStructureLoaded = ref(false);
@@ -225,7 +192,12 @@ onMounted(async () => {
         await publishWebSite();
         isStructureLoaded.value = true;
     }
+    changeActiveItemMenu();
 });
+
+function changeActiveItemMenu() {
+    menuStore.setActiveMenu(route.path);
+}
 
 async function createNewPageAndPageTemplate() {
     debugger;

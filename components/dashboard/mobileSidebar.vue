@@ -35,7 +35,7 @@
                         <ul role="list" class="-mx-2 space-y-1">
                           <li v-for="item in menuStore.navigation" :key="item.menuName">
                             <template v-if="item.menuName !== 'Menu'">
-                              <a :href="item.href" :class="[
+                              <a @click="navigateTo(item.href)" :class="[
                                 item.current
                                   ? 'bg-gray-800 text-white'
                                   : 'text-gray-400 hover:bg-gray-800 hover:text-white',
@@ -69,7 +69,7 @@
                                 <ul v-if="isMenuOpen" class="mt-1 space-y-1">
                                   <li v-for="menuItem in menuStore.menu" :key="menuItem.menuName">
                                     <div class="flex items-center justify-between">
-                                      <a :href="menuItem.href" :target="menuItem.target" :class="[
+                                      <a @click="navigateTo(menuItem.href)" :target="menuItem.target" :class="[
                                         menuItem.current
                                           ? 'bg-gray-700 text-white'
                                           : 'text-gray-300 hover:bg-gray-700 hover:text-white',
@@ -232,8 +232,8 @@
   const menuStore = useMenuStore();
   
   const userNavigation = [
-    { name: "Perfil", href: "#" },
-    { name: "Salir", href: "#" },
+    // { name: "Perfil", href: "#" },
+    // { name: "Salir", href: "#" },
   ];
   
   const iconMap = {

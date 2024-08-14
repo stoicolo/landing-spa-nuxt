@@ -32,8 +32,8 @@ const companyStore = useCompanyStore();
 const menuStore = useMenuStore();
 
 const userNavigation = [
-  { name: "Perfil", href: "#" },
-  { name: "Salir", href: "#" },
+  // { name: "Perfil", href: "#" },
+  // { name: "Salir", href: "#" },
 ];
 
 onMounted(() => {

@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto mt-8">
+    <div class="container mx-auto p-8">
       <h1 class="text-2xl font-bold mb-4">Backups</h1>
       <ul class="space-y-4">
         <li v-for="backup in backupsList" :key="backup.id" class="bg-white shadow-md rounded-lg p-4 flex justify-between items-center">
@@ -42,10 +42,11 @@
   
   <script setup>
   import { ref, onMounted } from 'vue';
-  import { useRouter } from 'vue-router';
+  import { useRouter, useRoute } from 'vue-router';
   import PageTemplateService from '@/services/page_template';
   import ConfirmationModal from '~/components/helpers/confirmationModal.vue';
   import { useUserStore } from '~/stores/user';
+  import { useMenuStore } from '~/stores/menu';
 
   const backupsList = ref([]);
   const modalTitleRemoveBackup = '¿Estás seguro de que deseas eliminar este respaldo?';
@@ -55,17 +56,24 @@
   const modalTitleRestoreBackup = `¿Estás seguro de que deseas restaurar este respaldo?`;
   const modalDescriptionRestoreBackup = 'Esta acción no se puede deshacer.';
   const router = useRouter();
+  const route = useRoute();
   const backupIdSelected = ref(null);
   const templateIdSelected = ref(null);
   const userStore = useUserStore();
   const pageId = ref(0);
   const pagesList = ref([]);
+  const menuStore = useMenuStore();
   
   onMounted(async () => {
     backupsList.value = await PageTemplateService.getBackups(userStore.id);
     console.log(backupsList.value);
     pagesList.value = await PageTemplateService.fetchPagesListByUserId(userStore.id);
+    changeActiveItemMenu();
   });
+
+  function changeActiveItemMenu() {
+    menuStore.setActiveMenu(route.path);
+}
   
   function useBackup(backupId, templateId) {
     console.log('Using backup:', backupId);
