@@ -11,10 +11,6 @@
             <label for="href" class="block text-sm font-medium text-gray-700">Slug</label>
             <input v-model="menuItem.slug" id="href" type="text" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
           </div>
-          <div>
-            <label for="order" class="block text-sm font-medium text-gray-700">Orden</label>
-            <input v-model.number="menuItem.order" id="order" type="number" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-          </div>
           <div class="flex justify-end space-x-4 mt-5">
             <button @click="cancel" type="button" class="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded">
               Cancelar
@@ -29,7 +25,7 @@
   </template>
   
   <script setup lang="ts">
-  import { ref } from 'vue';
+  import { ref, watch } from 'vue';
   import { useMenuStore } from '~/stores/menu';
   
   const emit = defineEmits(['close']);
@@ -40,6 +36,10 @@
     order: 0,
     slug: ''
   });
+
+  watch(() => menuItem.value.menuName, (newValue) => {
+  menuItem.value.slug = newValue.toLowerCase().replace(/\s+/g, '-');
+});
   
   const confirm = () => {
     menuStore.addMenuItem(menuItem.value);

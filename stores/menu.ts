@@ -44,7 +44,6 @@ export const useMenuStore = defineStore('menu', {
     },
 
     setActiveMenu(path: string) {
-      debugger;
       this.navigation.forEach((item) => {
         item.current = path === item.href;
       });
@@ -103,7 +102,6 @@ export const useMenuStore = defineStore('menu', {
             currentStore.setPageId(newPage?.id ? newPage?.id : 0);
             currentStore.setMenuHeaderId(newMenu.menuHeader);
 
-            console.log("newMenu::", newMenu);
             //Agrego el nuevo item default "Inicio" al menu
             this.menu.push(newMenu.menuDetails[0]);
 

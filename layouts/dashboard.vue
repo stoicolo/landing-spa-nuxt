@@ -11,25 +11,10 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import {
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-} from "@headlessui/vue";
-import {
-  Bars3Icon,
-  HomeIcon,
-} from "@heroicons/vue/24/outline";
-import { ChevronDownIcon } from "@heroicons/vue/20/solid";
-import { useCompanyStore } from '~/stores/company';
-import { useMenuStore } from '~/stores/menu';
 import MobileSidebar from '~/components/dashboard/mobileSidebar.vue';
 import DesktopSidebar from '~/components/dashboard/desktopSidebar.vue';
 
 const sidebarOpen = ref(false);
-const companyStore = useCompanyStore();
-const menuStore = useMenuStore();
 
 const userNavigation = [
   // { name: "Perfil", href: "#" },
