@@ -339,7 +339,7 @@ async function handleSaveBackup(name) {
     saveBackupModal.value = !saveBackupModal.value;
     const getCurrentTemplateSections = templateStore.structure.page_template.sections;
     const templateId = templateStore.structure.page_template.id;
-    const userId = 1;
+    const userId = currentStore.userId;
     //Llamada a servicio de guardar backup
     try {
         loading.value = true;

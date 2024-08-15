@@ -240,7 +240,7 @@ class PageTemplateService {
 
     //TODO: SACAR ESTA LOGICA A UN NUEVO SERVICIO DE WEBPAGE SERVICE
 
-    static async createWebSite(userId: number, websiteName: string = "Default Page"): Promise<any | null> {
+    static async createWebSite(userId: number, websiteName: string = "Default Page", domain: string = "localhost:3000", slug: string = "weblox-inicio"): Promise<any | null> {
         try {
             let response = null;
 
@@ -252,7 +252,9 @@ class PageTemplateService {
                 },
                 data: {
                     userId,
-                    websiteName
+                    websiteName,
+                    domain,
+                    slug
                 }
               });
             console.log("New Site Created", response.data);
