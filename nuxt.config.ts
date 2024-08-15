@@ -53,4 +53,7 @@ export default defineNuxtConfig({
 
   components: true,
   compatibilityDate: "2024-08-12",
+  css: [
+    '@/assets/css/global-theme.css'
+  ],
 });

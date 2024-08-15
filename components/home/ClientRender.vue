@@ -1,38 +1,31 @@
 <template>
     <div>
       <!-- Menú responsive -->
-      <nav v-if="website" class="menu">
-        <button @click="toggleMenu" class="menu-toggle">
-          {{ isMenuOpen ? 'Cerrar' : 'Menú' }}
-        </button>
-        <ul :class="{ 'menu-open': isMenuOpen }">
-          <li v-for="item in website.content?.menu || []" :key="item.slug">
-            <NuxtLink :to="'/' + item.slug">{{ item.menuName }}</NuxtLink>
-          </li>
-        </ul>
-      </nav>
+      <Menu :menuItems="website?.content?.menu" :logoSrc="'img/weblox-logo-name.png'" />
   
       <!-- Contenido de la página -->
-      <template v-if="website" v-for="(section, index) in currentPageSections" :key="section.id" v-memo="[section.position, viewMode]">
-        <div class="weblox-wrapper">
-          <component 
-            v-if="section.widget && section.widget.element"
-            :is="getComponent(section.widget.name, section.widget.element)" 
-            v-bind="section.widget.element" 
-            :viewMode="viewMode" 
-            :id="section.id" 
-          />
-        </div>
-      </template>
-  
-      <!-- Mensaje de carga -->
-      <div v-else class="loading">Cargando...</div>
+       <div class="mt-[72px]">
+         <template v-if="website" v-for="(section, index) in currentPageSections" :key="section.id" v-memo="[section.position, viewMode]">
+           <div class="weblox-wrapper">
+             <component 
+               v-if="section.widget && section.widget.element"
+               :is="getComponent(section.widget.name, section.widget.element)" 
+               v-bind="section.widget.element" 
+               :viewMode="viewMode" 
+               :id="section.id" 
+             />
+           </div>
+         </template>
+         <!-- Mensaje de carga -->
+         <div v-else class="loading">Cargando...</div>
+       </div>
     </div>
   </template>
   
   <script setup>
   import { ref, computed, onMounted } from 'vue'
   import { useRoute } from 'vue-router'
+  import Menu from '@/components/helpers/mainMenuClient.vue'
   
   const website = ref(null)
   const viewMode = ref('preview')
@@ -200,61 +193,3 @@
     )
   }
   </script>
-  
-  <style scoped>
-  .menu {
-    background-color: #333;
-    padding: 1rem;
-  }
-  
-  .menu-toggle {
-    display: none;
-    background-color: #444;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-  }
-  
-  .menu ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-  }
-  
-  .menu li {
-    margin-right: 1rem;
-  }
-  
-  .menu a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .loading {
-    text-align: center;
-    padding: 2rem;
-    font-size: 1.2rem;
-  }
-  
-  @media (max-width: 768px) {
-    .menu-toggle {
-      display: block;
-    }
-  
-    .menu ul {
-      display: none;
-      flex-direction: column;
-    }
-  
-    .menu ul.menu-open {
-      display: flex;
-    }
-  
-    .menu li {
-      margin-right: 0;
-      margin-bottom: 0.5rem;
-    }
-  }
-  </style>
