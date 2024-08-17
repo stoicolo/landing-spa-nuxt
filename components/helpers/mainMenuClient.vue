@@ -110,7 +110,7 @@
   }
   
   .menu-link {
-    color: var(--text-color);
+    color: var(--text-color-contrast);
     text-decoration: none;
     padding: 0.5rem 1rem;
     position: relative;
@@ -154,7 +154,7 @@
   .hamburger span {
     width: 2rem;
     height: 0.25rem;
-    background: var(--text-color);
+    background: var(--text-color-contrast);
     border-radius: 10px;
     transition: all 0.3s linear;
     position: relative;

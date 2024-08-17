@@ -6,7 +6,7 @@ export const useCurrentStore = defineStore("current", {
       menuHeaderId: 0,
       pageTemplateId: 0,
       publishHistoryId: 0,
-      domain: "test.com" //TODO: Obtener esto del dominio registrado, aun no existe el modulo para esto
+      domain: "localhost:3000", //TODO: Obtener esto del dominio registrado, aun no existe el modulo para esto
     }),
     getters: {},
     actions: {

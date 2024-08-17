@@ -57,7 +57,7 @@
             <template v-for="(section, index) in sortedSections" :key="section.id" v-memo="[section.position, viewMode]">
                 <div class="section-wrapper relative" :class="{'bg-blue-200 p-2 border-t-2 border-gray-500': !viewMode}">
                     <component v-if="section.widget && section.widget.element"
-                        :is="getComponent(section.widget.name, section.widget.element)" v-bind="section.widget.element" :viewMode="viewMode" :id="section.id" />
+                        :is="getComponent(section.widget.name, section.widget.element)" v-bind="section.widget.element" :viewMode="viewMode" :id="Number(section.id)" />
                     <div class="section-actions absolute top-[8px] z-[50] flex justify-center items-center w-[300px] mx-auto right-[8px] bg-blue-200 rounded-bl-[20px]" v-if="!viewMode">
                         <button @click="confirmationModal(section.id)">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -79,8 +79,8 @@
                             <div class="select-template max-w-xs ml-auto">
                                 <label for="template" class="block text-sm font-medium text-gray-700">Selecciona una plantilla</label>
                                 <select @change="event => onSelect(event, section)" :value="section.widget.element.template" id="template" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                                    <option value="0">Plantilla 1</option>
-                                    <option value="1">Plantilla 2</option>
+                                    <option value="1">Plantilla 1</option>
+                                    <option value="2">Plantilla 2</option>
                                 </select>
                             </div>
                         </div>
@@ -169,6 +169,9 @@ const modalDescriptionSave = "Puedes hacer que los cambios sean visibles en tu p
 const idSelectedSectionToDelete = ref({});
 const fullscreen = ref(false);
 const isStructureLoaded = ref(false);
+const accessToken = useCookie("accessToken");
+const authToken = accessToken.value;
+const pageId = ref(null);
 
 // Llamada al plugin custom toaster
 const { $toaster } = useNuxtApp();
@@ -176,18 +179,18 @@ const { $toaster } = useNuxtApp();
 const emit = defineEmits(['change-to-full-screen']);
 
 const route = useRoute()
-let pageId;
 currentStore.setPageId(pageId);
 
 onMounted(async () => {
+    PageTemplateService.setAuthToken = authToken;
     if(currentStore.pageId) {
-        pageId = currentStore.pageId;
+        pageId.value = currentStore.pageId;
     } else {
-        pageId = parseInt(route.params.id);
+        pageId.value = parseInt(route.params.id);
     }
     await createNewPageAndPageTemplate();
-    if(pageId) {
-        await templateStore.loadTemplateStructure(pageId, userStore.id);
+    if(pageId.value) {
+        await templateStore.loadTemplateStructure(pageId.value, userStore.id);
         await menuStore.loadMenu();
         await publishWebSite();
         isStructureLoaded.value = true;
@@ -200,8 +203,8 @@ function changeActiveItemMenu() {
 }
 
 async function createNewPageAndPageTemplate() {
-    const pageExist = await PageTemplateService.checkIfPageExist(pageId, userStore.id);
-    if(!pageId && !pageExist.length) {
+    const pageExist = await PageTemplateService.checkIfPageExist(pageId.value, userStore.id);
+    if(!pageId.value && !pageExist.length) {
         try {
             menuStore.createFirstPageAndMenuItem({
                 menuName: "Inicio",
@@ -228,14 +231,14 @@ async function createNewPageAndPageTemplate() {
                 PageTemplateService.getMenuList(currentStore.websiteId, currentStore.userId)
             ]);
 
-            currentStore.setPageId(pageId);
+            currentStore.setPageId(pageId.value);
 
             if (publishHistory && publishHistory.length) {
                 const latestPublishHistory = publishHistory[0];
                 currentStore.setPublishHistoryId(latestPublishHistory.id);
                 menuStore.setMenuList(menusResponse.menuDetails);
                 activeWebSite.value = latestPublishHistory.isActive;
-                navigateTo(`/builder/${pageId}`);
+                navigateTo(`/builder/${pageId.value}`);
             } else {
                 navigateTo(`/builder/${pageExist[0].id}`);
             }
@@ -343,7 +346,7 @@ async function handleSaveBackup(name) {
     //Llamada a servicio de guardar backup
     try {
         loading.value = true;
-        const backupTemplate = await PageTemplateService.backupPageTemplate(userId, getCurrentTemplateSections, name, templateId, pageId);
+        const backupTemplate = await PageTemplateService.backupPageTemplate(userId, getCurrentTemplateSections, name, templateId, pageId.value);
         loading.value = false;
         $toaster.show({
             title: "Success",
