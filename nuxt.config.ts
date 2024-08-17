@@ -40,7 +40,7 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
-    "@nuxt/image"
+    "@nuxt/image",
   ],
 
   plugins: [
@@ -53,4 +53,7 @@ export default defineNuxtConfig({
 
   components: true,
   compatibilityDate: "2024-08-12",
+  css: [
+    '@/assets/css/global-theme.css'
+  ],
 });

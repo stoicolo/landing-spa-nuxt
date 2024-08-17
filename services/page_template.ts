@@ -1,8 +1,6 @@
 import axios from 'axios';
 
 const baseURL = 'http://localhost:4000'; // Asegúrate de cambiar esto por la URL correcta de tu API.
-const accessToken = useCookie('accessToken')
-const authToken = accessToken.value;
 
 interface Section {
     id: number;
@@ -31,13 +29,23 @@ interface Page {
 }
 
 class PageTemplateService {
+    private static authToken: string = '';
+
+    static set setAuthToken(token: string) {
+        PageTemplateService.authToken = token;
+    }
+
+    static get setAuthToken(): string {
+        return PageTemplateService.authToken;
+    }
+    
     static async fetchPagesListByUserId(userId: number): Promise<Page[] | null> {
         try {
             let pages = null;
 
             const config = {
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 }
             };
 
@@ -57,7 +65,7 @@ class PageTemplateService {
 
             const config = {
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 }
             };
 
@@ -78,7 +86,7 @@ class PageTemplateService {
 
             const config = {
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 }
             };
 
@@ -107,7 +115,7 @@ class PageTemplateService {
                 method: 'Post',
                 url: `${baseURL}/v1/page_templates`,
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
                 data: {
                     userId,
@@ -130,7 +138,7 @@ class PageTemplateService {
     
             const config = {
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 }
             };
     
@@ -163,7 +171,7 @@ class PageTemplateService {
     
             const config = {
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 }
             };
 
@@ -189,7 +197,7 @@ class PageTemplateService {
     
             const config = {
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 }
             };
 
@@ -223,7 +231,7 @@ class PageTemplateService {
                 method: 'delete',
                 url: `${baseURL}/v1/page_template_backups/id`,
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
                 data: {
                   pageTemplateBackupId: backupId
@@ -240,7 +248,7 @@ class PageTemplateService {
 
     //TODO: SACAR ESTA LOGICA A UN NUEVO SERVICIO DE WEBPAGE SERVICE
 
-    static async createWebSite(userId: number, websiteName: string = "Default Page"): Promise<any | null> {
+    static async createWebSite(userId: number, websiteName: string = "Default Page", domain: string = "localhost:3000", slug: string = "weblox-inicio"): Promise<any | null> {
         try {
             let response = null;
 
@@ -248,11 +256,13 @@ class PageTemplateService {
                 method: 'Post',
                 url: `${baseURL}/v1/websites/`,
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
                 data: {
                     userId,
-                    websiteName
+                    websiteName,
+                    domain,
+                    slug
                 }
               });
             console.log("New Site Created", response.data);
@@ -290,7 +300,7 @@ class PageTemplateService {
                 method: 'Post',
                 url: `${baseURL}/v1/pages/`,
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
                 data: {
                     userId,
@@ -318,7 +328,7 @@ class PageTemplateService {
                 method: 'Post',
                 url: `${baseURL}/v1/menus/create-menu-with-details/`,
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
                 data: {
                     userId,
@@ -343,7 +353,7 @@ class PageTemplateService {
                 method: 'Post',
                 url: `${baseURL}/v1/menus/menu/`,
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
                 data: {
                     userId,
@@ -367,7 +377,7 @@ class PageTemplateService {
                 method: 'Post',
                 url: `${baseURL}/v1/menus/get-menu-pages/`,
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
                 data: {
                     menuHeaderId
@@ -398,7 +408,7 @@ class PageTemplateService {
                 method: 'Post',
                 url: `${baseURL}/v1/menus/menu-page/`,
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
                 data: itemData
               });
@@ -419,7 +429,7 @@ class PageTemplateService {
                 method: 'Post',
                 url: `${baseURL}/v1/menus/get-menu-with-details/`,
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
                 data: {
                     websiteId,
@@ -444,7 +454,7 @@ class PageTemplateService {
                 method: 'Post',
                 url: `${baseURL}/v1/publish_histories/`,
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
                 data: {
                     domain,
@@ -473,7 +483,7 @@ class PageTemplateService {
                 method: 'Post',
                 url: `${baseURL}/v1/publish_histories/website/`,
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
                 data: {
                     websiteId
@@ -496,7 +506,7 @@ class PageTemplateService {
                 method: 'Patch',
                 url: `${baseURL}/v1/publish_histories/website/`,
                 headers: {
-                    'Authorization': `Bearer ${authToken}`
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
                 data: {
                     publishHistoryId,
@@ -511,6 +521,22 @@ class PageTemplateService {
 
         } catch (error) {
             console.error('Error changing active site:', error);
+            return null;
+        }
+    }
+
+    //TODO: SACAR ESTO A UN SERVICIO DE CLIENTE
+
+    static async fetchClientSiteByDomain(domain: number): Promise<any | null> {
+        try {
+            let website = null;
+
+            website = await axios.get<Page[]>(`${baseURL}/v1/public_websites/domain/${domain}`,);
+
+            return website.data ? website.data[0] : null;
+            
+        } catch (error) {
+            console.error('Error fetching public website:', error);
             return null;
         }
     }

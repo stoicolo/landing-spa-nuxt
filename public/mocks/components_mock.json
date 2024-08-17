@@ -2,15 +2,16 @@
     "components": [
       {
         "id": 0,
-        "name": "header",
+        "name": "header-parallax",
         "category": "basics",
-        "image": "https://via.placeholder.com/150",
+        "image": "/img/header-parallax-view.png",
         "available": true,
         "element": {
-          "backgroundImage": "img/header1.png",
-          "title": "New Header",
-          "icon": "https://via.placeholder.com/150",
-          "template": "0"
+          "title": "Título Impactante",
+          "description": "Una breve descripción que capture la atención",
+          "backgroundImage": "/img/background-header-weblox.png",
+          "centerImage": "/img/woman-jump.png",
+          "template": 1
         }
       },
       {
@@ -23,20 +24,7 @@
           "backgroundImage": "img/header1.png",
           "title": "New Header",
           "icon": "https://via.placeholder.com/150",
-          "template": "0"
-        }
-      },
-      {
-        "id": 2,
-        "name": "header",
-        "category": "basics",
-        "image": "https://via.placeholder.com/150",
-        "available": true,
-        "element": {
-          "backgroundImage": "img/header1.png",
-          "title": "New Header",
-          "icon": "https://via.placeholder.com/150",
-          "template": "0"
+          "template": 0
         }
       }
     ]

@@ -1,0 +1,24 @@
+/* assets/css/global-theme.css */
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&display=swap');
+
+:root {
+    --primary-color: #191a1ab5;
+    --secondary-color: #ffffff;
+    --accent-color: #00C2FF;
+    --text-color: #1d1d1d;
+    --text-color-contrast: #ffffff;
+    --background-color: #f5f5f5;
+    --menu-font: 'Work Sans', sans-serif;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+
+  .menu-items {
+    font-family: var(--menu-font);
+  }

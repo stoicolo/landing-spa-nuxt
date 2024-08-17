@@ -28,9 +28,6 @@ useSeoMeta({
   <div class="bg-white">
     <main>
       <div>
-        <NuxtLink to="/login" class="text-sm font-semibold leading-6 text-black"
-          >Login <span aria-hidden="true">&rarr;</span></NuxtLink
-        >
         <ClientRender />
     </div>
     </main>

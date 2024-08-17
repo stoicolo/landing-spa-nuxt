@@ -36,6 +36,7 @@ const loginUser = async (event: Event) => {
     });
 
     if (response && response.user && response.tokens) {
+      debugger;
       // Save auth token to cookies
       accessToken.value = response.tokens.access.token;
       refreshToken.value = response.tokens.refresh.token;
