@@ -57,7 +57,7 @@
             <template v-for="(section, index) in sortedSections" :key="section.id" v-memo="[section.position, viewMode]">
                 <div class="section-wrapper relative" :class="{'bg-blue-200 p-2 border-t-2 border-gray-500': !viewMode}">
                     <component v-if="section.widget && section.widget.element"
-                        :is="getComponent(section.widget.name, section.widget.element)" v-bind="section.widget.element" :viewMode="viewMode" :id="Number(section.id)" />
+                        :is="getComponent(section.widget.name, section.widget.element)" v-bind="section.widget.element" :viewMode="viewMode" :id="section.id" />
                     <div class="section-actions absolute top-[8px] z-[50] flex justify-center items-center w-[300px] mx-auto right-[8px] bg-blue-200 rounded-bl-[20px]" v-if="!viewMode">
                         <button @click="confirmationModal(section.id)">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
