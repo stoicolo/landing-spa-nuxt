@@ -169,8 +169,6 @@ const modalDescriptionSave = "Puedes hacer que los cambios sean visibles en tu p
 const idSelectedSectionToDelete = ref({});
 const fullscreen = ref(false);
 const isStructureLoaded = ref(false);
-const accessToken = useCookie("accessToken");
-const authToken = accessToken.value;
 const pageId = ref(null);
 
 // Llamada al plugin custom toaster
@@ -182,7 +180,7 @@ const route = useRoute()
 currentStore.setPageId(pageId);
 
 onMounted(async () => {
-    PageTemplateService.setAuthToken = authToken;
+    await menuStore.initializeStore();
     if(currentStore.pageId) {
         pageId.value = currentStore.pageId;
     } else {

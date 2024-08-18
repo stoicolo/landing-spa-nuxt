@@ -30,13 +30,20 @@ interface Page {
 
 class PageTemplateService {
     private static authToken: string = '';
-
+    
     static set setAuthToken(token: string) {
         PageTemplateService.authToken = token;
     }
 
     static get setAuthToken(): string {
         return PageTemplateService.authToken;
+    }
+
+    // Initialize the auth token
+    static initAuthToken() {
+        if (process.client) {
+            PageTemplateService.authToken = localStorage.getItem('accessToken') || '';
+        }
     }
     
     static async fetchPagesListByUserId(userId: number): Promise<Page[] | null> {
@@ -542,6 +549,10 @@ class PageTemplateService {
     }
 
     
+}
+
+if (process.client) {
+    PageTemplateService.initAuthToken();
 }
 
 export default PageTemplateService;

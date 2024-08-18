@@ -28,8 +28,6 @@ interface TemplateState {
   };
 }
 
-const currentStore = useCurrentStore();
-
 export const useTemplateStore = defineStore('template_store', {
   state: (): TemplateState => ({
     isLoading: false,
@@ -51,6 +49,7 @@ export const useTemplateStore = defineStore('template_store', {
           throw new Error('Failed to fetch page structure');
         }
 
+        const currentStore = useCurrentStore();
         currentStore.setPageTemplateId(data.id ? data.id : 0);
 
         this.structure.page_template = {
