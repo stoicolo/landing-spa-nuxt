@@ -1,7 +1,4 @@
 import axios from 'axios';
-const { $config } = useNuxtApp()
-const baseURL = $config.public.apiBaseUrl;
-
 interface Section {
     id: number;
     position: number;
@@ -30,6 +27,7 @@ interface Page {
 
 class PageTemplateService {
     private static authToken: string = '';
+    private static baseURL: string = '';
     
     static set setAuthToken(token: string) {
         PageTemplateService.authToken = token;
@@ -37,6 +35,10 @@ class PageTemplateService {
 
     static get setAuthToken(): string {
         return PageTemplateService.authToken;
+    }
+
+    static setBaseURL(url: string) {
+        PageTemplateService.baseURL = url;
     }
 
     // Initialize the auth token
@@ -56,7 +58,7 @@ class PageTemplateService {
                 }
             };
 
-            pages = await axios.get<Page[]>(`${baseURL}/v1/pages/user/${userId}`, config);
+            pages = await axios.get<Page[]>(`${PageTemplateService.baseURL}/v1/pages/user/${userId}`, config);
 
             return pages.data ? pages.data : null;
             
@@ -100,7 +102,7 @@ class PageTemplateService {
             page = await this.fetchPage(userId, pageId);
 
             if(page) {
-                response = await axios.get<PageTemplate>(`${baseURL}/v1/page_templates/${page?.templateId}`, config);
+                response = await axios.get<PageTemplate>(`${PageTemplateService.baseURL}/v1/page_templates/${page?.templateId}`, config);
             } else {
                 //TODO: Hacer un page de 404 para redirigir
                 navigateTo("/");
@@ -120,7 +122,7 @@ class PageTemplateService {
 
             response = await axios({
                 method: 'Post',
-                url: `${baseURL}/v1/page_templates`,
+                url: `${PageTemplateService.baseURL}/v1/page_templates`,
                 headers: {
                     'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
@@ -152,7 +154,7 @@ class PageTemplateService {
             const data = {sections: [...sections]};
     
             // Realizar la petición PATCH y obtener directamente la propiedad data del resultado
-            const axiosResponse = await axios.patch<PageTemplate>(`${baseURL}/v1/page_templates/${id}`, data, config);
+            const axiosResponse = await axios.patch<PageTemplate>(`${PageTemplateService.baseURL}/v1/page_templates/${id}`, data, config);
             response = axiosResponse.data; // Accediendo a los datos directamente
     
             return response;
@@ -165,7 +167,7 @@ class PageTemplateService {
     // Eliminar un template
     static async deletePageTemplate(id: number): Promise<void> {
         try {
-            await axios.delete(`${baseURL}/v1/page_templates/${id}`);
+            await axios.delete(`${PageTemplateService.baseURL}/v1/page_templates/${id}`);
         } catch (error) {
             console.error('Error deleting page template:', error);
         }
@@ -186,7 +188,7 @@ class PageTemplateService {
                 "userId": userId
               };
 
-            response = await axios.post<any>(`${baseURL}/v1/page_template_backups/user`, data, config);
+            response = await axios.post<any>(`${PageTemplateService.baseURL}/v1/page_template_backups/user`, data, config);
             console.log("Backups List", response.data);
             return response ? response.data : null;
             
@@ -219,7 +221,7 @@ class PageTemplateService {
               };
     
             // Realizar la petición PATCH y obtener directamente la propiedad data del resultado
-            const axiosResponse = await axios.post<PageTemplate>(`${baseURL}/v1/page_template_backups`, data, config);
+            const axiosResponse = await axios.post<PageTemplate>(`${PageTemplateService.baseURL}/v1/page_template_backups`, data, config);
             response = axiosResponse.data; // Accediendo a los datos directamente
     
             return response;
@@ -236,7 +238,7 @@ class PageTemplateService {
 
             response = await axios({
                 method: 'delete',
-                url: `${baseURL}/v1/page_template_backups/id`,
+                url: `${PageTemplateService.baseURL}/v1/page_template_backups/id`,
                 headers: {
                     'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
@@ -261,7 +263,7 @@ class PageTemplateService {
 
             response = await axios({
                 method: 'Post',
-                url: `${baseURL}/v1/websites/`,
+                url: `${PageTemplateService.baseURL}/v1/websites/`,
                 headers: {
                     'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
@@ -305,7 +307,7 @@ class PageTemplateService {
 
             response = await axios({
                 method: 'Post',
-                url: `${baseURL}/v1/pages/`,
+                url: `${PageTemplateService.baseURL}/v1/pages/`,
                 headers: {
                     'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
@@ -333,7 +335,7 @@ class PageTemplateService {
 
             response = await axios({
                 method: 'Post',
-                url: `${baseURL}/v1/menus/create-menu-with-details/`,
+                url: `${PageTemplateService.baseURL}/v1/menus/create-menu-with-details/`,
                 headers: {
                     'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
@@ -358,7 +360,7 @@ class PageTemplateService {
 
             response = await axios({
                 method: 'Post',
-                url: `${baseURL}/v1/menus/menu/`,
+                url: `${PageTemplateService.baseURL}/v1/menus/menu/`,
                 headers: {
                     'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
@@ -382,7 +384,7 @@ class PageTemplateService {
 
             response = await axios({
                 method: 'Post',
-                url: `${baseURL}/v1/menus/get-menu-pages/`,
+                url: `${PageTemplateService.baseURL}/v1/menus/get-menu-pages/`,
                 headers: {
                     'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
@@ -413,7 +415,7 @@ class PageTemplateService {
 
             response = await axios({
                 method: 'Post',
-                url: `${baseURL}/v1/menus/menu-page/`,
+                url: `${PageTemplateService.baseURL}/v1/menus/menu-page/`,
                 headers: {
                     'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
@@ -434,7 +436,7 @@ class PageTemplateService {
 
             response = await axios({
                 method: 'Post',
-                url: `${baseURL}/v1/menus/get-menu-with-details/`,
+                url: `${PageTemplateService.baseURL}/v1/menus/get-menu-with-details/`,
                 headers: {
                     'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
@@ -459,7 +461,7 @@ class PageTemplateService {
 
             response = await axios({
                 method: 'Post',
-                url: `${baseURL}/v1/publish_histories/`,
+                url: `${PageTemplateService.baseURL}/v1/publish_histories/`,
                 headers: {
                     'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
@@ -488,7 +490,7 @@ class PageTemplateService {
 
             response = await axios({
                 method: 'Post',
-                url: `${baseURL}/v1/publish_histories/website/`,
+                url: `${PageTemplateService.baseURL}/v1/publish_histories/website/`,
                 headers: {
                     'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
@@ -511,7 +513,7 @@ class PageTemplateService {
 
             response = await axios({
                 method: 'Patch',
-                url: `${baseURL}/v1/publish_histories/website/`,
+                url: `${PageTemplateService.baseURL}/v1/publish_histories/website/`,
                 headers: {
                     'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },
@@ -538,7 +540,7 @@ class PageTemplateService {
         try {
             let website = null;
 
-            website = await axios.get<Page[]>(`${baseURL}/v1/public_websites/domain/${domain}`,);
+            website = await axios.get<Page[]>(`${PageTemplateService.baseURL}/v1/public_websites/domain/${domain}`,);
 
             return website.data ? website.data[0] : null;
             
