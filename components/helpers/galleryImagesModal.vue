@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]">
+    <div v-if="isOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[2000]">
       <div class="bg-white p-6 rounded-lg w-3/4 max-w-4xl">
         <h2 class="text-2xl font-bold mb-4">Galería de Imágenes</h2>
         
@@ -46,11 +46,15 @@
   
   <script setup lang="ts">
   import { ref, computed } from 'vue'
+  import { useTemplateStore } from '~/stores/template';
+  import { useCurrentStore } from '~/stores/current';
   
   const isOpen = ref(false)
   const images = ref<Array<{ src: string; selected: boolean }>>([])
   const errorMessage = ref('')
   const selectedImage = computed(() => images.value.find(img => img.selected))
+  const templateStore = useTemplateStore();
+  const currentStore = useCurrentStore();
   
   const open = () => {
     isOpen.value = true
@@ -58,15 +62,24 @@
   }
   
   const close = () => {
-    isOpen.value = false
+    isOpen.value = false;
   }
   
   const handleFileUpload = (event: Event) => {
     const target = event.target as HTMLInputElement
     const file = target.files?.[0]
     if (file) {
-      if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+      // Validar el tipo de archivo
+      const allowedTypes = ['image/jpeg', 'image/png']
+      if (!allowedTypes.includes(file.type)) {
         errorMessage.value = 'Solo se permiten imágenes JPG y PNG.'
+        return
+      }
+      
+      // Validar el tamaño del archivo (5MB máximo)
+      const maxSize = 5 * 1024 * 1024 // 5MB en bytes
+      if (file.size > maxSize) {
+        errorMessage.value = 'La imagen es demasiado grande. Máximo 5MB.'
         return
       }
       
@@ -74,10 +87,11 @@
       reader.onload = (e) => {
         const img = new Image()
         img.onload = () => {
-          if (img.width < 100 || img.height < 100) {
-            errorMessage.value = 'La imagen es demasiado pequeña. Mínimo 100x100 píxeles.'
-          } else if (img.width > 4000 || img.height > 4000) {
-            errorMessage.value = 'La imagen es demasiado grande. Máximo 4000x4000 píxeles.'
+          // Validar dimensiones mínimas y máximas
+          if (img.width < 40 || img.height < 40) {
+            errorMessage.value = 'La imagen es demasiado pequeña. Mínimo 40x40 píxeles.'
+          } else if (img.width > 2000 || img.height > 2000) {
+            errorMessage.value = 'La imagen es demasiado grande. Máximo 2000x2000 píxeles.'
           } else {
             errorMessage.value = ''
             images.value.push({ src: e.target?.result as string, selected: false })
@@ -103,8 +117,12 @@
   
   const useImage = () => {
     if (selectedImage.value) {
-      // Aquí iría la lógica para usar la imagen seleccionada
-      console.log('Usando imagen:', selectedImage.value)
+      console.log(selectedImage.value.src);
+      debugger;
+      
+      templateStore.updateWidgetInSection(currentStore.section.id, {
+        [currentStore.section.prop]: selectedImage.value.src
+      });
       close()
     }
   }

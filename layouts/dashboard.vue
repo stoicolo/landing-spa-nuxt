@@ -29,6 +29,7 @@ onMounted(() => {
 
 });
 
+
 const openGaleryImages = () => {
   if (galleryImagesModalRef.value) {
     galleryImagesModalRef.value.open();

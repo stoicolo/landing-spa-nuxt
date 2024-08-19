@@ -19,7 +19,7 @@ export const useMenuStore = defineStore('menu', {
     navigation: [
       { menuName: "Dashboard", href: "/builder/1", iconName: "HomeIcon", current: false, order: 0 },
       { menuName: "Respaldos", href: "/backups", iconName: "DocumentDuplicateIcon", current: false, order: 1 },
-      { menuName: "Galeria de Imagenes", iconName: "DocumentDuplicateIcon", current: false, method: "openGaleryImages", order: 3 },
+      { menuName: "Galería de Imagenes", iconName: "DocumentDuplicateIcon", current: false, method: "openGaleryImages", order: 3 },
       { menuName: "Menu", href: "#", iconName: "Bars3Icon", current: false, order: 4 },
     ] as MenuItem[],
     menu: [] as MenuItem[]
