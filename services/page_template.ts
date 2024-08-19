@@ -1,6 +1,6 @@
 import axios from 'axios';
-
-const baseURL = 'http://localhost:4000'; // Asegúrate de cambiar esto por la URL correcta de tu API.
+const { $config } = useNuxtApp()
+const baseURL = $config.public.apiBaseUrl;
 
 interface Section {
     id: number;

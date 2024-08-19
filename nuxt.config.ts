@@ -30,7 +30,9 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBaseUrl: process.env.VITE_API_SERVER,
+      apiBaseUrl: process.env.NODE_ENV === 'production'
+        ? process.env.RENDER_API_SERVER
+        : process.env.VITE_API_SERVER,
     },
   },
 
