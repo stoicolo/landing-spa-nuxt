@@ -7,6 +7,10 @@ export const useCurrentStore = defineStore("current", {
       pageTemplateId: 0,
       publishHistoryId: 0,
       domain: "localhost:3000", //TODO: Obtener esto del dominio registrado, aun no existe el modulo para esto
+      section: {
+        id:"",
+        prop:""
+      }
     }),
     getters: {},
     actions: {
@@ -30,6 +34,12 @@ export const useCurrentStore = defineStore("current", {
         },
         setPublishHistoryId(id: number) {
             this.publishHistoryId = id;
+        },
+        setSectionId(id: string, prop: string) {
+            this.section.id = id;
+        },
+        setSectionProp(prop: string) {
+            this.section.prop = prop;
         }
     }
   });

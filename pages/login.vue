@@ -1,20 +1,28 @@
 <script setup lang="ts">
+import { useUserStore } from '~/stores/user'
+
+
+interface LoginResponse {
+  user: {
+    id: string;
+    email: string;
+    name: string;
+  };
+  tokens: {
+    access: {
+      token: string;
+    };
+    refresh: {
+      token: string;
+    };
+  };
+}
+
 const {
   public: { apiBaseUrl },
 } = useRuntimeConfig();
 
-const accessToken = useCookie("accessToken", {
-  default: () => {
-    null;
-  },
-});
-const refreshToken = useCookie("refreshToken", {
-  default: () => {
-    null;
-  },
-});
-
-const userStore = useUserStore();
+const userStore = useUserStore()
 
 const email = ref("");
 const password = ref("");
@@ -27,7 +35,7 @@ const loginUser = async (event: Event) => {
   isLoggingIn.value = true;
   loginButtonText.value = "Iniciando Sesion....";
   try {
-    const response = await $fetch(`${apiBaseUrl}/auth/login`, {
+    const response = await $fetch<LoginResponse>(`${apiBaseUrl}/auth/login`, {
       method: "POST",
       body: {
         email: email.value,
@@ -36,14 +44,17 @@ const loginUser = async (event: Event) => {
     });
 
     if (response && response.user && response.tokens) {
-      debugger;
-      // Save auth token to cookies
-      accessToken.value = response.tokens.access.token;
-      refreshToken.value = response.tokens.refresh.token;
+      // Save auth token to cookies or localStorage
+      localStorage.setItem('accessToken', response.tokens.access.token);
+      localStorage.setItem('refreshToken', response.tokens.refresh.token);
+      
       // save user data to store
-      userStore.id = response.user.id;
-      userStore.email = response.user.email;
-      userStore.name = response.user.name;
+      userStore.setUser({
+        id: response.user.id,
+        email: response.user.email,
+        name: response.user.name
+      });
+      
       // Redirect to dashboard if all is ok
       navigateTo("/builder/0");
     }
@@ -53,6 +64,37 @@ const loginUser = async (event: Event) => {
     loginButtonText.value = "Ocurrio un error, intentalo otra vez";
   }
 };
+// const loginUser = async (event: Event) => {
+//   event.preventDefault();
+//   isLoggingIn.value = true;
+//   loginButtonText.value = "Iniciando Sesion....";
+//   try {
+//     const response = await $fetch(`${apiBaseUrl}/auth/login`, {
+//       method: "POST",
+//       body: {
+//         email: email.value,
+//         password: password.value,
+//       },
+//     });
+
+//     if (response && response.user && response.tokens) {
+//       debugger;
+//       // Save auth token to cookies
+//       accessToken.value = response.tokens.access.token;
+//       refreshToken.value = response.tokens.refresh.token;
+//       // save user data to store
+//       userStore.id = response.user.id;
+//       userStore.email = response.user.email;
+//       userStore.name = response.user.name;
+//       // Redirect to dashboard if all is ok
+//       navigateTo("/builder/0");
+//     }
+//   } catch (error) {
+//     console.error("error while login in: ", error);
+//     isLoggingIn.value = false;
+//     loginButtonText.value = "Ocurrio un error, intentalo otra vez";
+//   }
+// };
 </script>
 
 <template>

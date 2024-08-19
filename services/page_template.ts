@@ -1,6 +1,6 @@
 import axios from 'axios';
-
-const baseURL = 'http://localhost:4000'; // Asegúrate de cambiar esto por la URL correcta de tu API.
+const { $config } = useNuxtApp()
+const baseURL = $config.public.apiBaseUrl;
 
 interface Section {
     id: number;
@@ -30,13 +30,20 @@ interface Page {
 
 class PageTemplateService {
     private static authToken: string = '';
-
+    
     static set setAuthToken(token: string) {
         PageTemplateService.authToken = token;
     }
 
     static get setAuthToken(): string {
         return PageTemplateService.authToken;
+    }
+
+    // Initialize the auth token
+    static initAuthToken() {
+        if (process.client) {
+            PageTemplateService.authToken = localStorage.getItem('accessToken') || '';
+        }
     }
     
     static async fetchPagesListByUserId(userId: number): Promise<Page[] | null> {
@@ -542,6 +549,10 @@ class PageTemplateService {
     }
 
     
+}
+
+if (process.client) {
+    PageTemplateService.initAuthToken();
 }
 
 export default PageTemplateService;

@@ -30,7 +30,9 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBaseUrl: process.env.VITE_API_SERVER,
+      apiBaseUrl: process.env.NODE_ENV === 'production'
+        ? process.env.RENDER_API_SERVER
+        : process.env.VITE_API_SERVER,
     },
   },
 
@@ -38,13 +40,16 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "@nuxtjs/tailwindcss",
     "@nuxt/eslint",
-    "@pinia/nuxt",
+    ['@pinia/nuxt', {
+      autoImports: ['defineStore', 'acceptHMRUpdate'],
+    }],
     "@pinia-plugin-persistedstate/nuxt",
     "@nuxt/image",
   ],
 
   plugins: [
-    '~/plugins/toaster.js'
+    '~/plugins/toaster.js',
+    { src: '~/plugins/auth.js', mode: 'client' }
   ],
 
   i18n: {
@@ -55,5 +60,5 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-08-12",
   css: [
     '@/assets/css/global-theme.css'
-  ],
+  ]
 });

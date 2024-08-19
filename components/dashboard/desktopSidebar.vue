@@ -11,7 +11,8 @@
               <ul role="list" class="-mx-2 space-y-1">
                 <li v-for="item in sortedNavigation" :key="item.menuName">
                   <template v-if="item.menuName !== 'Menu'">
-                    <span
+                    <span 
+                      v-if="item.href"
                       @click="navigateTo(item.href)"
                       :class="[
                         item.current
@@ -22,7 +23,15 @@
                     >
                       <component :is="getIcon(item.iconName)" class="h-6 w-6 shrink-0" aria-hidden="true" />
                       {{ item.menuName }}
-                  </span>
+                    </span>
+                    <span 
+                    v-else
+                    @click="executeInjectedMethod(item.method)"
+                    class="text-gray-400 hover:bg-gray-800 hover:text-white group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 cursor-pointer"
+                    >
+                      <component :is="getIcon(item.iconName)" class="h-6 w-6 shrink-0" aria-hidden="true" />
+                      {{ item.menuName }}
+                    </span>
                   </template>
                   <template v-else>
                     <div class="flex items-center justify-between">
@@ -94,7 +103,7 @@
   </template>
   
   <script setup lang="ts">
-  import { ref, computed } from 'vue';
+  import { ref, computed, inject } from 'vue';
   import { useMenuStore } from '~/stores/menu';
   import {
     HomeIcon,
@@ -121,6 +130,30 @@
     SquaresPlusIcon,
     DocumentDuplicateIcon
   };
+
+//IMPORTANTE: todos los metodos se proveen en layouts/dashboard.vue
+// Objeto para almacenar los métodos inyectados
+const injectedMethods: { [key: string]: Function } = {};
+
+// Inyectar los métodos durante la configuración
+sortedNavigation.value.forEach(item => {
+  if (item.method) {
+    const method = inject(item.method, () => {
+      console.warn(`Method ${item.method} not provided`);
+    });
+    if (typeof method === 'function') {
+      injectedMethods[item.method] = method;
+    }
+  }
+});
+
+const executeInjectedMethod = (methodName: string | undefined) => {
+  if (methodName && injectedMethods[methodName]) {
+    injectedMethods[methodName]();
+  } else {
+    console.warn(`Method ${methodName} not found or not a function`);
+  }
+};
   
   const getIcon = (iconName: string | undefined) => {
     return iconMap[iconName as keyof typeof iconMap];

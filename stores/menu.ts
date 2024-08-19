@@ -1,7 +1,5 @@
 import { defineStore } from 'pinia';
 import PageTemplateService from '@/services/page_template';
-import { useUserStore } from '~/stores/user';
-import { useCurrentStore } from '~/stores/current';
 
 //TODO: Crear un modelo separado
 interface MenuItem {
@@ -11,22 +9,18 @@ interface MenuItem {
   target?: string;
   order: number;
   current?: boolean;
+  method?: string;
   slug?: string;
   subitems?: MenuItem[];
 }
-
-const currentStore = useCurrentStore();
-const userStore = useUserStore();
-
-//Agrego el current user id al current store
-currentStore.setUserId(parseInt(userStore.id));
 
 export const useMenuStore = defineStore('menu', {
   state: () => ({
     navigation: [
       { menuName: "Dashboard", href: "/builder/1", iconName: "HomeIcon", current: false, order: 0 },
       { menuName: "Respaldos", href: "/backups", iconName: "DocumentDuplicateIcon", current: false, order: 1 },
-      { menuName: "Menu", href: "#", iconName: "Bars3Icon", current: false, order: 2 },
+      { menuName: "Galería de Imagenes", iconName: "DocumentDuplicateIcon", current: false, method: "openGaleryImages", order: 3 },
+      { menuName: "Menu", href: "#", iconName: "Bars3Icon", current: false, order: 4 },
     ] as MenuItem[],
     menu: [] as MenuItem[]
   }),
@@ -35,7 +29,16 @@ export const useMenuStore = defineStore('menu', {
     sortedMenu: (state) => [...state.menu].sort((a, b) => a.order - b.order)
   },
   actions: {
+    async initializeStore() {
+      const { useCurrentStore } = await import('~/stores/current');
+      const { useUserStore } = await import('~/stores/user');
+      const currentStore = useCurrentStore();
+      const userStore = useUserStore();
+      currentStore.setUserId(parseInt(userStore.id));
+    },
     async loadMenu() {
+      const { useCurrentStore } = await import('~/stores/current');
+      const currentStore = useCurrentStore();
       if (!currentStore.menuHeaderId) {
         //Si no existe un menuHeaderId en el currentStore, lo busco y lo guardo
         const menuHeaderLoaded = await PageTemplateService.getMenuHeader(currentStore.userId, currentStore.websiteId);
@@ -53,6 +56,8 @@ export const useMenuStore = defineStore('menu', {
     },
 
     async addMenuItem(item: MenuItem) {
+      const { useCurrentStore } = await import('~/stores/current');
+      const currentStore = useCurrentStore();
       let newPageTemplate;
       let newPage;
       let newItemMenu;
@@ -89,6 +94,8 @@ export const useMenuStore = defineStore('menu', {
     },
 
     async createFirstPageAndMenuItem(item: MenuItem) {
+      const { useCurrentStore } = await import('~/stores/current');
+      const currentStore = useCurrentStore();
         try {
             //Creo todos los datos de un nuevo website
             const newWebSite = await PageTemplateService.createWebSite(currentStore.userId);
