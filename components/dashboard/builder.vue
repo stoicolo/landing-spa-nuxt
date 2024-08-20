@@ -188,6 +188,7 @@ const route = useRoute()
 currentStore.setPageId(pageId);
 
 onMounted(async () => {
+    currentStore.setDomain(window.location.host);
     await menuStore.initializeStore();
     if(currentStore.pageId) {
         pageId.value = currentStore.pageId;
@@ -380,7 +381,7 @@ function viewModeChange() {
 
 
 async function publishLastChanges() {
-    const domain = "test.com"; //TODO: Obtener esto del dominio registrado, aun no existe el modulo para esto
+    const domain = currentStore.domain; //TODO: Obtener esto del dominio registrado, aun no existe el modulo para esto
     const publishHistoryId = currentStore.publishHistoryId;
     const isActive = activeWebSite.value;
     const publishedAt = JSON.stringify(Date());
@@ -401,7 +402,7 @@ async function publishLastChanges() {
 }
 
 async function publishWebSite() {
-    const domain = "test.com"; //TODO: Obtener esto del dominio registrado, aun no existe el modulo para esto
+    const domain = currentStore.domain; //TODO: Obtener esto del dominio registrado, aun no existe el modulo para esto
     const websiteId = currentStore.websiteId;
     const userId = currentStore.userId;
     const menuHeaderId = currentStore.menuHeaderId;
@@ -422,7 +423,7 @@ async function publishWebSite() {
 
 async function changeStatusWebSite() {
     activeWebSite.value = !activeWebSite.value;
-    const domain = "test.com"; //TODO: Obtener esto del dominio registrado, aun no existe el modulo para esto
+    const domain = currentStore.domain; //TODO: Obtener esto del dominio registrado, aun no existe el modulo para esto
     const isActive = activeWebSite.value;
     const isPublic = true;
     const publishHistoryId = currentStore.publishHistoryId;
