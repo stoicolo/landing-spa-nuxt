@@ -37,6 +37,7 @@
     <!-- Template 2 -->
     <div v-else-if="Number(localTemplate) === 2" class="hero-content">
       <!-- Estructura similar a Template 1, pero con diferencias de diseño si es necesario -->
+       Aca va otro template
     </div>
 
     <!-- Botón de configuración -->
@@ -164,7 +165,7 @@ const currentImageType = ref('');
 let rellaxInstances = [];
 
 const localTemplate = computed(() => {
-  let currentTemplate = "1";
+  let currentTemplate = props.template;
   templateStore.structure.page_template.sections.forEach((section) => {
     if (section.id === props.id) {
       currentTemplate = section.widget.element.template;

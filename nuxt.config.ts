@@ -49,7 +49,6 @@ export default defineNuxtConfig({
 
   plugins: [
     '~/plugins/toaster.js',
-    { src: '~/plugins/auth.js', mode: 'client' },
     '~/plugins/init-page-template-service'
   ],
 
