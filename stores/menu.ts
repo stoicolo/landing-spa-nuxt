@@ -98,7 +98,7 @@ export const useMenuStore = defineStore('menu', {
       const currentStore = useCurrentStore();
         try {
             //Creo todos los datos de un nuevo website
-            const newWebSite = await PageTemplateService.createWebSite(currentStore.userId);
+            const newWebSite = await PageTemplateService.createWebSite(currentStore.userId, "Default Site", currentStore.domain, "weblox-site");
             const newPageTemplate = await PageTemplateService.createPageTemplate(currentStore.userId, []);
             const newPage = await PageTemplateService.createNewPage(currentStore.userId, newPageTemplate?.id ? newPageTemplate?.id : 0, item.menuName, newWebSite?.id);
             const newMenu = await PageTemplateService.createNewMenu(currentStore.userId, newWebSite?.id, [{...item, pageId: newPage?.id}]);
