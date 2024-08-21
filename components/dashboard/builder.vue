@@ -233,6 +233,7 @@ async function createNewPageAndPageTemplate() {
         const routeId = parseInt(route.params.id);
         
         if (routeId) {
+            debugger;
             const [publishHistory, menusResponse] = await Promise.all([
                 PageTemplateService.getPublishHistoryByWebsiteId(currentStore.websiteId),
                 PageTemplateService.getMenuList(currentStore.websiteId, currentStore.userId)
@@ -381,7 +382,7 @@ function viewModeChange() {
 
 
 async function publishLastChanges() {
-    const domain = currentStore.domain; //TODO: Obtener esto del dominio registrado, aun no existe el modulo para esto
+    const domain = currentStore.domain;
     const publishHistoryId = currentStore.publishHistoryId;
     const isActive = activeWebSite.value;
     const publishedAt = JSON.stringify(Date());
@@ -402,11 +403,13 @@ async function publishLastChanges() {
 }
 
 async function publishWebSite() {
-    const domain = currentStore.domain; //TODO: Obtener esto del dominio registrado, aun no existe el modulo para esto
+    const domain = currentStore.domain;
     const websiteId = currentStore.websiteId;
     const userId = currentStore.userId;
     const menuHeaderId = currentStore.menuHeaderId;
     const publishHistoryId = currentStore.publishHistoryId;
+    debugger;
+    console.log(publishHistoryId, "publishHistoryId");
     if(!publishHistoryId){
             const resPublish = await PageTemplateService.createPublishRequest(
                  domain,
