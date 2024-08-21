@@ -50,8 +50,7 @@ function clearToken() {
 
 export default defineNuxtRouteMiddleware((to, from) => {
   console.log('Middleware triggered. Route:', to.path)
-  
-  if (process.server || to.path === '/login') {
+  if (process.server || !to.path.includes('builder')) {
     console.log('Skipping auth check (server-side or login page)')
     return
   }
