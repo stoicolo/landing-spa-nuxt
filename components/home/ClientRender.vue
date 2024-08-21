@@ -5,7 +5,7 @@
   
       <!-- Contenido de la página -->
        <div>
-         <template v-if="!website" v-for="(section, index) in currentPageSections" :key="section.id" v-memo="[section.position, viewMode]">
+         <template v-if="website" v-for="(section, index) in currentPageSections" :key="section.id" v-memo="[section.position, viewMode]">
            <div class="weblox-wrapper">
              <component 
                v-if="section.widget && section.widget.element"
