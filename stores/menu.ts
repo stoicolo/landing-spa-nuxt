@@ -94,6 +94,10 @@ export const useMenuStore = defineStore('menu', {
       return [...this.sortedNavigation, ...this.sortedMenu];
     },
 
+    getMenu() {
+      return [...this.sortedMenu];
+    },
+
     async createFirstPageAndMenuItem(item: MenuItem) {
       const { useCurrentStore } = await import('~/stores/current');
       const currentStore = useCurrentStore();
@@ -128,6 +132,6 @@ export const useMenuStore = defineStore('menu', {
         const itemMenuValue = {...item, current: false};
         this.menu.push(itemMenuValue);
       });
-    },
+    }
   }
 });
