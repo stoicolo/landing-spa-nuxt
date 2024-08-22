@@ -401,7 +401,36 @@ class PageTemplateService {
         }
     }
 
-    static async updateMenu(websiteId: number, menuHeaderId: number, pageId: number, item: any): Promise<any | null> {
+    static async updateMenuItem(websiteId: number, menuHeaderId: number, pageId: number, item: any): Promise<any | null> {
+        try {
+            let response = null;
+
+            const itemData = {
+                websiteId,
+                menuHeaderId,
+                pageId,
+                href: `/builder/${pageId}`,
+                ...item
+            }
+
+            response = await axios({
+                method: 'Post',
+                url: `${PageTemplateService.baseURL}/menus/menu-page/`,
+                headers: {
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
+                },
+                data: itemData
+              });
+            console.log("Update Menu Success", response.data);
+            return response ? response.data : null;
+            
+        } catch (error) {
+            console.error('Error updating menu:', error);
+            return null;
+        }
+    }
+
+    static async updateAllMenu(websiteId: number, menuHeaderId: number, pageId: number, item: any): Promise<any | null> {
         try {
             let response = null;
 
