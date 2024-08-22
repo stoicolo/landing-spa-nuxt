@@ -27,7 +27,7 @@
     "rellax": "^1.12.1",
     "vue": "^3.4.21",
     "vue-chartjs": "^5.3.1",
-    "vue-router": "^4.3.0"
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@nuxt/eslint": "^0.3.9",

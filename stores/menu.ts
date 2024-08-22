@@ -19,8 +19,8 @@ export const useMenuStore = defineStore('menu', {
     navigation: [
       { menuName: "Dashboard", href: "/builder/1", iconName: "HomeIcon", current: false, order: 0 },
       { menuName: "Respaldos", href: "/backups", iconName: "DocumentDuplicateIcon", current: false, order: 1 },
-      { menuName: "Galería de Imagenes", iconName: "DocumentDuplicateIcon", current: false, method: "openGaleryImages", order: 2 },
-      { menuName: "Editar Menús", href: "/menus", iconName: "DocumentDuplicateIcon", current: false, order: 3 },
+      { menuName: "Galería de Imagenes", iconName: "PhotoIcon", current: false, method: "openGaleryImages", order: 2 },
+      { menuName: "Editar Menús", href: "/menus", iconName: "PencilSquareIcon", current: false, order: 3 },
       { menuName: "Menu", href: "#", iconName: "Bars3Icon", current: false, order: 4 },
     ] as MenuItem[],
     menu: [] as MenuItem[]
@@ -56,6 +56,13 @@ export const useMenuStore = defineStore('menu', {
       });
     },
 
+    async saveMenuDB(items: MenuItem[]) {
+      const { useCurrentStore } = await import('~/stores/current');
+      const currentStore = useCurrentStore();
+      await PageTemplateService.updateAllMenu(currentStore.websiteId, currentStore.menuHeaderId, currentStore.pageId, [...items]);
+      this.setMenuList(items);
+    },
+
     async addMenuItem(item: MenuItem) {
       const { useCurrentStore } = await import('~/stores/current');
       const currentStore = useCurrentStore();
@@ -74,7 +81,7 @@ export const useMenuStore = defineStore('menu', {
       }
       try {
         //Creo un nuevo item en el menu, se lo asigno al menu y redirijo a la pagina de builder
-        newItemMenu = await PageTemplateService.updateMenu(currentStore.websiteId, currentStore.menuHeaderId, newPage?.id, item);
+        newItemMenu = await PageTemplateService.updateMenuItem(currentStore.websiteId, currentStore.menuHeaderId, newPage?.id, item);
 
         if(newItemMenu){
           //Agrego el nuevo item al menu y asigno el href con el id de la pagina creada
@@ -132,6 +139,47 @@ export const useMenuStore = defineStore('menu', {
         const itemMenuValue = {...item, current: false};
         this.menu.push(itemMenuValue);
       });
-    }
+    },
+
+    async deleteMenuItem(item: MenuItem) {
+      const { useCurrentStore } = await import('~/stores/current');
+      const currentStore = useCurrentStore();
+      try {
+        // Llamar al servicio para eliminar el ítem del menú en la base de datos
+        //await PageTemplateService.deleteMenuItem(currentStore.websiteId, currentStore.menuHeaderId, item.href?.split('/').pop() || '');
+        
+        // Eliminar el ítem del estado local
+        this.menu = this.menu.filter(menuItem => menuItem.href !== item.href);
+        
+        // Reordenar los ítems restantes
+        this.menu.forEach((menuItem, index) => {
+          menuItem.order = index + 1;
+        });
+        
+        // Actualizar el menú en la base de datos con el nuevo orden
+        await this.saveMenuDB(this.menu);
+      } catch (error) {
+        console.error('Error al eliminar el ítem del menú:', error);
+        throw error;
+      }
+    },
+
+    async updateMenuItem(item: MenuItem) {
+      const { useCurrentStore } = await import('~/stores/current');
+      const currentStore = useCurrentStore();
+      try {
+        //await PageTemplateService.updateMenuItem(currentStore.websiteId, currentStore.menuHeaderId, item.href?.split('/').pop() || '', item);
+        
+        const index = this.menu.findIndex(menuItem => menuItem.href === item.href);
+        if (index !== -1) {
+          this.menu[index] = { ...item };
+        }
+        
+        await this.saveMenuDB(this.menu);
+      } catch (error) {
+        console.error('Error al actualizar el ítem del menú:', error);
+        throw error;
+      }
+    },
   }
 });

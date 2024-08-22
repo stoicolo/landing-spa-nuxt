@@ -113,7 +113,9 @@
     Bars3Icon,
     ChevronDownIcon,
     SquaresPlusIcon,
-    PlusIcon
+    PlusIcon,
+    PencilSquareIcon,
+    PhotoIcon
   } from "@heroicons/vue/24/outline";
   import AddMenuItemModal from '~/components/helpers/addMenuItemModal.vue';
   
@@ -128,7 +130,9 @@
     CursorArrowRippleIcon,
     Bars3Icon,
     SquaresPlusIcon,
-    DocumentDuplicateIcon
+    DocumentDuplicateIcon,
+    PencilSquareIcon,
+    PhotoIcon
   };
 
 //IMPORTANTE: todos los metodos se proveen en layouts/dashboard.vue
