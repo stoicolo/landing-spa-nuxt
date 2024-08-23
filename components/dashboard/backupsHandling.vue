@@ -47,6 +47,7 @@
   import ConfirmationModal from '~/components/helpers/confirmationModal.vue';
   import { useUserStore } from '~/stores/user';
   import { useMenuStore } from '~/stores/menu';
+  import { useCurrentStore } from '~/stores/current';
 
   const backupsList = ref([]);
   const modalTitleRemoveBackup = '¿Estás seguro de que deseas eliminar este respaldo?';
@@ -60,11 +61,15 @@
   const backupIdSelected = ref(null);
   const templateIdSelected = ref(null);
   const userStore = useUserStore();
+  const currentStore = useCurrentStore();
   const pageId = ref(0);
   const pagesList = ref([]);
   const menuStore = useMenuStore();
   
   onMounted(async () => {
+    await menuStore.initializeStore();
+    const menusResponse = await PageTemplateService.getMenuList(currentStore.websiteId, currentStore.userId);
+    menuStore.setMenuList(menusResponse.menuDetails);
     backupsList.value = await PageTemplateService.getBackups(userStore.id);
     pagesList.value = await PageTemplateService.fetchPagesListByUserId(userStore.id);
     changeActiveItemMenu();
