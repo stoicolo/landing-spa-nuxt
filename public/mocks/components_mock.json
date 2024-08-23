@@ -10,7 +10,10 @@
           "title": "Título Impactante",
           "description": "Una breve descripción que capture la atención",
           "backgroundImage": "/img/background-header-weblox.png",
-          "centerImage": "/img/woman-jump.png",
+          "centerImage": "/img/jetpack.png",
+          "buttonText": "Botón de acción",
+          "buttonColor": "#000000",
+          "buttonLink": "/",
           "template": 1
         }
       },
