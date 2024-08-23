@@ -74,8 +74,11 @@ import { useRoute } from 'vue-router';
 import ConfirmationModal from '~/components/helpers/confirmationModal.vue';
 import MenuItemModal from '~/components/helpers/addMenuItemModal.vue';
 import draggable from 'vuedraggable';
+import PageTemplateService from '@/services/page_template';
+import { useCurrentStore } from '~/stores/current';
 
 const menuStore = useMenuStore();
+const currentStore = useCurrentStore();
 const route = useRoute();
 const showModal = ref(false);
 const showEditModal = ref(false);
@@ -84,6 +87,9 @@ const editingItem = ref(null);
 const addPosition = ref('');
 
 onMounted(async () => {
+  await menuStore.initializeStore();
+  const menusResponse = await PageTemplateService.getMenuList(currentStore.websiteId, currentStore.userId);
+  menuStore.setMenuList(menusResponse.menuDetails);
   await loadMyMenu();
   changeActiveItemMenu();
 });
