@@ -15,6 +15,13 @@ const components = computed(() => {
 function selectComponent(component) {
   selectedComponent.value = component;
 }
+
+function formatComponentName(name) {
+  return name
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+}
 </script>
 
 <template>
@@ -39,7 +46,7 @@ function selectComponent(component) {
           class="component-item cursor-pointer"
         >
           <div class="text-center font-bold text-blue-500 text-lg">
-            {{ component.name.toUpperCase() }} <span v-if="selectedComponent === component">(seleccionado)</span>
+            {{ formatComponentName(component.name) }} <span v-if="selectedComponent === component">(seleccionado)</span>
           </div>
           <img :src="component.image" alt="" class="max-h-full w-full object-cover">
         </div>

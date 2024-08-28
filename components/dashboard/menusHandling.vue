@@ -88,6 +88,7 @@ const addPosition = ref('');
 
 onMounted(async () => {
   await menuStore.initializeStore();
+  await menuStore.loadMenu();
   const menusResponse = await PageTemplateService.getMenuList(currentStore.websiteId, currentStore.userId);
   menuStore.setMenuList(menusResponse.menuDetails);
   await loadMyMenu();

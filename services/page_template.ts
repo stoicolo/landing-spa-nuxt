@@ -430,21 +430,18 @@ class PageTemplateService {
         }
     }
 
-    static async updateAllMenu(websiteId: number, menuHeaderId: number, pageId: number, item: any): Promise<any | null> {
+    static async updateAllMenu(menuHeaderId: number, menuPages: any[]): Promise<any | null> {
         try {
             let response = null;
 
             const itemData = {
-                websiteId,
                 menuHeaderId,
-                pageId,
-                href: `/builder/${pageId}`,
-                ...item
+                menuPages: [...menuPages]
             }
 
             response = await axios({
-                method: 'Post',
-                url: `${PageTemplateService.baseURL}/menus/menu-page/`,
+                method: 'Patch',
+                url: `${PageTemplateService.baseURL}/menus/menu-pages-bulk/`,
                 headers: {
                     'Authorization': `Bearer ${PageTemplateService.authToken}`
                 },

@@ -49,6 +49,8 @@ export const useTemplateStore = defineStore('template_store', {
           throw new Error('Failed to fetch page structure');
         }
 
+        debugger
+
         const currentStore = useCurrentStore();
         currentStore.setPageTemplateId(data.id ? data.id : 0);
 
@@ -93,10 +95,35 @@ export const useTemplateStore = defineStore('template_store', {
       }
     },
 
+    // updateWidgetInSection(sectionId: string | number, newWidgetElementData: Partial<Section['widget']['element']>) {
+    //   const section = this.structure.page_template.sections?.find(s => s.id === sectionId);
+    //   if (section && section.widget) {
+    //     section.widget.element = {...section.widget.element, ...newWidgetElementData};
+    //   }
+    // },
+
     updateWidgetInSection(sectionId: string | number, newWidgetElementData: Partial<Section['widget']['element']>) {
       const section = this.structure.page_template.sections?.find(s => s.id === sectionId);
       if (section && section.widget) {
-        section.widget.element = {...section.widget.element, ...newWidgetElementData};
+        Object.entries(newWidgetElementData).forEach(([key, value]) => {
+          if (key.includes('[') && key.includes(']')) {
+            // Handle nested array properties
+            const [arrayProp, indexStr, subProp] = key.match(/(\w+)\[(\d+)\]\.(\w+)/)?.slice(1) || [];
+            if (arrayProp && indexStr && subProp) {
+              const index = parseInt(indexStr, 10);
+              if (!Array.isArray(section.widget.element[arrayProp])) {
+                section.widget.element[arrayProp] = [];
+              }
+              if (!section.widget.element[arrayProp][index]) {
+                section.widget.element[arrayProp][index] = {};
+              }
+              section.widget.element[arrayProp][index][subProp] = value;
+            }
+          } else {
+            // Handle simple properties
+            section.widget.element[key] = value;
+          }
+        });
       }
     },
 
