@@ -3,6 +3,7 @@ import PageTemplateService from '@/services/page_template';
 
 //TODO: Crear un modelo separado
 interface MenuItem {
+  id?: number;
   menuName: string;
   href?: string;
   iconName?: string;
@@ -12,6 +13,7 @@ interface MenuItem {
   method?: string;
   slug?: string;
   subitems?: MenuItem[];
+  pageId?: number;
 }
 
 export const useMenuStore = defineStore('menu', {
@@ -57,9 +59,21 @@ export const useMenuStore = defineStore('menu', {
     },
 
     async saveMenuDB(items: MenuItem[]) {
+      debugger
       const { useCurrentStore } = await import('~/stores/current');
       const currentStore = useCurrentStore();
-      await PageTemplateService.updateAllMenu(currentStore.websiteId, currentStore.menuHeaderId, currentStore.pageId, [...items]);
+      const itemsToSave = items.map(item => {
+        return {
+          id: item.id,
+          menuName: item.menuName,
+          href: item.href,
+          iconName: "default",
+          pageId: item.pageId,
+          order: item.order,
+          slug: item.slug,
+        }
+      });
+      await PageTemplateService.updateAllMenu(currentStore.menuHeaderId, itemsToSave);
       this.setMenuList(items);
     },
 

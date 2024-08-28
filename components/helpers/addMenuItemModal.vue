@@ -51,9 +51,20 @@
       isEditing.value = true;
     }
   });
+  
+  const generateSlug = (text: string): string => {
+  return text
+    .toLowerCase()
+    .trim()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+};
 
   watch(() => menuItem.value.menuName, (newValue) => {
-    menuItem.value.slug = newValue.toLowerCase().replace(/\s+/g, '-');
+    menuItem.value.slug = generateSlug(newValue);
   });
 
   const confirmAction = async () => {

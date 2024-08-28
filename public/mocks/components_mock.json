@@ -19,6 +19,21 @@
       },
       {
         "id": 1,
+        "name": "cards",
+        "category": "basics",
+        "image": "/img/background-cards-weblox.png",
+        "available": true,
+        "element": {
+          "sectionTitle": "Section Title",
+          "backgroundType": "image",
+          "backgroundColor": "#f0f0f0",
+          "backgroundImage": "/img/background-op3.jpg",
+          "cards": [],
+          "template": 1
+        }
+      },
+      {
+        "id": 2,
         "name": "header",
         "category": "basics",
         "image": "https://via.placeholder.com/150",
