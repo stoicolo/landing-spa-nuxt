@@ -480,6 +480,33 @@ class PageTemplateService {
         }
     }
 
+    static async deleteMenuBulkOfItems(websiteId: number, menuHeaderId: number, itemsIds: any[]): Promise<any | null> {
+        try {
+            let response = null;
+
+            const itemData = {
+                websiteId,
+                menuHeaderId,
+                menuPagesIds: [...itemsIds]
+            }
+
+            response = await axios({
+                method: 'Delete',
+                url: `${PageTemplateService.baseURL}/menus/menu-pages-bulk/`,
+                headers: {
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
+                },
+                data: itemData
+              });
+            console.log("Delete Menu Bulk Success", response.data);
+            return response ? response.data : null;
+            
+        } catch (error) {
+            console.error('Error Delete Menu Bulk menu:', error);
+            return null;
+        }
+    }
+
     //TODO: Sacar esto a un servicio de WEBSITE
     static async createPublishRequest(domain: string, websiteId: number, userId: number, menuHeaderId: number, isActive: boolean, isPublic: boolean): Promise<any | null> {
         try {
@@ -575,6 +602,27 @@ class PageTemplateService {
             return null;
         }
     }
+
+    //TODO: SACAR ESTO A UN SERVICIO DE iDrive
+
+    static async saveImageiDrive(formData: FormData): Promise<any | null> {
+        try {
+          const response = await axios({
+            method: 'POST',
+            url: `${PageTemplateService.baseURL}/idrive`,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              'Authorization': `Bearer ${PageTemplateService.authToken}`
+            },
+            data: formData
+          });
+          console.log("Uploading image iDrive Success", response.data);
+          return response.data;
+        } catch (error) {
+          console.error('Error Uploading image iDrive:', error);
+          throw error;
+        }
+      }
 
     
 }
