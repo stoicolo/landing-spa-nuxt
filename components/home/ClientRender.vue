@@ -3,21 +3,28 @@
     <!-- Menú responsive -->
     <Menu :menuItems="website?.content?.menu" :logoSrc="'img/weblox-logo-name.png'" />
 
-    <!-- Contenido de la página -->
-    <div v-if="website?.isActive">
-      <template v-if="website" v-for="(section, index) in currentPageSections" :key="section.id"
-        v-memo="[section.position, viewMode]">
-        <div class="weblox-wrapper">
-          <component v-if="section.widget && section.widget.element"
-            :is="getComponent(section.widget.name, section.widget.element)" v-bind="section.widget.element"
-            :viewMode="viewMode" :id="Number(section.id)" />
-        </div>
-      </template>
-      <!-- Mensaje de carga -->
-      <Spinner v-else />
+    <!-- Estado de carga -->
+    <div v-if="isLoading" class="flex items-center justify-center min-h-screen">
+      <Spinner />
     </div>
 
-    <div class="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+    <!-- Contenido de la página -->
+    <div v-else-if="website?.isActive">
+      <template v-for="(section, index) in currentPageSections" :key="section.id" v-memo="[section.position, viewMode]">
+        <div class="weblox-wrapper">
+          <component 
+            v-if="section.widget && section.widget.element"
+            :is="getComponent(section.widget.name, section.widget.element)" 
+            v-bind="section.widget.element" 
+            :viewMode="viewMode" 
+            :id="Number(section.id)" 
+          />
+        </div>
+      </template>
+    </div>
+
+    <!-- Página de mantenimiento -->
+    <div v-else class="flex items-center justify-center min-h-screen bg-gray-100 p-4">
       <div class="w-full max-w-4xl">
         <div class="bg-white rounded-lg p-6 md:p-10 shadow-2xl dashed-border">
           <div class="flex flex-col md:flex-row items-center">
@@ -32,8 +39,7 @@
               <h2 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">Sitio en Mantenimiento</h2>
               <p class="text-lg md:text-xl text-gray-700 mb-6 leading-relaxed">
                 Estamos dedicados a mejorar continuamente la experiencia de usuario. Nuestro equipo está creando la
-                magia
-                detrás de escena.
+                magia detrás de escena.
               </p>
               <p class="text-base md:text-lg font-semibold text-blue-600 mb-4">
                 Estaremos de vuelta en: menos de 8h
@@ -52,37 +58,32 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { defineAsyncComponent } from 'vue'
 import Menu from '@/components/helpers/mainMenuClient.vue'
 import PageTemplateService from '@/services/page_template'
 import Spinner from '@/components/helpers/spinner.vue'
 
 const website = ref(null)
 const viewMode = ref('preview')
-//const isMenuOpen = ref(false)
+const isLoading = ref(true)
 
 const route = useRoute()
 
-// Función para obtener los datos del sitio web
 const fetchWebsiteData = async () => {
-  console.log(window.location.host);
-  debugger;
+  isLoading.value = true
   try {
-    website.value = await PageTemplateService.fetchClientSiteByDomain(window.location.host);
-
+    website.value = await PageTemplateService.fetchClientSiteByDomain(window.location.host)
   } catch (error) {
     console.error('Error fetching website data:', error)
+  } finally {
+    isLoading.value = false
   }
 }
 
-// Llamar a fetchWebsiteData al montar el componente
 onMounted(async () => {
-  fetchWebsiteData();
-  setInterval(changeIconColor, 1000);
-});
-
-// const toggleMenu = () => {
-//   isMenuOpen.value = !isMenuOpen.value
-// }
+  await fetchWebsiteData()
+  setInterval(changeIconColor, 8000)
+})
 
 const currentPageSections = computed(() => {
   if (!website.value) return []
@@ -108,39 +109,34 @@ function getComponent(widgetName, element) {
   )
 }
 
+let colorIndex = 0
+const colors = [
+  "hsl(46, 50%, 50%)",  // Oro
+  "hsl(0, 0%, 75%)",    // Plata
+  "hsl(0, 0%, 50%)"     // Gris
+]
+
 function getNextColor() {
-    let colorIndex = 0;
-    const colors = [
-        "hsl(46, 50%, 50%)",  // Oro
-        "hsl(0, 0%, 75%)",     // Plata
-        "hsl(0, 0%, 50%)"      // Gris
-    ];
-    const color = colors[colorIndex];
-    colorIndex = (colorIndex + 1) % colors.length;
-    return color;
+  const color = colors[colorIndex]
+  colorIndex = (colorIndex + 1) % colors.length
+  return color
 }
 
 function changeIconColor() {
-  const icon = document.getElementById('colorChangingIcon');
-  const newColor = getNextColor();
-  icon.style.transition = 'color 8s ease';
-  icon.style.color = newColor;
+  const icon = document.getElementById('colorChangingIcon')
+  if (icon) {
+    const newColor = getNextColor()
+    icon.style.transition = 'color 8s ease'
+    icon.style.color = newColor
+  }
 }
-
 </script>
+
 <style>
 @keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .gradient-text {
@@ -153,39 +149,26 @@ function changeIconColor() {
 }
 
 .dashed-border {
-    background-image: 
-        linear-gradient(90deg, #969494 50%, transparent 50%),
-        linear-gradient(90deg, #969494 50%, transparent 50%),
-        linear-gradient(0deg, #969494 50%, transparent 50%),
-        linear-gradient(0deg, #969494 50%, transparent 50%);
-    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
-    background-size: 15px 2px, 15px 2px, 2px 15px, 2px 15px;
-    background-position: 0px 0px, 200px 100%, 0px 200px, 100% 0px;
-    animation: border-dance 28s infinite linear;
+  background-image: 
+    linear-gradient(90deg, #969494 50%, transparent 50%),
+    linear-gradient(90deg, #969494 50%, transparent 50%),
+    linear-gradient(0deg, #969494 50%, transparent 50%),
+    linear-gradient(0deg, #969494 50%, transparent 50%);
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  background-size: 15px 2px, 15px 2px, 2px 15px, 2px 15px;
+  background-position: 0px 0px, 200px 100%, 0px 200px, 100% 0px;
+  animation: border-dance 28s infinite linear;
 }
 
 @keyframes border-dance {
-  0% {
-    background-position: 0px 0px, 200px 100%, 0px 200px, 100% 0px;
-  }
-
-  100% {
-    background-position: 200px 0px, 0px 100%, 0px 0px, 100% 200px;
-  }
+  0% { background-position: 0px 0px, 200px 100%, 0px 200px, 100% 0px; }
+  100% { background-position: 200px 0px, 0px 100%, 0px 0px, 100% 200px; }
 }
 
 @keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
 }
 
 .float {
