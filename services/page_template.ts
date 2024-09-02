@@ -607,19 +607,22 @@ class PageTemplateService {
 
     static async saveImageiDrive(formData: FormData): Promise<any | null> {
         try {
+          const imageFile = formData.get('image') as File;
+          const imageType = imageFile.type === 'image/png' ? 'image/png' : 'image/jpeg';
+          formData.append('imageType', imageType);
           const response = await axios({
             method: 'POST',
-            url: `${PageTemplateService.baseURL}/idrive`,
+            url: `${PageTemplateService.baseURL}/uploads/images`,
             headers: {
               'Content-Type': 'multipart/form-data',
               'Authorization': `Bearer ${PageTemplateService.authToken}`
             },
             data: formData
           });
-          console.log("Uploading image iDrive Success", response.data);
+          console.log("Uploading image Success", response.data);
           return response.data;
         } catch (error) {
-          console.error('Error Uploading image iDrive:', error);
+          console.error('Error Uploading image:', error);
           throw error;
         }
       }

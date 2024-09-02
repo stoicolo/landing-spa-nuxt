@@ -105,8 +105,9 @@ const uploadImage = async (file: File) => {
   formData.append('image', file);
 
   try {
+    debugger
     const response = await PageTemplateService.saveImageiDrive(formData);
-    images.value.push({ url: response.url, selected: false, id: response.id });
+    images.value.push({ url: response.data.url, selected: false, id: response.data.id });
   } catch (error) {
     console.error('Error al subir la imagen:', error);
     errorMessage.value = 'Error al subir la imagen. Por favor, intente de nuevo.';
