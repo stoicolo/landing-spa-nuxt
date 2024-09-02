@@ -2,7 +2,7 @@
   <div class="parallax-hero" ref="heroRef">
     <!-- Template 1 -->
     <div v-if="Number(localTemplate) === 1" class="hero-content">
-      <div class="background-image" ref="bgImageRef" :style="{ backgroundImage: `url(${localBackgroundImage})` }"></div>
+      <div class="background-image" ref="bgImageRef" :style="backgroundImageStyle"></div>
       <div class="center-image" ref="centerImageRef">
         <img :src="localCenterImage" alt="Center Image">
       </div>
@@ -293,6 +293,12 @@ onBeforeUnmount(() => {
     }
   });
   window.removeEventListener('resize', checkIfMobile);
+});
+
+const backgroundImageStyle = computed(() => {
+  return {
+    backgroundImage: `url(${localBackgroundImage.value})`
+  }
 });
 
 function checkIfMobile() {
