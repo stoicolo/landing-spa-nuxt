@@ -50,7 +50,7 @@ function clearToken() {
 
 export default defineNuxtRouteMiddleware((to, from) => {
   console.log('Middleware triggered. Route:', to.path)
-  if (process.server || !(to.path.includes('builder') || to.path.includes('menus') || to.path.includes('backups'))) {
+  if (process.server || !(to.path.includes('builder') || to.path.includes('menus') || to.path.includes('backups') || to.path.includes('config'))) {
     console.log('Skipping auth check (server-side or non-protected route)')
     return
   }
