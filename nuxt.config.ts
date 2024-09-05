@@ -49,7 +49,8 @@ export default defineNuxtConfig({
 
   plugins: [
     '~/plugins/toaster.js',
-    '~/plugins/init-page-template-service'
+    '~/plugins/init-page-template-service',
+    '~/plugins/fontawesome.js'
   ],
 
   i18n: {
@@ -59,6 +60,7 @@ export default defineNuxtConfig({
   components: true,
   compatibilityDate: "2024-08-12",
   css: [
-    '@/assets/css/global-theme.css'
+    '@/assets/css/global-theme.css',
+    '@fortawesome/fontawesome-svg-core/styles.css'
   ]
 });
