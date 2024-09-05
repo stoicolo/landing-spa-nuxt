@@ -34,6 +34,16 @@
       },
       {
         "id": 2,
+        "name": "carrusel",
+        "category": "basics",
+        "image": "/img/background-cards-weblox.png",
+        "available": true,
+        "element": {
+          "template": 1
+        }
+      },
+      {
+        "id": 3,
         "name": "header",
         "category": "basics",
         "image": "https://via.placeholder.com/150",
@@ -42,7 +52,7 @@
           "backgroundImage": "img/header1.png",
           "title": "New Header",
           "icon": "https://via.placeholder.com/150",
-          "template": 0
+          "template": 1
         }
       }
     ]
