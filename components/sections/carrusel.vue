@@ -14,10 +14,9 @@
         </button>
 
         <div class="container mx-auto px-4">
-            <!-- Section title (optional) -->
-            <h2 v-if="localSectionTitle" class="text-3xl font-bold text-center mb-12" :class="titleClass">
-                <span v-if="!viewMode" @input="updateSectionTitle($event)" @blur="saveChanges" contenteditable>{{
-                    localSectionTitle }}</span>
+            <!-- Section title with editable text and color -->
+            <h2 v-if="localSectionTitle" class="text-3xl font-bold text-center mb-12" :style="{ color: localSectionTitleColor }">
+                <span v-if="!viewMode" @input="updateSectionTitle($event)" @blur="saveChanges" contenteditable>{{ localSectionTitle }}</span>
                 <span v-else>{{ localSectionTitle }}</span>
             </h2>
 
@@ -36,14 +35,14 @@
                                 <div :class="{'flex justify-between mb-4': Number(localTemplate) === 1, 'flex justify-start mb-4': Number(localTemplate) === 2}">
                                     <div :class="{'order-2': Number(localTemplate) === 1, 'order-1': Number(localTemplate) === 2}" class="flex space-x-2">
                                         <button @click="prevSlide"
-                                            class="bg-white p-2 rounded-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                                            class="bg-white p-2 rounded-full shadow-md hover:shadow-lg transition-shadow duration-300  transition-transform duration-300 hover:-translate-x-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                                             </svg>
                                         </button>
                                         <button @click="nextSlide"
-                                            class="bg-white p-2 rounded-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                                            class="bg-white p-2 rounded-full shadow-md hover:shadow-lg transition-shadow duration-300 transition-transform duration-300 hover:translate-x-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -51,13 +50,38 @@
                                         </button>
                                     </div>
                                 </div>
-                                <h3 v-if="slide.showTitle" class="text-2xl font-semibold mb-2">{{ slide.title }}</h3>
-                                <p v-if="slide.showDescription" class="text-gray-600 mb-4">{{ slide.description }}</p>
-                                <a v-if="slide.showButton" :href="slide.buttonLink"
-                                    class="inline-block text-center py-2 px-4 rounded transition-colors duration-300 whitespace-nowrap"
-                                    :style="{ backgroundColor: slide.buttonColor, color: 'white' }">
-                                    {{ slide.buttonText }}
-                                </a>
+                                <h3 v-if="slide.showTitle" class="text-2xl font-semibold mb-2" :style="{ color: slide.titleColor }">
+                                    <span v-if="!viewMode" @input="updateSlideTitle($event, index)" @blur="saveChanges" contenteditable>{{ slide.title }}</span>
+                                    <span v-else>{{ slide.title }}</span>
+                                </h3>
+                                <p v-if="slide.showDescription" class="mb-4" :style="{ color: slide.descriptionColor }">
+                                    <span v-if="!viewMode" @input="updateSlideDescription($event, index)" @blur="saveChanges" contenteditable>{{ slide.description }}</span>
+                                    <span v-else>{{ slide.description }}</span>
+                                </p>
+                                <div class="inline-flex">
+                                    <a 
+                                        v-if="slide.showButton" 
+                                        :href="viewMode ? slide.buttonLink : '#'"
+                                        @click.prevent="!viewMode"
+                                        class="cursor-pointer w-auto inline-flex items-center text-center py-2 px-16 rounded-xl border transition-colors duration-300 whitespace-nowrap hover:brightness-125" 
+                                        :style="{ 
+                                            borderColor: slide.buttonColor,
+                                            backgroundColor:  slide.buttonColor,
+                                            color: slide.buttonTextColor 
+                                        }"
+                                        >
+                                        <span 
+                                            v-if="!viewMode" 
+                                            @input="updateSlideButtonText($event, index)" 
+                                            @blur="saveChanges" 
+                                            contenteditable
+                                        >
+                                            {{ slide.buttonText }}
+                                        </span>
+                                        <span v-else>{{ slide.buttonText }}</span>
+                                    </a>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -71,19 +95,19 @@
                             <div v-if="slide.showImage" class="md:w-1/2 img-slide">
                                 <img :src="slide.image" :alt="slide.title" class="w-full h-full object-cover">
                             </div>
-                            <div class="p-6 md:w-1/2 flex flex-col justify-center text-white">
+                            <div class="p-6 md:w-1/2 flex flex-col justify-center">
                                 <!-- Navigation arrows -->
                                 <div :class="{'flex justify-between mb-4': Number(localTemplate) === 1, 'flex justify-start mb-4': Number(localTemplate) === 2}">
                                     <div :class="{'order-2': Number(localTemplate) === 1, 'order-1': Number(localTemplate) === 2}" class="flex space-x-2">
                                         <button @click="prevSlide"
-                                            class="bg-white p-2 rounded-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                                            class="bg-white p-2 rounded-full shadow-md hover:shadow-lg transition-shadow duration-300 transition-transform duration-300 hover:-translate-x-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                                             </svg>
                                         </button>
                                         <button @click="nextSlide"
-                                            class="bg-white p-2 rounded-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                                            class="bg-white p-2 rounded-full shadow-md hover:shadow-lg transition-shadow duration-300 transition-transform duration-300 hover:translate-x-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -91,13 +115,36 @@
                                         </button>
                                     </div>
                                 </div>
-                                <h3 v-if="slide.showTitle" class="text-3xl font-bold mb-4">{{ slide.title }}</h3>
-                                <p v-if="slide.showDescription" class="mb-6 text-lg">{{ slide.description }}</p>
-                                <a v-if="slide.showButton" :href="slide.buttonLink"
-                                    class="inline-block text-center py-3 px-6 rounded-full transition-colors duration-300 hover:bg-blue-100 whitespace-nowrap"
-                                    :style="{ backgroundColor: slide.buttonColor, color: 'white' }">
-                                        {{ slide.buttonText }}
-                                </a>
+                                <h3 v-if="slide.showTitle" class="text-2xl font-semibold mb-2" :style="{ color: slide.titleColor }">
+                                    <span v-if="!viewMode" @input="updateSlideTitle($event, index)" @blur="saveChanges" contenteditable>{{ slide.title }}</span>
+                                    <span v-else>{{ slide.title }}</span>
+                                </h3>
+                                <p v-if="slide.showDescription" class="mb-4" :style="{ color: slide.descriptionColor }">
+                                    <span v-if="!viewMode" @input="updateSlideDescription($event, index)" @blur="saveChanges" contenteditable>{{ slide.description }}</span>
+                                    <span v-else>{{ slide.description }}</span>
+                                </p>
+                                <div class="inline-flex">
+                                    <a 
+                                        v-if="slide.showButton" 
+                                        :href="viewMode ? slide.buttonLink : '#'"
+                                        @click.prevent="!viewMode"
+                                        class="w-auto inline-flex items-center text-center py-2 px-16 rounded-xl transition-colors duration-300 whitespace-nowrap hover:brightness-125" 
+                                        :style="{ 
+                                            backgroundColor: slide.buttonColor, 
+                                            color: slide.buttonTextColor 
+                                        }"
+                                        >
+                                        <span 
+                                            v-if="!viewMode" 
+                                            @input="updateSlideButtonText($event, index)" 
+                                            @blur="saveChanges" 
+                                            contenteditable
+                                        >
+                                            {{ slide.buttonText }}
+                                        </span>
+                                        <span v-else>{{ slide.buttonText }}</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -120,17 +167,17 @@
 
             <!-- General configuration -->
             <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Section background</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Color de Fondo</label>
                 <div class="flex items-center space-x-4">
                     <button @click="toggleBackgroundType" class="px-4 py-2 border rounded"
                         :class="{ 'bg-blue-500 text-white': localBackgroundType === 'color', 'bg-white text-gray-700': localBackgroundType !== 'color' }">Color</button>
                     <button @click="toggleBackgroundType" class="px-4 py-2 border rounded"
-                        :class="{ 'bg-blue-500 text-white': localBackgroundType === 'image', 'bg-white text-gray-700': localBackgroundType !== 'image' }">Image</button>
+                        :class="{ 'bg-blue-500 text-white': localBackgroundType === 'image', 'bg-white text-gray-700': localBackgroundType !== 'image' }">Imagen</button>
                 </div>
                 <input v-if="localBackgroundType === 'color'" v-model="localBackgroundColor"
-                    @input="updateBackgroundColor" type="color" class="mt-2 p-1 w-full h-10">
+                    @input="updateBackgroundColor" type="color" class="mt-2 p-1 w-full h-10 rounded-full">
                 <div v-if="localBackgroundType === 'image'" class="mt-2 flex items-center">
-                    <span class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
+                    <span class="inline-block h-12 w-12 overflow-hidden bg-gray-100">
                         <img v-if="localBackgroundImage" :src="localBackgroundImage" alt="Background"
                             class="h-full w-full object-cover">
                         <svg v-else class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
@@ -140,20 +187,18 @@
                     </span>
                     <button @click="openBackgroundImageModal"
                         class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Change image
+                        Cambiar Imagen
                     </button>
                 </div>
             </div>
 
+
+            <!-- Configuration modal additions -->
             <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Section title (optional)</label>
-                <input v-model="localSectionTitle" @input="saveChanges" type="text" class="p-2 w-full border rounded"
-                    placeholder="Enter section title">
-                <div class="mt-2 flex items-center" v-if="localBackgroundType === 'image'">
-                    <input type="checkbox" id="whiteTitleCheckbox" v-model="localWhiteTitle" @change="saveChanges"
-                        class="mr-2">
-                    <label for="whiteTitleCheckbox" class="text-sm text-gray-700">White title</label>
-                </div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Titulo de la sección (opcional)</label>
+                <input v-model="localSectionTitle" @input="saveChanges" type="text" class="p-2 w-full border rounded" placeholder="Enter section title">
+                <label class="block text-sm font-medium text-gray-700 mt-2 mb-1">Section title color</label>
+                <input v-model="localSectionTitleColor" @input="saveChanges" type="color" class="p-1 w-full">
             </div>
 
             <!-- Slide list -->
@@ -161,7 +206,7 @@
                 <h3 class="text-lg font-semibold mb-2">Slide {{ index + 1 }}</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Image</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Imagen</label>
                         <div class="flex items-center">
                             <span class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
                                 <img v-if="slide.image" :src="slide.image" alt="Slide image"
@@ -173,76 +218,68 @@
                             </span>
                             <button @click="openSlideImageModal(index)"
                                 class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Change
+                                Cambiar
                             </button>
                         </div>
                         <div class="mt-2">
                             <input type="checkbox" :id="`showImage${index}`" v-model="slide.showImage"
                                 @change="saveChanges" class="mr-2">
-                            <label :for="`showImage${index}`" class="text-sm text-gray-700">Show image</label>
+                            <label :for="`showImage${index}`" class="text-sm text-gray-700">Mostrar imagen</label>
                         </div>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                        <input v-model="slide.title" @input="saveChanges" type="text" class="p-2 w-full border rounded"
-                            maxlength="50">
-                        <div class="mt-2">
-                            <input type="checkbox" :id="`showTitle${index}`" v-model="slide.showTitle"
-                                @change="saveChanges" class="mr-2">
-                            <label :for="`showTitle${index}`" class="text-sm text-gray-700">Show title</label>
-                        </div>
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                        <textarea v-model="slide.description" @input="saveChanges" class="p-2 w-full border rounded"
-                            rows="3" maxlength="200"></textarea>
-                        <div class="mt-2">
-                            <input type="checkbox" :id="`showDescription${index}`" v-model="slide.showDescription"
-                                @change="saveChanges" class="mr-2">
-                            <label :for="`showDescription${index}`" class="text-sm text-gray-700">Show
-                                description</label>
-                        </div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Título</label>
+                        <input v-model="slide.title" @input="saveChanges" type="text" class="p-2 w-full border rounded" maxlength="50">
+                        <label class="block text-sm font-medium text-gray-700 mt-2 mb-1">Color de título</label>
+                        <input v-model="slide.titleColor" @input="saveChanges" type="color" class="p-1 w-full">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Button text</label>
-                        <input v-model="slide.buttonText" @input="saveChanges" type="text"
-                            class="p-2 w-full border rounded" maxlength="20">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Descripción</label>
+                        <textarea v-model="slide.description" @input="saveChanges" class="p-2 w-full border rounded" rows="3" maxlength="200"></textarea>
+                        <label class="block text-sm font-medium text-gray-700 mt-2 mb-1">Color de descripción</label>
+                        <input v-model="slide.descriptionColor" @input="saveChanges" type="color" class="p-1 w-full">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Button color</label>
-                        <input v-model="slide.buttonColor" @input="saveChanges" type="color" class="p-1 w-full">
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Button URL</label>
-                        <input v-model="slide.buttonLink" @input="saveChanges" type="text"
-                            class="p-2 w-full border rounded" placeholder="https://...">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Texto del botón</label>
+                        <input v-model="slide.buttonText" @input="saveChanges" type="text" class="p-2 w-full border rounded" maxlength="20">
+                        <label class="block text-sm font-medium text-gray-700 mt-2 mb-1">Color del texto del botón</label>
+                        <input v-model="slide.buttonTextColor" @input="saveChanges" type="color" class="p-1 w-full">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Color del botón</label>
+                            <input v-model="slide.buttonColor" @input="saveChanges" type="color" class="p-1 w-full">
+                        </div>
                         <div class="mt-2">
                             <input type="checkbox" :id="`showButton${index}`" v-model="slide.showButton"
                                 @change="saveChanges" class="mr-2">
-                            <label :for="`showButton${index}`" class="text-sm text-gray-700">Show button</label>
+                            <label :for="`showButton${index}`" class="text-sm text-gray-700">Mostrar botón</label>
                         </div>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Dirección (URL)</label>
+                        <input v-model="slide.buttonLink" @input="saveChanges" type="text"
+                            class="p-2 w-full border rounded" placeholder="https://...">
                     </div>
                 </div>
                 <button @click="removeSlide(index)"
                     class="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors duration-300">
-                    Remove slide
+                    Eliminar Slide
                 </button>
             </div>
 
             <!-- Button to add slide -->
             <button @click="addSlide"
                 class="mb-6 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors duration-300">
-                + Add slide
+                + Agregar Slide
             </button>
 
             <div class="flex justify-end mt-6">
                 <button @click="closeConfigModal"
                     class="mr-4 px-4 py-2 border rounded text-gray-600 hover:bg-gray-100 transition-colors duration-300">
-                    Cancel
+                    Cancelar
                 </button>
                 <button @click="saveChangesAndClose"
                     class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300">
-                    Save changes
+                    Guardar
                 </button>
             </div>
         </div>
@@ -281,9 +318,10 @@ const props = defineProps({
         type: String
     },
     slides: {
-        type: Array
+        type: Array,
+        default: []
     },
-    whiteTitle: {
+    localSectionTitleColor: {
         type: Boolean
     }
 });
@@ -297,8 +335,8 @@ const localBackgroundType = ref(props.backgroundType);
 const localBackgroundColor = ref(props.backgroundColor);
 const localBackgroundImage = ref(props.backgroundImage);
 const localSlides = ref(props.slides);
-const localWhiteTitle = ref(props.whiteTitle);
 const currentSlide = ref(0);
+const localSectionTitleColor = ref(props.localSectionTitleColor);
 
 const localTemplate = computed(() => {
     let currentTemplate = props.template;
@@ -315,17 +353,17 @@ const openGaleryImages = inject('openGaleryImages', () => {
     console.warn('openGaleryImages function is not available');
 });
 
-// Watcher to load and update component data
+// Update the watch function to include new properties
 watch(() => templateStore.structure.page_template.sections, (newSections) => {
-    const currentSection = newSections.find(section => section.id === props.id);
-    if (currentSection && currentSection.widget.element) {
-        localSectionTitle.value = currentSection.widget.element.sectionTitle || '';
-        localBackgroundType.value = currentSection.widget.element.backgroundType || 'color';
-        localBackgroundColor.value = String(currentSection.widget.element.backgroundColor || '#f3f4f6');
-        localBackgroundImage.value = currentSection.widget.element.backgroundImage || '';
-        localSlides.value = currentSection.widget.element.slides || [];
-        localWhiteTitle.value = currentSection.widget.element.whiteTitle || false;
-    }
+  const currentSection = newSections.find(section => section.id === props.id);
+  if (currentSection && currentSection.widget.element) {
+    localSectionTitle.value = currentSection.widget.element.sectionTitle || '';
+    localBackgroundType.value = currentSection.widget.element.backgroundType || 'color';
+    localBackgroundColor.value = String(currentSection.widget.element.backgroundColor || '#f3f4f6');
+    localBackgroundImage.value = currentSection.widget.element.backgroundImage || '';
+    localSectionTitleColor.value = currentSection.widget.element.sectionTitleColor || '#000000';
+    localSlides.value = currentSection.widget.element.slides || [];
+  }
 }, { deep: true, immediate: true });
 
 const titleClass = computed(() => {
@@ -379,7 +417,7 @@ function saveChanges() {
         backgroundColor: localBackgroundColor.value,
         backgroundImage: localBackgroundImage.value,
         slides: localSlides.value,
-        whiteTitle: localWhiteTitle.value
+        sectionTitleColor: localSectionTitleColor.value,
     });
 }
 
@@ -391,6 +429,21 @@ function saveChangesAndClose() {
 function updateSectionTitle(event) {
     localSectionTitle.value = event.target.innerText;
     saveChanges();
+}
+
+function updateSlideTitle(event, index) {
+  localSlides.value[index].title = event.target.innerText;
+  saveChanges();
+}
+
+function updateSlideDescription(event, index) {
+  localSlides.value[index].description = event.target.innerText;
+  saveChanges();
+}
+
+function updateSlideButtonText(event, index) {
+  localSlides.value[index].buttonText = event.target.innerText;
+  saveChanges();
 }
 
 function updateBackgroundColor() {
