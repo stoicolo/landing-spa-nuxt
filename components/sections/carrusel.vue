@@ -151,7 +151,7 @@
                 </div>
 
                 <!-- Slide indicators -->
-                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 hidden sm:flex">
                     <button v-for="(slide, index) in localSlides" :key="index" @click="goToSlide(index)"
                         class="w-3 h-3 rounded-full transition-colors duration-300"
                         :class="currentSlide === index ? 'bg-blue-500' : 'bg-gray-300'"></button>
