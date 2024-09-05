@@ -104,9 +104,9 @@
                       v-text="localSocialTitle"
                     ></div>
                   </h3>
-                  <div class="flex space-x-4">
-                    <a v-for="(social, index) in localSocialMedia" :key="index" :href="social.url" :style="{ color: localTextColor }" class="hover:text-gray-300">
-                      <i :class="social.icon" class="fab fa-2x"></i>
+                  <div class="flex space-x-4 text-4xl">
+                    <a v-for="(social, index) in localSocialMedia" :key="index" :href="social.url" :style="{ color: localTextColor }" class="hover:text-gray-300 transition-transform duration-300 hover:-translate-y-1">
+                      <font-awesome-icon :icon="social.icon"/>
                     </a>
                   </div>
                 </div>
@@ -226,17 +226,6 @@
         <input type="text" id="copyright" v-model="localCopyright"
           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
       </div>
-
-      <!-- <div class="mb-4">
-        <label class="block text-sm font-medium text-gray-700">Imagen de fondo</label>
-        <div class="mt-1 flex items-center">
-          <img :src="localBackgroundImage" alt="Background" class="h-20 w-20 object-cover rounded">
-          <button @click="updateBackgroundImage"
-            class="ml-4 px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-            Cambiar imagen
-          </button>
-        </div>
-      </div> -->
 
       <div class="mb-4">
           <label class="block text-sm font-medium text-gray-700 mb-2">Fondo de la sección</label>
