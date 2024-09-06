@@ -14,7 +14,7 @@
       <div v-else class="grid grid-cols-4 gap-4 mb-4">
         <div v-for="(image, index) in images" :key="index" class="relative">
           <img 
-            :src="image.url" 
+            :src="image.imageExternalUrl" 
             @click="selectImage(index)"
             class="w-full h-32 object-cover rounded cursor-pointer" 
             :class="{ 'border-4 border-blue-500': image.selected }"
@@ -51,7 +51,7 @@ import { useCurrentStore } from '~/stores/current';
 import PageTemplateService from '~/services/page_template';
 
 const isOpen = ref(false)
-const images = ref<Array<{ url: string; selected: boolean, id: string }>>([])
+const images = ref<Array<{ imageExternalUrl: string; selected: boolean, id: string }>>([])
 const errorMessage = ref('')
 const selectedImage = computed(() => images.value.find(img => img.selected))
 const templateStore = useTemplateStore();
@@ -105,11 +105,10 @@ const uploadImage = async (file: File) => {
   formData.append('image', file);
 
   try {
-    debugger
-    const response = await PageTemplateService.saveImageiDrive(formData);
-    images.value.push({ url: response.data.url, selected: false, id: response.data.id });
+    const response = await PageTemplateService.saveImageiDrive(formData, currentStore.websiteId, currentStore.userId);
+    images.value.push({ imageExternalUrl: response.data.url, selected: false, id: response.data.id });
   } catch (error) {
-    console.error('Error al subir la imagen:', error);
+    console.error('Error uploading images:', error);
     errorMessage.value = 'Error al subir la imagen. Por favor, intente de nuevo.';
   }
 };

@@ -605,14 +605,34 @@ class PageTemplateService {
 
     //TODO: SACAR ESTO A UN SERVICIO DE iDrive
 
-    static async saveImageiDrive(formData: FormData): Promise<any | null> {
+    static async getListOfImagesByWebsite(websiteId: number): Promise<any | null> {
+        try {
+          const response = await axios({
+            method: 'GET',
+            url: `${PageTemplateService.baseURL}/media/images`,
+            params: { websiteId: websiteId },
+            headers: {
+              'Authorization': `Bearer ${PageTemplateService.authToken}`
+            }
+          });
+          console.log("Getting images Success", response.data);
+          return response.data;
+        } catch (error) {
+          console.error('Getting images Error:', error);
+          throw error;
+        }
+      }
+
+    static async saveImageiDrive(formData: any, websiteId: number, userId: number): Promise<any | null> {
         try {
           const imageFile = formData.get('image') as File;
           const imageType = imageFile.type === 'image/png' ? 'image/png' : 'image/jpeg';
           formData.append('imageType', imageType);
+          formData.append('websiteId', websiteId);
+          formData.append('userId', userId);
           const response = await axios({
             method: 'POST',
-            url: `${PageTemplateService.baseURL}/uploads/images`,
+            url: `${PageTemplateService.baseURL}/media/images`,
             headers: {
               'Content-Type': 'multipart/form-data',
               'Authorization': `Bearer ${PageTemplateService.authToken}`
