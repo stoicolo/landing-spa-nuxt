@@ -14,7 +14,7 @@
       <div v-else class="grid grid-cols-4 gap-4 mb-4">
         <div v-for="(image, index) in images" :key="index" class="relative">
           <img 
-            :src="image.url" 
+            :src="image.imageExternalUrl" 
             @click="selectImage(index)"
             class="w-full h-32 object-cover rounded cursor-pointer" 
             :class="{ 'border-4 border-blue-500': image.selected }"
@@ -51,7 +51,7 @@ import { useCurrentStore } from '~/stores/current';
 import PageTemplateService from '~/services/page_template';
 
 const isOpen = ref(false)
-const images = ref<Array<{ url: string; selected: boolean, id: string }>>([])
+const images = ref<Array<{ imageExternalUrl: string; selected: boolean, id: string }>>([])
 const errorMessage = ref('')
 const selectedImage = computed(() => images.value.find(img => img.selected))
 const templateStore = useTemplateStore();
@@ -105,11 +105,10 @@ const uploadImage = async (file: File) => {
   formData.append('image', file);
 
   try {
-    debugger
-    const response = await PageTemplateService.saveImageiDrive(formData);
-    images.value.push({ url: response.data.url, selected: false, id: response.data.id });
+    const response = await PageTemplateService.saveImageiDrive(formData, currentStore.websiteId, currentStore.userId);
+    images.value.push({ imageExternalUrl: response.data.url, selected: false, id: response.data.id });
   } catch (error) {
-    console.error('Error al subir la imagen:', error);
+    console.error('Error uploading images:', error);
     errorMessage.value = 'Error al subir la imagen. Por favor, intente de nuevo.';
   }
 };
@@ -134,7 +133,7 @@ const removeImage = async (index: number) => {
 const useImage = () => {
   if (selectedImage.value) {
     templateStore.updateWidgetInSection(currentStore.section.id, {
-      [currentStore.section.prop]: selectedImage.value.url
+      [currentStore.section.prop]: selectedImage.value.imageExternalUrl
     });
     close()
   }
@@ -142,8 +141,8 @@ const useImage = () => {
 
 const loadImagesFromAPI = async () => {
   try {
-    //const response = await axios.get('http://localhost:3000/images');
-    //images.value = response.data.map((img: any) => ({ ...img, selected: false }));
+    const listOfImages = await PageTemplateService.getListOfImagesByWebsite(currentStore.websiteId);
+    images.value = listOfImages.map((img: any) => ({ ...img, selected: false }));
   } catch (error) {
     console.error('Error al cargar las imágenes:', error);
     errorMessage.value = 'Error al cargar las imágenes. Por favor, intente de nuevo.';
