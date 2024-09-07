@@ -3,28 +3,34 @@
     <div class="bg-white p-6 rounded-lg w-3/4 max-w-4xl">
       <h2 class="text-2xl font-bold mb-4">Galería de Imágenes</h2>
 
-      <div v-if="images.length === 0" class="flex flex-col items-center justify-center h-64 border-2 border-dashed border-gray-300 rounded-lg">
-        <p class="text-gray-500 mb-4">No hay imágenes en la galería</p>
-        <label for="fileInput" class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
-          Agregar imagen del dispositivo
-        </label>
-        <input id="fileInput" type="file" @change="handleFileUpload" accept=".jpg,.jpeg,.png" class="hidden">
+      <div v-if="!isLoading">
+        <div v-if="images.length === 0" class="flex flex-col items-center justify-center h-64 border-2 border-dashed border-gray-300 rounded-lg">
+          <p class="text-gray-500 mb-4">No hay imágenes en la galería</p>
+          <label for="fileInput" class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+            Agregar imagen del dispositivo
+          </label>
+          <input id="fileInput" type="file" @change="handleFileUpload" accept=".jpg,.jpeg,.png" class="hidden">
+        </div>
+  
+        <div v-else class="grid grid-cols-4 gap-4 mb-4">
+          <div v-for="(image, index) in images" :key="index" class="relative">
+            <img 
+              :src="image.imageExternalUrl" 
+              @click="selectImage(index)"
+              class="w-full h-32 object-cover rounded cursor-pointer" 
+              :class="{ 'border-4 border-blue-500': image.selected }"
+            >
+            <button @click.stop="removeImage(index)" class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
 
-      <div v-else class="grid grid-cols-4 gap-4 mb-4">
-        <div v-for="(image, index) in images" :key="index" class="relative">
-          <img 
-            :src="image.imageExternalUrl" 
-            @click="selectImage(index)"
-            class="w-full h-32 object-cover rounded cursor-pointer" 
-            :class="{ 'border-4 border-blue-500': image.selected }"
-          >
-          <button @click.stop="removeImage(index)" class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
+      <div v-if="isLoading" class="flex items-center justify-center h-[200px]">
+        <Spinner />
       </div>
 
       <div v-if="errorMessage" class="text-red-500 mb-4">{{ errorMessage }}</div>
@@ -49,8 +55,10 @@ import { ref, computed, onMounted } from 'vue'
 import { useTemplateStore } from '~/stores/template';
 import { useCurrentStore } from '~/stores/current';
 import PageTemplateService from '~/services/page_template';
+import Spinner from '@/components/helpers/spinner.vue'
 
-const isOpen = ref(false)
+const isOpen = ref(false);
+const isLoading = ref(false);
 const images = ref<Array<{ imageExternalUrl: string; selected: boolean, id: string }>>([])
 const errorMessage = ref('')
 const selectedImage = computed(() => images.value.find(img => img.selected))
@@ -69,6 +77,7 @@ const close = () => {
 const handleFileUpload = async (event: Event) => {
   const target = event.target as HTMLInputElement;
   const file = target.files?.[0];
+  isLoading.value = true;
   if (file) {
     // Validaciones
     const allowedTypes = ['image/jpeg', 'image/png'];
@@ -107,9 +116,11 @@ const uploadImage = async (file: File) => {
   try {
     const response = await PageTemplateService.saveImageiDrive(formData, currentStore.websiteId, currentStore.userId);
     images.value.push({ imageExternalUrl: response.data.url, selected: false, id: response.data.id });
+    isLoading.value = false;
   } catch (error) {
     console.error('Error uploading images:', error);
     errorMessage.value = 'Error al subir la imagen. Por favor, intente de nuevo.';
+    isLoading.value = false;
   }
 };
 
