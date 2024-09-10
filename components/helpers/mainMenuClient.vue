@@ -12,7 +12,7 @@
         </div>
         <ul class="menu-items" :class="{ 'is-open': isMenuOpen }">
           <li v-for="item in menuItems" :key="item.slug">
-            <NuxtLink :to="'/' + item.slug" class="menu-link" @click="closeMenu">
+            <NuxtLink v-if="!item.hidden" :to="'/' + item.slug" class="menu-link" @click="closeMenu">
               {{ item.menuName }}
             </NuxtLink>
           </li>

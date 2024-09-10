@@ -35,15 +35,15 @@
               {{ element.menuName }}
             </a>
             <div class="flex space-x-2">
+              <button @click="hideItem(element)" class="text-blue-500 hover:text-blue-700 transition-colors duration-200">
+                <font-awesome-icon v-if="!element.hidden" icon="fa fa-eye"/>
+                <font-awesome-icon v-if="element.hidden" icon="fa fa-eye-slash"/>
+              </button>
               <button @click="editItem(element)" class="text-blue-500 hover:text-blue-700 transition-colors duration-200">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
-                </svg>
+                <font-awesome-icon icon="fa fa-pencil"/>
               </button>
               <button @click="showDeleteConfirmation(element)" class="text-red-500 hover:text-red-700 transition-colors duration-200">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                </svg>
+                <font-awesome-icon icon="fa fa-trash"/>
               </button>
             </div>
           </div>
@@ -122,6 +122,10 @@ function editItem(item) {
   console.log('Editar item:', item);
   editingItem.value = item;
   showEditModal.value = true;
+}
+
+async function hideItem(item) {
+  await menuStore.updateMenuItem({...item, hidden: !item.hidden});
 }
 
 function openAddModal(position) {

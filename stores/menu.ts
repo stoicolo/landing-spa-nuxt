@@ -14,6 +14,7 @@ interface MenuItem {
   slug?: string;
   subitems?: MenuItem[];
   pageId?: number;
+  hidden?: boolean;
 }
 
 export const useMenuStore = defineStore('menu', {
@@ -72,6 +73,7 @@ export const useMenuStore = defineStore('menu', {
           pageId: item.pageId,
           order: item.order,
           slug: item.slug,
+          hidden: item.hidden
         }
       });
       await PageTemplateService.updateAllMenu(currentStore.menuHeaderId, itemsToSave);
