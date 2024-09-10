@@ -143,25 +143,17 @@ const removeImage = async (index: number) => {
 
 const useImage = () => {
   if (selectedImage.value) {
-    switch (currentStore.section.id) {
-      case "config":
-        console.log('Cambio en configuracion', selectedImage.value.url);
-        break;
-      default:
-        templateStore.updateWidgetInSection(currentStore.section.id, {
-          [currentStore.section.prop]: selectedImage.value.url
-        });
-        break;
-    }
+    templateStore.updateWidgetInSection(currentStore.section.id, {
+      [currentStore.section.prop]: selectedImage.value.imageExternalUrl
+    });
     close()
   }
 }
 
 const loadImagesFromAPI = async () => {
   try {
-    //Aqui vamos a cargar las imagenes del API
-    //const response = await axios.get('http://localhost:3000/images');
-    //images.value = response.data.map((img: any) => ({ ...img, selected: false }));
+    const listOfImages = await PageTemplateService.getListOfImagesByWebsite(currentStore.websiteId);
+    images.value = listOfImages.map((img: any) => ({ ...img, selected: false }));
   } catch (error) {
     console.error('Error al cargar las imágenes:', error);
     errorMessage.value = 'Error al cargar las imágenes. Por favor, intente de nuevo.';
