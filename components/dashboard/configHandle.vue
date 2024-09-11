@@ -123,6 +123,17 @@
   const saveConfiguration = async () => {
     isLoading.value = true;
     await PageTemplateService.updateWebSite(config.value.websiteName, {"fontFamily": selectedFont.value, "logo": logoPreview.value}, currentStore.websiteId);
+    const domain = currentStore.domain;
+    const publishHistoryId = currentStore.publishHistoryId;
+    const isActive = true;
+    const publishedAt = JSON.stringify(Date());
+    await PageTemplateService.changeActiveSite(
+                publishHistoryId,
+                domain,
+                isActive,
+                true,
+                publishedAt
+            );
     console.log('Configuration saved');
     isLoading.value = false;
   }
