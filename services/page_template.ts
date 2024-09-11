@@ -257,7 +257,7 @@ class PageTemplateService {
 
     //TODO: SACAR ESTA LOGICA A UN NUEVO SERVICIO DE WEBPAGE SERVICE
 
-    static async createWebSite(userId: number, websiteName: string, domain: string, slug: string): Promise<any | null> {
+    static async createWebSite(userId: number, websiteName: string, domain: string, slug: string, websiteGlobalConfig: any): Promise<any | null> {
         try {
             let response = null;
 
@@ -271,7 +271,8 @@ class PageTemplateService {
                     userId,
                     websiteName,
                     domain,
-                    slug
+                    slug,
+                    websiteGlobalConfig
                 }
               });
             console.log("New Site Created", response.data);
@@ -279,6 +280,50 @@ class PageTemplateService {
             
         } catch (error) {
             console.error('Error creating site:', error);
+            return null;
+        }
+    }
+
+    static async getWebSite(websiteId: number): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'Get',
+                url: `${PageTemplateService.baseURL}/websites/id/${websiteId}`,
+                headers: {
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
+                }
+              });
+            console.log("Success Getting Site", response.data);
+            return response ? response.data : null;
+            
+        } catch (error) {
+            console.error('Error getting site:', error);
+            return null;
+        }
+    }
+
+    static async updateWebSite(websiteName: string, websiteGlobalConfig: any, websiteId: number): Promise<any | null> {
+        try {
+            let response = null;
+
+            response = await axios({
+                method: 'Patch',
+                url: `${PageTemplateService.baseURL}/websites/id/${websiteId}`,
+                headers: {
+                    'Authorization': `Bearer ${PageTemplateService.authToken}`
+                },
+                data: {
+                    websiteName,
+                    websiteGlobalConfig
+                }
+              });
+            console.log("Site updated", response.data);
+            return response ? response.data : null;
+            
+        } catch (error) {
+            console.error('Error updating site:', error);
             return null;
         }
     }

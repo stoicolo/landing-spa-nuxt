@@ -53,13 +53,6 @@
   z-index: 10000;
 }
 
-:root {
-  --hue: 223;
-  --bg: hsl(var(--hue),90%,90%);
-  --fg: hsl(var(--hue),90%,10%);
-  --trans-dur: 0.3s;
-}
-
 .smiley {
   width: 8em;
   height: 8em;

@@ -24,7 +24,8 @@ export const useMenuStore = defineStore('menu', {
       { menuName: "Respaldos", href: "/backups", iconName: "DocumentDuplicateIcon", current: false, order: 1 },
       { menuName: "Galería de Imagenes", iconName: "PhotoIcon", current: false, method: "openGaleryImages", order: 2 },
       { menuName: "Editar Menús", href: "/menus", iconName: "PencilSquareIcon", current: false, order: 3 },
-      { menuName: "Menu", href: "#", iconName: "Bars3Icon", current: false, order: 4 },
+      { menuName: "Configuración", href: "/config", iconName: "UsersIcon", current: false, order: 4 },
+      { menuName: "Menu", href: "#", iconName: "Bars3Icon", current: false, order: 5 },
     ] as MenuItem[],
     menu: [] as MenuItem[]
   }),
@@ -126,7 +127,7 @@ export const useMenuStore = defineStore('menu', {
       const currentStore = useCurrentStore();
         try {
             //Creo todos los datos de un nuevo website
-            const newWebSite = await PageTemplateService.createWebSite(currentStore.userId, "Default Site", currentStore.domain, "weblox-site");
+            const newWebSite = await PageTemplateService.createWebSite(currentStore.userId, "Default Site", currentStore.domain, "weblox-site", { "fontFamily": "Work Sans" });
             const newPageTemplate = await PageTemplateService.createPageTemplate(currentStore.userId, []);
             const newPage = await PageTemplateService.createNewPage(currentStore.userId, newPageTemplate?.id ? newPageTemplate?.id : 0, item.menuName, newWebSite?.id);
             const newMenu = await PageTemplateService.createNewMenu(currentStore.userId, newWebSite?.id, [{...item, pageId: newPage?.id}]);

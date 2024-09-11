@@ -399,7 +399,6 @@ function saveChanges() {
   height: 800px;
   position: relative;
   overflow: hidden;
-  font-family: var(--menu-font);
 }
 
 .hero-content {
@@ -482,7 +481,6 @@ function saveChanges() {
   background: transparent;
   border: none;
   color: inherit;
-  font-family: inherit;
   text-align: center;
   word-wrap: break-word;
   overflow-wrap: break-word;

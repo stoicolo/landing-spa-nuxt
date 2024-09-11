@@ -541,7 +541,6 @@ watch(() => currentStore.selectedImage, (newImage) => {
 .footer {
     position: relative;
     overflow: hidden;
-    font-family: var(--menu-font);
 }
 
 .background-image {
@@ -562,7 +561,6 @@ watch(() => currentStore.selectedImage, (newImage) => {
     background: transparent;
     border: none;
     color: inherit;
-    font-family: inherit;
     width: 100%;
 }
 

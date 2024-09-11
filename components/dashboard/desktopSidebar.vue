@@ -115,6 +115,7 @@
     SquaresPlusIcon,
     PlusIcon,
     PencilSquareIcon,
+    UsersIcon,
     PhotoIcon
   } from "@heroicons/vue/24/outline";
   import AddMenuItemModal from '~/components/helpers/addMenuItemModal.vue';
@@ -132,6 +133,7 @@
     SquaresPlusIcon,
     DocumentDuplicateIcon,
     PencilSquareIcon,
+    UsersIcon,
     PhotoIcon
   };
 
