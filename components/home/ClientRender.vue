@@ -86,9 +86,9 @@ const fetchWebsiteData = async () => {
 onMounted(async () => { 
   await fetchWebsiteData();
   debugger;
-  config.value = await PageTemplateService.getWebSite(website.value.id);
-  fontFamily.value = config.value.websiteGlobalConfig.fontFamily;
-  logoSrc.value = config.value.websiteGlobalConfig.logo;
+  config.value = website.value.websiteGlobalConfig;
+  fontFamily.value = config.value.fontFamily;
+  logoSrc.value = config.value.logo;
   setInterval(changeIconColor, 8000)
 })
 
