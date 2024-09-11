@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Menú responsive -->
-    <Menu :menuItems="website?.content?.menu" :logoSrc="'img/weblox-logo-name.png'" />
+    <Menu :menuItems="website?.content?.menu" :logoSrc="logoSrc || 'img/weblox-logo-name.png'" />
 
     <!-- Estado de carga -->
     <div v-if="isLoading" class="flex items-center justify-center min-h-screen">
@@ -66,6 +66,9 @@ import Spinner from '@/components/helpers/spinner.vue'
 const website = ref(null)
 const viewMode = ref('preview')
 const isLoading = ref(true)
+const config = ref({})
+const fontFamily = ref('');
+const logoSrc = ref('');
 
 const route = useRoute()
 
@@ -80,9 +83,17 @@ const fetchWebsiteData = async () => {
   }
 }
 
-onMounted(async () => {
-  await fetchWebsiteData()
+onMounted(async () => { 
+  await fetchWebsiteData();
+  debugger;
+  config.value = await PageTemplateService.getWebSite(website.value.id);
+  fontFamily.value = config.value.websiteGlobalConfig.fontFamily;
+  logoSrc.value = config.value.websiteGlobalConfig.logo;
   setInterval(changeIconColor, 8000)
+})
+
+watch(fontFamily, (newFont) => {
+  document.documentElement.style.setProperty('--dynamic-font-family', newFont);
 })
 
 const currentPageSections = computed(() => {
@@ -133,6 +144,10 @@ function changeIconColor() {
 </script>
 
 <style>
+body {
+  font-family: var(--dynamic-font-family), sans-serif;
+}
+
 @keyframes gradientAnimation {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -174,4 +189,5 @@ function changeIconColor() {
 .float {
   animation: float 3s ease-in-out infinite;
 }
+
 </style>

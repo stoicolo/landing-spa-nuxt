@@ -1,6 +1,6 @@
 <template>
   <div v-if="isOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[2000]">
-    <div class="bg-white p-6 rounded-lg w-3/4 max-w-4xl">
+    <div class="bg-white p-6 rounded-lg w-3/4 max-w-4xl overflow-y-scroll max-h-[500px] relative">
       <h2 class="text-2xl font-bold mb-4">Galería de Imágenes</h2>
 
       <div v-if="!isLoading">
@@ -35,7 +35,7 @@
 
       <div v-if="errorMessage" class="text-red-500 mb-4">{{ errorMessage }}</div>
 
-      <div class="flex justify-between items-center mt-5">
+      <div class="flex justify-between items-center sticky -bottom-6 left-0 right-0 p-5 bg-white">
         <label for="fileInput" class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
           Agregar imagen
         </label>
@@ -96,10 +96,10 @@ const handleFileUpload = async (event: Event) => {
     const img = new Image();
     img.onload = () => {
       URL.revokeObjectURL(img.src); // Liberar el objeto URL
-      if (img.width < 40 || img.height < 40) {
-        errorMessage.value = 'La imagen es demasiado pequeña. Mínimo 40x40 píxeles.';
-      } else if (img.width > 2000 || img.height > 2000) {
-        errorMessage.value = 'La imagen es demasiado grande. Máximo 2000x2000 píxeles.';
+      if (img.width < 20 || img.height < 20) {
+        errorMessage.value = 'La imagen es demasiado pequeña. Mínimo 20x20 píxeles.';
+      } else if (img.width > 4000 || img.height > 4000) {
+        errorMessage.value = 'La imagen es demasiado grande. Máximo 4000x4000 píxeles.';
       } else {
         errorMessage.value = '';
         uploadImage(file);
@@ -143,6 +143,7 @@ const removeImage = async (index: number) => {
 
 const useImage = () => {
   if (selectedImage.value) {
+    currentStore.setLastACurrentImg(selectedImage.value.imageExternalUrl);
     templateStore.updateWidgetInSection(currentStore.section.id, {
       [currentStore.section.prop]: selectedImage.value.imageExternalUrl
     });

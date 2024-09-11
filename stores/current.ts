@@ -10,7 +10,8 @@ export const useCurrentStore = defineStore("current", {
       section: {
         id:"",
         prop:""
-      }
+      },
+      lastACurrentImg: ""
     }),
     getters: {},
     actions: {
@@ -40,6 +41,9 @@ export const useCurrentStore = defineStore("current", {
         },
         setSectionProp(prop: string) {
             this.section.prop = prop;
+        },
+        setLastACurrentImg(src: string) {
+            this.lastACurrentImg = src;
         }
     }
   });
