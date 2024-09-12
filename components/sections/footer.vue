@@ -2,7 +2,8 @@
     <footer ref="footerRef" class="relative overflow-hidden bg-gray-900 text-white">
       <div class="footer-content" ref="wrapperRef">
         <div class="w-full" :style="backgroundStyle">
-          <div class="py-10 px-20">
+          <!--Template 1-->
+          <div v-if="Number(localTemplate) === 1" class="py-10 px-20">
               <!-- Main title -->
               <h2 ref="titleFooterRef" class="text-8xl font-bold mb-8 text-left animated-element">
                 <div 
@@ -117,6 +118,104 @@
               
               <!-- Copyright -->
               <p ref="copyrightRef" class="text-center">
+                <div 
+                  class="styled-input" 
+                  :contenteditable="!viewMode" 
+                  @input="onInputCopyright" 
+                  @blur="updateCopyright" 
+                  :style="{ color: localTextColor }"
+                  v-text="localCopyright"
+                ></div>
+              </p>
+
+          </div>
+          <!--Template 2-->
+          <div v-if="Number(localTemplate) === 2" class="py-10 px-20">
+              <!-- Columns container -->
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-8 footer-columns">
+                <!-- Important Links -->
+                <div ref="linksRef" class="animated-element footer-column">
+                  <h3 class="text-xl font-semibold mb-4">
+                    <div 
+                      class="styled-input styled-input-h3" 
+                      :contenteditable="!viewMode" 
+                      @input="onInputLinksTitle" 
+                      @blur="updateLinksTitle" 
+                      :style="{ color: localTextColor }"
+                      v-text="localLinksTitle"
+                    ></div>
+                  </h3>
+                  <ul>
+                    <li v-for="(link, index) in localLinks" :key="index" class="mb-2">
+                      <a 
+                        :href="link.url" 
+                        class="hover:underline"
+                        :style="{ color: localTextColor }"
+                      >
+                        <div 
+                          class="styled-input" 
+                          :contenteditable="!viewMode" 
+                          @input="(event) => onInputLinkText(event, index)" 
+                          @blur="(event) => updateLinkText(event, index)" 
+                          v-text="link.text"
+                        ></div>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div ref="contactFooterRef" class="animated-element footer-column">
+                  <h3 class="text-xl font-semibold mb-4">
+                    <div 
+                      class="styled-input styled-input-h3" 
+                      :contenteditable="!viewMode" 
+                      @input="onInputContactTitle" 
+                      @blur="updateContactTitle" 
+                      :style="{ color: localTextColor }"
+                      v-text="localContactTitle"
+                    ></div>
+                  </h3>
+                  <div 
+                    class="styled-input" 
+                    :contenteditable="!viewMode" 
+                    @input="onInputContactInfo" 
+                    @blur="updateContactInfo" 
+                    :style="{ color: localTextColor }"
+                    v-text="localContactInfo"
+                  ></div>
+                </div>
+                <!-- Social Media -->
+                <div ref="socialRef" class="animated-element footer-column">
+                  <h3 class="text-xl font-semibold mb-4">
+                    <div 
+                      class="styled-input styled-input-h3" 
+                      :contenteditable="!viewMode" 
+                      @input="onInputSocialTitle" 
+                      @blur="updateSocialTitle" 
+                      :style="{ color: localTextColor }"
+                      v-text="localSocialTitle"
+                    ></div>
+                  </h3>
+                  <div class="flex space-x-4 text-4xl">
+                    <a v-for="(social, index) in localSocialMedia" :key="index" :href="social.url" :style="{ color: localTextColor }" class="hover:text-gray-300 transition-transform duration-300 hover:-translate-y-1">
+                      <font-awesome-icon :icon="social.icon"/>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Image Footer -->
+                <div ref="descriptionFooterRef" class="animated-element footer-column">
+                  <!-- Image Footer code -->
+                </div>
+                
+              </div>
+              
+              <!-- Divider line -->
+              <div class="divider animated-element bg-white my-8"></div>
+              
+              <!-- Copyright -->
+              <p class="text-center">
                 <div 
                   class="styled-input" 
                   :contenteditable="!viewMode" 
@@ -386,20 +485,46 @@ const localTemplate = ref(props.template);
 const showConfigModal = ref(false);
 
 onMounted(() => {
-    animatedElements.value = [
-        titleFooterRef.value,
-        linksRef.value,
-        contactFooterRef.value,
-        descriptionFooterRef.value,
-        socialRef.value,
-        dividerRef.value
-    ];
-
-    window.addEventListener('scroll', handleScroll);
+  updateAnimatedElements();
+  window.addEventListener('scroll', handleScroll);
 });
 
 onBeforeUnmount(() => {
     window.removeEventListener('scroll', handleScroll);
+});
+
+const resetAnimations = () => {
+  hasAnimatedIn.value = false;
+  isAnimatingIn.value = true;
+  animatedElements.value.forEach(element => {
+    element.classList.remove('animate-in', 'animate-out');
+  });
+};
+
+const updateAnimatedElements = () => {
+  animatedElements.value = [
+    titleFooterRef.value,
+    linksRef.value,
+    contactFooterRef.value,
+    descriptionFooterRef.value,
+    socialRef.value,
+    dividerRef.value,
+    copyrightRef.value
+  ].filter(Boolean); // Filtra elementos null o undefined
+};
+
+watch(() => localTemplate.value, (newTemplate, oldTemplate) => {
+  if (newTemplate !== oldTemplate) {
+    // Espera a que el DOM se actualice antes de reiniciar las animaciones
+    nextTick(() => {
+      updateAnimatedElements();
+      resetAnimations();
+      // Forzar un reflow para asegurar que las animaciones se reinicien
+      animatedElements.value.forEach(el => el && el.offsetHeight);
+      // Iniciar las animaciones de entrada
+      animateElements(true);
+    });
+  }
 });
 
 const backgroundStyle = computed(() => {
