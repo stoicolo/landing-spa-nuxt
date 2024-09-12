@@ -2,7 +2,8 @@
     <footer ref="footerRef" class="relative overflow-hidden bg-gray-900 text-white">
       <div class="footer-content" ref="wrapperRef">
         <div class="w-full" :style="backgroundStyle">
-          <div class="py-10 px-20">
+          <!--Template 1-->
+          <div v-if="Number(localTemplate) === 1" class="py-10 px-20">
               <!-- Main title -->
               <h2 ref="titleFooterRef" class="text-8xl font-bold mb-8 text-left animated-element">
                 <div 
@@ -117,6 +118,109 @@
               
               <!-- Copyright -->
               <p ref="copyrightRef" class="text-center">
+                <div 
+                  class="styled-input" 
+                  :contenteditable="!viewMode" 
+                  @input="onInputCopyright" 
+                  @blur="updateCopyright" 
+                  :style="{ color: localTextColor }"
+                  v-text="localCopyright"
+                ></div>
+              </p>
+
+          </div>
+          <!--Template 2-->
+          <div v-if="Number(localTemplate) === 2" class="py-10 px-20">
+              <!-- Columns container -->
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-8 footer-columns">
+                <!-- Important Links -->
+                <div ref="linksRef" class="animated-element footer-column">
+                  <h3 class="text-xl font-semibold mb-4">
+                    <div 
+                      class="styled-input styled-input-h3" 
+                      :contenteditable="!viewMode" 
+                      @input="onInputLinksTitle" 
+                      @blur="updateLinksTitle" 
+                      :style="{ color: localTextColor }"
+                      v-text="localLinksTitle"
+                    ></div>
+                  </h3>
+                  <ul>
+                    <li v-for="(link, index) in localLinks" :key="index" class="mb-2">
+                      <a 
+                        :href="link.url" 
+                        class="hover:underline"
+                        :style="{ color: localTextColor }"
+                      >
+                        <div 
+                          class="styled-input" 
+                          :contenteditable="!viewMode" 
+                          @input="(event) => onInputLinkText(event, index)" 
+                          @blur="(event) => updateLinkText(event, index)" 
+                          v-text="link.text"
+                        ></div>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div ref="contactFooterRef" class="animated-element footer-column">
+                  <h3 class="text-xl font-semibold mb-4">
+                    <div 
+                      class="styled-input styled-input-h3" 
+                      :contenteditable="!viewMode" 
+                      @input="onInputContactTitle" 
+                      @blur="updateContactTitle" 
+                      :style="{ color: localTextColor }"
+                      v-text="localContactTitle"
+                    ></div>
+                  </h3>
+                  <div 
+                    class="styled-input" 
+                    :contenteditable="!viewMode" 
+                    @input="onInputContactInfo" 
+                    @blur="updateContactInfo" 
+                    :style="{ color: localTextColor }"
+                    v-text="localContactInfo"
+                  ></div>
+                </div>
+                <!-- Social Media -->
+                <div ref="socialRef" class="animated-element footer-column template-2-social">
+                  <h3 class="text-xl font-semibold mb-4">
+                    <div 
+                      class="styled-input styled-input-h3" 
+                      :contenteditable="!viewMode" 
+                      @input="onInputSocialTitle" 
+                      @blur="updateSocialTitle" 
+                      :style="{ color: localTextColor }"
+                      v-text="localSocialTitle"
+                    ></div>
+                  </h3>
+                  <div class="flex space-x-4 text-4xl">
+                    <a v-for="(social, index) in localSocialMedia" :key="index" :href="social.url" :style="{ color: localTextColor }" class="hover:text-gray-300 transition-transform duration-300 hover:-translate-y-1">
+                      <font-awesome-icon :icon="social.icon"/>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Image Footer -->
+                <div ref="imageFooterRef" class="animated-element footer-column relative overflow-hidden h-48">
+                  <img 
+                    :src="localFooterImage" 
+                    alt="Footer Image" 
+                    class="w-full h-full object-contain transition-transform duration-300 ease-in-out transform hover:scale-105"
+                    :class="{'animate-float': hasAnimatedIn}"
+                  >
+                </div>
+                
+              </div>
+              
+              <!-- Divider line -->
+              <div class="divider animated-element bg-white my-8"></div>
+              
+              <!-- Copyright -->
+              <p class="text-center">
                 <div 
                   class="styled-input" 
                   :contenteditable="!viewMode" 
@@ -246,6 +350,21 @@
             </button>
           </div>
         </div>
+
+        <div v-if="Number(localTemplate) === 2" class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Imagen del Footer</label>
+          <div class="flex items-center">
+            <div class="w-10 h-10 mr-4 bg-gray-100 flex items-center justify-center rounded overflow-hidden">
+              <img v-if="localFooterImage" :src="localFooterImage" alt="Footer Image Preview" class="w-full h-full object-cover">
+              <svg v-else class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <button @click="updateFooterImage" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+              Cambiar imagen
+            </button>
+          </div>
+        </div>
     </div>
 
     <div class="flex justify-end mt-6">
@@ -300,7 +419,7 @@ const props = defineProps({
     },
     backgroundImage: {
         type: String,
-        default: '/default-footer-bg.jpg'
+        default: ''
     },
     links: {
         type: Array,
@@ -345,6 +464,10 @@ const props = defineProps({
     copyright: {
         type: String,
         default: '© 2024 Tu Empresa. Todos los derechos reservados.'
+    },
+    footerImage: {
+      type: String,
+      default: ''
     }
 });
 
@@ -360,6 +483,7 @@ const descriptionFooterRef = ref(null);
 const socialRef = ref(null);
 const dividerRef = ref(null);
 const copyrightRef = ref(null);
+const imageFooterRef = ref(null);
 
 const animatedElements = ref([]);
 const isAnimatingIn = ref(true);
@@ -382,25 +506,62 @@ const localSocialMedia = ref(props.socialMedia);
 const localSocialTitle = ref(props.socialTitle);
 const localCopyright = ref(props.copyright);
 const localTemplate = ref(props.template);
+const localFooterImage = ref(props.footerImage);
 
 const showConfigModal = ref(false);
 
 onMounted(() => {
-    animatedElements.value = [
-        titleFooterRef.value,
-        linksRef.value,
-        contactFooterRef.value,
-        descriptionFooterRef.value,
-        socialRef.value,
-        dividerRef.value
-    ];
-
-    window.addEventListener('scroll', handleScroll);
+  updateAnimatedElements();
+  window.addEventListener('scroll', handleScroll);
 });
 
 onBeforeUnmount(() => {
     window.removeEventListener('scroll', handleScroll);
 });
+
+const resetAnimations = () => {
+  hasAnimatedIn.value = false;
+  isAnimatingIn.value = true;
+  animatedElements.value.forEach(element => {
+    element.classList.remove('animate-in', 'animate-out');
+  });
+};
+
+const updateAnimatedElements = () => {
+  animatedElements.value = [
+    titleFooterRef.value,
+    linksRef.value,
+    contactFooterRef.value,
+    descriptionFooterRef.value,
+    socialRef.value,
+    dividerRef.value,
+    copyrightRef.value,
+    imageFooterRef.value
+  ].filter(Boolean); // Filtra elementos null o undefined
+};
+
+watch(() => localTemplate.value, (newTemplate, oldTemplate) => {
+  if (newTemplate !== oldTemplate) {
+    // Espera a que el DOM se actualice antes de reiniciar las animaciones
+    nextTick(() => {
+      updateAnimatedElements();
+      resetAnimations();
+      // Forzar un reflow para asegurar que las animaciones se reinicien
+      animatedElements.value.forEach(el => el && el.offsetHeight);
+      // Iniciar las animaciones de entrada
+      animateElements(true);
+    });
+  }
+});
+
+const updateFooterImage = () => {
+  currentStore.setSectionProp("footerImage");
+  if (openGaleryImages) {
+    openGaleryImages();
+  } else {
+    console.error('openGaleryImages function is not available');
+  }
+};
 
 const backgroundStyle = computed(() => {
   if (localBackgroundType.value === 'image') {
@@ -502,6 +663,7 @@ const saveChanges = () => {
         socialMedia: localSocialMedia.value,
         socialTitle: localSocialTitle.value,
         copyright: localCopyright.value,
+        footerImage: localFooterImage.value,
         template: localTemplate.value,
     });
 };
@@ -525,17 +687,24 @@ watch(() => templateStore.structure.page_template.sections, (newSections) => {
         localSocialTitle.value = currentSection.widget.element.socialTitle;
         localCopyright.value = currentSection.widget.element.copyright;
         localTemplate.value = currentSection.widget.element.template;
+        localFooterImage.value = currentSection.widget.element.footerImage;
     }
 }, { deep: true });
 
 // Watch for changes in the selected image
+
 watch(() => currentStore.selectedImage, (newImage) => {
-  if (currentStore.sectionId === props.id && currentStore.sectionProp === "backgroundImage") {
-    localBackgroundImage.value = newImage;
-    localBackgroundType.value = 'image';
+  if (currentStore.sectionId === props.id) {
+    if (currentStore.sectionProp === "backgroundImage") {
+      localBackgroundImage.value = newImage;
+      localBackgroundType.value = 'image';
+    } else if (currentStore.sectionProp === "footerImage") {
+      localFooterImage.value = newImage;
+    }
     saveChanges();
   }
 });
+
 </script>
 <style scoped>
 .footer {
@@ -640,9 +809,16 @@ watch(() => currentStore.selectedImage, (newImage) => {
   display: none;
 }
 
+.template-2-social::after {
+  display: none;
+}
+
 /* Ajuste responsive */
 @media (max-width: 768px) {
   .footer-column::after {
+    display: none;
+  }
+  .template-1-social::after {
     display: none;
   }
 }
@@ -657,6 +833,15 @@ watch(() => currentStore.selectedImage, (newImage) => {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+@keyframes floatAnimation {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: floatAnimation 3s ease-in-out infinite;
 }
 
 .fade-in-up {
