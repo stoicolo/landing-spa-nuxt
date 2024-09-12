@@ -186,7 +186,7 @@
                   ></div>
                 </div>
                 <!-- Social Media -->
-                <div ref="socialRef" class="animated-element footer-column">
+                <div ref="socialRef" class="animated-element footer-column template-2-social">
                   <h3 class="text-xl font-semibold mb-4">
                     <div 
                       class="styled-input styled-input-h3" 
@@ -205,8 +205,13 @@
                 </div>
 
                 <!-- Image Footer -->
-                <div ref="descriptionFooterRef" class="animated-element footer-column">
-                  <!-- Image Footer code -->
+                <div ref="imageFooterRef" class="animated-element footer-column relative overflow-hidden h-48">
+                  <img 
+                    :src="localFooterImage" 
+                    alt="Footer Image" 
+                    class="w-full h-full object-contain transition-transform duration-300 ease-in-out transform hover:scale-105"
+                    :class="{'animate-float': hasAnimatedIn}"
+                  >
                 </div>
                 
               </div>
@@ -345,6 +350,21 @@
             </button>
           </div>
         </div>
+
+        <div v-if="Number(localTemplate) === 2" class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Imagen del Footer</label>
+          <div class="flex items-center">
+            <div class="w-10 h-10 mr-4 bg-gray-100 flex items-center justify-center rounded overflow-hidden">
+              <img v-if="localFooterImage" :src="localFooterImage" alt="Footer Image Preview" class="w-full h-full object-cover">
+              <svg v-else class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <button @click="updateFooterImage" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+              Cambiar imagen
+            </button>
+          </div>
+        </div>
     </div>
 
     <div class="flex justify-end mt-6">
@@ -399,7 +419,7 @@ const props = defineProps({
     },
     backgroundImage: {
         type: String,
-        default: '/default-footer-bg.jpg'
+        default: ''
     },
     links: {
         type: Array,
@@ -444,6 +464,10 @@ const props = defineProps({
     copyright: {
         type: String,
         default: '© 2024 Tu Empresa. Todos los derechos reservados.'
+    },
+    footerImage: {
+      type: String,
+      default: ''
     }
 });
 
@@ -459,6 +483,7 @@ const descriptionFooterRef = ref(null);
 const socialRef = ref(null);
 const dividerRef = ref(null);
 const copyrightRef = ref(null);
+const imageFooterRef = ref(null);
 
 const animatedElements = ref([]);
 const isAnimatingIn = ref(true);
@@ -481,6 +506,7 @@ const localSocialMedia = ref(props.socialMedia);
 const localSocialTitle = ref(props.socialTitle);
 const localCopyright = ref(props.copyright);
 const localTemplate = ref(props.template);
+const localFooterImage = ref(props.footerImage);
 
 const showConfigModal = ref(false);
 
@@ -509,7 +535,8 @@ const updateAnimatedElements = () => {
     descriptionFooterRef.value,
     socialRef.value,
     dividerRef.value,
-    copyrightRef.value
+    copyrightRef.value,
+    imageFooterRef.value
   ].filter(Boolean); // Filtra elementos null o undefined
 };
 
@@ -526,6 +553,15 @@ watch(() => localTemplate.value, (newTemplate, oldTemplate) => {
     });
   }
 });
+
+const updateFooterImage = () => {
+  currentStore.setSectionProp("footerImage");
+  if (openGaleryImages) {
+    openGaleryImages();
+  } else {
+    console.error('openGaleryImages function is not available');
+  }
+};
 
 const backgroundStyle = computed(() => {
   if (localBackgroundType.value === 'image') {
@@ -627,6 +663,7 @@ const saveChanges = () => {
         socialMedia: localSocialMedia.value,
         socialTitle: localSocialTitle.value,
         copyright: localCopyright.value,
+        footerImage: localFooterImage.value,
         template: localTemplate.value,
     });
 };
@@ -650,17 +687,24 @@ watch(() => templateStore.structure.page_template.sections, (newSections) => {
         localSocialTitle.value = currentSection.widget.element.socialTitle;
         localCopyright.value = currentSection.widget.element.copyright;
         localTemplate.value = currentSection.widget.element.template;
+        localFooterImage.value = currentSection.widget.element.footerImage;
     }
 }, { deep: true });
 
 // Watch for changes in the selected image
+
 watch(() => currentStore.selectedImage, (newImage) => {
-  if (currentStore.sectionId === props.id && currentStore.sectionProp === "backgroundImage") {
-    localBackgroundImage.value = newImage;
-    localBackgroundType.value = 'image';
+  if (currentStore.sectionId === props.id) {
+    if (currentStore.sectionProp === "backgroundImage") {
+      localBackgroundImage.value = newImage;
+      localBackgroundType.value = 'image';
+    } else if (currentStore.sectionProp === "footerImage") {
+      localFooterImage.value = newImage;
+    }
     saveChanges();
   }
 });
+
 </script>
 <style scoped>
 .footer {
@@ -765,9 +809,16 @@ watch(() => currentStore.selectedImage, (newImage) => {
   display: none;
 }
 
+.template-2-social::after {
+  display: none;
+}
+
 /* Ajuste responsive */
 @media (max-width: 768px) {
   .footer-column::after {
+    display: none;
+  }
+  .template-1-social::after {
     display: none;
   }
 }
@@ -782,6 +833,15 @@ watch(() => currentStore.selectedImage, (newImage) => {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+@keyframes floatAnimation {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: floatAnimation 3s ease-in-out infinite;
 }
 
 .fade-in-up {
