@@ -1,50 +1,77 @@
 <template>
   <div v-if="isOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[2000]">
-    <div class="bg-white p-6 rounded-lg w-3/4 max-w-4xl overflow-y-scroll max-h-[500px] relative">
-      <h2 class="text-2xl font-bold mb-4">Galería de Imágenes</h2>
-
-      <div v-if="!isLoading">
-        <div v-if="images.length === 0" class="flex flex-col items-center justify-center h-64 border-2 border-dashed border-gray-300 rounded-lg">
-          <p class="text-gray-500 mb-4">No hay imágenes en la galería</p>
-          <label for="fileInput" class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
-            Agregar imagen del dispositivo
+    <div class="bg-white rounded-lg w-11/12 max-w-6xl h-[90vh] flex overflow-hidden">
+      <!-- Sidebar con menú vertical -->
+      <div class="w-1/4 bg-gray-100 p-4 flex flex-col">
+        <h2 class="text-2xl font-bold mb-4">Galería de Imágenes</h2>
+        <nav class="space-y-2">
+          <button 
+            v-for="item in menuItems" 
+            :key="item.id"
+            @click="activeMenu = item.id" 
+            :class="{
+              'bg-blue-500 text-white': activeMenu === item.id,
+              'bg-gray-200 text-gray-700 hover:bg-gray-300': activeMenu !== item.id
+            }"
+            class="w-full py-2 px-4 rounded text-left transition-colors"
+          >
+            {{ item.label }}
+          </button>
+        </nav>
+        <div v-if="activeMenu === 'gallery'" class="mt-4">
+          <label for="fileInput" class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded block text-center hover:bg-blue-600 transition-colors">
+            Agregar imagen
           </label>
           <input id="fileInput" type="file" @change="handleFileUpload" accept=".jpg,.jpeg,.png" class="hidden">
         </div>
+      </div>
+
+      <!-- Main Content Area -->
+      <div class="flex-1 p-6 overflow-y-auto">
+        <div v-if="!isLoading">
+          <div v-if="activeMenu === 'gallery' && images.length === 0" class="flex flex-col items-center justify-center h-64 border-2 border-dashed border-gray-300 rounded-lg">
+            <p class="text-gray-500 mb-4">No hay imágenes en la galería</p>
+          </div>
   
-        <div v-else class="grid grid-cols-4 gap-4 mb-4">
-          <div v-for="(image, index) in images" :key="index" class="relative">
-            <img 
-              :src="image.imageExternalUrl" 
-              @click="selectImage(index)"
-              class="w-full h-32 object-cover rounded cursor-pointer" 
-              :class="{ 'border-4 border-blue-500': image.selected }"
-            >
-            <button @click.stop="removeImage(index)" class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+          <div v-else-if="activeMenu === 'gallery'" class="grid grid-cols-3 gap-4 mb-4">
+            <div v-for="(image, index) in images" :key="index" class="relative">
+              <img 
+                :src="image.imageExternalUrl" 
+                @click="selectImage(index)"
+                class="w-full h-32 object-cover rounded cursor-pointer" 
+                :class="{ 'border-4 border-blue-500': image.selected }"
+              >
+              <button @click.stop="removeImage(index)" class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div v-else-if="activeMenu === 'backgrounds'" class="grid grid-cols-3 gap-4 mb-4">
+            <div v-for="(background, index) in backgrounds" :key="index" class="relative">
+              <img 
+                :src="background.imageExternalUrl" 
+                @click="selectBackground(index)"
+                class="w-full h-32 object-cover rounded cursor-pointer" 
+                :class="{ 'border-4 border-blue-500': background.selected }"
+              >
+            </div>
           </div>
         </div>
-      </div>
 
-      <div v-if="isLoading" class="flex items-center justify-center h-[200px]">
-        <Spinner />
-      </div>
-
-      <div v-if="errorMessage" class="text-red-500 mb-4">{{ errorMessage }}</div>
-
-      <div class="flex justify-between items-center sticky -bottom-6 left-0 right-0 p-5 bg-white">
-        <label for="fileInput" class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
-          Agregar imagen
-        </label>
-        <input id="fileInput" type="file" @change="handleFileUpload" accept=".jpg,.jpeg,.png" class="hidden">
-
-        <div class="space-x-4">
-          <button @click="useImage" :disabled="!selectedImage" class="bg-green-500 text-white px-4 py-2 rounded disabled:opacity-50 hover:bg-green-600 transition-colors">Usar Imagen</button>
-          <button @click="close" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 transition-colors">Cancelar</button>
+        <div v-if="isLoading" class="flex items-center justify-center h-[200px]">
+          <Spinner />
         </div>
+
+        <div v-if="errorMessage" class="text-red-500 mb-4">{{ errorMessage }}</div>
+      </div>
+
+      <!-- Footer -->
+      <div class="absolute bottom-0 left-0 right-0 bg-white p-4 flex justify-end space-x-4">
+        <button @click="useImage" :disabled="!selectedImage && !selectedBackground" class="bg-green-500 text-white px-4 py-2 rounded disabled:opacity-50 hover:bg-green-600 transition-colors">Usar Imagen</button>
+        <button @click="close" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 transition-colors">Cancelar</button>
       </div>
     </div>
   </div>
@@ -59,15 +86,25 @@ import Spinner from '@/components/helpers/spinner.vue'
 
 const isOpen = ref(false);
 const isLoading = ref(false);
-const images = ref<Array<{ imageExternalUrl: string; selected: boolean, id: string }>>([])
+const images = ref<Array<{ imageExternalUrl: string; imageExternalId: string; selected: boolean, id: string }>>([])
+const backgrounds = ref<Array<{ imageExternalUrl: string; imageExternalId: string; selected: boolean, id: string }>>([])
 const errorMessage = ref('')
 const selectedImage = computed(() => images.value.find(img => img.selected))
+const selectedBackground = computed(() => backgrounds.value.find(bg => bg.selected))
 const templateStore = useTemplateStore();
 const currentStore = useCurrentStore();
+const activeMenu = ref('gallery')
+
+const menuItems = [
+  { id: 'gallery', label: 'Mi Galería' },
+  { id: 'backgrounds', label: 'Imágenes de Fondo' },
+  // Aquí puedes agregar más elementos de menú en el futuro
+]
 
 const open = () => {
   isOpen.value = true
   loadImagesFromAPI()
+  loadBackgrounds()
 }
 
 const close = () => {
@@ -115,7 +152,8 @@ const uploadImage = async (file: File) => {
 
   try {
     const response = await PageTemplateService.saveImageiDrive(formData, currentStore.websiteId, currentStore.userId);
-    images.value.push({ imageExternalUrl: response.data.url, selected: false, id: response.data.id });
+    debugger
+    images.value.push({ imageExternalUrl: response.data.url, selected: false, id: response.data.id, imageExternalId: response.data.id });
     isLoading.value = false;
   } catch (error) {
     console.error('Error uploading images:', error);
@@ -128,12 +166,21 @@ const selectImage = (index: number) => {
   images.value.forEach((img, i) => {
     img.selected = i === index
   })
+  backgrounds.value.forEach(bg => bg.selected = false)
+}
+
+const selectBackground = (index: number) => {
+  backgrounds.value.forEach((bg, i) => {
+    bg.selected = i === index
+  })
+  images.value.forEach(img => img.selected = false)
 }
 
 const removeImage = async (index: number) => {
   const imageToRemove = images.value[index];
   try {
-    // await axios.delete(`http://localhost:3000/delete/${imageToRemove.id}`);
+    debugger;
+    await PageTemplateService.deleteImageiDrive([imageToRemove.imageExternalId]);
     images.value.splice(index, 1);
   } catch (error) {
     console.error('Error al eliminar la imagen:', error);
@@ -142,10 +189,11 @@ const removeImage = async (index: number) => {
 }
 
 const useImage = () => {
-  if (selectedImage.value) {
-    currentStore.setLastACurrentImg(selectedImage.value.imageExternalUrl);
+  const selected = selectedImage.value || selectedBackground.value
+  if (selected) {
+    currentStore.setLastACurrentImg(selected.imageExternalUrl);
     templateStore.updateWidgetInSection(currentStore.section.id, {
-      [currentStore.section.prop]: selectedImage.value.imageExternalUrl
+      [currentStore.section.prop]: selected.imageExternalUrl
     });
     close()
   }
@@ -155,14 +203,32 @@ const loadImagesFromAPI = async () => {
   try {
     const listOfImages = await PageTemplateService.getListOfImagesByWebsite(currentStore.websiteId);
     images.value = listOfImages.map((img: any) => ({ ...img, selected: false }));
+  } catch (error: any) {
+    debugger
+    if(error.response.data.code !== 404) {
+      console.error('Error al cargar las imágenes:', error);
+      errorMessage.value = 'Error al cargar las imágenes. Por favor, intente de nuevo.';
+    }
+  }
+}
+
+const loadBackgrounds = async () => {
+  try {
+    isLoading.value = true;
+    const listOfBackgrounds = await PageTemplateService.getListOfImagesFromBackgrounds();
+    backgrounds.value = listOfBackgrounds.map((bg: any) => ({ ...bg, selected: false }));
   } catch (error) {
-    console.error('Error al cargar las imágenes:', error);
-    errorMessage.value = 'Error al cargar las imágenes. Por favor, intente de nuevo.';
+    console.error('Error al cargar los backgrounds:', error);
+    errorMessage.value = 'Error al cargar los backgrounds. Por favor, intente de nuevo.';
+  } finally {
+    isLoading.value = false;
   }
 }
 
 onMounted(() => {
   loadImagesFromAPI();
+  loadBackgrounds();
+  
 });
 
 // Exponer métodos para ser usados externamente
