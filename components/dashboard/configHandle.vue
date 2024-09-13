@@ -138,7 +138,7 @@
     isLoading.value = false;
   }
   </script>
-  <style>
+  <style lang="scss">
     .logo img{
       max-height: 75px;
     }
