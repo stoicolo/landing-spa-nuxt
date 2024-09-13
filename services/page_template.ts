@@ -668,6 +668,20 @@ class PageTemplateService {
         }
       }
 
+      static async getListOfImagesFromBackgrounds(): Promise<any | null> {
+        try {
+          const response = await axios({
+            method: 'GET',
+            url: `../mocks/backgrounds_images.json`,
+          });
+          console.log("Getting backgrounds Success", response.data);
+          return response.data;
+        } catch (error) {
+          console.error('Getting backgrounds Error:', error);
+          throw error;
+        }
+      }
+
     static async saveImageiDrive(formData: any, websiteId: number, userId: number): Promise<any | null> {
         try {
           const imageFile = formData.get('image') as File;
@@ -688,6 +702,26 @@ class PageTemplateService {
           return response.data;
         } catch (error) {
           console.error('Error Uploading image:', error);
+          throw error;
+        }
+      }
+
+    static async deleteImageiDrive(imageIds: string[]): Promise<any | null> {
+        try {
+          const response = await axios({
+            method: 'DELETE',
+            url: `${PageTemplateService.baseURL}/media/images`,
+            headers: {
+              'Authorization': `Bearer ${PageTemplateService.authToken}`
+            },
+            data: {
+              imageIds
+            }
+          });
+          console.log("Deleting image Success", response.data);
+          return response.data;
+        } catch (error) {
+          console.error('Error Deleting image:', error);
           throw error;
         }
       }
