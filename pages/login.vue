@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useUserStore } from '~/stores/user'
+import { useUserStore } from '~/stores/user';
+import { useCurrentStore } from '~/stores/current';
 
 
 interface LoginResponse {
@@ -7,6 +8,7 @@ interface LoginResponse {
     id: string;
     email: string;
     name: string;
+    role: string;
   };
   tokens: {
     access: {
@@ -22,7 +24,8 @@ const {
   public: { apiBaseUrl },
 } = useRuntimeConfig();
 
-const userStore = useUserStore()
+const userStore = useUserStore();
+const currentStore = useCurrentStore();
 
 const email = ref("");
 const password = ref("");
@@ -54,6 +57,8 @@ const loginUser = async (event: Event) => {
         email: response.user.email,
         name: response.user.name
       });
+
+      currentStore.setUserRole(response.user.role);
       
       // Redirect to dashboard if all is ok
       navigateTo("/builder/0");

@@ -8,7 +8,7 @@
           <button 
             v-for="item in menuItems" 
             :key="item.id"
-            @click="activeMenu = item.id" 
+            @click="loadImagesByCategory(item.id)" 
             :class="{
               'bg-blue-500 text-white': activeMenu === item.id,
               'bg-gray-200 text-gray-700 hover:bg-gray-300': activeMenu !== item.id
@@ -50,13 +50,18 @@
           </div>
 
           <div v-else-if="activeMenu === 'backgrounds'" class="grid grid-cols-3 gap-4 mb-4">
-            <div v-for="(background, index) in backgrounds" :key="index" class="relative">
+            <div v-for="(background, index) in images" :key="index" class="relative">
               <img 
                 :src="background.imageExternalUrl" 
-                @click="selectBackground(index)"
+                @click="selectImage(index)"
                 class="w-full h-32 object-cover rounded cursor-pointer" 
                 :class="{ 'border-4 border-blue-500': background.selected }"
               >
+              <button @click.stop="removeImage(index)" v-if="userRole === 'admin'" class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
@@ -70,7 +75,7 @@
 
       <!-- Footer -->
       <div class="absolute bottom-0 left-0 right-0 bg-white p-4 flex justify-end space-x-4">
-        <button @click="useImage" :disabled="!selectedImage && !selectedBackground" class="bg-green-500 text-white px-4 py-2 rounded disabled:opacity-50 hover:bg-green-600 transition-colors">Usar Imagen</button>
+        <button @click="useImage" :disabled="!selectedImage" class="bg-green-500 text-white px-4 py-2 rounded disabled:opacity-50 hover:bg-green-600 transition-colors">Usar Imagen</button>
         <button @click="close" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 transition-colors">Cancelar</button>
       </div>
     </div>
@@ -87,24 +92,21 @@ import Spinner from '@/components/helpers/spinner.vue'
 const isOpen = ref(false);
 const isLoading = ref(false);
 const images = ref<Array<{ imageExternalUrl: string; imageExternalId: string; selected: boolean, id: string }>>([])
-const backgrounds = ref<Array<{ imageExternalUrl: string; imageExternalId: string; selected: boolean, id: string }>>([])
 const errorMessage = ref('')
 const selectedImage = computed(() => images.value.find(img => img.selected))
-const selectedBackground = computed(() => backgrounds.value.find(bg => bg.selected))
 const templateStore = useTemplateStore();
 const currentStore = useCurrentStore();
-const activeMenu = ref('gallery')
+const activeMenu = ref('gallery');
+const userRole = ref('');
 
 const menuItems = [
-  { id: 'gallery', label: 'Mi Galería' },
-  { id: 'backgrounds', label: 'Imágenes de Fondo' },
-  // Aquí puedes agregar más elementos de menú en el futuro
+  { id: 'gallery', label: 'Mi Galería', categories: ['user'] },
+  { id: 'backgrounds', label: 'Imágenes de Fondo', categories: ['backgrounds'] },
 ]
 
 const open = () => {
   isOpen.value = true
-  loadImagesFromAPI()
-  loadBackgrounds()
+  userRole.value = currentStore.userRole;
 }
 
 const close = () => {
@@ -152,11 +154,10 @@ const uploadImage = async (file: File) => {
 
   try {
     const response = await PageTemplateService.saveImageiDrive(formData, currentStore.websiteId, currentStore.userId);
-    debugger
-    images.value.push({ imageExternalUrl: response.data.url, selected: false, id: response.data.id, imageExternalId: response.data.id });
+    await loadImagesByCategory(activeMenu.value);
     isLoading.value = false;
   } catch (error) {
-    console.error('Error uploading images:', error);
+    console.error('Error uploading image:', error);
     errorMessage.value = 'Error al subir la imagen. Por favor, intente de nuevo.';
     isLoading.value = false;
   }
@@ -166,30 +167,24 @@ const selectImage = (index: number) => {
   images.value.forEach((img, i) => {
     img.selected = i === index
   })
-  backgrounds.value.forEach(bg => bg.selected = false)
-}
-
-const selectBackground = (index: number) => {
-  backgrounds.value.forEach((bg, i) => {
-    bg.selected = i === index
-  })
-  images.value.forEach(img => img.selected = false)
 }
 
 const removeImage = async (index: number) => {
   const imageToRemove = images.value[index];
+  isLoading.value = true;
   try {
-    debugger;
     await PageTemplateService.deleteImageiDrive([imageToRemove.imageExternalId]);
     images.value.splice(index, 1);
+    isLoading.value = false;
   } catch (error) {
     console.error('Error al eliminar la imagen:', error);
     errorMessage.value = 'Error al eliminar la imagen. Por favor, intente de nuevo.';
+    isLoading.value = false;
   }
 }
 
 const useImage = () => {
-  const selected = selectedImage.value || selectedBackground.value
+  const selected = selectedImage.value;
   if (selected) {
     currentStore.setLastACurrentImg(selected.imageExternalUrl);
     templateStore.updateWidgetInSection(currentStore.section.id, {
@@ -199,39 +194,29 @@ const useImage = () => {
   }
 }
 
-const loadImagesFromAPI = async () => {
-  try {
-    const listOfImages = await PageTemplateService.getListOfImagesByWebsite(currentStore.websiteId);
-    images.value = listOfImages.map((img: any) => ({ ...img, selected: false }));
-  } catch (error: any) {
-    debugger
-    if(error.response.data.code !== 404) {
-      console.error('Error al cargar las imágenes:', error);
-      errorMessage.value = 'Error al cargar las imágenes. Por favor, intente de nuevo.';
-    }
-  }
-}
+const loadImagesByCategory = async (menuId: string) => {
+  activeMenu.value = menuId;
+  isLoading.value = true;
+  errorMessage.value = '';
 
-const loadBackgrounds = async () => {
   try {
-    isLoading.value = true;
-    const listOfBackgrounds = await PageTemplateService.getListOfImagesFromBackgrounds();
-    backgrounds.value = listOfBackgrounds.map((bg: any) => ({ ...bg, selected: false }));
+    const selectedItem = menuItems.find(item => item.id === menuId);
+    if (selectedItem) {
+      const fetchedImages = await PageTemplateService.getImagesByCategories(selectedItem.categories);
+      images.value = fetchedImages.map((img: any) => ({ ...img, selected: false }));
+    }
   } catch (error) {
-    console.error('Error al cargar los backgrounds:', error);
-    errorMessage.value = 'Error al cargar los backgrounds. Por favor, intente de nuevo.';
+    console.error('Error al cargar las imágenes:', error);
+    errorMessage.value = 'Error al cargar las imágenes. Por favor, intente de nuevo.';
   } finally {
     isLoading.value = false;
   }
 }
 
-onMounted(() => {
-  loadImagesFromAPI();
-  loadBackgrounds();
-  
+onMounted(async () => {
+  await loadImagesByCategory('gallery');
 });
 
-// Exponer métodos para ser usados externamente
 defineExpose({
   open,
   close
