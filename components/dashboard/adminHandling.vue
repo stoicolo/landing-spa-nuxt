@@ -65,6 +65,7 @@ import PageTemplateService from '@/services/page_template';
 const menuStore = useMenuStore();
 const currentStore = useCurrentStore();
 const route = useRoute();
+const router = useRouter();
 const { $toaster } = useNuxtApp();
 
 const imageFile = ref(null);
@@ -78,10 +79,32 @@ const newCategory = ref('');
 onMounted(async () => {
     await menuStore.initializeStore();
     const menusResponse = await PageTemplateService.getMenuList(currentStore.websiteId, currentStore.userId);
+    const userRole = decrypt(localStorage.getItem('getNumByTicket'), 3);
+    currentStore.setUserRole(userRole);
+    //TODO: Change this to a more secure way to validate the user role (wirking on image gallery, admin page)
+    if(userRole !== 'admin') {
+        router.push('/login');
+    }
     menuStore.setMenuList(menusResponse.menuDetails);
     changeActiveItemMenu();
     await loadCategories();
 });
+
+function encrypt(text, shift) {
+  return text.split('').map(char => {
+    if (char.match(/[a-z]/i)) {
+      const code = char.charCodeAt(0);
+      const isUpperCase = code >= 65 && code <= 90;
+      const shiftAmount = isUpperCase ? 65 : 97;
+      return String.fromCharCode(((code - shiftAmount + shift) % 26) + shiftAmount);
+    }
+    return char;
+  }).join('');
+}
+
+function decrypt(text, shift) {
+  return encrypt(text, 26 - shift);
+}
 
 async function loadCategories() {
     try {

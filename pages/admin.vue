@@ -8,8 +8,7 @@
 import Admin from '~/components/dashboard/adminHandling.vue';
 
 definePageMeta({
-    layout: 'dashboard',
-    middleware: ['admin']
+    layout: 'dashboard'
 });
 
 // Puedes agregar cualquier lógica adicional aquí si es necesario
