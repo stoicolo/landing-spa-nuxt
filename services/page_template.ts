@@ -784,7 +784,7 @@ class PageTemplateService {
             Authorization: `Bearer ${PageTemplateService.authToken}`,
           },
         data: {
-            "categories": ["media", "user"]
+            "categories": ["user"]
           }
       })
       return response.data;
