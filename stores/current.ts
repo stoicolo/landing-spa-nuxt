@@ -1,6 +1,7 @@
 export const useCurrentStore = defineStore("current", {
     state: () => ({
       userId: 0,
+      userRole: "",
       websiteId: 1,
       pageId: 0,
       menuHeaderId: 0,
@@ -17,6 +18,9 @@ export const useCurrentStore = defineStore("current", {
     actions: {
         setUserId(id: number) {
             this.userId = id;
+        },
+        setUserRole(role: string) {
+            this.userRole = role;
         },
         setWebsiteId(id: number) {
             this.websiteId = id;

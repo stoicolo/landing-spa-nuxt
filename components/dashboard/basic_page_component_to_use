@@ -1,0 +1,25 @@
+<template>
+    <h1>Admin Handling</h1>
+</template>
+<script setup>
+import { useMenuStore } from '~/stores/menu';
+import { useCurrentStore } from '~/stores/current';
+import PageTemplateService from '@/services/page_template';
+
+const menuStore = useMenuStore();
+const currentStore = useCurrentStore();
+
+
+onMounted(async () => {
+    await menuStore.initializeStore();
+
+    const menusResponse = await PageTemplateService.getMenuList(currentStore.websiteId, currentStore.userId);
+    menuStore.setMenuList(menusResponse.menuDetails);
+    changeActiveItemMenu();
+});
+
+function changeActiveItemMenu() {
+    menuStore.setActiveMenu(route.path);
+}
+</script>
+<style lang="scss"></style>

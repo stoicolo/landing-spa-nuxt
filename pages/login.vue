@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useUserStore } from '~/stores/user'
+import { useUserStore } from '~/stores/user';
+import { useCurrentStore } from '~/stores/current';
 
 
 interface LoginResponse {
@@ -7,6 +8,7 @@ interface LoginResponse {
     id: string;
     email: string;
     name: string;
+    role: string;
   };
   tokens: {
     access: {
@@ -22,13 +24,26 @@ const {
   public: { apiBaseUrl },
 } = useRuntimeConfig();
 
-const userStore = useUserStore()
+const userStore = useUserStore();
+const currentStore = useCurrentStore();
 
 const email = ref("");
 const password = ref("");
 const isLoggingIn = ref(false);
 
 const loginButtonText = ref("Iniciar Sesion");
+
+function encrypt(text: string, shift: number) {
+  return text.split('').map(char => {
+    if (char.match(/[a-z]/i)) {
+      const code = char.charCodeAt(0);
+      const isUpperCase = code >= 65 && code <= 90;
+      const shiftAmount = isUpperCase ? 65 : 97;
+      return String.fromCharCode(((code - shiftAmount + shift) % 26) + shiftAmount);
+    }
+    return char;
+  }).join('');
+}
 
 const loginUser = async (event: Event) => {
   event.preventDefault();
@@ -47,6 +62,8 @@ const loginUser = async (event: Event) => {
       // Save auth token to cookies or localStorage
       localStorage.setItem('accessToken', response.tokens.access.token);
       localStorage.setItem('refreshToken', response.tokens.refresh.token);
+      const encryptedText = encrypt(response.user.role, 3);
+      localStorage.setItem('getNumByTicket', encryptedText);
       
       // save user data to store
       userStore.setUser({
@@ -54,6 +71,8 @@ const loginUser = async (event: Event) => {
         email: response.user.email,
         name: response.user.name
       });
+
+      currentStore.setUserRole(response.user.role);
       
       // Redirect to dashboard if all is ok
       navigateTo("/builder/0");
