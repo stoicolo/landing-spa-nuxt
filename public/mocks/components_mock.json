@@ -54,6 +54,16 @@
       },
       {
         "id": 4,
+        "name": "reseñas",
+        "category": "basics",
+        "image": "/img/background-cards-weblox.png",
+        "available": true,
+        "element": {
+          "template": 1
+        }
+      },
+      {
+        "id": 5,
         "name": "header",
         "category": "basics",
         "image": "https://via.placeholder.com/150",
