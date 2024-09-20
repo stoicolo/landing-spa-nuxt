@@ -452,10 +452,10 @@ const props = defineProps({
     socialMedia: {
         type: Array,
         default: () => [
-            { icon: 'fab fa-facebook', url: '#' },
-            { icon: 'fab fa-instagram', url: '#' },
-            { icon: 'fab fa-twitter', url: '#' },
-            { icon: 'fab fa-linkedin', url: '#' }
+            { icon: 'fa-brands fa-square-facebook', url: '#' },
+            { icon: 'fa-brands fa-square-instagram', url: '#' },
+            { icon: 'fa-brands fa-square-twitter', url: '#' },
+            { icon: 'fa-brands fa fa-twitter-square', url: '#' }
         ]
     },
     socialTitle: {
