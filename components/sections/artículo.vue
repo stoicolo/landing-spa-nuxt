@@ -21,8 +21,9 @@
             </div>
           </div>
           <div class="text-content" :style="{ color: localTextColor }">
-            <p v-if="!viewMode" @input="updateDescription($event)" @blur="saveChanges" contenteditable>{{ localDescription }}</p>
-            <p v-else>{{ localDescription }}</p>
+            <!-- <p v-if="!viewMode" @input="updateDescription($event)" @blur="saveChanges" contenteditable>{{ localDescription }}</p> -->
+            <div v-if="!viewMode" ref="quillEditor"></div>
+            <div v-else class="formatted-content" v-html="sanitizedContent"></div>
           </div>
         </div>
   
@@ -89,10 +90,6 @@
             <div class="form-group">
               <label>Color del texto del artículo</label>
               <input v-model="localTextColor" @input="updateTextColor" type="color">
-            </div>
-            <div class="form-group">
-              <label>Descripción del artículo</label>
-              <textarea v-model="localDescription" @input="saveChanges" rows="5" placeholder="Ingrese la descripción del artículo"></textarea>
             </div>
             <div class="form-group">
               <label>Botón de acción</label>
@@ -177,6 +174,9 @@
   import { ref, computed, watch, inject, onMounted, onUnmounted } from 'vue';
   import { useTemplateStore } from '~/stores/template';
   import { useCurrentStore } from '~/stores/current';
+  import Quill from 'quill';
+  import 'quill/dist/quill.snow.css';
+  import DOMPurify from 'dompurify';
   
   const props = defineProps({
       id: {
@@ -299,6 +299,7 @@
   const localInstagramAccount = ref(props.instagramAccount);
   const localTwitterAccount = ref(props.twitterAccount);
   const localWhatsappNumber = ref(props.whatsappNumber);
+  const quillEditor = ref(null);
   
   const openGaleryImages = inject('openGaleryImages', () => {
       console.warn('openGaleryImages function is not available');
@@ -345,6 +346,21 @@
   function closeConfigModal() {
       showConfigModal.value = false;
   }
+
+// Función para desescapar HTML
+function unescapeHTML(escapedHTML) {
+  const doc = new DOMParser().parseFromString(escapedHTML, 'text/html');
+  return doc.documentElement.textContent;
+}
+
+const sanitizedContent = computed(() => {
+  // Primero desescapamos el HTML y luego lo sanitizamos
+  const unescapedContent = unescapeHTML(localDescription.value);
+  return DOMPurify.sanitize(unescapedContent, { 
+    ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'li', 'blockquote'],
+    ALLOWED_ATTR: ['class']
+  });
+});
   
   function saveChanges() {
       templateStore.updateWidgetInSection(props.id, {
@@ -487,14 +503,42 @@
 });
   
   onMounted(() => {
-      // Aquí puedes agregar cualquier lógica que necesites ejecutar cuando el componente se monta
+      if (!props.viewMode) {
+    const editor = new Quill(quillEditor.value, {
+      theme: 'snow',
+      modules: {
+        toolbar: [
+          ['bold', 'italic', 'underline', 'strike'],
+          [{ 'header': 1 }, { 'header': 2 }],
+          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+          [{ 'size': ['small', false, 'large', 'huge'] }],
+          [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+          [{ 'align': [] }],
+          ['clean']
+        ]
+      },
+    });
+
+    editor.root.innerHTML = unescapeHTML(localDescription.value);
+
+    editor.on('text-change', () => {
+      debugger
+      localDescription.value = editor.root.innerHTML;
+      saveChanges();
+    });
+  }
   });
   
-  onUnmounted(() => {
-      // Aquí puedes agregar cualquier lógica de limpieza cuando el componente se desmonta
-  });
+  onUnmounted(() => {});
   </script>
 <style lang="scss" scoped>
+@import 'quill/dist/quill.core.css';
+@import 'quill/dist/quill.snow.css';
+
+.ql-editor {
+  min-height: 200px;
+}
+
 .article-section {
   position: relative;
   width: 100%;
@@ -986,4 +1030,5 @@
     font-size: 0.875rem;
   }
 }
+
 </style>

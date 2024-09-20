@@ -22,3 +22,120 @@
     background-color: var(--background-color);
     color: var(--text-color);
   }
+
+  .formatted-content {
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: inherit;
+  }
+  
+  .formatted-content h1,
+  .formatted-content h2,
+  .formatted-content h3,
+  .formatted-content h4,
+  .formatted-content h5,
+  .formatted-content h6 {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+  }
+  
+  .formatted-content h1 { font-size: 2em; }
+  .formatted-content h2 { font-size: 1.5em; }
+  .formatted-content h3 { font-size: 1.17em; }
+  .formatted-content h4 { font-size: 1em; }
+  .formatted-content h5 { font-size: 0.83em; }
+  .formatted-content h6 { font-size: 0.67em; }
+
+  
+  .formatted-content strong {
+    font-weight: bold;
+  }
+  
+  .formatted-content em {
+    font-style: italic;
+  }
+  
+  .formatted-content u {
+    text-decoration: underline;
+  }
+  
+  .formatted-content ol,
+  .formatted-content ul {
+    padding-left: 1.5em;
+    margin-bottom: 1em;
+  }
+  
+  .formatted-content li {
+    margin-bottom: 0.5em;
+  }
+  
+  .formatted-content ol {
+    list-style-type: decimal;
+  }
+  
+  .formatted-content ul {
+    list-style-type: disc;
+  }
+  
+  .formatted-content blockquote {
+    border-left: 4px solid #ccc;
+    margin: 1em 0;
+    padding-left: 1em;
+    color: #666;
+  }
+  
+  .formatted-content pre {
+    background-color: #f4f4f4;
+    padding: 1em;
+    border-radius: 4px;
+    overflow-x: auto;
+  }
+  
+  .formatted-content code {
+    font-family: monospace;
+    background-color: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+  }
+  
+  .formatted-content a {
+    color: #0077cc;
+    text-decoration: none;
+  }
+  
+  .formatted-content a:hover {
+    text-decoration: underline;
+  }
+  
+  .formatted-content img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .formatted-content hr {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 1em 0;
+  }
+  
+  /* Estilos para tablas, si las usas */
+  .formatted-content table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1em;
+  }
+  
+  .formatted-content th,
+  .formatted-content td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .formatted-content th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
