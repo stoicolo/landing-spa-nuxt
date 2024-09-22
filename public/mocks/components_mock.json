@@ -74,6 +74,16 @@
       },
       {
         "id": 6,
+        "name": "galeria-de-imagenes",
+        "category": "basics",
+        "image": "/img/background-cards-weblox.png",
+        "available": true,
+        "element": {
+          "template": 1
+        }
+      },
+      {
+        "id": 7,
         "name": "header",
         "category": "basics",
         "image": "https://via.placeholder.com/150",
