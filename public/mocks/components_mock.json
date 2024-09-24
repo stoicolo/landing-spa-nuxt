@@ -94,6 +94,16 @@
           "icon": "https://via.placeholder.com/150",
           "template": 1
         }
+      },
+      {
+        "id": 8,
+        "name": "title",
+        "category": "basics",
+        "image": "https://via.placeholder.com/150",
+        "available": true,
+        "element": {
+          "template": 1
+        }
       }
     ]
 }
