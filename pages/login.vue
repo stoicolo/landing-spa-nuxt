@@ -61,7 +61,7 @@ const loginUser = async (event: Event) => {
     if (response && response.user && response.tokens) {
       // Save auth token to cookies or localStorage
       localStorage.setItem('accessToken', response.tokens.access.token);
-      localStorage.setItem('refreshToken', response.tokens.refresh.token);
+      sessionStorage.setItem('refreshToken', response.tokens.refresh.token);
       const encryptedText = encrypt(response.user.role, 3);
       localStorage.setItem('getNumByTicket', encryptedText);
       

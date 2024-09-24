@@ -27,7 +27,7 @@ interface Page {
 
 class PageTemplateService {
   private static authToken: string = "";
-  private static baseURL: string = "";
+  public static baseURL: string = "";
 
   static set setAuthToken(token: string) {
     PageTemplateService.authToken = token;

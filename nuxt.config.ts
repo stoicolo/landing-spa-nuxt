@@ -50,7 +50,8 @@ export default defineNuxtConfig({
   plugins: [
     '~/plugins/toaster.js',
     '~/plugins/init-page-template-service',
-    '~/plugins/fontawesome.js'
+    '~/plugins/fontawesome.js',
+    '~/plugins/axios.js'
   ],
 
   i18n: {
