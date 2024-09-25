@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { type AxiosInstance } from "axios";
 interface Section {
   id: number;
   position: number;
@@ -28,6 +28,12 @@ interface Page {
 class PageTemplateService {
   private static authToken: string = "";
   public static baseURL: string = "";
+
+  private static createCleanAxiosInstance(): AxiosInstance {
+    return axios.create({
+      baseURL: PageTemplateService.baseURL,
+    });
+  }
 
   static set setAuthToken(token: string) {
     PageTemplateService.authToken = token;
@@ -981,6 +987,37 @@ class PageTemplateService {
       );
     } catch (error) {
       console.error("Error forgot password:", error);
+      throw error;
+    }
+  }
+
+  static async resetPassword(token: string, password: string) {
+    try {
+      const cleanAxios = this.createCleanAxiosInstance();
+      await cleanAxios.post(
+        `/auth/reset-password`,
+        {
+          token,
+          password
+        }
+      );
+    } catch (error) {
+      console.error("Error resetting password:", error);
+      throw error;
+    }
+  }
+
+  static async activateUser(token: string) {
+    try {
+      const cleanAxios = this.createCleanAxiosInstance();
+      await cleanAxios.post(
+        `/auth/activate-user`,
+        {
+          token
+        }
+      );
+    } catch (error) {
+      console.error("Error activating password:", error);
       throw error;
     }
   }
