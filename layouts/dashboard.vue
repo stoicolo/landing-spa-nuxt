@@ -16,9 +16,12 @@ import { ref, onMounted, provide } from 'vue';
 import MobileSidebar from '~/components/dashboard/mobileSidebar.vue';
 import DesktopSidebar from '~/components/dashboard/desktopSidebar.vue';
 import GalleryImagesModal from '~/components/helpers/galleryImagesModal.vue';
+import PageTemplateService from '@/services/page_template';
+import { useRouter } from 'vue-router';
 
 const sidebarOpen = ref(false);
 const galleryImagesModalRef = ref<InstanceType<typeof GalleryImagesModal> | null>(null);
+const router = useRouter();
 
 const userNavigation = [
   // { name: "Perfil", href: "#" },
@@ -40,7 +43,14 @@ const openGaleryImages = () => {
 
 provide('openGaleryImages', openGaleryImages);
 
-const logout = () => {
-  // Implementar lógica de logout
+const logout = async () => {
+  try{
+    await PageTemplateService.logout();
+    router.push('/login');
+  }catch(error){
+    console.log("Error trying to logout");
+  }
 };
+
+provide('logout', logout);
 </script>

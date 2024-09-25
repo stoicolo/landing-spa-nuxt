@@ -1,9 +1,11 @@
 import axios from 'axios';
 import PageTemplateService from '~/services/page_template';
+import { useCurrentStore } from '~/stores/current';
 
 export default defineNuxtPlugin((nuxtApp) => {
   // Configuración base de Axios
   axios.defaults.baseURL = PageTemplateService.baseURL;
+  const currentStore = useCurrentStore();
 
   let refreshToken = null;
 
@@ -16,7 +18,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           config.headers['Authorization'] = `Bearer ${token}`;
         }
         // Obtenemos el refreshToken aquí para asegurarnos de que esté disponible en el cliente
-        refreshToken = localStorage.getItem('refreshToken');
+        refreshToken = sessionStorage.getItem('refreshToken');
       }
       return config;
     },
@@ -28,7 +30,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   // Interceptor de respuesta
   axios.interceptors.response.use(
     (response) => {
-      console.log('Response:::::', response);
       return response;
     },
     async (error) => {
@@ -37,17 +38,25 @@ export default defineNuxtPlugin((nuxtApp) => {
         // Token expirado o inválido
         try {
           const response = await axios.post('/auth/refresh-tokens', {
+            id: currentStore.userId,
             refreshToken: refreshToken,
           });
 
-          if (response.data && response.data.user && response.data.tokens) {
+          if (response.data.access && response.data.access.token && response.data.refresh.token) {
             // Save auth token to localStorage
-            localStorage.setItem('accessToken', response.data.tokens.access.token);
+            localStorage.setItem('accessToken', response.data.access.token);
+            sessionStorage.setItem('refreshToken', response.data.refresh.token);
 
             // Retry the original request with the new token
             const originalRequest = error.config;
-            originalRequest.headers['Authorization'] = `Bearer ${response.data.tokens.access.token}`;
-            return axios(originalRequest);
+            originalRequest.headers['Authorization'] = `Bearer ${response.data.access.token}`;
+            try {
+                const retryResponse = await axios(originalRequest);
+                return retryResponse;
+              } catch (retryError) {
+                console.error('Retry failed:', retryError);
+                return Promise.reject(retryError);
+              }
           } else {
             // Si no se recibieron los tokens esperados, redirigir al login
             redirectToLogin();

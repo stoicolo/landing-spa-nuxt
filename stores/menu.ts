@@ -26,6 +26,7 @@ export const useMenuStore = defineStore('menu', {
       { menuName: "Editar Menús", href: "/menus", iconName: "PencilSquareIcon", current: false, order: 3 },
       { menuName: "Configuración", href: "/config", iconName: "UsersIcon", current: false, order: 4 },
       { menuName: "Menu", href: "#", iconName: "Bars3Icon", current: false, order: 5 },
+      { menuName: "Salir", iconName: "ArrowLeftCircleIcon", method: "logout", current: false, order: 7 },
     ] as MenuItem[],
     menu: [] as MenuItem[]
   }),

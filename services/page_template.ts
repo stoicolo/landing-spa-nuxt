@@ -952,6 +952,38 @@ class PageTemplateService {
       throw error;
     }
   }
+
+  static async logout() {
+    try {
+      const currentRefreshToken = sessionStorage.getItem("refreshToken");
+      await axios.post(
+        `${PageTemplateService.baseURL}/auth/logout`,
+        {
+          refreshToken: currentRefreshToken,
+        }
+      );
+      localStorage.removeItem("accessToken");
+      sessionStorage.removeItem("refreshToken");
+
+    } catch (error) {
+      console.error("Error logging out:", error);
+      throw error;
+    }
+  }
+
+  static async forgotPassword(email: string) {
+    try {
+      await axios.post(
+        `${PageTemplateService.baseURL}/auth/forgot-password`,
+        {
+          email
+        }
+      );
+    } catch (error) {
+      console.error("Error forgot password:", error);
+      throw error;
+    }
+  }
 }
 
 if (process.client) {

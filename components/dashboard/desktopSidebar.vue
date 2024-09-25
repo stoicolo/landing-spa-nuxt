@@ -91,6 +91,9 @@
                         </li>
                       </ul>
                     </transition>
+                    <button @click="openAddMenuItemModal" class="text-gray-400 text-white mt-4 p-2 flex bg-[#6f5e27] w-full hover:bg-[#b69630]">
+                        <PlusIcon class="h-5 w-5 mr-4" aria-hidden="true" /> Agregar nueva página
+                    </button>
                   </template>
                 </li>
               </ul>
@@ -116,7 +119,9 @@
     PlusIcon,
     PencilSquareIcon,
     UsersIcon,
-    PhotoIcon
+    PhotoIcon,
+    PlusSmallIcon,
+    ArrowLeftCircleIcon
   } from "@heroicons/vue/24/outline";
   import AddMenuItemModal from '~/components/helpers/addMenuItemModal.vue';
   
@@ -134,7 +139,9 @@
     DocumentDuplicateIcon,
     PencilSquareIcon,
     UsersIcon,
-    PhotoIcon
+    PhotoIcon,
+    PlusSmallIcon,
+    ArrowLeftCircleIcon
   };
 
 //IMPORTANTE: todos los metodos se proveen en layouts/dashboard.vue
