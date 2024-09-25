@@ -104,6 +104,16 @@
         "element": {
           "template": 1
         }
+      },
+      {
+        "id": 8,
+        "name": "contact-form",
+        "category": "basics",
+        "image": "https://via.placeholder.com/150",
+        "available": true,
+        "element": {
+          "template": 1
+        }
       }
     ]
 }
