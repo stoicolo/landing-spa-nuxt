@@ -61,7 +61,7 @@ const loginUser = async (event: Event) => {
     if (response && response.user && response.tokens) {
       // Save auth token to cookies or localStorage
       localStorage.setItem('accessToken', response.tokens.access.token);
-      localStorage.setItem('refreshToken', response.tokens.refresh.token);
+      sessionStorage.setItem('refreshToken', response.tokens.refresh.token);
       const encryptedText = encrypt(response.user.role, 3);
       localStorage.setItem('getNumByTicket', encryptedText);
       
@@ -105,16 +105,6 @@ const loginUser = async (event: Event) => {
           >
             Inicia Sesion
           </h2>
-          <!--TODO El registro solo va a funcionar cuando el proceso sea automatizado-->
-          <!-- <p class="mt-2 text-sm leading-6 text-gray-500">
-            Eres PyME y no te has registrado?
-            {{ " " }}
-            <NuxtLink
-              href="register"
-              class="text-fountain-blue-600 hover:text-fountain-blue-500 font-semibold"
-              >Registrate aqui</NuxtLink
-            >
-          </p> -->
         </div>
 
         <div class="mt-10">
@@ -169,6 +159,13 @@ const loginUser = async (event: Event) => {
                 >
                   {{ loginButtonText }}
                 </button>
+              </div>
+              <div class="flex justify-center">
+                <NuxtLink
+                  href="/forgot-password"
+                  class="text-fountain-blue-600 hover:text-fountain-blue-500 font-semibold"
+                  >¿Olvidaste tu contraseña?</NuxtLink
+                >
               </div>
             </form>
           </div>
