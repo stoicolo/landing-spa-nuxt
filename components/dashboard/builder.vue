@@ -213,6 +213,7 @@ async function createNewPageAndPageTemplate() {
     const pageExist = await PageTemplateService.checkIfPageExist(pageId.value, userStore.id);
     if(!pageId.value && !pageExist.length) {
         try {
+            //If page not exist, create new page
             menuStore.createFirstPageAndMenuItem({
                 menuName: "Inicio",
                 href: "/builder/1",
