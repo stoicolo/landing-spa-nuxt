@@ -73,6 +73,7 @@ const loginUser = async (event: Event) => {
       });
 
       currentStore.setUserRole(response.user.role);
+      currentStore.setUserId(parseInt(response.user.id));
       
       // Redirect to dashboard if all is ok
       navigateTo("/builder/0");
