@@ -7,7 +7,20 @@ export default defineNuxtPlugin((nuxtApp) => {
   axios.defaults.baseURL = PageTemplateService.baseURL;
   const currentStore = useCurrentStore();
 
-  let refreshToken = null;
+  let isRefreshing = false;
+  let failedQueue = [];
+
+  const processQueue = (error, token = null) => {
+    failedQueue.forEach(prom => {
+      if (error) {
+        prom.reject(error);
+      } else {
+        prom.resolve(token);
+      }
+    });
+    
+    failedQueue = [];
+  };
 
   // Interceptor de solicitud
   axios.interceptors.request.use(
@@ -17,8 +30,6 @@ export default defineNuxtPlugin((nuxtApp) => {
         if (token) {
           config.headers['Authorization'] = `Bearer ${token}`;
         }
-        // Obtenemos el refreshToken aquí para asegurarnos de que esté disponible en el cliente
-        refreshToken = sessionStorage.getItem('refreshToken');
       }
       return config;
     },
@@ -33,58 +44,68 @@ export default defineNuxtPlugin((nuxtApp) => {
       return response;
     },
     async (error) => {
-      if (error.response && error.response.status === 401 && process.client) {
-        debugger;
-        // Token expirado o inválido
+      const originalRequest = error.config;
+
+      if (error.response && error.response.status === 401 && !originalRequest._retry && process.client) {
+        if (isRefreshing) {
+          return new Promise((resolve, reject) => {
+            failedQueue.push({resolve, reject});
+          }).then(token => {
+            originalRequest.headers['Authorization'] = 'Bearer ' + token;
+            return axios(originalRequest);
+          }).catch(err => {
+            return Promise.reject(err);
+          });
+        }
+
+        originalRequest._retry = true;
+        isRefreshing = true;
+
+        const refreshToken = sessionStorage.getItem('refreshToken');
+        
+        if (!refreshToken) {
+          isRefreshing = false;
+          redirectToLogin();
+          return Promise.reject(error);
+        }
+
         try {
           const response = await axios.post('/auth/refresh-tokens', {
             id: currentStore.userId,
             refreshToken: refreshToken,
-          });
+          }, { _retry: true }); // Add this flag to avoid intercepting this specific request
 
           if (response.data.access && response.data.access.token && response.data.refresh.token) {
-            // Save auth token to localStorage
             localStorage.setItem('accessToken', response.data.access.token);
             sessionStorage.setItem('refreshToken', response.data.refresh.token);
 
-            // Retry the original request with the new token
-            const originalRequest = error.config;
-            originalRequest.headers['Authorization'] = `Bearer ${response.data.access.token}`;
-            try {
-                const retryResponse = await axios(originalRequest);
-                return retryResponse;
-              } catch (retryError) {
-                console.error('Retry failed:', retryError);
-                return Promise.reject(retryError);
-              }
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access.token;
+            
+            processQueue(null, response.data.access.token);
+            return axios(originalRequest);
           } else {
-            // Si no se recibieron los tokens esperados, redirigir al login
+            processQueue(new Error('Failed to refresh token'), null);
             redirectToLogin();
+            return Promise.reject(error);
           }
         } catch (refreshError) {
-          console.error("Error getting refresh access token: ", refreshError);
-          if (axios.isAxiosError(refreshError) && refreshError.response) {
-            // Si el servidor respondió que el refresh token no fue encontrado, redirigir al login
-            if (refreshError.response.status === 404 || 
-                (refreshError.response.data && refreshError.response.data.message === 'Refresh token not found')) {
-              redirectToLogin();
-            }
-          }
+          processQueue(refreshError, null);
+          redirectToLogin();
+          return Promise.reject(refreshError);
+        } finally {
+          isRefreshing = false;
         }
       }
+
       return Promise.reject(error);
     }
   );
 
-  // Función para redirigir al login
   const redirectToLogin = () => {
     if (process.client) {
-      // Limpiar tokens del localStorage
       localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-      
-      // Redirigir al login
-      window.location.href = '/login'; // O usa el router de Nuxt si prefieres
+      sessionStorage.removeItem('refreshToken');
+      window.location.href = '/login';
     }
   };
 
