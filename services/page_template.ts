@@ -1013,7 +1013,7 @@ class PageTemplateService {
     try {
       const cleanAxios = this.createCleanAxiosInstance();
       await cleanAxios.post(
-        `/auth/activate-user`,
+        `/auth/verify-email`,
         {
           token
         }
