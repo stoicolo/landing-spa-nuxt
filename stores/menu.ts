@@ -62,7 +62,7 @@ export const useMenuStore = defineStore('menu', {
     },
 
     async saveMenuDB(items: MenuItem[]) {
-      debugger
+  
       const { useCurrentStore } = await import('~/stores/current');
       const currentStore = useCurrentStore();
       const itemsToSave = items.map(item => {

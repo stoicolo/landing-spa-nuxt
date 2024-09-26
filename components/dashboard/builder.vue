@@ -17,6 +17,13 @@
                 </svg>
                 Pantalla Completa
                 </button>
+
+                <button @click="useTemplate" class="animate-pulse relative inline-flex items-center px-2 py-1 text-xs font-medium rounded text-black bg-orange-600 hover:bg-orange-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500 overflow-hidden group">
+                <svg class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                Usar Plantilla
+                </button>
                 
                 <button @click="() => saveModal = !saveModal" :disabled="loading" class="inline-flex items-center px-2 py-1 text-xs font-medium rounded text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500" :class="{ 'opacity-50 cursor-not-allowed': loading }">
                 <svg v-if="!loading" class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -134,6 +141,7 @@
             @confirm="name => handleSaveBackup(name)"
             @cancel="() => saveBackupModal = !saveBackupModal"
         />
+        <TemplatesSelectModal :isOpen="openTemplates" @close="toggleTemplatesModal"/>
     </div>
 </template>
 
@@ -149,6 +157,7 @@ import { useCurrentStore } from '~/stores/current';
 import PageTemplateService from '@/services/page_template';
 import ConfirmationModal from '~/components/helpers/confirmationModal.vue';
 import SaveBackupModal from '~/components/helpers/saveBackupModal.vue';
+import TemplatesSelectModal from '~/components/helpers/templatesSelectModal.vue';
 import { defineEmits } from 'vue';
 
 const templateStore = useTemplateStore();
@@ -159,6 +168,7 @@ const viewMode = ref(false);
 const activeWebSite = ref(false);
 const showComponentsModal = ref(false);
 const isConfirmationModalOpen = ref(false);
+const openTemplates = ref(false);
 const saveBackupModal = ref(false);
 const saveModal = ref(false);
 let currentPosition = ref(0);
@@ -234,7 +244,7 @@ async function createNewPageAndPageTemplate() {
         const routeId = parseInt(route.params.id);
         
         if (routeId) {
-            debugger;
+            
             const [publishHistory, menusResponse] = await Promise.all([
                 PageTemplateService.getPublishHistoryByWebsiteId(currentStore.websiteId),
                 PageTemplateService.getMenuList(currentStore.websiteId, currentStore.userId)
@@ -296,6 +306,10 @@ const components = computed(() => {
   return objectComponents;
 });
 
+function useTemplate() {
+    openTemplates.value = true;
+}
+
 function changeToSiteView() {
     //TODO: arreglar este comportamiento
   fullscreen.value = !fullscreen.value;
@@ -355,7 +369,7 @@ async function handleSaveBackup(name) {
     //Llamada a servicio de guardar backup
     try {
         loading.value = true;
-        const backupTemplate = await PageTemplateService.backupPageTemplate(userId, getCurrentTemplateSections, name, templateId, pageId.value);
+        const backupTemplate = await PageTemplateService.backupPageTemplate(userId, getCurrentTemplateSections, name, templateId, pageId.value, ['backups']);
         loading.value = false;
         $toaster.show({
             title: "Success",
@@ -409,7 +423,7 @@ async function publishWebSite() {
     const userId = currentStore.userId;
     const menuHeaderId = currentStore.menuHeaderId;
     const publishHistoryId = currentStore.publishHistoryId;
-    debugger;
+    
     console.log(publishHistoryId, "publishHistoryId");
     if(!publishHistoryId){
             const resPublish = await PageTemplateService.createPublishRequest(
@@ -432,7 +446,7 @@ async function changeStatusWebSite() {
     const isPublic = true;
     const publishHistoryId = currentStore.publishHistoryId;
     const publishedAt = JSON.stringify(Date());
-    debugger;
+    
     await PageTemplateService.changeActiveSite(
         publishHistoryId,
         domain,
@@ -444,6 +458,11 @@ async function changeStatusWebSite() {
 
 function toggleComponentsModal() {
   showComponentsModal.value = !showComponentsModal.value;
+}
+
+async function toggleTemplatesModal() {
+  openTemplates.value = !openTemplates.value;
+  await templateStore.loadTemplateStructure(pageId.value, userStore.id);
 }
 
 function addComponentSelected(component, position) {

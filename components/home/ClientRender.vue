@@ -85,7 +85,7 @@ const fetchWebsiteData = async () => {
 
 onMounted(async () => { 
   await fetchWebsiteData();
-  debugger;
+  
   config.value = website.value.websiteGlobalConfig;
   fontFamily.value = config.value.fontFamily;
   logoSrc.value = config.value.logo;
