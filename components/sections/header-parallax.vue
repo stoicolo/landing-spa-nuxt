@@ -245,7 +245,7 @@ const localTemplate = computed(() => {
 });
 
 watch(() => templateStore.structure.page_template.sections, (newSections) => {
-  debugger
+  
   const currentSection = newSections.find(section => section.id === props.id);
   if (currentSection) {
     localTitle.value = currentSection.widget.element.title;

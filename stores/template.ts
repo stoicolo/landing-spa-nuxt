@@ -49,7 +49,7 @@ export const useTemplateStore = defineStore('template_store', {
           throw new Error('Failed to fetch page structure');
         }
 
-        debugger
+        
 
         const currentStore = useCurrentStore();
         currentStore.setPageTemplateId(data.id ? data.id : 0);

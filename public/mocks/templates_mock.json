@@ -1,0 +1,334 @@
+{
+  "templates": [
+    {
+      "id": 1,
+      "name": "Tecnológico | Página de Inicio",
+      "image": "/img/servicio.jpg",
+      "categories": [{"name": "Todas"}],
+      "sections": [
+        {
+          "id": "gszfqn0jw",
+          "position": 0,
+          "widget": {
+            "id": "hjv0x0iaz",
+            "name": "header-parallax",
+            "element": {
+              "title": "WEBLOX es una nn",
+              "description": "Nuestra plataforma permite crear websites de alta calidad sin necesidad de programar.",
+              "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/backgrounds/bg-black.jpg",
+              "centerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726716493655_treje-espacial-transparencia-png_1",
+              "buttonText": "Ver precios",
+              "buttonColor": "#000000",
+              "buttonLink": "/",
+              "template": "2"
+            }
+          }
+        },
+        {
+          "id": "ayapev3go",
+          "position": 1,
+          "widget": {
+            "id": "eumj7jfko",
+            "name": "title",
+            "element": {
+              "template": 1,
+              "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726966403318_bg-black-jpg_1",
+              "backgroundColor": "",
+              "fontSize": "58",
+              "lineHeight": 1.5,
+              "textColor": "#ffffff",
+              "textAlign": "center",
+              "height": "260",
+              "fontWeight": "bold"
+            }
+          }
+        },
+        {
+          "id": "v3k80eeyh",
+          "position": 2,
+          "widget": {
+            "id": "xsz1lflgu",
+            "name": "contact-form",
+            "element": {
+              "template": 1,
+              "sectionTitle": "Contactame",
+              "instructions": "Puedes ver mi perfil de facebook",
+              "backgroundType": "image",
+              "backgroundColor": "#f3f4f6",
+              "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726966403318_bg-black-jpg_1",
+              "receiverEmail": "aguerojosepablo2387@gmail.com",
+              "showMap": true,
+              "mapCenter": {
+                "lat": 0,
+                "lng": 0
+              },
+              "showImage": true,
+              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726542308896_logo-weblox-png_1",
+              "whiteTitle": false,
+              "titleColor": "#ffffff",
+              "instructionsColor": "#ffffff",
+              "formBackgroundColor": "#333333",
+              "labelColor": "#ffffff",
+              "inputTextColor": "#000000",
+              "inputBackgroundColor": "#ffffff",
+              "submitButtonText": "Contactame hoy mismo",
+              "submitButtonColor": "#45ba97",
+              "submitButtonTextColor": "#ffffff",
+              "showWhatsAppButton": true,
+              "whatsAppNumber": "63469873"
+            }
+          }
+        },
+        {
+          "id": "cpeqirlz6",
+          "position": 3,
+          "widget": {
+            "id": "w7njmazeb",
+            "name": "galeria-de-imagenes",
+            "element": {
+              "template": 1,
+              "images": [
+                {
+                  "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726967762321_invierno-jpg_1"
+                },
+                {
+                  "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726967786390_desierto-jpg_1"
+                },
+                {
+                  "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726967796529_castillo-jpg_1"
+                },
+                {
+                  "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726967812691_osos-jpg_1"
+                },
+                {
+                  "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726966377693_background-header-weblox-jpg_1"
+                },
+                {
+                  "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726967188663_background-future-clouds-jpg_1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "mt1ekbzjm",
+          "position": 4,
+          "widget": {
+            "id": "fnaoe12lq",
+            "name": "artículo",
+            "element": {
+              "template": 1,
+              "title": "Título del Artículo",
+              "backgroundType": "image",
+              "backgroundColor": "#ffffff",
+              "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726542456955_niebla-jpg_1",
+              "description": "&lt;p>Servicio de Desarrollo Web a MedidaEn la era digital, contar con un sitio web funcional y atractivo es esencial para cualquier negocio que quiera destacar. Nuestro equipo de expertos en desarrollo web se especializa en crear sitios personalizados que no solo reflejan la identidad de tu marca, sino que también ofrecen una experiencia de usuario óptima. Utilizamos las últimas tecnologías y mejores prácticas para asegurarnos de que tu sitio web sea moderno, rápido y seguro.Diseño Responsivo y AtractivoCada proyecto que emprendemos se realiza pensando en la adaptabilidad. Sabemos que los usuarios acceden a sitios web desde diversos dispositivos, por lo que todos nuestros diseños son completamente responsivos, ajustándose perfectamente a cualquier pantalla, ya sea móvil, tableta o escritorio. Además, nos aseguramos de que el diseño sea visualmente atractivo, con una interfaz intuitiva que facilita la navegación y promueve la conversión de visitantes en clientes.Desarrollo Personalizado y EscalableEntendemos que cada negocio es único, por lo que no ofrecemos soluciones genéricas. Desarrollamos cada sitio web a medida, adaptándonos a las necesidades y objetivos específicos de tu empresa. Además, construimos plataformas escalables, permitiéndote agregar funcionalidades y expandir tu presencia en línea a medida que tu negocio crece. Ya sea un sitio de comercio electrónico, un blog, o una plataforma compleja de gestión de contenido, tenemos la experiencia para llevar tu visión a la realidad.Optimización SEO y RendimientoNo basta con tener un sitio web atractivo; también debe ser fácil de encontrar. Implementamos las mejores estrategias de SEO desde el inicio del proyecto, optimizando cada página para que tu sitio web sea visible en los motores de búsqueda y atraiga tráfico orgánico. Además, ponemos especial atención en la velocidad de carga y el rendimiento, asegurándonos de que tus visitantes tengan una experiencia rápida y sin inconvenientes, lo que también beneficia tu posicionamiento en los buscadores.Soporte y Mantenimiento ContinuoNuestro compromiso no termina cuando lanzamos tu sitio web. Ofrecemos soporte técnico continuo y servicios de mantenimiento para asegurar que tu plataforma funcione correctamente en todo momento. Realizamos actualizaciones de seguridad, mejoras de rendimiento y estamos disponibles para implementar nuevas funcionalidades a medida que tu negocio lo necesite. Con nuestro servicio de desarrollo web, tienes la tranquilidad de que tu sitio estará en manos de profesionales comprometidos con tu éxito en línea.&lt;/p>",
+              "pictures": [
+                {
+                  "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726716493655_treje-espacial-transparencia-png_1"
+                }
+              ],
+              "whiteTitle": true,
+              "textColor": "#ffffff",
+              "overlayColor": "#000000",
+              "showActionButton": false,
+              "actionButtonText": "Nombre del botón",
+              "actionButtonUrl": "/url-del-boton",
+              "showFacebook": true,
+              "showInstagram": true,
+              "showTwitter": true,
+              "showWhatsapp": true,
+              "facebookAccount": "",
+              "instagramAccount": "",
+              "twitterAccount": "",
+              "whatsappNumber": ""
+            }
+          }
+        },
+        {
+          "id": "jedcof3tg",
+          "position": 5,
+          "widget": {
+            "id": "wm4eqmnq1",
+            "name": "reseñas",
+            "element": {
+              "template": "1",
+              "sectionTitle": "",
+              "backgroundType": "image",
+              "backgroundColor": "#f3f4f6",
+              "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726542456955_niebla-jpg_1",
+              "reviews": [
+                {
+                  "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726716493655_treje-espacial-transparencia-png_1",
+                  "name": "Cliente 1",
+                  "text": "Esta es una reseña de ejemplo para el cliente 1.",
+                  "rating": 4,
+                  "date": "2024-09-19"
+                },
+                {
+                  "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726542308896_logo-weblox-png_1",
+                  "name": "Jose Pablo Agüero",
+                  "text": "sfsdeffsdfdsfdsfdsfsdfsdfsdfdssfsdfdsfsdfsdfsdfEsta es una reseña de ejemplo para el cliensdfsdfsdf te d2.",
+                  "rating": 2,
+                  "date": "2024-09-19"
+                }
+              ],
+              "whiteTitle": false,
+              "textColor": "#ffffff"
+            }
+          }
+        },
+        {
+          "id": "zgfnv1k53",
+          "position": 6,
+          "widget": {
+            "id": "o6uz2qrrm",
+            "name": "carrusel",
+            "element": {
+              "template": 1,
+              "sectionTitle": "",
+              "backgroundType": "image",
+              "backgroundColor": "#000000",
+              "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/backgrounds/bg-black-x.jpg",
+              "slides": [
+                {
+                  "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726716493655_treje-espacial-transparencia-png_1",
+                  "title": "Pasos para crear tu sitio web",
+                  "description": "Crear un sitio web en pocos minutos y sin programar ahora es sencillo con WEBLOX. Primero debes suscribirte a nuestro plan mensual en el cual tendrás acceso a todos los recursos.",
+                  "buttonText": "Subscribirme",
+                  "buttonColor": "#545454",
+                  "buttonLink": "#",
+                  "showImage": true,
+                  "showTitle": true,
+                  "showDescription": true,
+                  "showButton": true,
+                  "titleColor": "#eee84f",
+                  "buttonTextColor": "#eee84f",
+                  "descriptionColor": "#ffffff"
+                },
+                {
+                  "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726716493655_treje-espacial-transparencia-png_1",
+                  "title": "Paso 2",
+                  "description": "Entra al dashboard de WEBLOX y empieza a crear paginas, agregando todos los componentes de alta calidad que quieras usar.",
+                  "buttonText": "Ver más",
+                  "buttonColor": "#636363",
+                  "buttonLink": "#",
+                  "showImage": true,
+                  "showTitle": true,
+                  "showDescription": true,
+                  "showButton": true,
+                  "titleColor": "#eee84f",
+                  "buttonTextColor": "#eee84f",
+                  "descriptionColor": "#ffffff"
+                }
+              ],
+              "sectionTitleColor": "#000000"
+            }
+          }
+        },
+        {
+          "id": "u1e2kp3m6",
+          "position": 7,
+          "widget": {
+            "id": "mjb2cczsx",
+            "name": "cards",
+            "element": {
+              "sectionTitle": "",
+              "backgroundType": "color",
+              "backgroundColor": "#000000",
+              "backgroundImage": "",
+              "cards": [
+                {
+                  "image": "/img/servicio.jpg",
+                  "title": "Desarrollo de Aplicaciones Web",
+                  "description": "Desarrollamos aplicaciones web personalizadas, enfocadas en soluciones eficientes y de alta calidad. Utilizamos tecnologías modernas para crear experiencias digitales intuitivas y adaptadas a las nece",
+                  "buttonText": "Cotizar",
+                  "buttonColor": "#3b82f6",
+                  "buttonLink": "#"
+                },
+                {
+                  "image": "/img/servicio.jpg",
+                  "title": "WEBLOX Creator",
+                  "description": "Nuestra plataforma permite crear websites de alta calidad sin necesidad de programar. Con herramientas intuitivas y bloques personalizables, puedes diseñar y lanzar tu sitio web de manera rápida y pro",
+                  "buttonText": "Ver precios",
+                  "buttonColor": "#3b82f6",
+                  "buttonLink": "#"
+                },
+                {
+                  "image": "/img/servicio.jpg",
+                  "title": "Consultoría",
+                  "description": "Ofrecemos servicios de consultoría en programación web, ayudando a optimizar y desarrollar proyectos con las mejores prácticas y tecnologías actuales. ",
+                  "buttonText": "Ver más",
+                  "buttonColor": "#3b82f6",
+                  "buttonLink": "#"
+                }
+              ],
+              "template": "1",
+              "whiteTitle": false
+            }
+          }
+        },
+        {
+          "id": "hgg34nw9r",
+          "position": 8,
+          "widget": {
+            "id": "h6tnc2k9a",
+            "name": "footer",
+            "element": {
+              "template": "2",
+              "title": "Weblox",
+              "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/backgrounds/bg-black.jpg",
+              "links": [
+                {
+                  "text": "Inicio",
+                  "url": "#"
+                },
+                {
+                  "text": "Servicios",
+                  "url": "#"
+                },
+                {
+                  "text": "Acerca de",
+                  "url": "#"
+                },
+                {
+                  "text": "Contacto",
+                  "url": "#"
+                }
+              ],
+              "contactInfo": "San Jose, Costa Rica\n(506) 63469873\ninfo@softstoic.com",
+              "description": "Somos una plataforma que cambiará tu forma de ver internet. Únete al futuro HOY.",
+              "socialMedia": [
+                {
+                  "icon": "fa-brands fa-square-facebook",
+                  "url": "#"
+                },
+                {
+                  "icon": "fa-brands fa-square-instagram",
+                  "url": "#"
+                },
+                {
+                  "icon": "fa-brands fa-square-twitter",
+                  "url": "#"
+                },
+                {
+                  "icon": "fa-brands fa-youtube",
+                  "url": "#"
+                }
+              ],
+              "copyright": "© 2024 Todos los derechos reservados. Softstoic Soluciones S.A",
+              "backgroundType": "image",
+              "backgroundColor": "#305297",
+              "linksTitle": "Links Relevantes",
+              "contactTitle": "Contáctanos",
+              "descriptionTitle": "Porqué Nosotros",
+              "socialTitle": "Social Media",
+              "titleColor": "Weblox",
+              "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726542308896_logo-weblox-png_1"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

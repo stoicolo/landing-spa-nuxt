@@ -231,6 +231,7 @@ class PageTemplateService {
     backupName: string,
     pageTemplateId: number,
     pageId: number,
+    categories: string[],
   ): Promise<PageTemplate | null> {
     try {
       let response = null;
@@ -250,6 +251,7 @@ class PageTemplateService {
         backupName: backupName,
         pageTemplateId: pageTemplateId,
         pageName: page?.pageName,
+        categories: [...categories]
       };
 
       // Realizar la petición PATCH y obtener directamente la propiedad data del resultado

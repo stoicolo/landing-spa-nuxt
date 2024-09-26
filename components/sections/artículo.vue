@@ -522,7 +522,7 @@ const sanitizedContent = computed(() => {
     editor.root.innerHTML = unescapeHTML(localDescription.value);
 
     editor.on('text-change', () => {
-      debugger
+      
       localDescription.value = editor.root.innerHTML;
       saveChanges();
     });
