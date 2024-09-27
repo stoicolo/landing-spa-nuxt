@@ -24,8 +24,7 @@
                     <div 
                       class="styled-input styled-input-h3" 
                       :contenteditable="!viewMode" 
-                      @input="onInputLinksTitle" 
-                      @blur="updateLinksTitle" 
+                      @input="onInputLinksTitle"
                       :style="{ color: localTextColor }"
                       v-text="localLinksTitle"
                     ></div>
@@ -36,6 +35,7 @@
                         :href="link.url" 
                         class="hover:underline"
                         :style="{ color: localTextColor }"
+                        v-if="viewMode"
                       >
                         <div 
                           class="styled-input" 
@@ -45,6 +45,15 @@
                           v-text="link.text"
                         ></div>
                       </a>
+                      <div 
+                          class="styled-input hover:underline" 
+                          :contenteditable="!viewMode" 
+                          :style="{ color: localTextColor }"
+                          @input="(event) => onInputLinkText(event, index)" 
+                          @blur="(event) => updateLinkText(event, index)" 
+                          v-text="link.text"
+                          v-if="!viewMode"
+                        ></div>
                     </li>
                   </ul>
                 </div>
@@ -140,7 +149,6 @@
                       class="styled-input styled-input-h3" 
                       :contenteditable="!viewMode" 
                       @input="onInputLinksTitle" 
-                      @blur="updateLinksTitle" 
                       :style="{ color: localTextColor }"
                       v-text="localLinksTitle"
                     ></div>
@@ -151,6 +159,7 @@
                         :href="link.url" 
                         class="hover:underline"
                         :style="{ color: localTextColor }"
+                        v-if="viewMode"
                       >
                         <div 
                           class="styled-input" 
@@ -160,6 +169,15 @@
                           v-text="link.text"
                         ></div>
                       </a>
+                      <div 
+                          class="styled-input hover:underline" 
+                          :contenteditable="!viewMode" 
+                          :style="{ color: localTextColor }"
+                          @input="(event) => onInputLinkText(event, index)" 
+                          @blur="(event) => updateLinkText(event, index)" 
+                          v-text="link.text"
+                          v-if="!viewMode"
+                        ></div>
                     </li>
                   </ul>
                 </div>
@@ -235,14 +253,14 @@
         </div>
       </div>
   
-      <!-- Botón de configuración -->
-      <button v-if="!viewMode" @click="openConfigModal" class="config-button z-20">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-      </button>
+     <!-- Botón de configuración -->
+     <button v-if="!viewMode" @click="openConfigModal" class="config-button">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6  text-gray-500">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    </button>
     </footer>
   
     <!-- Modal de configuración -->
@@ -252,6 +270,26 @@
 
     <div class="max-h-[calc(100vh-200px)] overflow-y-auto pr-4">
       <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Fondo de la sección</label>
+          <div class="flex items-center space-x-4">
+            <button @click="toggleBackgroundType" class="px-4 py-2 border rounded bg-blue-500 text-white hover:bg-blue-400">
+              Usar {{ localBackgroundType === 'imagen' ? 'color de fondo' : 'imágen de fondo' }}
+            </button>
+          </div>
+          <input v-if="localBackgroundType === 'color'" v-model="localBackgroundColor" @input="updateBackgroundColor" type="color" class="mt-2 p-1 w-full h-10">
+          <div v-if="localBackgroundType === 'imagen'" class="mt-2 flex items-center">
+            <span class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
+              <img v-if="localBackgroundImage" :src="localBackgroundImage" alt="Background" class="h-full w-full object-cover">
+              <svg v-else class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </span>
+            <button @click="updateBackgroundImage" class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Seleccionar imagen
+            </button>
+          </div>
+        </div>
+      <div class="mb-4">
         <label for="title" class="block text-sm font-medium text-gray-700">Título</label>
         <input type="text" id="title" v-model="localTitle"
           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
@@ -260,13 +298,13 @@
       <div class="mb-4">
         <label for="titleColor" class="block text-sm font-medium text-gray-700">Color del Título</label>
         <input type="color" id="titleColor" v-model="localTitleColor"
-          class="mt-1 block rounded-md border-gray-300 shadow-sm">
+          class="mt-1 block rounded-md border-gray-300 shadow-sm w-full">
       </div>
 
       <div class="mb-4">
         <label for="textColor" class="block text-sm font-medium text-gray-700">Color del Texto</label>
         <input type="color" id="textColor" v-model="localTextColor"
-          class="mt-1 block rounded-md border-gray-300 shadow-sm">
+          class="mt-1 block rounded-md border-gray-300 shadow-sm w-full">
       </div>
 
       <div class="mb-4">
@@ -331,28 +369,8 @@
           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
       </div>
 
-      <div class="mb-4">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Fondo de la sección</label>
-          <div class="flex items-center space-x-4">
-            <button @click="toggleBackgroundType" class="px-4 py-2 border rounded" :class="{'bg-blue-500 text-white': localBackgroundType === 'color', 'bg-white text-gray-700': localBackgroundType !== 'color'}">Color</button>
-            <button @click="toggleBackgroundType" class="px-4 py-2 border rounded" :class="{'bg-blue-500 text-white': localBackgroundType === 'image', 'bg-white text-gray-700': localBackgroundType !== 'image'}">Imagen</button>
-          </div>
-          <input v-if="localBackgroundType === 'color'" v-model="localBackgroundColor" @input="updateBackgroundColor" type="color" class="mt-2 p-1 w-full h-10">
-          <div v-if="localBackgroundType === 'image'" class="mt-2 flex items-center">
-            <span class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-              <img v-if="localBackgroundImage" :src="localBackgroundImage" alt="Background" class="h-full w-full object-cover">
-              <svg v-else class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-            </span>
-            <button @click="updateBackgroundImage" class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              Cambiar imagen
-            </button>
-          </div>
-        </div>
-
         <div v-if="Number(localTemplate) === 2" class="mb-4">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Imagen del Footer</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Imagen flotante a la derecha</label>
           <div class="flex items-center">
             <div class="w-10 h-10 mr-4 bg-gray-100 flex items-center justify-center rounded overflow-hidden">
               <img v-if="localFooterImage" :src="localFooterImage" alt="Footer Image Preview" class="w-full h-full object-cover">
@@ -361,7 +379,7 @@
               </svg>
             </div>
             <button @click="updateFooterImage" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-              Cambiar imagen
+              Seleccionar imagen
             </button>
           </div>
         </div>
@@ -373,7 +391,7 @@
         Cancelar
       </button>
       <button @click="saveChangesBtn"
-        class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
+        class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700">
         Guardar cambios
       </button>
     </div>
@@ -400,14 +418,16 @@ const props = defineProps({
         default: 1
     },
     textColor: {
-        type: String
+        type: String,
+        default: '#000000'
     },
     title: {
         type: String,
         default: 'Contáctanos'
     },
     titleColor: {
-        type: String
+        type: String,
+        default: '#000000'
     },
     backgroundType: {
         type: String,
@@ -470,6 +490,11 @@ const props = defineProps({
       default: ''
     }
 });
+
+const BACKGROUND_TYPES = {
+  COLOR: 'color',
+  IMAGE: 'imagen',
+};
 
 const templateStore = useTemplateStore();
 const currentStore = useCurrentStore();
@@ -554,6 +579,46 @@ watch(() => localTemplate.value, (newTemplate, oldTemplate) => {
   }
 });
 
+const onInputTitle = (event) => {
+  localTitle.value = event.target.innerText;
+  saveChanges();
+};
+
+const onInputLinksTitle = (event) => {
+  localLinksTitle.value = event.target.innerText;
+  saveChanges();
+};
+
+const onInputContactTitle = (event) => {
+  localContactTitle.value = event.target.innerText;
+  saveChanges();
+};
+
+const onInputContactInfo = (event) => {
+  localContactInfo.value = event.target.innerText;
+  saveChanges();
+};
+
+const onInputDescriptionTitle = (event) => {
+  localDescriptionTitle.value = event.target.innerText;
+  saveChanges();
+};
+
+const onInputDescription = (event) => {
+  localDescription.value = event.target.innerText;
+  saveChanges();
+};
+
+const onInputSocialTitle = (event) => {
+  localSocialTitle.value = event.target.innerText;
+  saveChanges();
+};
+
+const onInputCopyright = (event) => {
+  localCopyright.value = event.target.innerText;
+  saveChanges();
+};
+
 const updateFooterImage = () => {
   currentStore.setSectionProp("footerImage");
   if (openGaleryImages) {
@@ -563,17 +628,29 @@ const updateFooterImage = () => {
   }
 };
 
+const toggleBackgroundType = () => {
+  const types = Object.values(BACKGROUND_TYPES);
+  const nextIndex = (backgroundTypeIndex.value + 1) % types.length;
+  localBackgroundType.value = types[nextIndex];
+  saveChanges();
+};
+
+const backgroundTypeIndex = computed(() => 
+  Object.values(BACKGROUND_TYPES).indexOf(localBackgroundType.value)
+);
+
 const backgroundStyle = computed(() => {
-  if (localBackgroundType.value === 'image') {
-    return { backgroundImage: `url(${localBackgroundImage.value})`, backgroundSize: 'cover' };
-  } else {
-    return { backgroundColor: localBackgroundColor.value };
+  switch (localBackgroundType.value) {
+    case BACKGROUND_TYPES.IMAGE:
+      return { 
+        backgroundImage: `url(${localBackgroundImage.value})`, 
+        backgroundSize: 'cover' 
+      };
+    case BACKGROUND_TYPES.COLOR:
+    default:
+      return { backgroundColor: localBackgroundColor.value };
   }
 });
-
-function toggleBackgroundType() {
-  localBackgroundType.value = localBackgroundType.value === 'color' ? 'image' : 'color';
-}
 
 function updateBackgroundColor() {
   saveChanges();
@@ -673,7 +750,7 @@ watch(() => templateStore.structure.page_template.sections, (newSections) => {
     if (currentSection) {
         localTextColor.value = currentSection.widget.element.textColor;
         localTitle.value = currentSection.widget.element.title;
-        localTitleColor.value = currentSection.widget.element.title;
+        localTitleColor.value = currentSection.widget.element.titleColor;
         localBackgroundType.value = currentSection.widget.element.backgroundType;
         localBackgroundColor.value = currentSection.widget.element.backgroundColor;
         localBackgroundImage.value = currentSection.widget.element.backgroundImage;
@@ -695,9 +772,10 @@ watch(() => templateStore.structure.page_template.sections, (newSections) => {
 
 watch(() => currentStore.selectedImage, (newImage) => {
   if (currentStore.sectionId === props.id) {
+    debugger
     if (currentStore.sectionProp === "backgroundImage") {
       localBackgroundImage.value = newImage;
-      localBackgroundType.value = 'image';
+      localBackgroundType.value = 'imagen';
     } else if (currentStore.sectionProp === "footerImage") {
       localFooterImage.value = newImage;
     }
@@ -752,6 +830,7 @@ watch(() => currentStore.selectedImage, (newImage) => {
   transition: width 1s ease-in-out;
 }
 
+/* Config button styles */
 .config-button {
   position: absolute;
   top: 10px;
