@@ -114,6 +114,16 @@
         "element": {
           "template": 1
         }
+      },
+      {
+        "id": 9,
+        "name": "destacar",
+        "category": "basics",
+        "image": "https://via.placeholder.com/150",
+        "available": true,
+        "element": {
+          "template": 1
+        }
       }
     ]
 }

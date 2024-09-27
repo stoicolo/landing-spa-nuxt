@@ -52,7 +52,7 @@ const activateUser = async () => {
         //await PageTemplateService.userAcceptedConditions(currentDate, userIp.value, userDevice.value, userBrowser.value);
         await PageTemplateService.activateUser(token.value);
         activationSuccess.value = true;
-        router.push('https://tilo.co/link/TWpFMU9RPT18MQ==');
+        window.location.href = 'https://tilo.co/link/TWpFMU9RPT18MQ==';
     } catch (error) {
         console.error("Error al activar la cuenta:", error);
         errorMessage.value = "Error al activar la cuenta. Por favor, intente nuevamente refrescando o solicite un nuevo enlace de activación.";

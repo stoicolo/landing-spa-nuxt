@@ -257,13 +257,13 @@
   });
   </script>
   <style lang="scss" scoped>
-    .parallax-section {
-  position: relative;
-  overflow: hidden;
-  padding: 4rem 2rem;
-  display: flex;
-  align-items: center;
-  min-height: 80vh;
+   .parallax-section {
+        position: relative;
+        overflow: hidden;
+        padding: 4rem 2rem;
+        display: flex;
+        align-items: center;
+        min-height: 80vh;
 
   .content-container {
     width: 50%;
@@ -272,11 +272,13 @@
     h2 {
       font-size: 2.5rem;
       margin-bottom: 1rem;
+      color: #333333; // Gris oscuro por defecto
     }
 
     p {
       font-size: 1.1rem;
       margin-bottom: 2rem;
+      color: #333333; // Gris oscuro por defecto
     }
 
     button {
@@ -300,6 +302,7 @@
     width: 60%;
     height: 120%;
     overflow: hidden;
+    background-color: #4a4a4a; // Fondo gris oscuro por defecto
 
     img {
       width: 100%;
@@ -344,6 +347,8 @@
     border-radius: 8px;
     width: 90%;
     max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
 
     h2 {
       margin-bottom: 1rem;
@@ -360,6 +365,11 @@
         padding: 0.5rem;
         border: 1px solid #ccc;
         border-radius: 4px;
+      }
+
+      input[type="color"] {
+        height: 10px;
+        padding: 0;
       }
 
       textarea {
