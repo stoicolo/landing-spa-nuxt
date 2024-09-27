@@ -1,10 +1,11 @@
 <template>
-  <div v-if="isOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[2000]">
-    <div class="bg-white rounded-lg w-11/12 max-w-6xl h-[90vh] flex overflow-hidden">
+  <div v-if="isOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[2000]" @click="closeOnOutsideClick">
+    <div class="bg-white rounded-lg w-11/12 max-w-6xl h-[90vh] flex overflow-hidden" @click.stop>
       <!-- Sidebar con menú vertical -->
-      <div class="w-1/4 bg-gray-100 p-4 flex flex-col">
+      <div class="w-1/4 bg-gray-100 p-4 flex flex-col relative">
         <h2 class="text-2xl font-bold mb-4">Galería de Imágenes</h2>
-        <nav class="space-y-2">
+        <p class="text-sm mb-2">Categorías de Imágenes</p>
+        <nav class="space-y-2 overflow-y-auto flex-grow" style="max-height: 400px;">
           <button 
             v-for="item in menuItems" 
             :key="item.id"
@@ -18,8 +19,8 @@
             {{ item.label }}
           </button>
         </nav>
-        <div v-if="activeMenu === 'gallery'" class="mt-4">
-          <label for="fileInput" class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded block text-center hover:bg-blue-600 transition-colors">
+        <div v-if="activeMenu === 'gallery'" class="mt-4 absolute bottom-12 left-4 right-4">
+          <label for="fileInput" class="cursor-pointer bg-orange-500 text-white px-4 py-2 rounded block text-center hover:bg-orange-600 transition-colors">
             Agregar imagen
           </label>
           <input id="fileInput" type="file" @change="handleFileUpload" accept=".jpg,.jpeg,.png" class="hidden">
@@ -29,8 +30,12 @@
       <!-- Main Content Area -->
       <div class="flex-1 p-6 overflow-y-auto">
         <div v-if="!isLoading">
-          <div v-if="activeMenu === 'gallery' && images.length === 0" class="flex flex-col items-center justify-center h-64 border-2 border-dashed border-gray-300 rounded-lg">
+          <div v-if="activeMenu === 'gallery' && (images.length === 0 || errorMessage)" class="flex flex-col items-center justify-center h-64 border-2 border-dashed border-gray-300 rounded-lg">
             <p class="text-gray-500 mb-4">No hay imágenes en la galería</p>
+            <label v-if="activeMenu === 'gallery'" for="fileInput" class="cursor-pointer bg-orange-500 text-white px-4 py-2 rounded block text-center hover:bg-orange-600 transition-colors">
+              Agregar imagen
+            </label>
+            <input id="fileInput" type="file" @change="handleFileUpload" accept=".jpg,.jpeg,.png" class="hidden">
           </div>
   
           <div v-else-if="activeMenu === 'gallery'" class="grid grid-cols-3 gap-4 mb-4">
@@ -49,7 +54,7 @@
             </div>
           </div>
 
-          <div v-else-if="activeMenu === 'backgrounds'" class="grid grid-cols-3 gap-4 mb-4">
+          <div v-else-if="activeMenu !== 'gallery'" class="grid grid-cols-3 gap-4 mb-4">
             <div v-for="(background, index) in images" :key="index" class="relative">
               <img 
                 :src="background.imageExternalUrl" 
@@ -57,11 +62,6 @@
                 class="w-full h-32 object-cover rounded cursor-pointer" 
                 :class="{ 'border-4 border-blue-500': background.selected }"
               >
-              <button @click.stop="removeImage(index)" v-if="userRole === 'admin'" class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
             </div>
           </div>
         </div>
@@ -70,7 +70,9 @@
           <Spinner />
         </div>
 
-        <div v-if="errorMessage" class="text-red-500 mb-4">{{ errorMessage }}</div>
+        <div v-if="errorMessage && activeMenu !== 'gallery'" class="text-red-500 mb-4">
+          {{ errorMessage }}
+        </div>
       </div>
 
       <!-- Footer -->
@@ -111,6 +113,12 @@ const open = () => {
 
 const close = () => {
   isOpen.value = false;
+}
+
+const closeOnOutsideClick = (event: MouseEvent) => {
+  if (event.target === event.currentTarget) {
+    close();
+  }
 }
 
 const handleFileUpload = async (event: Event) => {
@@ -198,6 +206,7 @@ const loadImagesByCategory = async (menuId: string) => {
   activeMenu.value = menuId;
   isLoading.value = true;
   errorMessage.value = '';
+  images.value = []; // Limpiar las imágenes antes de cargar nuevas
 
   try {
     const selectedItem = menuItems.find(item => item.id === menuId);
