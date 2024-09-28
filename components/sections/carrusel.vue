@@ -13,6 +13,13 @@
             </svg>
         </button>
 
+        <button v-if="!viewMode" @click="openModalVideo" class="video-button shadow-md">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </button>
+
         <div class="container mx-auto px-4">
             <!-- Section title with editable text and color -->
             <h2 v-if="localSectionTitle" class="text-3xl font-bold text-center mb-12" :style="{ color: localSectionTitleColor }">
@@ -284,12 +291,14 @@
             </div>
         </div>
     </div>
+    <modalViewVideos v-if="showModalVideo" :videoId="videoId" @close="closeModalVideo" />
 </template>
 
 <script setup>
 import { ref, computed, watch, inject } from 'vue';
 import { useTemplateStore } from '~/stores/template';
 import { useCurrentStore } from '~/stores/current';
+import modalViewVideos from '~/components/helpers/modalViewVideos.vue';
 
 const props = defineProps({
     id: {
@@ -337,6 +346,8 @@ const localBackgroundImage = ref(props.backgroundImage);
 const localSlides = ref(props.slides);
 const currentSlide = ref(0);
 const localSectionTitleColor = ref(props.localSectionTitleColor);
+const showModalVideo = ref(false);
+  const videoId = ref('');
 
 const localTemplate = computed(() => {
     let currentTemplate = props.template;
@@ -507,6 +518,14 @@ function prevSlide() {
 function goToSlide(index) {
     currentSlide.value = index;
 }
+
+const openModalVideo = () => {
+    showModalVideo.value = true;
+};
+
+const closeModalVideo = () => {
+showModalVideo.value = false;
+}
 </script>
 
 <style scoped>
@@ -517,5 +536,21 @@ function goToSlide(index) {
 }
 .container-carousel {
     min-height: 350px;
+}
+
+.video-button {
+  position: absolute;
+  top: 66px;
+  left: 15px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 2;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 1);
+  }
 }
 </style>

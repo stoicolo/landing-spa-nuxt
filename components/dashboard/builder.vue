@@ -123,8 +123,16 @@
                 </div>
                 <h2 class="text-lg font-semibold text-gray-700 mb-4">¡Añade tu primer sección!</h2>
                 <button @click="showComponentsModal = !showComponentsModal"
-                    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Añadir
-                    sección</button>
+                    class="w-[250px] px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    <font-awesome-icon icon="fa fa-plus"/> Añadir sección</button>
+
+                <button @click="useTemplate"
+                    class="w-[250px] mt-4 px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+                    <font-awesome-icon icon="fa fa-file"/> Usar plantilla</button>
+
+                <button @click="openModalVideo"
+                    class="w-[250px] mt-4 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+                    <font-awesome-icon icon="fa fa-play"/> Ver video explicativo</button>
             </div>
         </div>
         <ComponentsSelector v-if="showComponentsModal" @close="toggleComponentsModal" @add-component="component => addComponentSelected(component, currentPosition)" />
@@ -150,6 +158,7 @@
             @cancel="() => saveBackupModal = !saveBackupModal"
         />
         <TemplatesSelectModal :isOpen="openTemplates" @close="toggleTemplatesModal"/>
+        <modalViewVideos v-if="showModalVideo" :videoId="videoId" @close="closeModalVideo" />
     </div>
 </template>
 
@@ -167,6 +176,7 @@ import ConfirmationModal from '~/components/helpers/confirmationModal.vue';
 import SaveBackupModal from '~/components/helpers/saveBackupModal.vue';
 import TemplatesSelectModal from '~/components/helpers/templatesSelectModal.vue';
 import { defineEmits } from 'vue';
+import modalViewVideos from '~/components/helpers/modalViewVideos.vue';
 
 const templateStore = useTemplateStore();
 const userStore = useUserStore();
@@ -191,6 +201,8 @@ const isStructureLoaded = ref(false);
 const pageId = ref(null);
 const showConfigModal = ref(false);
 const currentSectionId = ref(null);
+const showModalVideo = ref(false);
+const videoId = ref('');
 
 function openConfigModal(sectionId) {
   currentSectionId.value = sectionId;
@@ -517,5 +529,13 @@ async function handleConfirmSave() {
 function handleCancelSave() {
     saveTemplate();
     saveModal.value = false;
+}
+
+const openModalVideo = () => {
+    showModalVideo.value = true;
+  };
+
+const closeModalVideo = () => {
+    showModalVideo.value = false;
 }
 </script>
