@@ -255,10 +255,16 @@
   
      <!-- Botón de configuración -->
      <button v-if="!viewMode" @click="openConfigModal" class="config-button">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6  text-gray-500">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6  text-gray-900">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
           d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    </button>
+    <button v-if="!viewMode" @click="openModalVideo" class="video-button">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 text-gray-900">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     </button>
     </footer>
@@ -397,11 +403,13 @@
     </div>
   </div>
 </div>
+<modalViewVideos v-if="showModalVideo" :videoId="videoId" @close="closeModalVideo" />
   </template>
 <script setup>
 import { ref, onMounted, onBeforeUnmount, computed, inject, watch } from 'vue';
 import { useTemplateStore } from '~/stores/template';
 import { useCurrentStore } from '~/stores/current';
+import modalViewVideos from '~/components/helpers/modalViewVideos.vue';
 
 const props = defineProps({
     id: {
@@ -509,6 +517,8 @@ const socialRef = ref(null);
 const dividerRef = ref(null);
 const copyrightRef = ref(null);
 const imageFooterRef = ref(null);
+const showModalVideo = ref(false);
+const videoId = ref('');
 
 const animatedElements = ref([]);
 const isAnimatingIn = ref(true);
@@ -783,6 +793,13 @@ watch(() => currentStore.selectedImage, (newImage) => {
   }
 });
 
+const openModalVideo = () => {
+    showModalVideo.value = true;
+};
+
+const closeModalVideo = () => {
+  showModalVideo.value = false;
+}
 </script>
 <style scoped>
 .footer {
@@ -844,6 +861,22 @@ watch(() => currentStore.selectedImage, (newImage) => {
 
 .config-button:hover {
   background-color: rgba(255, 255, 255, 1);
+}
+
+.video-button {
+  position: absolute;
+  top: 56px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 2;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 1);
+  }
 }
 
 .animated-element {

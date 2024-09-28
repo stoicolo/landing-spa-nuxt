@@ -7,6 +7,12 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
       </button>
+      <button v-if="!viewMode" @click="openModalVideo" class="video-button shadow-md">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </button>
   
       <div class="container mx-auto px-4">
         <!-- Título de la sección (opcional) -->
@@ -159,11 +165,13 @@
         </div>
       </div>
     </div>
+    <modalViewVideos v-if="showModalVideo" :videoId="videoId" @close="closeModalVideo" />
   </template>
  <script setup>
  import { ref, computed, watch, inject } from 'vue';
  import { useTemplateStore } from '~/stores/template';
  import { useCurrentStore } from '~/stores/current';
+ import modalViewVideos from '~/components/helpers/modalViewVideos.vue';
  
  const props = defineProps({
    id: {
@@ -209,6 +217,8 @@
  const localBackgroundImage = ref(props.backgroundImage);
  const localCards = ref(props.cards);
  const localWhiteTitle = ref(props.whiteTitle);
+ const showModalVideo = ref(false);
+ const videoId = ref('');
 
  const localTemplate = computed(() => {
   let currentTemplate = props.template;
@@ -391,4 +401,28 @@
   saveChanges();
 }
  
+const openModalVideo = () => {
+    showModalVideo.value = true;
+};
+
+const closeModalVideo = () => {
+  showModalVideo.value = false;
+}
  </script>
+ <style lang="scss" scoped>
+ .video-button {
+  position: absolute;
+  top: 66px;
+  left: 15px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 2;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 1);
+  }
+}
+</style>
