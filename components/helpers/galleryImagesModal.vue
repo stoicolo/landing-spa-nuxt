@@ -104,6 +104,10 @@ const userRole = ref('');
 const menuItems = [
   { id: 'gallery', label: 'Mi Galería', categories: ['user'] },
   { id: 'backgrounds', label: 'Imágenes de Fondo', categories: ['backgrounds'] },
+  { id: 'objects', label: 'Objetos', categories: ['objects'] },
+  { id: 'servicios', label: 'Servicios', categories: ['servicios'] },
+  { id: 'medicina', label: 'Medicina', categories: ['medicina'] },
+  { id: 'belleza', label: 'Belleza', categories: ['belleza'] },
 ]
 
 const open = () => {

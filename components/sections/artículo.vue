@@ -88,7 +88,7 @@
             <div class="form-group">
               <label>Título del artículo</label>
               <input v-model="localTitle" @input="saveChanges" type="text" placeholder="Ingrese el título del artículo">
-              <div v-if="localBackgroundType === 'image'" class="white-title-option">
+              <div class="white-title-option">
                 <input type="checkbox" id="whiteTitleCheckbox" v-model="localWhiteTitle" @change="saveChanges">
                 <label for="whiteTitleCheckbox">Título color blanco</label>
               </div>

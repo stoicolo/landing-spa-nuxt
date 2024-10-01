@@ -5,7 +5,7 @@
           <!--Template 1-->
           <div v-if="Number(localTemplate) === 1" class="py-10 px-20">
               <!-- Main title -->
-              <h2 ref="titleFooterRef" class="text-8xl font-bold mb-8 text-left animated-element">
+              <h2 ref="titleFooterRef" class="text-8xl font-bold mb-8 text-left animated-element big-title">
                 <div 
                   class="styled-input styled-input-h2" 
                   :contenteditable="!viewMode" 
@@ -932,6 +932,9 @@ const closeModalVideo = () => {
   }
   .template-1-social::after {
     display: none;
+  }
+  .big-title {
+    font-size: 24px !important;
   }
 }
 
