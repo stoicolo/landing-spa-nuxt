@@ -20,7 +20,7 @@
         </h2>
   
         <div class="article-content">
-          <div class="images-container">
+          <div class="images-container" v-if="localPictures.length > 0">
             <div v-for="(picture, index) in localPictures" :key="index" class="article-image">
                 <img :src="picture.image || '/img/default-image.jpg'" :alt="`Imagen ${index + 1}`">
                 <div class="image-overlay" :style="{ backgroundColor: localOverlayColor }"></div>
@@ -214,7 +214,7 @@
       },
       backgroundImage: {
           type: String,
-          default: ''
+          default: 'https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626278533_bg-beauty-3-jpg_1'
       },
       description: {
           type: String,

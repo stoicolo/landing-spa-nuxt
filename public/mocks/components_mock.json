@@ -4,14 +4,15 @@
         "id": 0,
         "name": "header-parallax",
         "category": "basics",
-        "image": "/img/header-parallax-view.png",
+        "image": "/img/header-parallax.png",
         "available": true,
         "element": {
+          "viewMode": false,
           "title": "Título Impactante",
           "description": "Una breve descripción que capture la atención",
-          "backgroundImage": "/img/background-header-weblox.png",
-          "centerImage": "/img/jetpack.png",
-          "buttonText": "Botón de acción",
+          "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1",
+          "centerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736862108_doctor-7-png_1",
+          "buttonText": "Ver más",
           "buttonColor": "#000000",
           "buttonLink": "/",
           "template": 1
@@ -21,77 +22,189 @@
         "id": 1,
         "name": "cards",
         "category": "basics",
-        "image": "/img/background-cards-weblox.png",
+        "image": "/img/cards-preview.png",
         "available": true,
         "element": {
-          "sectionTitle": "Section Title",
-          "backgroundType": "image",
-          "backgroundColor": "#f0f0f0",
-          "backgroundImage": "/img/background-op2.jpg",
-          "cards": [],
-          "template": 1
+          "viewMode": false,
+          "template": 1,
+          "sectionTitle": "Nuestros Servicios",
+          "backgroundType": "color",
+          "backgroundColor": "#f5f5f5",
+          "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736625859_bg-doctor-3-jpg_1",
+          "cards": [
+            {
+              "title": "Consultoría Estratégica",
+              "description": "Ofrecemos asesoramiento experto para optimizar sus procesos empresariales y potenciar el crecimiento sostenible de su organización.",
+              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727737109931_servicio-1-jpg_1",
+              "buttonText": "Más detalles",
+              "buttonColor": "#4A5568",
+              "buttonLink": "/consultoria"
+            },
+            {
+              "title": "Soluciones Tecnológicas",
+              "description": "Implementamos tecnologías innovadoras diseñadas para mejorar la eficiencia operativa y impulsar la transformación digital de su empresa.",
+              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727737109931_servicio-1-jpg_1",
+              "buttonText": "Explorar opciones",
+              "buttonColor": "#718096",
+              "buttonLink": "/tecnologia"
+            },
+            {
+              "title": "Análisis de Datos",
+              "description": "Utilizamos técnicas avanzadas de análisis para convertir sus datos en insights accionables, facilitando la toma de decisiones informadas.",
+              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727737109931_servicio-1-jpg_1",
+              "buttonText": "Solicitar demo",
+              "buttonColor": "#2D3748",
+              "buttonLink": "/analisis"
+            }
+          ],
+          "whiteTitle": false
         }
       },
       {
         "id": 2,
         "name": "carrusel",
         "category": "basics",
-        "image": "/img/background-cards-weblox.png",
+        "image": "/img/carrusel-preview.png",
         "available": true,
         "element": {
-          "template": 1
-        }
-      },
-      {
-        "id": 3,
-        "name": "footer",
-        "category": "basics",
-        "image": "/img/background-cards-weblox.png",
-        "available": true,
-        "element": {
-          "template": 1
+          "viewMode": false,
+          "template": 1,
+          "sectionTitle": "Carrousel de Imágenes",
+          "backgroundType": "color",
+          "backgroundColor": "#ffffff",
+          "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736625859_bg-doctor-3-jpg_1",
+          "slides": [
+            {
+              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540208729_audi-tecno-neon-png_1",
+              "title": "Innovación Tecnológica",
+              "description": "Exploramos nuevas fronteras en el desarrollo de sistemas avanzados. Nuestros proyectos incluyen tecnologías que mejoran la eficiencia y sostenibilidad en diversos campos.",
+              "buttonText": "Más información",
+              "buttonColor": "#4A5568",
+              "buttonLink": "#",
+              "showImage": true,
+              "showTitle": true,
+              "showDescription": true,
+              "showButton": true,
+              "descriptionColor": "#4A5568",
+              "buttonTextColor": "#FFFFFF",
+              "titleColor": "#2D3748"
+            },
+            {
+              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540198575_face-tecno-neon-png_1",
+              "title": "Aprendizaje Continuo",
+              "description": "Cada desafío es una oportunidad para crecer. Nuestro enfoque se centra en aprender de cada experiencia para mejorar constantemente nuestros procesos y soluciones.",
+              "buttonText": "Descubrir",
+              "buttonColor": "#718096",
+              "buttonLink": "#",
+              "showImage": true,
+              "showTitle": true,
+              "showDescription": true,
+              "showButton": true,
+              "titleColor": "#2D3748",
+              "buttonTextColor": "#FFFFFF",
+              "descriptionColor": "#4A5568"
+            },
+            {
+              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540180747_play-tcno-neon-png_1",
+              "title": "Visión de Futuro",
+              "description": "Impulsamos el progreso a través de la creatividad y la visión. Trabajamos en soluciones innovadoras que abordan los desafíos actuales y futuros de nuestra sociedad.",
+              "buttonText": "Explorar",
+              "buttonColor": "#2D3748",
+              "buttonLink": "#",
+              "showImage": true,
+              "showTitle": true,
+              "showDescription": true,
+              "showButton": true,
+              "titleColor": "#2D3748",
+              "buttonTextColor": "#FFFFFF",
+              "descriptionColor": "#4A5568"
+            }
+          ],
+          "localSectionTitleColor": true
         }
       },
       {
         "id": 4,
         "name": "reseñas",
         "category": "basics",
-        "image": "/img/background-cards-weblox.png",
+        "image": "/img/resenas-preview.png",
         "available": true,
         "element": {
-          "template": 1
+          "viewMode": false,
+          "template": 1,
+          "sectionTitle": "Lo que dicen nuestros clientes",
+          "backgroundType": "color",
+          "backgroundColor": "#F7FAFC",
+          "backgroundImage": "",
+          "reviews": [
+            {
+              "name": "Ana Martínez",
+              "position": "CEO, TechInnovate",
+              "text": "La colaboración con este equipo ha sido transformadora para nuestro negocio. Su enfoque innovador y atención al detalle superaron nuestras expectativas.",
+              "rating": 5,
+              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626440969_woman-6-png_1"
+            },
+            {
+              "name": "Carlos Rodríguez",
+              "position": "Director de Operaciones, GlobalSolutions",
+              "text": "Implementar sus soluciones mejoró significativamente nuestra eficiencia operativa. Su soporte continuo es invaluable para nuestro éxito.",
+              "rating": 4,
+              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626440969_woman-6-png_1"
+            },
+            {
+              "name": "Laura Sánchez",
+              "position": "Fundadora, EcoTech",
+              "text": "Su compromiso con la sostenibilidad y la innovación se alinea perfectamente con nuestros valores. Han sido un socio crucial en nuestro crecimiento.",
+              "rating": 5,
+              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626440969_woman-6-png_1"
+            }
+          ],
+          "whiteTitle": false,
+          "textColor": "#4a5568"
         }
       },
       {
         "id": 5,
         "name": "artículo",
         "category": "basics",
-        "image": "/img/background-cards-weblox.png",
+        "image": "/img/articulo-preview.png",
         "available": true,
         "element": {
-          "template": 1
-        }
+            "viewMode": false,
+            "template": 1,
+            "title": "La Evolución de la Inteligencia Artificial en 2024",
+            "backgroundType": "color",
+            "backgroundColor": "#bbc3c6",
+            "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626278533_bg-beauty-3-jpg_1",
+            "description": "<h2>El Futuro es Ahora</h2><p>La Inteligencia Artificial (IA) ha experimentado un crecimiento exponencial en el último año. Desde asistentes virtuales más sofisticados hasta algoritmos de aprendizaje profundo que revolucionan industrias enteras, la IA está redefiniendo lo que es posible en el mundo tecnológico.</p><h3>Principales Avances</h3><ul><li>Procesamiento de Lenguaje Natural mejorado</li><li>Sistemas de visión por computadora más precisos</li><li>Aplicaciones de IA ética y responsable</li></ul><p>Estos avances no solo están transformando empresas, sino también la forma en que interactuamos con la tecnología en nuestra vida cotidiana.</p>",
+            "pictures": [
+              {"image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540208729_audi-tecno-neon-png_1"},
+              {"image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540198575_face-tecno-neon-png_1"},
+              {"image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540180747_play-tcno-neon-png_1"}
+            ],
+            "whiteTitle": true,
+            "textColor": "#333333",
+            "overlayColor": "rgba(0, 0, 0, 0.6)",
+            "showActionButton": true,
+            "actionButtonText": "Leer más sobre IA",
+            "actionButtonUrl": "/",
+            "showFacebook": true,
+            "showInstagram": true,
+            "showTwitter": true,
+            "showWhatsapp": true,
+            "facebookAccount": "/",
+            "instagramAccount": "/",
+            "twitterAccount": "/",
+            "whatsappNumber": "+1234567890"
+          }
       },
       {
         "id": 6,
         "name": "galeria-de-imagenes",
         "category": "basics",
-        "image": "/img/background-cards-weblox.png",
+        "image": "/img/galeria-preview.png",
         "available": true,
         "element": {
-          "template": 1
-        }
-      },
-      {
-        "id": 7,
-        "name": "header",
-        "category": "basics",
-        "image": "https://via.placeholder.com/150",
-        "available": true,
-        "element": {
-          "backgroundImage": "img/header1.png",
-          "title": "New Header",
-          "icon": "https://via.placeholder.com/150",
           "template": 1
         }
       },
@@ -99,30 +212,110 @@
         "id": 8,
         "name": "title",
         "category": "basics",
-        "image": "https://via.placeholder.com/150",
+        "image": "/img/title-preview.png",
         "available": true,
         "element": {
-          "template": 1
+          "viewMode": false,
+          "template": 1,
+          "title": "Innovación y Excelencia",
+          "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626278533_bg-beauty-3-jpg_1",
+          "backgroundColor": "#0f172a",
+          "height": 300,
+          "fontSize": 60,
+          "fontWeight": "bold",
+          "lineHeight": 1.5,
+          "textColor": "#ffffff",
+          "textAlign": "center"
         }
       },
       {
         "id": 8,
         "name": "contact-form",
         "category": "basics",
-        "image": "https://via.placeholder.com/150",
+        "image": "/img/contact-preview.png",
         "available": true,
         "element": {
-          "template": 1
+          "template": 1,
+          "viewMode": false,
+          "sectionTitle": "Contáctenos",
+          "instructions": "Estamos aquí para ayudarle. Por favor, complete el formulario a continuación y nos pondremos en contacto con usted lo antes posible.",
+          "backgroundType": "color",
+          "backgroundColor": "#f0f4f8",
+          "backgroundImage": "",
+          "receiverEmail": "contacto@tuempresa.com",
+          "showImage": true,
+          "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626278533_bg-beauty-3-jpg_1",
+          "titleColor": "#1a202c",
+          "instructionsColor": "#4a5568",
+          "formBackgroundColor": "#ffffff",
+          "labelColor": "#2d3748",
+          "inputTextColor": "#1a202c",
+          "inputBackgroundColor": "#edf2f7",
+          "submitButtonText": "Enviar mensaje",
+          "submitButtonColor": "#4299e1",
+          "submitButtonTextColor": "#ffffff",
+          "showWhatsAppButton": true,
+          "whatsAppNumber": "+1234567890"
         }
       },
       {
         "id": 9,
         "name": "destacar",
         "category": "basics",
-        "image": "https://via.placeholder.com/150",
+        "image": "/img/destacar-preview.png",
         "available": true,
         "element": {
-          "template": 1
+          "template": 1,
+          "viewMode": false,
+          "title": "Innovación en Cada Paso",
+          "description": "Descubra cómo nuestras soluciones tecnológicas están transformando industrias y mejorando vidas. Con un enfoque centrado en la innovación y la excelencia, estamos construyendo el futuro hoy.",
+          "buttonText": "Explorar Soluciones",
+          "buttonUrl": "/soluciones",
+          "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626296974_bg-beauty-5-jpg_1",
+          "titleColor": "#ffffff",
+          "titleWeight": "bold",
+          "descriptionColor": "#f0f4f8",
+          "buttonColor": "#4299e1",
+          "buttonTextColor": "#ffffff",
+          "backgroundColor": "rgba(26, 32, 44, 0.8)"
+        }
+      },
+      {
+        "id": 3,
+        "name": "footer",
+        "category": "basics",
+        "image": "/img/footer-preview.png",
+        "available": true,
+        "element": {
+          "viewMode": false,
+          "template": 1,
+          "textColor": "#4A5568",
+          "title": "Conecta con nosotros",
+          "titleColor": "#2D3748",
+          "backgroundType": "color",
+          "backgroundColor": "#8c929e",
+          "backgroundImage": "",
+          "links": [
+            { "text": "Inicio", "url": "/" },
+            { "text": "Servicios", "url": "/" },
+            { "text": "Sobre nosotros", "url": "/" },
+            { "text": "Contacto", "url": "/" },
+            { "text": "Blog", "url": "/" }
+          ],
+          "linksTitle": "Navegación",
+          "contactInfo": "contacto@empresa.com\n+1 555 123 4567\nCalle Principal 123, Ciudad",
+          "contactTitle": "Información de contacto",
+          "description": "Empresa líder en soluciones innovadoras para negocios. Nos dedicamos a potenciar el crecimiento y la eficiencia de nuestros clientes a través de tecnología avanzada y servicios personalizados.",
+          "descriptionTitle": "Acerca de nosotros",
+          "socialMedia": [
+            { "icon": "fa-brands fa-linkedin", "url": "https://www.linkedin.com/company/tuempresa" },
+            { "icon": "fa-brands fa-twitter", "url": "https://twitter.com/tuempresa" },
+            { "icon": "fa-brands fa-facebook", "url": "https://www.facebook.com/tuempresa" },
+            { "icon": "fa-brands fa-instagram", "url": "https://www.instagram.com/tuempresa" }
+          ],
+          "socialTitle": "Síguenos en redes",
+          "copyright": "© 2024 Empresa Innovadora. Todos los derechos reservados.",
+          "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727543052291_cohete-tecno-neon-png_1"
         }
       }
     ]
