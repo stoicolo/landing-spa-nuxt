@@ -108,6 +108,8 @@ const menuItems = [
   { id: 'servicios', label: 'Servicios', categories: ['servicios'] },
   { id: 'medicina', label: 'Medicina', categories: ['medicina'] },
   { id: 'belleza', label: 'Belleza', categories: ['belleza'] },
+  { id: 'vehiculos', label: 'Vehículos', categories: ['vehiculos'] },
+  { id: 'restaurante', label: 'Restaurante', categories: ['restaurante'] },
 ]
 
 const open = () => {

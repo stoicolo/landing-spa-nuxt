@@ -1364,6 +1364,913 @@
             }
         }
     ]
+    },
+    {
+        "id": 2,
+        "name": "Vehículos | Página de Inicio",
+        "image": "/img/vehiculos-inicio.png",
+        "categories": [{"name": "Todas"}, {"name": "Vehículos"}],
+        "sections": [
+            {
+                "id": "lvei3zuhf",
+                "position": 0,
+                "widget": {
+                    "id": "s57she8ju",
+                    "name": "header-parallax",
+                    "element": {
+                        "title": "Venta de Vehículos",
+                        "description": "Compra tu carro nuevo o usado al mejor precio del mercado. Somos los mejores en el tema.",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809386929_bg-cars-2-jpg_1",
+                        "centerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809775294_vendedor-1-png_1",
+                        "buttonText": "Ver todos los servicios",
+                        "buttonColor": "#000000",
+                        "buttonLink": "/",
+                        "template": "2"
+                    }
+                }
+            },
+            {
+                "id": "b7w5dpk2i",
+                "position": 1,
+                "widget": {
+                    "id": "l552se7gw",
+                    "name": "title",
+                    "element": {
+                        "viewMode": false,
+                        "template": 1,
+                        "title": "Cual es tu preferencia",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809503818_bg-cars-9-jpg_1",
+                        "backgroundColor": "",
+                        "height": 300,
+                        "fontSize": 60,
+                        "fontWeight": "bold",
+                        "lineHeight": 1.5,
+                        "textColor": "#ffffff",
+                        "textAlign": "center"
+                    }
+                }
+            },
+            {
+                "id": "o1e13twak",
+                "position": 2,
+                "widget": {
+                    "id": "xqgsvwze3",
+                    "name": "cards",
+                    "element": {
+                        "viewMode": false,
+                        "template": 1,
+                        "sectionTitle": "",
+                        "backgroundType": "image",
+                        "backgroundColor": "#f5f5f5",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809457486_bg-cars-5-jpg_1",
+                        "cards": [
+                            {
+                                "title": "Deportivos",
+                                "description": "¡Siente la adrenalina al volante de este espectacular vehículo deportivo! Potencia, estilo y tecnología de vanguardia se unen para ofrecerte una experiencia de conducción incomparable. ¿Estás listo?",
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809549302_objeto-1-png_1",
+                                "buttonText": "Ver Vehículos",
+                                "buttonColor": "#4A5568",
+                                "buttonLink": "/"
+                            },
+                            {
+                                "title": "Vehículos 4x4",
+                                "description": "Conquista cualquier terreno con este imponente 4x4. Fuerza, durabilidad y máxima tracción para llevarte a donde otros no pueden llegar. ¡Haz de cada aventura una experiencia inolvidable!",
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809583962_objeto-5-png_1",
+                                "buttonText": "Explorar Opciones",
+                                "buttonColor": "#718096",
+                                "buttonLink": "/"
+                            },
+                            {
+                                "title": "Vehículos SUV",
+                                "description": "Descubre el equilibrio perfecto entre comodidad y rendimiento con este SUV. Espacioso, elegante y equipado con lo último en tecnología, es el compañero ideal para todas tus aventuras familiares. ",
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809708829_objeto-10-png_1",
+                                "buttonText": "Conducirlo HOY",
+                                "buttonColor": "#2D3748",
+                                "buttonLink": "/"
+                            }
+                        ],
+                        "whiteTitle": true
+                    }
+                }
+            },
+            {
+                "id": "5foviwcvf",
+                "position": 3,
+                "widget": {
+                    "id": "xny25yy9p",
+                    "name": "reseñas",
+                    "element": {
+                        "viewMode": false,
+                        "template": "1",
+                        "sectionTitle": "Lo que dicen nuestros clientes",
+                        "backgroundType": "image",
+                        "backgroundColor": "#F7FAFC",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809432054_bg-cars-3-jpg_1",
+                        "reviews": [
+                            {
+                                "name": "Ana Martínez",
+                                "position": "CEO, TechInnovate",
+                                "text": "La colaboración con este equipo ha sido transformadora para nuestro negocio. Su enfoque innovador y atención al detalle superaron nuestras expectativas.",
+                                "rating": 5,
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626440969_woman-6-png_1"
+                            },
+                            {
+                                "name": "Carlos Rodríguez",
+                                "position": "Director de Operaciones, GlobalSolutions",
+                                "text": "Implementar sus soluciones mejoró significativamente nuestra eficiencia operativa. Su soporte continuo es invaluable para nuestro éxito.",
+                                "rating": 4,
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626440969_woman-6-png_1"
+                            },
+                            {
+                                "name": "Laura Sánchez",
+                                "position": "Fundadora, EcoTech",
+                                "text": "Su compromiso con la sostenibilidad y la innovación se alinea perfectamente con nuestros valores. Han sido un socio crucial en nuestro crecimiento.",
+                                "rating": 5,
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626440969_woman-6-png_1"
+                            }
+                        ],
+                        "whiteTitle": true,
+                        "textColor": "#fff694"
+                    }
+                }
+            },
+            {
+                "id": "dpv8mr4cw",
+                "position": 4,
+                "widget": {
+                    "id": "tdd51y25r",
+                    "name": "destacar",
+                    "element": {
+                        "template": 1,
+                        "viewMode": false,
+                        "title": "Obtenga su vehículo HOY",
+                        "description": "¡Hoy es el día perfecto para estrenar el auto de tus sueños! Aprovecha nuestras ofertas exclusivas y llévatelo con financiamiento especial. No esperes más, tu nuevo vehículo te está esperando.",
+                        "buttonText": "Explorar Soluciones",
+                        "buttonUrl": "/soluciones",
+                        "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809478516_bg-cars-6-jpg_1",
+                        "titleColor": "#ffffff",
+                        "titleWeight": "bold",
+                        "descriptionColor": "#f0f4f8",
+                        "buttonColor": "#737373",
+                        "buttonTextColor": "#ffffff",
+                        "backgroundColor": "#050505"
+                    }
+                }
+            },
+            {
+                "id": "b0v0efzn9",
+                "position": 5,
+                "widget": {
+                    "id": "nngws6cx5",
+                    "name": "footer",
+                    "element": {
+                        "template": "2",
+                        "textColor": "#ffffff",
+                        "title": "Contáctanos",
+                        "titleColor": "#000000",
+                        "backgroundType": "imagen",
+                        "backgroundColor": "#f3f4f6",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809511318_bg-cars-10-jpg_1",
+                        "links": [
+                            {
+                                "text": "Inicio",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Servicios",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Acerca de",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Contacto",
+                                "url": "#"
+                            }
+                        ],
+                        "linksTitle": "Enlaces importantes",
+                        "contactInfo": "info@example.com\n+1 234 567 890",
+                        "contactTitle": "Contáctanos",
+                        "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                        "descriptionTitle": "Quienes somos",
+                        "socialMedia": [
+                            {
+                                "icon": "fa-brands fa-square-facebook",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-instagram",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-twitter",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa fa-twitter-square",
+                                "url": "#"
+                            }
+                        ],
+                        "socialTitle": "Siguenos en:",
+                        "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                        "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809549302_objeto-1-png_1"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Vehículos | Artículo",
+        "image": "/img/vehiculos-articulo.png",
+        "categories": [{"name": "Todas"}, {"name": "Vehículos"}],
+        "sections": [
+        {
+            "id": "b7w5dpk2i",
+            "position": 0,
+            "widget": {
+                "id": "l552se7gw",
+                "name": "title",
+                "element": {
+                    "viewMode": false,
+                    "template": 1,
+                    "title": "Vehículos Eléctricos",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809441023_bg-cars-4-jpg_1",
+                    "backgroundColor": "",
+                    "height": 300,
+                    "fontSize": 60,
+                    "fontWeight": "bold",
+                    "lineHeight": 1.5,
+                    "textColor": "#ffffff",
+                    "textAlign": "center"
+                }
+            }
+        },
+        {
+            "id": "652dmv896",
+            "position": 1,
+            "widget": {
+                "id": "2fonbmrx6",
+                "name": "artículo",
+                "element": {
+                    "viewMode": false,
+                    "template": 1,
+                    "title": "La Evolución de los vehículos eléctricos en 2024",
+                    "backgroundType": "color",
+                    "backgroundColor": "#000000",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626278533_bg-beauty-3-jpg_1",
+                    "description": "&lt;h1>Los vehículos eléctricos &lt;/h1>&lt;p>&lt;br>&lt;/p>&lt;p>representan el futuro de la movilidad, combinando eficiencia, sostenibilidad y ahorro. Con tecnología avanzada, estos autos ofrecen una conducción suave, silenciosa y libre de emisiones contaminantes, ayudando a cuidar el medio ambiente sin comprometer el rendimiento. Además, con costos de mantenimiento y energía reducidos, los vehículos eléctricos son la opción inteligente para quienes buscan una solución moderna y ecológica para desplazarse. ¡Únete al cambio hacia una movilidad más verde y eficiente!&lt;/p>",
+                    "pictures": [
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809708829_objeto-10-png_1"
+                        },
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809666929_objeto-6-png_1"
+                        }
+                    ],
+                    "whiteTitle": true,
+                    "textColor": "#ffffff",
+                    "overlayColor": "rgba(0, 0, 0, 0.6)",
+                    "showActionButton": true,
+                    "actionButtonText": "Leer más",
+                    "actionButtonUrl": "/",
+                    "showFacebook": true,
+                    "showInstagram": true,
+                    "showTwitter": true,
+                    "showWhatsapp": true,
+                    "facebookAccount": "/",
+                    "instagramAccount": "/",
+                    "twitterAccount": "/",
+                    "whatsappNumber": "+1234567890"
+                }
+            }
+        },
+        {
+            "id": "b0v0efzn9",
+            "position": 2,
+            "widget": {
+                "id": "nngws6cx5",
+                "name": "footer",
+                "element": {
+                    "template": "2",
+                    "textColor": "#ffffff",
+                    "title": "Contáctanos",
+                    "titleColor": "#000000",
+                    "backgroundType": "imagen",
+                    "backgroundColor": "#f3f4f6",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809511318_bg-cars-10-jpg_1",
+                    "links": [
+                        {
+                            "text": "Inicio",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Servicios",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Acerca de",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Contacto",
+                            "url": "#"
+                        }
+                    ],
+                    "linksTitle": "Enlaces importantes",
+                    "contactInfo": "info@example.com\n+1 234 567 890",
+                    "contactTitle": "Contáctanos",
+                    "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                    "descriptionTitle": "Quienes somos",
+                    "socialMedia": [
+                        {
+                            "icon": "fa-brands fa-square-facebook",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-instagram",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-twitter",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa fa-twitter-square",
+                            "url": "#"
+                        }
+                    ],
+                    "socialTitle": "Siguenos en:",
+                    "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                    "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809549302_objeto-1-png_1"
+                }
+            }
+        }
+    ]
+    },
+    {
+        "id": 2,
+        "name": "Vehículos | Galería",
+        "image": "/img/vehiculos-galeria.png",
+        "categories": [{"name": "Todas"}, {"name": "Vehículos"}],
+        "sections": [
+            {
+                "id": "b7w5dpk2i",
+                "position": 0,
+                "widget": {
+                    "id": "l552se7gw",
+                    "name": "title",
+                    "element": {
+                        "viewMode": false,
+                        "template": 1,
+                        "title": "Galería de Imágenes",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809503818_bg-cars-9-jpg_1",
+                        "backgroundColor": "",
+                        "height": 300,
+                        "fontSize": 60,
+                        "fontWeight": "bold",
+                        "lineHeight": 1.5,
+                        "textColor": "#ffffff",
+                        "textAlign": "center"
+                    }
+                }
+            },
+            {
+                "id": "9z2wo0srk",
+                "position": 1,
+                "widget": {
+                    "id": "pzon8l5pl",
+                    "name": "galeria-de-imagenes",
+                    "element": {
+                        "template": 1,
+                        "images": [
+                            {
+                                "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809457486_bg-cars-5-jpg_1"
+                            },
+                            {
+                                "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809386929_bg-cars-2-jpg_1"
+                            },
+                            {
+                                "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809432054_bg-cars-3-jpg_1"
+                            },
+                            {
+                                "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809478516_bg-cars-6-jpg_1"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "id": "b0v0efzn9",
+                "position": 2,
+                "widget": {
+                    "id": "nngws6cx5",
+                    "name": "footer",
+                    "element": {
+                        "template": "2",
+                        "textColor": "#ffffff",
+                        "title": "Contáctanos",
+                        "titleColor": "#000000",
+                        "backgroundType": "imagen",
+                        "backgroundColor": "#f3f4f6",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809511318_bg-cars-10-jpg_1",
+                        "links": [
+                            {
+                                "text": "Inicio",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Servicios",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Acerca de",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Contacto",
+                                "url": "#"
+                            }
+                        ],
+                        "linksTitle": "Enlaces importantes",
+                        "contactInfo": "info@example.com\n+1 234 567 890",
+                        "contactTitle": "Contáctanos",
+                        "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                        "descriptionTitle": "Quienes somos",
+                        "socialMedia": [
+                            {
+                                "icon": "fa-brands fa-square-facebook",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-instagram",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-twitter",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa fa-twitter-square",
+                                "url": "#"
+                            }
+                        ],
+                        "socialTitle": "Siguenos en:",
+                        "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                        "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809549302_objeto-1-png_1"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Restaurante | Página de Inicio",
+        "image": "/img/restaurante-inicio.png",
+        "categories": [{"name": "Todas"}, {"name": "Restaurante"}],
+        "sections": [
+            {
+                "id": "p946ggrnb",
+                "position": 0,
+                "widget": {
+                    "id": "aq4wd7cd4",
+                    "name": "header-parallax",
+                    "element": {
+                        "title": "Cocina y Playa",
+                        "description": "Disfruta de una experiencia gastronómica única en nuestro restaurante frente al mar. Saborea frescos mariscos, platos exquisitos y cócteles refrescantes mientras te relajas con la brisa marina y las vistas espectaculares.",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826363287_bg-rest-10-jpg_1",
+                        "centerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826427167_cocinero-3-png_1",
+                        "buttonText": "Menú",
+                        "buttonColor": "#000000",
+                        "buttonLink": "/",
+                        "template": "2"
+                    }
+                }
+            },
+            {
+                "id": "jhples59n",
+                "position": 1,
+                "widget": {
+                    "id": "v1s2eo4n3",
+                    "name": "title",
+                    "element": {
+                        "viewMode": false,
+                        "template": 1,
+                        "title": "PLATILLOS FAVORITOS",
+                        "backgroundImage": "",
+                        "backgroundColor": "#dfdbd7",
+                        "height": "100",
+                        "fontSize": 60,
+                        "fontWeight": "bold",
+                        "lineHeight": 1.5,
+                        "textColor": "#504e4e",
+                        "textAlign": "right"
+                    }
+                }
+            },
+            {
+                "id": "7ibeiio20",
+                "position": 2,
+                "widget": {
+                    "id": "r1htqdnx1",
+                    "name": "carrusel",
+                    "element": {
+                        "viewMode": false,
+                        "template": "2",
+                        "sectionTitle": "",
+                        "backgroundType": "image",
+                        "backgroundColor": "#ffffff",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826355725_bg-rest-9-jpg_1",
+                        "slides": [
+                            {
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826490406_platillo-1-png_1",
+                                "title": "Ensalada Cesar",
+                                "description": "La ensalada César es una deliciosa mezcla de frescura y sabor, combinando crujientes hojas de lechuga, aderezo cremoso con un toque de anchoas, y trocitos de parmesano.",
+                                "buttonText": "ver menú",
+                                "buttonColor": "#4A5568",
+                                "buttonLink": "#",
+                                "showImage": true,
+                                "showTitle": true,
+                                "showDescription": true,
+                                "showButton": true,
+                                "descriptionColor": "#4A5568",
+                                "buttonTextColor": "#FFFFFF",
+                                "titleColor": "#2D3748"
+                            },
+                            {
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826509865_platillo-3-png_1",
+                                "title": "Mariscos",
+                                "description": "La mariscada es un festín de sabores del mar, con una selección de camarones, langosta, almejas y otros mariscos frescos. Perfecta para los amantes del mar, cada bocado ofrece una explosión.",
+                                "buttonText": "ver menú",
+                                "buttonColor": "#718096",
+                                "buttonLink": "#",
+                                "showImage": true,
+                                "showTitle": true,
+                                "showDescription": true,
+                                "showButton": true,
+                                "titleColor": "#2D3748",
+                                "buttonTextColor": "#FFFFFF",
+                                "descriptionColor": "#4A5568"
+                            },
+                            {
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826547743_platillo-7-png_1",
+                                "title": "Hamburguesas",
+                                "description": "Una hamburguesa es mucho más que una comida rápida: es una explosión de sabores. Carne jugosa a la parrilla, pan suave y esponjoso, complementados con queso derretido, vegetales frescos y salsas.",
+                                "buttonText": "Explorar",
+                                "buttonColor": "#2D3748",
+                                "buttonLink": "#",
+                                "showImage": true,
+                                "showTitle": true,
+                                "showDescription": true,
+                                "showButton": true,
+                                "titleColor": "#2D3748",
+                                "buttonTextColor": "#FFFFFF",
+                                "descriptionColor": "#4A5568"
+                            }
+                        ],
+                        "localSectionTitleColor": true,
+                        "sectionTitleColor": "#404040"
+                    }
+                }
+            },
+            {
+                "id": "47jc5y9v1",
+                "position": 3,
+                "widget": {
+                    "id": "xvd30masz",
+                    "name": "reseñas",
+                    "element": {
+                        "viewMode": false,
+                        "template": "2",
+                        "sectionTitle": "Valoración de Platillos",
+                        "backgroundType": "image",
+                        "backgroundColor": "#F7FAFC",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826340676_bg-rest-7-jpg_1",
+                        "reviews": [
+                            {
+                                "name": "Carnes Especiales",
+                                "position": "CEO, TechInnovate",
+                                "text": "Deléitate con nuestra jugosa carne en salsa, tierna y llena de sabor, bañada en una rica y suculenta salsa que realza cada bocado. ",
+                                "rating": 4,
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826528182_platillo-5-png_1"
+                            },
+                            {
+                                "name": "Mejillones",
+                                "position": "Director de Operaciones, GlobalSolutions",
+                                "text": "Saborea la frescura del mar con nuestros mejillones al vapor, cocinados a la perfección y bañados en una deliciosa salsa de vino blanco y hierbas.",
+                                "rating": 3,
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826537441_platillo-6-png_1"
+                            },
+                            {
+                                "name": "Salmón y Tomate",
+                                "position": "Fundadora, EcoTech",
+                                "text": "Disfruta de nuestro salmón fresco a la plancha, acompañado de jugosos tomates asados que realzan su sabor suave y delicado. Una combinación perfecta de frescura y nutrición.",
+                                "rating": 5,
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826499790_platillo-2-png_1"
+                            }
+                        ],
+                        "whiteTitle": false,
+                        "textColor": "#4a5568"
+                    }
+                }
+            },
+            {
+                "id": "182np2poe",
+                "position": 4,
+                "widget": {
+                    "id": "x0knvy6b3",
+                    "name": "title",
+                    "element": {
+                        "template": 1,
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826324054_bg-rest-5-jpg_1",
+                        "title": "Playa y Arena",
+                        "backgroundColor": "",
+                        "fontSize": "72",
+                        "lineHeight": 1.5,
+                        "textColor": "#a3a3a3",
+                        "textAlign": "center",
+                        "height": "190",
+                        "fontWeight": "bold"
+                    }
+                }
+            },
+            {
+                "id": "inf7x1tew",
+                "position": 5,
+                "widget": {
+                    "id": "79l58qweo",
+                    "name": "footer",
+                    "element": {
+                        "template": "2",
+                        "textColor": "#5e5e5e",
+                        "title": "Despeguemos juntos",
+                        "titleColor": "#636363",
+                        "backgroundType": "imagen",
+                        "backgroundColor": "#f3f4f6",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826347387_bg-rest-8-jpg_1",
+                        "links": [
+                            {
+                                "text": "Inicio",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Servicios",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Acerca de",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Contacto",
+                                "url": "#"
+                            }
+                        ],
+                        "linksTitle": "Enlaces importantes",
+                        "contactInfo": "info@example.com\n+1 234 567 890",
+                        "contactTitle": "Contáctanos",
+                        "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                        "descriptionTitle": "¿Quienes somos?",
+                        "socialMedia": [
+                            {
+                                "icon": "fa-brands fa-square-facebook",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-instagram",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-twitter",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa fa-twitter-square",
+                                "url": "#"
+                            }
+                        ],
+                        "socialTitle": "Siguenos en:",
+                        "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                        "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826474626_objeto-2-png_1"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Restaurante | Artículo",
+        "image": "/img/restaurante-articulo.png",
+        "categories": [{"name": "Todas"}, {"name": "Restaurante"}],
+        "sections": [
+            {
+                "id": "p946ggrnb",
+                "position": 0,
+                "widget": {
+                    "id": "aq4wd7cd4",
+                    "name": "header-parallax",
+                    "element": {
+                        "title": "Los mejores Platillos",
+                        "description": "Disfruta de una experiencia gastronómica única en nuestro restaurante frente al mar. Saborea frescos mariscos, platos exquisitos y cócteles refrescantes mientras te relajas con la brisa marina y las vistas espectaculares.",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826347387_bg-rest-8-jpg_1",
+                        "centerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826464366_objeto-1-png_1",
+                        "buttonText": "Menú",
+                        "buttonColor": "#000000",
+                        "buttonLink": "/",
+                        "template": "2"
+                    }
+                }
+            },
+            {
+                "id": "as481xu32",
+                "position": 1,
+                "widget": {
+                    "id": "b6aj1scfs",
+                    "name": "artículo",
+                    "element": {
+                        "viewMode": false,
+                        "template": 1,
+                        "title": "Las ventajas de vivir cerca del mar",
+                        "backgroundType": "image",
+                        "backgroundColor": "#bbc3c6",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826355725_bg-rest-9-jpg_1",
+                        "description": "&lt;p>&lt;strong>&lt;em>El mar es el corazón&lt;/em>&lt;/strong>&lt;em> que late en las costas, ofreciendo no solo paisajes impresionantes, sino también una riqueza gastronómica inigualable. La brisa salada, el sonido de las olas rompiendo en la orilla, y la sensación de la arena bajo los pies crean el ambiente perfecto para disfrutar de la comida de playa. Cada rincón costero tiene su esencia y su sabor particular, pero todos comparten algo en común: la frescura incomparable de sus ingredientes.&lt;/em>&lt;/p>&lt;p>&lt;br>&lt;/p>&lt;p>&lt;em>La comida de playa es una celebración de lo simple y lo auténtico. Platos como los mariscos frescos, el pescado recién capturado y las parrilladas junto al mar ofrecen una experiencia que va más allá de lo gastronómico. Es un momento para saborear la conexión entre la tierra y el océano, donde cada bocado refleja la naturaleza que lo rodea. Los sabores del mar, combinados con ingredientes locales, son un tributo a la frescura y la sencillez que solo la costa puede ofrecer.&lt;/em>&lt;/p>&lt;p>&lt;br>&lt;/p>&lt;p>&lt;em>Desde ceviches llenos de vida hasta parrilladas de pescado a la leña, la comida de playa nos invita a relajarnos y disfrutar del presente. Los sabores ligeros y frescos se complementan a la perfección con el entorno: un atardecer sobre el mar, una bebida refrescante y el aroma de la brisa marina. Es una experiencia que alimenta tanto el cuerpo como el alma, transportándonos a un estado de tranquilidad y felicidad incomparables.&lt;/em>&lt;/p>",
+                        "pictures": [
+                            {
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826418099_cocinero-2-png_1"
+                            }
+                        ],
+                        "whiteTitle": false,
+                        "textColor": "#333333",
+                        "overlayColor": "#e0ded7",
+                        "showActionButton": true,
+                        "actionButtonText": "Ver menú",
+                        "actionButtonUrl": "/",
+                        "showFacebook": true,
+                        "showInstagram": true,
+                        "showTwitter": true,
+                        "showWhatsapp": true,
+                        "facebookAccount": "/",
+                        "instagramAccount": "/",
+                        "twitterAccount": "/",
+                        "whatsappNumber": "+1234567890"
+                    }
+                }
+            },
+            {
+                "id": "inf7x1tew",
+                "position": 2,
+                "widget": {
+                    "id": "79l58qweo",
+                    "name": "footer",
+                    "element": {
+                        "template": "2",
+                        "textColor": "#5e5e5e",
+                        "title": "Despeguemos juntos",
+                        "titleColor": "#636363",
+                        "backgroundType": "imagen",
+                        "backgroundColor": "#f3f4f6",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826347387_bg-rest-8-jpg_1",
+                        "links": [
+                            {
+                                "text": "Inicio",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Servicios",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Acerca de",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Contacto",
+                                "url": "#"
+                            }
+                        ],
+                        "linksTitle": "Enlaces importantes",
+                        "contactInfo": "info@example.com\n+1 234 567 890",
+                        "contactTitle": "Contáctanos",
+                        "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                        "descriptionTitle": "¿Quienes somos?",
+                        "socialMedia": [
+                            {
+                                "icon": "fa-brands fa-square-facebook",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-instagram",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-twitter",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa fa-twitter-square",
+                                "url": "#"
+                            }
+                        ],
+                        "socialTitle": "Siguenos en:",
+                        "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                        "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826474626_objeto-2-png_1"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Restaurante | Galería",
+        "image": "/img/restaurante-galeria.png",
+        "categories": [{"name": "Todas"}, {"name": "Restaurante"}],
+        "sections": [
+            {
+                "id": "ir1x1sc14",
+                "position": 0,
+                "widget": {
+                    "id": "gxaa5dqvs",
+                    "name": "galeria-de-imagenes",
+                    "element": {
+                        "template": 1,
+                        "images": [
+                            {
+                                "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826332237_bg-rest-6-jpg_1"
+                            },
+                            {
+                                "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826324054_bg-rest-5-jpg_1"
+                            },
+                            {
+                                "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826316751_bg-rest-4-jpg_1"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "id": "inf7x1tew",
+                "position": 1,
+                "widget": {
+                    "id": "79l58qweo",
+                    "name": "footer",
+                    "element": {
+                        "template": "2",
+                        "textColor": "#5e5e5e",
+                        "title": "Despeguemos juntos",
+                        "titleColor": "#636363",
+                        "backgroundType": "imagen",
+                        "backgroundColor": "#f3f4f6",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826347387_bg-rest-8-jpg_1",
+                        "links": [
+                            {
+                                "text": "Inicio",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Servicios",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Acerca de",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Contacto",
+                                "url": "#"
+                            }
+                        ],
+                        "linksTitle": "Enlaces importantes",
+                        "contactInfo": "info@example.com\n+1 234 567 890",
+                        "contactTitle": "Contáctanos",
+                        "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                        "descriptionTitle": "¿Quienes somos?",
+                        "socialMedia": [
+                            {
+                                "icon": "fa-brands fa-square-facebook",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-instagram",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-twitter",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa fa-twitter-square",
+                                "url": "#"
+                            }
+                        ],
+                        "socialTitle": "Siguenos en:",
+                        "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                        "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826474626_objeto-2-png_1"
+                    }
+                }
+            }
+        ]
     }
   ]
 }
