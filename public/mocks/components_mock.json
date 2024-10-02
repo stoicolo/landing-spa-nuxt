@@ -282,6 +282,16 @@
       },
       {
         "id": 3,
+        "name": "videos",
+        "category": "basics",
+        "image": "/img/videos-preview.png",
+        "available": true,
+        "element": {
+          "template": 1
+        }
+      },
+      {
+        "id": 3,
         "name": "footer",
         "category": "basics",
         "image": "/img/footer-preview.png",
