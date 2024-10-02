@@ -3,7 +3,7 @@
     <div v-if="localBackgroundImage" class="background-image" ref="bgImageRef" :style="backgroundImageStyle"></div>
     <div v-else class="background-color" :style="{ backgroundColor: localBackgroundColor }"></div>
     <div class="title-container" :style="titleContainerStyle">
-      <h1 :style="titleStyle">
+      <h1 :style="titleStyle" class="title-text">
         <div
           class="styled-input"
           :contenteditable="!viewMode"
@@ -221,8 +221,10 @@
         titleInput.value.innerHTML = convertEntityToBr(localTitle.value);
     }
     if (localBackgroundImage.value && bgImageRef.value) {
-    rellaxInstanceTitle = new Rellax(bgImageRef.value, { speed: -7, center: true });
-  }
+      setTimeout(() => {
+        rellaxInstanceTitle = new Rellax(bgImageRef.value, { speed: -7, center: true, horizontal:false, vertical:true });
+      }, 1000);
+    }
   });
   
   onBeforeUnmount(() => {
@@ -245,7 +247,8 @@
   
   const backgroundImageStyle = computed(() => {
     return {
-      backgroundImage: `url(${localBackgroundImage.value})`
+      backgroundImage: `url(${localBackgroundImage.value})`,
+      transition: 'transform 0.5s ease-out',
     }
   });
 
@@ -563,6 +566,11 @@ h1 {
       background-color: #007bff;
       color: white;
     }
+  }
+}
+@media only screen and (max-width: 767px) {
+  .title-text {
+    font-size: 24px !important;
   }
 }
   </style>

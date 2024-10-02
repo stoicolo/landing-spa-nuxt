@@ -30,7 +30,7 @@
             <!-- Carousel container -->
             <div class="relative overflow-hidden container-carousel">
                 <!-- Template 1 -->
-                <div v-if="Number(localTemplate) === 1" class="flex transition-transform duration-500 ease-in-out"
+                <div v-if="Number(localTemplate) === 1 && localSlides.length > 0" class="flex transition-transform duration-500 ease-in-out"
                     :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
                     <div v-for="(slide, index) in localSlides" :key="index" class="w-full flex-shrink-0 px-4">
                         <div class="overflow-hidden flex flex-col md:flex-row">
@@ -95,7 +95,7 @@
                 </div>
 
                 <!-- Template 2 -->
-                <div v-if="Number(localTemplate) === 2" class="flex transition-transform duration-500 ease-in-out"
+                <div v-if="Number(localTemplate) === 2 && localSlides.length > 0" class="flex transition-transform duration-500 ease-in-out"
                     :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
                     <div v-for="(slide, index) in localSlides" :key="index" class="w-full flex-shrink-0 px-4">
                         <div class="overflow-hidden flex flex-col md:flex-row-reverse">
@@ -331,7 +331,7 @@ const props = defineProps({
         default: []
     },
     localSectionTitleColor: {
-        type: Boolean
+        type: String
     }
 });
 
@@ -344,6 +344,7 @@ const localBackgroundType = ref(props.backgroundType);
 const localBackgroundColor = ref(props.backgroundColor);
 const localBackgroundImage = ref(props.backgroundImage);
 const localSlides = ref(props.slides);
+debugger;
 const currentSlide = ref(0);
 const localSectionTitleColor = ref(props.localSectionTitleColor);
 const showModalVideo = ref(false);
@@ -402,10 +403,10 @@ function closeConfigModal() {
 
 function addSlide() {
     localSlides.value.push({
-        image: '/img/slide-placeholder.jpg',
+        image: 'https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727737109931_servicio-1-jpg_1',
         title: `Slide ${localSlides.value.length + 1}`,
-        description: `Description for slide ${localSlides.value.length + 1}`,
-        buttonText: 'Learn More',
+        description: `Descripción del slide ${localSlides.value.length + 1}`,
+        buttonText: 'Ver más',
         buttonColor: '#3b82f6',
         buttonLink: '#',
         showImage: true,

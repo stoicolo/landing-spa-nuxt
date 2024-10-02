@@ -1,334 +1,2276 @@
 {
   "templates": [
     {
-      "id": 1,
-      "name": "Tecnológico | Página de Inicio",
-      "image": "/img/servicio.jpg",
-      "categories": [{"name": "Todas"}],
+      "id": 2,
+      "name": "Belleza | Página de Inicio",
+      "image": "/img/belleza-inicio.png",
+      "categories": [{"name": "Todas"}, {"name": "Belleza"}],
       "sections": [
         {
-          "id": "gszfqn0jw",
-          "position": 0,
-          "widget": {
-            "id": "hjv0x0iaz",
-            "name": "header-parallax",
-            "element": {
-              "title": "WEBLOX es una nn",
-              "description": "Nuestra plataforma permite crear websites de alta calidad sin necesidad de programar.",
-              "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/backgrounds/bg-black.jpg",
-              "centerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726716493655_treje-espacial-transparencia-png_1",
-              "buttonText": "Ver precios",
-              "buttonColor": "#000000",
-              "buttonLink": "/",
-              "template": "2"
-            }
-          }
-        },
-        {
-          "id": "ayapev3go",
-          "position": 1,
-          "widget": {
-            "id": "eumj7jfko",
-            "name": "title",
-            "element": {
-              "template": 1,
-              "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726966403318_bg-black-jpg_1",
-              "backgroundColor": "",
-              "fontSize": "58",
-              "lineHeight": 1.5,
-              "textColor": "#ffffff",
-              "textAlign": "center",
-              "height": "260",
-              "fontWeight": "bold"
-            }
-          }
-        },
-        {
-          "id": "v3k80eeyh",
-          "position": 2,
-          "widget": {
-            "id": "xsz1lflgu",
-            "name": "contact-form",
-            "element": {
-              "template": 1,
-              "sectionTitle": "Contactame",
-              "instructions": "Puedes ver mi perfil de facebook",
-              "backgroundType": "image",
-              "backgroundColor": "#f3f4f6",
-              "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726966403318_bg-black-jpg_1",
-              "receiverEmail": "aguerojosepablo2387@gmail.com",
-              "showMap": true,
-              "mapCenter": {
-                "lat": 0,
-                "lng": 0
-              },
-              "showImage": true,
-              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726542308896_logo-weblox-png_1",
-              "whiteTitle": false,
-              "titleColor": "#ffffff",
-              "instructionsColor": "#ffffff",
-              "formBackgroundColor": "#333333",
-              "labelColor": "#ffffff",
-              "inputTextColor": "#000000",
-              "inputBackgroundColor": "#ffffff",
-              "submitButtonText": "Contactame hoy mismo",
-              "submitButtonColor": "#45ba97",
-              "submitButtonTextColor": "#ffffff",
-              "showWhatsAppButton": true,
-              "whatsAppNumber": "63469873"
-            }
-          }
-        },
-        {
-          "id": "cpeqirlz6",
-          "position": 3,
-          "widget": {
-            "id": "w7njmazeb",
-            "name": "galeria-de-imagenes",
-            "element": {
-              "template": 1,
-              "images": [
-                {
-                  "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726967762321_invierno-jpg_1"
-                },
-                {
-                  "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726967786390_desierto-jpg_1"
-                },
-                {
-                  "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726967796529_castillo-jpg_1"
-                },
-                {
-                  "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726967812691_osos-jpg_1"
-                },
-                {
-                  "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726966377693_background-header-weblox-jpg_1"
-                },
-                {
-                  "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726967188663_background-future-clouds-jpg_1"
+            "id": "lvei3zuhf",
+            "position": 0,
+            "widget": {
+                "id": "s57she8ju",
+                "name": "header-parallax",
+                "element": {
+                    "title": "Salón de belleza",
+                    "description": "Un salón es un centro de relajacion, amistad y conversación.",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626278533_bg-beauty-3-jpg_1",
+                    "centerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626431807_woman-5-png_1",
+                    "buttonText": "Ver todos los servicios",
+                    "buttonColor": "#000000",
+                    "buttonLink": "/",
+                    "template": "2"
                 }
-              ]
             }
-          }
         },
         {
-          "id": "mt1ekbzjm",
-          "position": 4,
-          "widget": {
-            "id": "fnaoe12lq",
-            "name": "artículo",
-            "element": {
-              "template": 1,
-              "title": "Título del Artículo",
-              "backgroundType": "image",
-              "backgroundColor": "#ffffff",
-              "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726542456955_niebla-jpg_1",
-              "description": "&lt;p>Servicio de Desarrollo Web a MedidaEn la era digital, contar con un sitio web funcional y atractivo es esencial para cualquier negocio que quiera destacar. Nuestro equipo de expertos en desarrollo web se especializa en crear sitios personalizados que no solo reflejan la identidad de tu marca, sino que también ofrecen una experiencia de usuario óptima. Utilizamos las últimas tecnologías y mejores prácticas para asegurarnos de que tu sitio web sea moderno, rápido y seguro.Diseño Responsivo y AtractivoCada proyecto que emprendemos se realiza pensando en la adaptabilidad. Sabemos que los usuarios acceden a sitios web desde diversos dispositivos, por lo que todos nuestros diseños son completamente responsivos, ajustándose perfectamente a cualquier pantalla, ya sea móvil, tableta o escritorio. Además, nos aseguramos de que el diseño sea visualmente atractivo, con una interfaz intuitiva que facilita la navegación y promueve la conversión de visitantes en clientes.Desarrollo Personalizado y EscalableEntendemos que cada negocio es único, por lo que no ofrecemos soluciones genéricas. Desarrollamos cada sitio web a medida, adaptándonos a las necesidades y objetivos específicos de tu empresa. Además, construimos plataformas escalables, permitiéndote agregar funcionalidades y expandir tu presencia en línea a medida que tu negocio crece. Ya sea un sitio de comercio electrónico, un blog, o una plataforma compleja de gestión de contenido, tenemos la experiencia para llevar tu visión a la realidad.Optimización SEO y RendimientoNo basta con tener un sitio web atractivo; también debe ser fácil de encontrar. Implementamos las mejores estrategias de SEO desde el inicio del proyecto, optimizando cada página para que tu sitio web sea visible en los motores de búsqueda y atraiga tráfico orgánico. Además, ponemos especial atención en la velocidad de carga y el rendimiento, asegurándonos de que tus visitantes tengan una experiencia rápida y sin inconvenientes, lo que también beneficia tu posicionamiento en los buscadores.Soporte y Mantenimiento ContinuoNuestro compromiso no termina cuando lanzamos tu sitio web. Ofrecemos soporte técnico continuo y servicios de mantenimiento para asegurar que tu plataforma funcione correctamente en todo momento. Realizamos actualizaciones de seguridad, mejoras de rendimiento y estamos disponibles para implementar nuevas funcionalidades a medida que tu negocio lo necesite. Con nuestro servicio de desarrollo web, tienes la tranquilidad de que tu sitio estará en manos de profesionales comprometidos con tu éxito en línea.&lt;/p>",
-              "pictures": [
-                {
-                  "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726716493655_treje-espacial-transparencia-png_1"
+            "id": "q1kx9t16r",
+            "position": 1,
+            "widget": {
+                "id": "29pwbsfdq",
+                "name": "contact-form",
+                "element": {
+                    "template": 1,
+                    "sectionTitle": "Reserva tu cita hoy mismo",
+                    "instructions": "Puedes reservar tu cita enviandonos un mensaje con el siguiente formulario.",
+                    "backgroundType": "color",
+                    "backgroundColor": "#eae6e1",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626286312_bg-beauty-4-jpg_1",
+                    "receiverEmail": "misalon@tudominio.com",
+                    "showImage": true,
+                    "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626489652_woman-11-png_1",
+                    "titleColor": "#ffffff",
+                    "instructionsColor": "#858585",
+                    "formBackgroundColor": "#ffffff",
+                    "labelColor": "#b3b3b3",
+                    "inputTextColor": "#575757",
+                    "inputBackgroundColor": "#fff5f5",
+                    "submitButtonText": "Reservar Cita",
+                    "submitButtonColor": "#545454",
+                    "submitButtonTextColor": "#ffffff",
+                    "showWhatsAppButton": false,
+                    "whatsAppNumber": "3003000300"
                 }
-              ],
-              "whiteTitle": true,
-              "textColor": "#ffffff",
-              "overlayColor": "#000000",
-              "showActionButton": false,
-              "actionButtonText": "Nombre del botón",
-              "actionButtonUrl": "/url-del-boton",
-              "showFacebook": true,
-              "showInstagram": true,
-              "showTwitter": true,
-              "showWhatsapp": true,
-              "facebookAccount": "",
-              "instagramAccount": "",
-              "twitterAccount": "",
-              "whatsappNumber": ""
             }
-          }
         },
         {
-          "id": "jedcof3tg",
-          "position": 5,
-          "widget": {
-            "id": "wm4eqmnq1",
-            "name": "reseñas",
-            "element": {
-              "template": "1",
-              "sectionTitle": "",
-              "backgroundType": "image",
-              "backgroundColor": "#f3f4f6",
-              "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726542456955_niebla-jpg_1",
-              "reviews": [
-                {
-                  "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726716493655_treje-espacial-transparencia-png_1",
-                  "name": "Cliente 1",
-                  "text": "Esta es una reseña de ejemplo para el cliente 1.",
-                  "rating": 4,
-                  "date": "2024-09-19"
-                },
-                {
-                  "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726542308896_logo-weblox-png_1",
-                  "name": "Jose Pablo Agüero",
-                  "text": "sfsdeffsdfdsfdsfdsfsdfsdfsdfdssfsdfdsfsdfsdfsdfEsta es una reseña de ejemplo para el cliensdfsdfsdf te d2.",
-                  "rating": 2,
-                  "date": "2024-09-19"
+            "id": "xdx6lwflv",
+            "position": 2,
+            "widget": {
+                "id": "nhto69tfm",
+                "name": "title",
+                "element": {
+                    "template": 1,
+                    "title": "SERVICIOS DEL SALÓN",
+                    "backgroundImage": "",
+                    "backgroundColor": "#ffffff",
+                    "fontSize": "46",
+                    "lineHeight": 1.5,
+                    "textColor": "#000000",
+                    "textAlign": "right",
+                    "height": 150,
+                    "fontWeight": "normal"
                 }
-              ],
-              "whiteTitle": false,
-              "textColor": "#ffffff"
             }
-          }
         },
         {
-          "id": "zgfnv1k53",
-          "position": 6,
-          "widget": {
-            "id": "o6uz2qrrm",
-            "name": "carrusel",
-            "element": {
-              "template": 1,
-              "sectionTitle": "",
-              "backgroundType": "image",
-              "backgroundColor": "#000000",
-              "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/backgrounds/bg-black-x.jpg",
-              "slides": [
-                {
-                  "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726716493655_treje-espacial-transparencia-png_1",
-                  "title": "Pasos para crear tu sitio web",
-                  "description": "Crear un sitio web en pocos minutos y sin programar ahora es sencillo con WEBLOX. Primero debes suscribirte a nuestro plan mensual en el cual tendrás acceso a todos los recursos.",
-                  "buttonText": "Subscribirme",
-                  "buttonColor": "#545454",
-                  "buttonLink": "#",
-                  "showImage": true,
-                  "showTitle": true,
-                  "showDescription": true,
-                  "showButton": true,
-                  "titleColor": "#eee84f",
-                  "buttonTextColor": "#eee84f",
-                  "descriptionColor": "#ffffff"
-                },
-                {
-                  "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726716493655_treje-espacial-transparencia-png_1",
-                  "title": "Paso 2",
-                  "description": "Entra al dashboard de WEBLOX y empieza a crear paginas, agregando todos los componentes de alta calidad que quieras usar.",
-                  "buttonText": "Ver más",
-                  "buttonColor": "#636363",
-                  "buttonLink": "#",
-                  "showImage": true,
-                  "showTitle": true,
-                  "showDescription": true,
-                  "showButton": true,
-                  "titleColor": "#eee84f",
-                  "buttonTextColor": "#eee84f",
-                  "descriptionColor": "#ffffff"
+            "id": "1qcxvqqgu",
+            "position": 3,
+            "widget": {
+                "id": "957e2xybo",
+                "name": "cards",
+                "element": {
+                    "sectionTitle": "",
+                    "backgroundType": "image",
+                    "backgroundColor": "#f0f0f0",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626305628_bg-beauty-6-jpg_1",
+                    "cards": [
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626489652_woman-11-png_1",
+                            "title": "Cabello",
+                            "description": "Los tratamientos con aceite de argán o queratina reparan y nutren el cabello dañado, mientras que el uso de mascarillas hidratantes y aceites como el de coco lo deja más suave, brillante y fuerte.",
+                            "buttonText": "ver más",
+                            "buttonColor": "#878787",
+                            "buttonLink": "#"
+                        },
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626481414_woman-10-png_1",
+                            "title": "Uñas",
+                            "description": "Los tratamientos con aceites nutritivos, como el de almendra o ricino, fortalecen las uñas débiles y quebradizas, mientras que el uso de bases fortalecedoras y cremas hidratantes mejora su resistencia",
+                            "buttonText": "Ver más",
+                            "buttonColor": "#8a8a8a",
+                            "buttonLink": "#"
+                        },
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626343817_masaje-png_1",
+                            "title": "Masajes",
+                            "description": "Los masajes relajantes con aceites esenciales alivian el estrés y mejoran la circulación, proporcionando bienestar físico y mental, además de reducir tensiones musculares y mejorar la flexibilidad.",
+                            "buttonText": "Ver más",
+                            "buttonColor": "#878787",
+                            "buttonLink": "#"
+                        }
+                    ],
+                    "template": "1",
+                    "whiteTitle": false
                 }
-              ],
-              "sectionTitleColor": "#000000"
             }
-          }
         },
         {
-          "id": "u1e2kp3m6",
-          "position": 7,
-          "widget": {
-            "id": "mjb2cczsx",
-            "name": "cards",
-            "element": {
-              "sectionTitle": "",
-              "backgroundType": "color",
-              "backgroundColor": "#000000",
-              "backgroundImage": "",
-              "cards": [
-                {
-                  "image": "/img/servicio.jpg",
-                  "title": "Desarrollo de Aplicaciones Web",
-                  "description": "Desarrollamos aplicaciones web personalizadas, enfocadas en soluciones eficientes y de alta calidad. Utilizamos tecnologías modernas para crear experiencias digitales intuitivas y adaptadas a las nece",
-                  "buttonText": "Cotizar",
-                  "buttonColor": "#3b82f6",
-                  "buttonLink": "#"
-                },
-                {
-                  "image": "/img/servicio.jpg",
-                  "title": "WEBLOX Creator",
-                  "description": "Nuestra plataforma permite crear websites de alta calidad sin necesidad de programar. Con herramientas intuitivas y bloques personalizables, puedes diseñar y lanzar tu sitio web de manera rápida y pro",
-                  "buttonText": "Ver precios",
-                  "buttonColor": "#3b82f6",
-                  "buttonLink": "#"
-                },
-                {
-                  "image": "/img/servicio.jpg",
-                  "title": "Consultoría",
-                  "description": "Ofrecemos servicios de consultoría en programación web, ayudando a optimizar y desarrollar proyectos con las mejores prácticas y tecnologías actuales. ",
-                  "buttonText": "Ver más",
-                  "buttonColor": "#3b82f6",
-                  "buttonLink": "#"
+            "id": "12yn7o945",
+            "position": 4,
+            "widget": {
+                "id": "7h21sz9nz",
+                "name": "reseñas",
+                "element": {
+                    "template": "1",
+                    "sectionTitle": "",
+                    "backgroundType": "color",
+                    "backgroundColor": "#eeeae7",
+                    "backgroundImage": "",
+                    "reviews": [
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626440969_woman-6-png_1",
+                            "name": "Yua Ling",
+                            "text": "Mi experiencia fue increible, el salón es un centro de relajación y distracción para mi.",
+                            "rating": 5,
+                            "date": "2024-09-29"
+                        },
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626388157_woman-1-png_1",
+                            "name": "Andrea Silva",
+                            "text": "Me encantan los faciales y las uñas quedan espectaculares. El servicio al cliente es impecable.",
+                            "rating": 4,
+                            "date": "2024-09-29"
+                        },
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626450224_woman-7-png_1",
+                            "name": "Veronica Madi",
+                            "text": "Mi cabello esta radiante con los tratamientos que me he realizado en el salón. Me encanta pasar tiempo en este lugar.",
+                            "rating": 5,
+                            "date": "2024-09-29"
+                        }
+                    ],
+                    "whiteTitle": false,
+                    "textColor": "#4a5568"
                 }
-              ],
-              "template": "1",
-              "whiteTitle": false
             }
-          }
         },
         {
-          "id": "hgg34nw9r",
-          "position": 8,
-          "widget": {
-            "id": "h6tnc2k9a",
-            "name": "footer",
-            "element": {
-              "template": "2",
-              "title": "Weblox",
-              "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/backgrounds/bg-black.jpg",
-              "links": [
-                {
-                  "text": "Inicio",
-                  "url": "#"
-                },
-                {
-                  "text": "Servicios",
-                  "url": "#"
-                },
-                {
-                  "text": "Acerca de",
-                  "url": "#"
-                },
-                {
-                  "text": "Contacto",
-                  "url": "#"
+            "id": "b0v0efzn9",
+            "position": 5,
+            "widget": {
+                "id": "nngws6cx5",
+                "name": "footer",
+                "element": {
+                    "template": "2",
+                    "textColor": "#696969",
+                    "title": "Contáctanos",
+                    "titleColor": "#000000",
+                    "backgroundType": "color",
+                    "backgroundColor": "#f3f4f6",
+                    "backgroundImage": "",
+                    "links": [
+                        {
+                            "text": "Inicio",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Servicios",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Acerca de",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Contacto",
+                            "url": "#"
+                        }
+                    ],
+                    "linksTitle": "Enlaces importantes",
+                    "contactInfo": "info@example.com\n+1 234 567 890",
+                    "contactTitle": "Contáctanos",
+                    "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                    "descriptionTitle": "Quienes somos",
+                    "socialMedia": [
+                        {
+                            "icon": "fa-brands fa-square-facebook",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-instagram",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-twitter",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa fa-twitter-square",
+                            "url": "#"
+                        }
+                    ],
+                    "socialTitle": "Siguenos en:",
+                    "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                    "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626353280_piedras-png_1"
                 }
-              ],
-              "contactInfo": "San Jose, Costa Rica\n(506) 63469873\ninfo@softstoic.com",
-              "description": "Somos una plataforma que cambiará tu forma de ver internet. Únete al futuro HOY.",
-              "socialMedia": [
-                {
-                  "icon": "fa-brands fa-square-facebook",
-                  "url": "#"
-                },
-                {
-                  "icon": "fa-brands fa-square-instagram",
-                  "url": "#"
-                },
-                {
-                  "icon": "fa-brands fa-square-twitter",
-                  "url": "#"
-                },
-                {
-                  "icon": "fa-brands fa-youtube",
-                  "url": "#"
-                }
-              ],
-              "copyright": "© 2024 Todos los derechos reservados. Softstoic Soluciones S.A",
-              "backgroundType": "image",
-              "backgroundColor": "#305297",
-              "linksTitle": "Links Relevantes",
-              "contactTitle": "Contáctanos",
-              "descriptionTitle": "Porqué Nosotros",
-              "socialTitle": "Social Media",
-              "titleColor": "Weblox",
-              "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1726542308896_logo-weblox-png_1"
             }
-          }
+        }
+    ]
+    },
+    {
+      "id": 3,
+      "name": "Belleza | Artículo",
+      "image": "/img/belleza-articulo.png",
+      "categories": [{"name": "Todas"}, {"name": "Belleza"}],
+      "sections": [
+        {
+            "id": "lvei3zuhf",
+            "position": 0,
+            "widget": {
+                "id": "s57she8ju",
+                "name": "header-parallax",
+                "element": {
+                    "title": "Salón de belleza",
+                    "description": "Un salón es un centro de relajacion, amistad y conversación.",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626278533_bg-beauty-3-jpg_1",
+                    "centerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626422868_woman-4-png_1",
+                    "buttonText": "Ver todos los servicios",
+                    "buttonColor": "#000000",
+                    "buttonLink": "/",
+                    "template": "1"
+                }
+            }
+        },
+        {
+            "id": "xdx6lwflv",
+            "position": 1,
+            "widget": {
+                "id": "nhto69tfm",
+                "name": "title",
+                "element": {
+                    "template": 1,
+                    "title": "Página interna",
+                    "backgroundImage": "",
+                    "backgroundColor": "#ffffff",
+                    "fontSize": "46",
+                    "lineHeight": 1.5,
+                    "textColor": "#000000",
+                    "textAlign": "right",
+                    "height": 150,
+                    "fontWeight": "normal"
+                }
+            }
+        },
+        {
+            "id": "jn0js42qm",
+            "position": 2,
+            "widget": {
+                "id": "61irm3kq5",
+                "name": "artículo",
+                "element": {
+                    "template": 1,
+                    "title": "Servicio de Uñas",
+                    "backgroundType": "color",
+                    "backgroundColor": "#fffafa",
+                    "backgroundImage": "",
+                    "description": "&lt;h2>El arte de las uñas: más que belleza, un símbolo de autoexpresión&lt;/h2>&lt;p>&lt;br>&lt;/p>&lt;p>El cuidado de las uñas se ha convertido en una tendencia creciente dentro del mundo de la belleza. Lejos de ser solo un detalle estético, las uñas han pasado a ser una forma de expresión personal. Ya sea con diseños atrevidos, colores clásicos o estilos minimalistas, las uñas dicen mucho de quien las lleva, y cada vez más personas buscan un servicio profesional que cumpla con sus expectativas tanto en calidad como en estilo.¿Por qué elegir un servicio profesional de uñas?Optar por un servicio de uñas profesional ofrece múltiples beneficios que van más allá de lo estético. &lt;/p>&lt;p>&lt;br>&lt;/p>&lt;h2>En primer lugar, la salud de tus uñas es lo más importante. &lt;/h2>&lt;p>&lt;br>&lt;/p>&lt;p>Un técnico experto sabe cómo cuidar y tratar las uñas, evitando daños o infecciones que pueden ocurrir cuando se utilizan productos de baja calidad o técnicas incorrectas en casa. Desde la limpieza profunda de la cutícula hasta la correcta aplicación del esmalte, cada paso es fundamental para garantizar no solo un acabado impecable, sino también la protección de las uñas a largo plazo.En nuestro salón, utilizamos productos de las mejores marcas en el mercado, garantizando una durabilidad excepcional y un acabado impecable. Además, nos enfocamos en técnicas que minimizan el daño y fortalecen las uñas naturales, sin comprometer su salud.&lt;/p>&lt;p>&lt;br>&lt;/p>&lt;p>&lt;strong>Personalización&lt;/strong>: Diseños que cuentan tu historiaUno de los mayores atractivos de los servicios de uñas es la posibilidad de personalización. Las uñas se han convertido en un lienzo para quienes quieren expresar su estilo, personalidad o incluso su estado de ánimo. Ya sea que prefieras un estilo clásico con colores neutros y limpios, o que te atrevas con diseños más complejos como degradados, detalles geométricos o arte en miniatura, las opciones son infinitas.Nuestros técnicos en uñas están capacitados en las últimas tendencias y técnicas de diseño. Desde el popular nail art hasta la técnica de inmersión en polvo y las uñas acrílicas, podemos ayudarte a llevar tus ideas a la realidad. Si estás buscando inspiración, ofrecemos un catálogo de diseños modernos que pueden adaptarse a cualquier ocasión, desde eventos formales hasta momentos de relajación personal.&lt;/p>",
+                    "pictures": [
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626372385_unas-png_1"
+                        }
+                    ],
+                    "whiteTitle": false,
+                    "textColor": "#5c5c5c",
+                    "overlayColor": "#ecd0d0",
+                    "showActionButton": false,
+                    "actionButtonText": "Nombre del botón",
+                    "actionButtonUrl": "/url-del-boton",
+                    "showFacebook": true,
+                    "showInstagram": true,
+                    "showTwitter": true,
+                    "showWhatsapp": true,
+                    "facebookAccount": "",
+                    "instagramAccount": "",
+                    "twitterAccount": "",
+                    "whatsappNumber": ""
+                }
+            }
+        },
+        {
+            "id": "b0v0efzn9",
+            "position": 3,
+            "widget": {
+                "id": "nngws6cx5",
+                "name": "footer",
+                "element": {
+                    "template": "2",
+                    "textColor": "#696969",
+                    "title": "Contáctanos",
+                    "titleColor": "#000000",
+                    "backgroundType": "color",
+                    "backgroundColor": "#f3f4f6",
+                    "backgroundImage": "",
+                    "links": [
+                        {
+                            "text": "Inicio",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Servicios",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Acerca de",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Contacto",
+                            "url": "#"
+                        }
+                    ],
+                    "linksTitle": "Enlaces importantes",
+                    "contactInfo": "info@example.com\n+1 234 567 890",
+                    "contactTitle": "Contáctanos",
+                    "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                    "descriptionTitle": "Quienes somos",
+                    "socialMedia": [
+                        {
+                            "icon": "fa-brands fa-square-facebook",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-instagram",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-twitter",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa fa-twitter-square",
+                            "url": "#"
+                        }
+                    ],
+                    "socialTitle": "Siguenos en:",
+                    "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                    "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626353280_piedras-png_1"
+                }
+            }
+        }
+    ]
+    },
+    {
+      "id": 4,
+      "name": "Belleza | Galería",
+      "image": "/img/belleza-galeria.png",
+      "categories": [{"name": "Todas"}, {"name": "Belleza"}],
+      "sections": [
+        {
+            "id": "xdx6lwflv",
+            "position": 0,
+            "widget": {
+                "id": "nhto69tfm",
+                "name": "title",
+                "element": {
+                    "template": 1,
+                    "title": "Galería de Imagenes",
+                    "backgroundImage": "",
+                    "backgroundColor": "#f4e6e6",
+                    "fontSize": "60",
+                    "lineHeight": 1.5,
+                    "textColor": "#808080",
+                    "textAlign": "left",
+                    "height": "260",
+                    "fontWeight": "bold"
+                }
+            }
+        },
+        {
+            "id": "j9xvl1wku",
+            "position": 1,
+            "widget": {
+                "id": "yk3mlry1o",
+                "name": "galeria-de-imagenes",
+                "element": {
+                    "template": 1,
+                    "images": [
+                        {
+                            "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626278533_bg-beauty-3-jpg_1"
+                        },
+                        {
+                            "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626268141_bg-beauty-2-jpg_1"
+                        },
+                        {
+                            "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626296974_bg-beauty-5-jpg_1"
+                        },
+                        {
+                            "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626257850_bg-beauty-1-jpg_1"
+                        },
+                        {
+                            "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626325220_bg-beauty-8-jpg_1"
+                        },
+                        {
+                            "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626305628_bg-beauty-6-jpg_1"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "id": "b0v0efzn9",
+            "position": 2,
+            "widget": {
+                "id": "nngws6cx5",
+                "name": "footer",
+                "element": {
+                    "template": "2",
+                    "textColor": "#696969",
+                    "title": "Contáctanos",
+                    "titleColor": "#000000",
+                    "backgroundType": "color",
+                    "backgroundColor": "#f3f4f6",
+                    "backgroundImage": "",
+                    "links": [
+                        {
+                            "text": "Inicio",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Servicios",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Acerca de",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Contacto",
+                            "url": "#"
+                        }
+                    ],
+                    "linksTitle": "Enlaces importantes",
+                    "contactInfo": "info@example.com\n+1 234 567 890",
+                    "contactTitle": "Contáctanos",
+                    "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                    "descriptionTitle": "Quienes somos",
+                    "socialMedia": [
+                        {
+                            "icon": "fa-brands fa-square-facebook",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-instagram",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-twitter",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa fa-twitter-square",
+                            "url": "#"
+                        }
+                    ],
+                    "socialTitle": "Siguenos en:",
+                    "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                    "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626353280_piedras-png_1"
+                }
+            }
+        }
+    ]
+    },
+    {
+      "id": 2,
+      "name": "Medicina | Página de Inicio",
+      "image": "/img/medicina-inicio.png",
+      "categories": [{"name": "Todas"}, {"name": "Medicina"}],
+      "sections": [
+        {
+            "id": "p946ggrnb",
+            "position": 0,
+            "widget": {
+                "id": "aq4wd7cd4",
+                "name": "header-parallax",
+                "element": {
+                    "title": "Medicina en General",
+                    "description": "Una breve descripción que capture la atención",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736625859_bg-doctor-3-jpg_1",
+                    "centerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736772772_doctor-1-png_1",
+                    "buttonText": "Agenda tu cita HOY",
+                    "buttonColor": "#000000",
+                    "buttonLink": "/",
+                    "template": "2"
+                }
+            }
+        },
+        {
+            "id": "vljsv55rh",
+            "position": 1,
+            "widget": {
+                "id": "5sfzj0avi",
+                "name": "destacar",
+                "element": {
+                    "template": 1,
+                    "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727737109931_servicio-1-jpg_1",
+                    "title": "Odontología",
+                    "description": "Tu sonrisa es nuestra mayor motivación. Cada detalle que creamos, cada paso que damos, está inspirado en brindarte lo mejor, porque cuando vemos tu felicidad reflejada, sabemos que estamos cumpliendo nuestra misión. ¡Gracias por confiar en nosotros!",
+                    "buttonText": "Acción",
+                    "buttonUrl": "#",
+                    "titleColor": "#474747",
+                    "titleWeight": "normal",
+                    "descriptionColor": "#3d3d3d",
+                    "buttonColor": "#4da3ff",
+                    "buttonTextColor": "#ffffff",
+                    "backgroundColor": "#f8f9fa"
+                }
+            }
+        },
+        {
+            "id": "q1afcmsx9",
+            "position": 2,
+            "widget": {
+                "id": "taemi7ir7",
+                "name": "cards",
+                "element": {
+                    "sectionTitle": "NUESTROS SERVICIOS",
+                    "backgroundType": "image",
+                    "backgroundColor": "#f0f0f0",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736706810_bg-doctor-8-jpg_1",
+                    "cards": [
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727737120490_servicio-2-jpg_1",
+                            "title": "Odontología",
+                            "description": "Tu sonrisa es nuestra mayor motivación. Cada detalle que creamos, cada paso que damos, está inspirado en brindarte lo mejor.",
+                            "buttonText": "Reserva una cita!",
+                            "buttonColor": "#7aadff",
+                            "buttonLink": "#"
+                        },
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727737162216_servicio-7-jpg_1",
+                            "title": "Quirófano",
+                            "description": "En el quirófano, cada movimiento cuenta y cada decisión es crucial. Nuestro equipo altamente capacitado trabaja en perfecta sincronía.",
+                            "buttonText": "Conoce más",
+                            "buttonColor": "#85b4ff",
+                            "buttonLink": "#"
+                        },
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727737136633_servicio-4-jpg_1",
+                            "title": "Odontología en niños",
+                            "description": "En la odontología pediátrica, sabemos lo importante que es crear experiencias positivas para los más pequeños.",
+                            "buttonText": "Agendar cita",
+                            "buttonColor": "#75aaff",
+                            "buttonLink": "#"
+                        },
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727737128732_servicio-3-jpg_1",
+                            "title": "Radiografías",
+                            "description": "En el área de radiografías, la precisión y la seguridad son nuestra prioridad. Utilizamos tecnología de vanguardia para obtener imágenes claras y detalladas.",
+                            "buttonText": "Más info",
+                            "buttonColor": "#80b0ff",
+                            "buttonLink": "#"
+                        }
+                    ],
+                    "template": 1,
+                    "whiteTitle": false
+                }
+            }
+        },
+        {
+            "id": "58p9avjmb",
+            "position": 3,
+            "widget": {
+                "id": "fwxmzo5eo",
+                "name": "contact-form",
+                "element": {
+                    "template": 1,
+                    "sectionTitle": "Reserva tu cita hoy mismo.",
+                    "instructions": "Nos interesa tu bienestar",
+                    "backgroundType": "image",
+                    "backgroundColor": "#f3f4f6",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736697741_bg-doctor-7-jpg_1",
+                    "receiverEmail": "info@tudominio.com",
+                    "showImage": false,
+                    "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540191058_nave-tecno-neon-png_1",
+                    "titleColor": "#808080",
+                    "instructionsColor": "#5c5c5c",
+                    "formBackgroundColor": "#e5ffff",
+                    "labelColor": "#8c8c8c",
+                    "inputTextColor": "#6b6b6b",
+                    "inputBackgroundColor": "#ffffff",
+                    "submitButtonText": "Reservar cita",
+                    "submitButtonColor": "#a8e2ff",
+                    "submitButtonTextColor": "#707070",
+                    "showWhatsAppButton": true,
+                    "whatsAppNumber": "3000300300"
+                }
+            }
+        },
+        {
+            "id": "182np2poe",
+            "position": 4,
+            "widget": {
+                "id": "x0knvy6b3",
+                "name": "title",
+                "element": {
+                    "template": 1,
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736678043_bg-doctor-6-jpg_1",
+                    "title": "SOMOS LOS MEJORES",
+                    "backgroundColor": "",
+                    "fontSize": "64",
+                    "lineHeight": 1.5,
+                    "textColor": "#ffffff",
+                    "textAlign": "center",
+                    "height": "270",
+                    "fontWeight": "bold"
+                }
+            }
+        },
+        {
+            "id": "inf7x1tew",
+            "position": 5,
+            "widget": {
+                "id": "79l58qweo",
+                "name": "footer",
+                "element": {
+                    "template": "2",
+                    "textColor": "#5e5e5e",
+                    "title": "Despeguemos juntos",
+                    "titleColor": "#636363",
+                    "backgroundType": "imagen",
+                    "backgroundColor": "#f3f4f6",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736706810_bg-doctor-8-jpg_1",
+                    "links": [
+                        {
+                            "text": "Inicio",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Servicios",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Acerca de",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Contacto",
+                            "url": "#"
+                        }
+                    ],
+                    "linksTitle": "Enlaces importantes",
+                    "contactInfo": "info@example.com\n+1 234 567 890",
+                    "contactTitle": "Contáctanos",
+                    "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                    "descriptionTitle": "¿Quienes somos?",
+                    "socialMedia": [
+                        {
+                            "icon": "fa-brands fa-square-facebook",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-instagram",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-twitter",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa fa-twitter-square",
+                            "url": "#"
+                        }
+                    ],
+                    "socialTitle": "Siguenos en:",
+                    "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                    "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727737071362_personaje-4-png_1"
+                }
+            }
+        }
+    ]
+    },
+    {
+      "id": 3,
+      "name": "Medicina | Artículo",
+      "image": "/img/medicina-articulo.png",
+      "categories": [{"name": "Todas"}, {"name": "Medicina"}],
+      "sections": [
+        {
+            "id": "p946ggrnb",
+            "position": 0,
+            "widget": {
+                "id": "aq4wd7cd4",
+                "name": "header-parallax",
+                "element": {
+                    "title": "Inyecciones",
+                    "description": "Una breve descripción que capture la atención",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1",
+                    "centerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736881279_objeto-1-png_1",
+                    "buttonText": "Agenda tu cita HOY",
+                    "buttonColor": "#000000",
+                    "buttonLink": "/",
+                    "template": "1"
+                }
+            }
+        },
+        {
+            "id": "0kascw0sa",
+            "position": 1,
+            "widget": {
+                "id": "z1ffwgz4o",
+                "name": "artículo",
+                "element": {
+                    "template": 1,
+                    "title": "Los beneficios de las vacunas",
+                    "backgroundType": "color",
+                    "backgroundColor": "#ffffff",
+                    "backgroundImage": "",
+                    "description": "&lt;h1>Vacunación continua&lt;/h1>&lt;p>&lt;br>&lt;/p>&lt;p>Las vacunas son una de las herramientas más importantes para proteger nuestra salud y la de nuestras comunidades. Al fortalecer el sistema inmunológico, las vacunas ayudan a prevenir enfermedades graves y potencialmente mortales, asegurando una vida más saludable para todos. Además, al estar vacunados, no solo te proteges a ti mismo, sino que también contribuyes a la inmunidad colectiva, cuidando a aquellos que no pueden vacunarse. La prevención es siempre el mejor camino, y las vacunas son clave para un futuro más seguro y libre de enfermedades.&lt;/p>",
+                    "pictures": [
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736926933_objeto-4-png_1"
+                        }
+                    ],
+                    "whiteTitle": false,
+                    "textColor": "#333333",
+                    "overlayColor": "#ffffff",
+                    "showActionButton": false,
+                    "actionButtonText": "Nombre del botón",
+                    "actionButtonUrl": "/url-del-boton",
+                    "showFacebook": true,
+                    "showInstagram": true,
+                    "showTwitter": true,
+                    "showWhatsapp": true,
+                    "facebookAccount": "",
+                    "instagramAccount": "",
+                    "twitterAccount": "",
+                    "whatsappNumber": ""
+                }
+            }
+        },
+        {
+            "id": "inf7x1tew",
+            "position": 2,
+            "widget": {
+                "id": "79l58qweo",
+                "name": "footer",
+                "element": {
+                    "template": "2",
+                    "textColor": "#5e5e5e",
+                    "title": "Despeguemos juntos",
+                    "titleColor": "#636363",
+                    "backgroundType": "imagen",
+                    "backgroundColor": "#f3f4f6",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736706810_bg-doctor-8-jpg_1",
+                    "links": [
+                        {
+                            "text": "Inicio",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Servicios",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Acerca de",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Contacto",
+                            "url": "#"
+                        }
+                    ],
+                    "linksTitle": "Enlaces importantes",
+                    "contactInfo": "info@example.com\n+1 234 567 890",
+                    "contactTitle": "Contáctanos",
+                    "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                    "descriptionTitle": "¿Quienes somos?",
+                    "socialMedia": [
+                        {
+                            "icon": "fa-brands fa-square-facebook",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-instagram",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-twitter",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa fa-twitter-square",
+                            "url": "#"
+                        }
+                    ],
+                    "socialTitle": "Siguenos en:",
+                    "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                    "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727737071362_personaje-4-png_1"
+                }
+            }
+        }
+    ]
+    },
+    {
+      "id": 4,
+      "name": "Medicina | Galería",
+      "image": "/img/medicina-galeria.png",
+      "categories": [{"name": "Todas"}, {"name": "Medicina"}],
+      "sections": [
+        {
+            "id": "p946ggrnb",
+            "position": 0,
+            "widget": {
+                "id": "aq4wd7cd4",
+                "name": "header-parallax",
+                "element": {
+                    "title": "Galería de Imágenes",
+                    "description": "",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1",
+                    "centerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736862108_doctor-7-png_1",
+                    "buttonText": "Explorar",
+                    "buttonColor": "#000000",
+                    "buttonLink": "/",
+                    "template": "1"
+                }
+            }
+        },
+        {
+            "id": "qcwq3ohsp",
+            "position": 1,
+            "widget": {
+                "id": "6jnwd0m3i",
+                "name": "galeria-de-imagenes",
+                "element": {
+                    "template": 1,
+                    "images": [
+                        {
+                            "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736648879_bg-doctor-4-jpg_1"
+                        },
+                        {
+                            "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736661306_bg-doctor-5-jpg_1"
+                        },
+                        {
+                            "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736678043_bg-doctor-6-jpg_1"
+                        },
+                        {
+                            "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736743262_bg-doctor-10-jpg_1"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "id": "inf7x1tew",
+            "position": 2,
+            "widget": {
+                "id": "79l58qweo",
+                "name": "footer",
+                "element": {
+                    "template": "2",
+                    "textColor": "#5e5e5e",
+                    "title": "Despeguemos juntos",
+                    "titleColor": "#636363",
+                    "backgroundType": "imagen",
+                    "backgroundColor": "#f3f4f6",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736706810_bg-doctor-8-jpg_1",
+                    "links": [
+                        {
+                            "text": "Inicio",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Servicios",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Acerca de",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Contacto",
+                            "url": "#"
+                        }
+                    ],
+                    "linksTitle": "Enlaces importantes",
+                    "contactInfo": "info@example.com\n+1 234 567 890",
+                    "contactTitle": "Contáctanos",
+                    "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                    "descriptionTitle": "¿Quienes somos?",
+                    "socialMedia": [
+                        {
+                            "icon": "fa-brands fa-square-facebook",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-instagram",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-twitter",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa fa-twitter-square",
+                            "url": "#"
+                        }
+                    ],
+                    "socialTitle": "Siguenos en:",
+                    "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                    "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727737071362_personaje-4-png_1"
+                }
+            }
+        }
+    ]
+    },
+    {
+      "id": 1,
+      "name": "Tecno Neon | Página de Inicio",
+      "image": "/img/tecno-neon-inicio.png",
+      "categories": [{"name": "Todas"}, {"name": "Tecnología"}],
+      "sections": [
+        {
+            "id": "p946ggrnb",
+            "position": 0,
+            "widget": {
+                "id": "aq4wd7cd4",
+                "name": "header-parallax",
+                "element": {
+                    "title": "Tecno Neon",
+                    "description": "Una breve descripción que capture la atención",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727538719244_bg-tecno-neon-jpg_1",
+                    "centerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727543052291_cohete-tecno-neon-png_1",
+                    "buttonText": "Botón de acción",
+                    "buttonColor": "#000000",
+                    "buttonLink": "/",
+                    "template": "1"
+                }
+            }
+        },
+        {
+            "id": "wzup9bj8l",
+            "position": 1,
+            "widget": {
+                "id": "yq9872m51",
+                "name": "title",
+                "element": {
+                    "template": 1,
+                    "title": "Tecnología de Punta",
+                    "backgroundImage": "",
+                    "backgroundColor": "#18121c",
+                    "fontSize": "72",
+                    "lineHeight": 1.5,
+                    "textColor": "#ffffff",
+                    "textAlign": "center",
+                    "height": 150,
+                    "fontWeight": "bold"
+                }
+            }
+        },
+        {
+            "id": "emjgpdgbe",
+            "position": 2,
+            "widget": {
+                "id": "2kcda1896",
+                "name": "carrusel",
+                "element": {
+                    "template": 1,
+                    "sectionTitle": "",
+                    "backgroundType": "color",
+                    "backgroundColor": "#2a1b36",
+                    "backgroundImage": "",
+                    "slides": [
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540208729_audi-tecno-neon-png_1",
+                            "title": "Tecnología de punta",
+                            "description": "La tecnología espacial se enfoca en el desarrollo de sistemas para explorar el espacio, como satélites y cohetes reutilizables. Estos avances permiten estudiar el universo y mejorar la vida en la Tierra",
+                            "buttonText": "Ver más",
+                            "buttonColor": "#8950af",
+                            "buttonLink": "#",
+                            "showImage": true,
+                            "showTitle": true,
+                            "showDescription": true,
+                            "showButton": true,
+                            "descriptionColor": "#ffffff",
+                            "buttonTextColor": "#ffffff",
+                            "titleColor": "#ff7ae2"
+                        },
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540198575_face-tecno-neon-png_1",
+                            "title": "Los errores no son un problema",
+                            "description": "En la tecnología espacial, los errores no son un problema, sino oportunidades para aprender y mejorar. Cada fallo impulsa avances más sólidos y soluciones innovadoras. Es parte del proceso.",
+                            "buttonText": "Ver más",
+                            "buttonColor": "#ab51db",
+                            "buttonLink": "#",
+                            "showImage": true,
+                            "showTitle": true,
+                            "showDescription": true,
+                            "showButton": true,
+                            "titleColor": "#f570ff",
+                            "buttonTextColor": "#ffffff",
+                            "descriptionColor": "#ffffff"
+                        },
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540180747_play-tcno-neon-png_1",
+                            "title": "Usa tu imaginación",
+                            "description": "En la tecnología espacial, la imaginación es el motor que impulsa los mayores avances. Lo que hoy parece imposible, mañana puede ser una realidad gracias a la creatividad y la visión de quienes se atreven a soñar. Es la imaginación la que nos lleva más allá de las estrellas, desafiando los límites conocidos y abriendo nuevas fronteras.",
+                            "buttonText": "Ver más",
+                            "buttonColor": "#a650ce",
+                            "buttonLink": "#",
+                            "showImage": true,
+                            "showTitle": true,
+                            "showDescription": true,
+                            "showButton": true,
+                            "titleColor": "#f07aff",
+                            "buttonTextColor": "#ffffff",
+                            "descriptionColor": "#ffffff"
+                        }
+                    ],
+                    "sectionTitleColor": "#000000"
+                }
+            }
+        },
+        {
+            "id": "58p9avjmb",
+            "position": 3,
+            "widget": {
+                "id": "fwxmzo5eo",
+                "name": "contact-form",
+                "element": {
+                    "template": 1,
+                    "sectionTitle": "Contáctanos hoy mismo",
+                    "instructions": "Puedes buscarnos a la vuelta de saturno, no estamos tán lejos.",
+                    "backgroundType": "image",
+                    "backgroundColor": "#f3f4f6",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540227540_bg-tecno-neon-3-jpg_1",
+                    "receiverEmail": "info@tudominio.com",
+                    "showImage": true,
+                    "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540191058_nave-tecno-neon-png_1",
+                    "titleColor": "#fbc7ff",
+                    "instructionsColor": "#ffffff",
+                    "formBackgroundColor": "#884ce1",
+                    "labelColor": "#fafafa",
+                    "inputTextColor": "#000000",
+                    "inputBackgroundColor": "#ffffff",
+                    "submitButtonText": "Enviar mensaje",
+                    "submitButtonColor": "#f73bde",
+                    "submitButtonTextColor": "#ffffff",
+                    "showWhatsAppButton": true,
+                    "whatsAppNumber": "3000300300"
+                }
+            }
+        },
+        {
+            "id": "182np2poe",
+            "position": 4,
+            "widget": {
+                "id": "x0knvy6b3",
+                "name": "title",
+                "element": {
+                    "template": 1,
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727538719244_bg-tecno-neon-jpg_1",
+                    "title": "SOMOS LOS MEJORES",
+                    "backgroundColor": "",
+                    "fontSize": "64",
+                    "lineHeight": 1.5,
+                    "textColor": "#ffffff",
+                    "textAlign": "center",
+                    "height": "270",
+                    "fontWeight": "bold"
+                }
+            }
+        },
+        {
+            "id": "inf7x1tew",
+            "position": 5,
+            "widget": {
+                "id": "79l58qweo",
+                "name": "footer",
+                "element": {
+                    "template": 1,
+                    "textColor": "#ffffff",
+                    "title": "Despeguemos juntos",
+                    "titleColor": "#ffffff",
+                    "backgroundType": "imagen",
+                    "backgroundColor": "#f3f4f6",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727541971563_bg-teno-neon-4-jpg_1",
+                    "links": [
+                        {
+                            "text": "Inicio",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Servicios",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Acerca de",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Contacto",
+                            "url": "#"
+                        }
+                    ],
+                    "linksTitle": "Enlaces importantes",
+                    "contactInfo": "info@example.com\n+1 234 567 890",
+                    "contactTitle": "Contáctanos",
+                    "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                    "descriptionTitle": "¿Quienes somos?",
+                    "socialMedia": [
+                        {
+                            "icon": "fa-brands fa-square-facebook",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-instagram",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-twitter",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa fa-twitter-square",
+                            "url": "#"
+                        }
+                    ],
+                    "socialTitle": "Siguenos en:",
+                    "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                    "footerImage": ""
+                }
+            }
         }
       ]
+    },
+    {
+      "id": 1,
+      "name": "Tecno Neon | Artículo",
+      "image": "/img/tecno-neon-articulo.png",
+      "categories": [{"name": "Todas"}, {"name": "Tecnología"}],
+      "sections": [
+        {
+            "id": "0i47brfpx",
+            "position": 1,
+            "widget": {
+                "id": "2l4kwbhvb",
+                "name": "artículo",
+                "element": {
+                    "template": 1,
+                    "title": "Tecnología de Punta",
+                    "backgroundType": "image",
+                    "backgroundColor": "#d1d1d1",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540218005_bg-tecno-neon-2-jpg_1",
+                    "description": "&lt;h2>La tecnología que está revolucionando el mundo&lt;/h2>&lt;p>&lt;br>&lt;/p>&lt;p>En un mundo cada vez más digital, la tecnología sigue transformando nuestra vida diaria a una velocidad vertiginosa. Desde los avances en inteligencia artificial hasta la implementación de redes 5G, el impacto de la innovación tecnológica es visible en todos los sectores: educación, salud, transporte y entretenimiento.Una de las áreas más emocionantes es la inteligencia artificial (IA). &lt;/p>&lt;p>&lt;br>&lt;/p>&lt;p>Esta tecnología está mejorando procesos en prácticamente todas las industrias, desde la atención al cliente con chatbots hasta diagnósticos médicos más precisos y eficientes. A medida que las máquinas aprenden a interpretar y analizar grandes volúmenes de datos, las empresas pueden tomar decisiones más informadas, aumentando la productividad y mejorando la experiencia del cliente.&lt;/p>&lt;p>&lt;br>&lt;/p>&lt;p>Otro avance clave es la conectividad 5G, que promete una velocidad de internet increíblemente rápida y una baja latencia. Esto no solo mejorará la experiencia del usuario en dispositivos móviles, sino que también abrirá la puerta a nuevas innovaciones como los autos autónomos y las ciudades inteligentes, donde todo está interconectado de manera eficiente.&lt;/p>",
+                    "pictures": [
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727538732582_car-tecno-neon-png_1"
+                        },
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540180747_play-tcno-neon-png_1"
+                        }
+                    ],
+                    "whiteTitle": true,
+                    "textColor": "#ffffff",
+                    "overlayColor": "#8a68a6",
+                    "showActionButton": false,
+                    "actionButtonText": "Nombre del botón",
+                    "actionButtonUrl": "/url-del-boton",
+                    "showFacebook": true,
+                    "showInstagram": true,
+                    "showTwitter": true,
+                    "showWhatsapp": true,
+                    "facebookAccount": "",
+                    "instagramAccount": "",
+                    "twitterAccount": "",
+                    "whatsappNumber": ""
+                }
+            }
+        },
+        {
+            "id": "inf7x1tew",
+            "position": 2,
+            "widget": {
+                "id": "79l58qweo",
+                "name": "footer",
+                "element": {
+                    "template": "2",
+                    "textColor": "#ffffff",
+                    "title": "Despeguemos juntos",
+                    "titleColor": "#ffffff",
+                    "backgroundType": "imagen",
+                    "backgroundColor": "#f3f4f6",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727541971563_bg-teno-neon-4-jpg_1",
+                    "links": [
+                        {
+                            "text": "Inicio",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Servicios",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Acerca de",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Contacto",
+                            "url": "#"
+                        }
+                    ],
+                    "linksTitle": "Enlaces importantes",
+                    "contactInfo": "info@example.com\n+1 234 567 890",
+                    "contactTitle": "Contáctanos",
+                    "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                    "descriptionTitle": "¿Quienes somos?",
+                    "socialMedia": [
+                        {
+                            "icon": "fa-brands fa-square-facebook",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-instagram",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-twitter",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa fa-twitter-square",
+                            "url": "#"
+                        }
+                    ],
+                    "socialTitle": "Siguenos en:",
+                    "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                    "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727543052291_cohete-tecno-neon-png_1"
+                }
+            }
+        }
+    ]
+    },
+    {
+      "id": 1,
+      "name": "Tecno Neon | Galería",
+      "image": "/img/tecno-neon-galeria.png",
+      "categories": [{"name": "Todas"}, {"name": "Tecnología"}],
+      "sections": [
+        {
+            "id": "e6wi3c4hd",
+            "position": 0,
+            "widget": {
+                "id": "0m16p1vhs",
+                "name": "title",
+                "element": {
+                    "template": 1,
+                    "title": "Galería de Imágenes",
+                    "backgroundImage": "",
+                    "backgroundColor": "#160722",
+                    "fontSize": "71",
+                    "lineHeight": 1.5,
+                    "textColor": "#ffffff",
+                    "textAlign": "left",
+                    "height": "260",
+                    "fontWeight": "bold"
+                }
+            }
+        },
+        {
+            "id": "96jv8hpvb",
+            "position": 1,
+            "widget": {
+                "id": "dlra139rd",
+                "name": "galeria-de-imagenes",
+                "element": {
+                    "template": 1,
+                    "images": [
+                        {
+                            "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540227540_bg-tecno-neon-3-jpg_1"
+                        },
+                        {
+                            "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727541971563_bg-teno-neon-4-jpg_1"
+                        },
+                        {
+                            "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727538719244_bg-tecno-neon-jpg_1"
+                        },
+                        {
+                            "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540218005_bg-tecno-neon-2-jpg_1"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "id": "inf7x1tew",
+            "position": 2,
+            "widget": {
+                "id": "79l58qweo",
+                "name": "footer",
+                "element": {
+                    "template": "2",
+                    "textColor": "#ffffff",
+                    "title": "Despeguemos juntos",
+                    "titleColor": "#ffffff",
+                    "backgroundType": "imagen",
+                    "backgroundColor": "#f3f4f6",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727541971563_bg-teno-neon-4-jpg_1",
+                    "links": [
+                        {
+                            "text": "Inicio",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Servicios",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Acerca de",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Contacto",
+                            "url": "#"
+                        }
+                    ],
+                    "linksTitle": "Enlaces importantes",
+                    "contactInfo": "info@example.com\n+1 234 567 890",
+                    "contactTitle": "Contáctanos",
+                    "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                    "descriptionTitle": "¿Quienes somos?",
+                    "socialMedia": [
+                        {
+                            "icon": "fa-brands fa-square-facebook",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-instagram",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-twitter",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa fa-twitter-square",
+                            "url": "#"
+                        }
+                    ],
+                    "socialTitle": "Siguenos en:",
+                    "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                    "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727543052291_cohete-tecno-neon-png_1"
+                }
+            }
+        }
+    ]
+    },
+    {
+        "id": 2,
+        "name": "Vehículos | Página de Inicio",
+        "image": "/img/vehiculos-inicio.png",
+        "categories": [{"name": "Todas"}, {"name": "Vehículos"}],
+        "sections": [
+            {
+                "id": "lvei3zuhf",
+                "position": 0,
+                "widget": {
+                    "id": "s57she8ju",
+                    "name": "header-parallax",
+                    "element": {
+                        "title": "Venta de Vehículos",
+                        "description": "Compra tu carro nuevo o usado al mejor precio del mercado. Somos los mejores en el tema.",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809386929_bg-cars-2-jpg_1",
+                        "centerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809775294_vendedor-1-png_1",
+                        "buttonText": "Ver todos los servicios",
+                        "buttonColor": "#000000",
+                        "buttonLink": "/",
+                        "template": "2"
+                    }
+                }
+            },
+            {
+                "id": "b7w5dpk2i",
+                "position": 1,
+                "widget": {
+                    "id": "l552se7gw",
+                    "name": "title",
+                    "element": {
+                        "viewMode": false,
+                        "template": 1,
+                        "title": "Cual es tu preferencia",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809503818_bg-cars-9-jpg_1",
+                        "backgroundColor": "",
+                        "height": 300,
+                        "fontSize": 60,
+                        "fontWeight": "bold",
+                        "lineHeight": 1.5,
+                        "textColor": "#ffffff",
+                        "textAlign": "center"
+                    }
+                }
+            },
+            {
+                "id": "o1e13twak",
+                "position": 2,
+                "widget": {
+                    "id": "xqgsvwze3",
+                    "name": "cards",
+                    "element": {
+                        "viewMode": false,
+                        "template": 1,
+                        "sectionTitle": "",
+                        "backgroundType": "image",
+                        "backgroundColor": "#f5f5f5",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809457486_bg-cars-5-jpg_1",
+                        "cards": [
+                            {
+                                "title": "Deportivos",
+                                "description": "¡Siente la adrenalina al volante de este espectacular vehículo deportivo! Potencia, estilo y tecnología de vanguardia se unen para ofrecerte una experiencia de conducción incomparable. ¿Estás listo?",
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809549302_objeto-1-png_1",
+                                "buttonText": "Ver Vehículos",
+                                "buttonColor": "#4A5568",
+                                "buttonLink": "/"
+                            },
+                            {
+                                "title": "Vehículos 4x4",
+                                "description": "Conquista cualquier terreno con este imponente 4x4. Fuerza, durabilidad y máxima tracción para llevarte a donde otros no pueden llegar. ¡Haz de cada aventura una experiencia inolvidable!",
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809583962_objeto-5-png_1",
+                                "buttonText": "Explorar Opciones",
+                                "buttonColor": "#718096",
+                                "buttonLink": "/"
+                            },
+                            {
+                                "title": "Vehículos SUV",
+                                "description": "Descubre el equilibrio perfecto entre comodidad y rendimiento con este SUV. Espacioso, elegante y equipado con lo último en tecnología, es el compañero ideal para todas tus aventuras familiares. ",
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809708829_objeto-10-png_1",
+                                "buttonText": "Conducirlo HOY",
+                                "buttonColor": "#2D3748",
+                                "buttonLink": "/"
+                            }
+                        ],
+                        "whiteTitle": true
+                    }
+                }
+            },
+            {
+                "id": "5foviwcvf",
+                "position": 3,
+                "widget": {
+                    "id": "xny25yy9p",
+                    "name": "reseñas",
+                    "element": {
+                        "viewMode": false,
+                        "template": "1",
+                        "sectionTitle": "Lo que dicen nuestros clientes",
+                        "backgroundType": "image",
+                        "backgroundColor": "#F7FAFC",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809432054_bg-cars-3-jpg_1",
+                        "reviews": [
+                            {
+                                "name": "Ana Martínez",
+                                "position": "CEO, TechInnovate",
+                                "text": "La colaboración con este equipo ha sido transformadora para nuestro negocio. Su enfoque innovador y atención al detalle superaron nuestras expectativas.",
+                                "rating": 5,
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626440969_woman-6-png_1"
+                            },
+                            {
+                                "name": "Carlos Rodríguez",
+                                "position": "Director de Operaciones, GlobalSolutions",
+                                "text": "Implementar sus soluciones mejoró significativamente nuestra eficiencia operativa. Su soporte continuo es invaluable para nuestro éxito.",
+                                "rating": 4,
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626440969_woman-6-png_1"
+                            },
+                            {
+                                "name": "Laura Sánchez",
+                                "position": "Fundadora, EcoTech",
+                                "text": "Su compromiso con la sostenibilidad y la innovación se alinea perfectamente con nuestros valores. Han sido un socio crucial en nuestro crecimiento.",
+                                "rating": 5,
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626440969_woman-6-png_1"
+                            }
+                        ],
+                        "whiteTitle": true,
+                        "textColor": "#fff694"
+                    }
+                }
+            },
+            {
+                "id": "dpv8mr4cw",
+                "position": 4,
+                "widget": {
+                    "id": "tdd51y25r",
+                    "name": "destacar",
+                    "element": {
+                        "template": 1,
+                        "viewMode": false,
+                        "title": "Obtenga su vehículo HOY",
+                        "description": "¡Hoy es el día perfecto para estrenar el auto de tus sueños! Aprovecha nuestras ofertas exclusivas y llévatelo con financiamiento especial. No esperes más, tu nuevo vehículo te está esperando.",
+                        "buttonText": "Explorar Soluciones",
+                        "buttonUrl": "/soluciones",
+                        "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809478516_bg-cars-6-jpg_1",
+                        "titleColor": "#ffffff",
+                        "titleWeight": "bold",
+                        "descriptionColor": "#f0f4f8",
+                        "buttonColor": "#737373",
+                        "buttonTextColor": "#ffffff",
+                        "backgroundColor": "#050505"
+                    }
+                }
+            },
+            {
+                "id": "b0v0efzn9",
+                "position": 5,
+                "widget": {
+                    "id": "nngws6cx5",
+                    "name": "footer",
+                    "element": {
+                        "template": "2",
+                        "textColor": "#ffffff",
+                        "title": "Contáctanos",
+                        "titleColor": "#000000",
+                        "backgroundType": "imagen",
+                        "backgroundColor": "#f3f4f6",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809511318_bg-cars-10-jpg_1",
+                        "links": [
+                            {
+                                "text": "Inicio",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Servicios",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Acerca de",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Contacto",
+                                "url": "#"
+                            }
+                        ],
+                        "linksTitle": "Enlaces importantes",
+                        "contactInfo": "info@example.com\n+1 234 567 890",
+                        "contactTitle": "Contáctanos",
+                        "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                        "descriptionTitle": "Quienes somos",
+                        "socialMedia": [
+                            {
+                                "icon": "fa-brands fa-square-facebook",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-instagram",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-twitter",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa fa-twitter-square",
+                                "url": "#"
+                            }
+                        ],
+                        "socialTitle": "Siguenos en:",
+                        "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                        "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809549302_objeto-1-png_1"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Vehículos | Artículo",
+        "image": "/img/vehiculos-articulo.png",
+        "categories": [{"name": "Todas"}, {"name": "Vehículos"}],
+        "sections": [
+        {
+            "id": "b7w5dpk2i",
+            "position": 0,
+            "widget": {
+                "id": "l552se7gw",
+                "name": "title",
+                "element": {
+                    "viewMode": false,
+                    "template": 1,
+                    "title": "Vehículos Eléctricos",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809441023_bg-cars-4-jpg_1",
+                    "backgroundColor": "",
+                    "height": 300,
+                    "fontSize": 60,
+                    "fontWeight": "bold",
+                    "lineHeight": 1.5,
+                    "textColor": "#ffffff",
+                    "textAlign": "center"
+                }
+            }
+        },
+        {
+            "id": "652dmv896",
+            "position": 1,
+            "widget": {
+                "id": "2fonbmrx6",
+                "name": "artículo",
+                "element": {
+                    "viewMode": false,
+                    "template": 1,
+                    "title": "La Evolución de los vehículos eléctricos en 2024",
+                    "backgroundType": "color",
+                    "backgroundColor": "#000000",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626278533_bg-beauty-3-jpg_1",
+                    "description": "&lt;h1>Los vehículos eléctricos &lt;/h1>&lt;p>&lt;br>&lt;/p>&lt;p>representan el futuro de la movilidad, combinando eficiencia, sostenibilidad y ahorro. Con tecnología avanzada, estos autos ofrecen una conducción suave, silenciosa y libre de emisiones contaminantes, ayudando a cuidar el medio ambiente sin comprometer el rendimiento. Además, con costos de mantenimiento y energía reducidos, los vehículos eléctricos son la opción inteligente para quienes buscan una solución moderna y ecológica para desplazarse. ¡Únete al cambio hacia una movilidad más verde y eficiente!&lt;/p>",
+                    "pictures": [
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809708829_objeto-10-png_1"
+                        },
+                        {
+                            "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809666929_objeto-6-png_1"
+                        }
+                    ],
+                    "whiteTitle": true,
+                    "textColor": "#ffffff",
+                    "overlayColor": "rgba(0, 0, 0, 0.6)",
+                    "showActionButton": true,
+                    "actionButtonText": "Leer más",
+                    "actionButtonUrl": "/",
+                    "showFacebook": true,
+                    "showInstagram": true,
+                    "showTwitter": true,
+                    "showWhatsapp": true,
+                    "facebookAccount": "/",
+                    "instagramAccount": "/",
+                    "twitterAccount": "/",
+                    "whatsappNumber": "+1234567890"
+                }
+            }
+        },
+        {
+            "id": "b0v0efzn9",
+            "position": 2,
+            "widget": {
+                "id": "nngws6cx5",
+                "name": "footer",
+                "element": {
+                    "template": "2",
+                    "textColor": "#ffffff",
+                    "title": "Contáctanos",
+                    "titleColor": "#000000",
+                    "backgroundType": "imagen",
+                    "backgroundColor": "#f3f4f6",
+                    "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809511318_bg-cars-10-jpg_1",
+                    "links": [
+                        {
+                            "text": "Inicio",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Servicios",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Acerca de",
+                            "url": "#"
+                        },
+                        {
+                            "text": "Contacto",
+                            "url": "#"
+                        }
+                    ],
+                    "linksTitle": "Enlaces importantes",
+                    "contactInfo": "info@example.com\n+1 234 567 890",
+                    "contactTitle": "Contáctanos",
+                    "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                    "descriptionTitle": "Quienes somos",
+                    "socialMedia": [
+                        {
+                            "icon": "fa-brands fa-square-facebook",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-instagram",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa-square-twitter",
+                            "url": "#"
+                        },
+                        {
+                            "icon": "fa-brands fa fa-twitter-square",
+                            "url": "#"
+                        }
+                    ],
+                    "socialTitle": "Siguenos en:",
+                    "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                    "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809549302_objeto-1-png_1"
+                }
+            }
+        }
+    ]
+    },
+    {
+        "id": 2,
+        "name": "Vehículos | Galería",
+        "image": "/img/vehiculos-galeria.png",
+        "categories": [{"name": "Todas"}, {"name": "Vehículos"}],
+        "sections": [
+            {
+                "id": "b7w5dpk2i",
+                "position": 0,
+                "widget": {
+                    "id": "l552se7gw",
+                    "name": "title",
+                    "element": {
+                        "viewMode": false,
+                        "template": 1,
+                        "title": "Galería de Imágenes",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809503818_bg-cars-9-jpg_1",
+                        "backgroundColor": "",
+                        "height": 300,
+                        "fontSize": 60,
+                        "fontWeight": "bold",
+                        "lineHeight": 1.5,
+                        "textColor": "#ffffff",
+                        "textAlign": "center"
+                    }
+                }
+            },
+            {
+                "id": "9z2wo0srk",
+                "position": 1,
+                "widget": {
+                    "id": "pzon8l5pl",
+                    "name": "galeria-de-imagenes",
+                    "element": {
+                        "template": 1,
+                        "images": [
+                            {
+                                "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809457486_bg-cars-5-jpg_1"
+                            },
+                            {
+                                "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809386929_bg-cars-2-jpg_1"
+                            },
+                            {
+                                "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809432054_bg-cars-3-jpg_1"
+                            },
+                            {
+                                "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809478516_bg-cars-6-jpg_1"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "id": "b0v0efzn9",
+                "position": 2,
+                "widget": {
+                    "id": "nngws6cx5",
+                    "name": "footer",
+                    "element": {
+                        "template": "2",
+                        "textColor": "#ffffff",
+                        "title": "Contáctanos",
+                        "titleColor": "#000000",
+                        "backgroundType": "imagen",
+                        "backgroundColor": "#f3f4f6",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809511318_bg-cars-10-jpg_1",
+                        "links": [
+                            {
+                                "text": "Inicio",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Servicios",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Acerca de",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Contacto",
+                                "url": "#"
+                            }
+                        ],
+                        "linksTitle": "Enlaces importantes",
+                        "contactInfo": "info@example.com\n+1 234 567 890",
+                        "contactTitle": "Contáctanos",
+                        "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                        "descriptionTitle": "Quienes somos",
+                        "socialMedia": [
+                            {
+                                "icon": "fa-brands fa-square-facebook",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-instagram",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-twitter",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa fa-twitter-square",
+                                "url": "#"
+                            }
+                        ],
+                        "socialTitle": "Siguenos en:",
+                        "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                        "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727809549302_objeto-1-png_1"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Restaurante | Página de Inicio",
+        "image": "/img/restaurante-inicio.png",
+        "categories": [{"name": "Todas"}, {"name": "Restaurante"}],
+        "sections": [
+            {
+                "id": "p946ggrnb",
+                "position": 0,
+                "widget": {
+                    "id": "aq4wd7cd4",
+                    "name": "header-parallax",
+                    "element": {
+                        "title": "Cocina y Playa",
+                        "description": "Disfruta de una experiencia gastronómica única en nuestro restaurante frente al mar. Saborea frescos mariscos, platos exquisitos y cócteles refrescantes mientras te relajas con la brisa marina y las vistas espectaculares.",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826363287_bg-rest-10-jpg_1",
+                        "centerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826427167_cocinero-3-png_1",
+                        "buttonText": "Menú",
+                        "buttonColor": "#000000",
+                        "buttonLink": "/",
+                        "template": "2"
+                    }
+                }
+            },
+            {
+                "id": "jhples59n",
+                "position": 1,
+                "widget": {
+                    "id": "v1s2eo4n3",
+                    "name": "title",
+                    "element": {
+                        "viewMode": false,
+                        "template": 1,
+                        "title": "PLATILLOS FAVORITOS",
+                        "backgroundImage": "",
+                        "backgroundColor": "#dfdbd7",
+                        "height": "100",
+                        "fontSize": 60,
+                        "fontWeight": "bold",
+                        "lineHeight": 1.5,
+                        "textColor": "#504e4e",
+                        "textAlign": "right"
+                    }
+                }
+            },
+            {
+                "id": "7ibeiio20",
+                "position": 2,
+                "widget": {
+                    "id": "r1htqdnx1",
+                    "name": "carrusel",
+                    "element": {
+                        "viewMode": false,
+                        "template": "2",
+                        "sectionTitle": "",
+                        "backgroundType": "image",
+                        "backgroundColor": "#ffffff",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826355725_bg-rest-9-jpg_1",
+                        "slides": [
+                            {
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826490406_platillo-1-png_1",
+                                "title": "Ensalada Cesar",
+                                "description": "La ensalada César es una deliciosa mezcla de frescura y sabor, combinando crujientes hojas de lechuga, aderezo cremoso con un toque de anchoas, y trocitos de parmesano.",
+                                "buttonText": "ver menú",
+                                "buttonColor": "#4A5568",
+                                "buttonLink": "#",
+                                "showImage": true,
+                                "showTitle": true,
+                                "showDescription": true,
+                                "showButton": true,
+                                "descriptionColor": "#4A5568",
+                                "buttonTextColor": "#FFFFFF",
+                                "titleColor": "#2D3748"
+                            },
+                            {
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826509865_platillo-3-png_1",
+                                "title": "Mariscos",
+                                "description": "La mariscada es un festín de sabores del mar, con una selección de camarones, langosta, almejas y otros mariscos frescos. Perfecta para los amantes del mar, cada bocado ofrece una explosión.",
+                                "buttonText": "ver menú",
+                                "buttonColor": "#718096",
+                                "buttonLink": "#",
+                                "showImage": true,
+                                "showTitle": true,
+                                "showDescription": true,
+                                "showButton": true,
+                                "titleColor": "#2D3748",
+                                "buttonTextColor": "#FFFFFF",
+                                "descriptionColor": "#4A5568"
+                            },
+                            {
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826547743_platillo-7-png_1",
+                                "title": "Hamburguesas",
+                                "description": "Una hamburguesa es mucho más que una comida rápida: es una explosión de sabores. Carne jugosa a la parrilla, pan suave y esponjoso, complementados con queso derretido, vegetales frescos y salsas.",
+                                "buttonText": "Explorar",
+                                "buttonColor": "#2D3748",
+                                "buttonLink": "#",
+                                "showImage": true,
+                                "showTitle": true,
+                                "showDescription": true,
+                                "showButton": true,
+                                "titleColor": "#2D3748",
+                                "buttonTextColor": "#FFFFFF",
+                                "descriptionColor": "#4A5568"
+                            }
+                        ],
+                        "localSectionTitleColor": true,
+                        "sectionTitleColor": "#404040"
+                    }
+                }
+            },
+            {
+                "id": "47jc5y9v1",
+                "position": 3,
+                "widget": {
+                    "id": "xvd30masz",
+                    "name": "reseñas",
+                    "element": {
+                        "viewMode": false,
+                        "template": "2",
+                        "sectionTitle": "Valoración de Platillos",
+                        "backgroundType": "image",
+                        "backgroundColor": "#F7FAFC",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826340676_bg-rest-7-jpg_1",
+                        "reviews": [
+                            {
+                                "name": "Carnes Especiales",
+                                "position": "CEO, TechInnovate",
+                                "text": "Deléitate con nuestra jugosa carne en salsa, tierna y llena de sabor, bañada en una rica y suculenta salsa que realza cada bocado. ",
+                                "rating": 4,
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826528182_platillo-5-png_1"
+                            },
+                            {
+                                "name": "Mejillones",
+                                "position": "Director de Operaciones, GlobalSolutions",
+                                "text": "Saborea la frescura del mar con nuestros mejillones al vapor, cocinados a la perfección y bañados en una deliciosa salsa de vino blanco y hierbas.",
+                                "rating": 3,
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826537441_platillo-6-png_1"
+                            },
+                            {
+                                "name": "Salmón y Tomate",
+                                "position": "Fundadora, EcoTech",
+                                "text": "Disfruta de nuestro salmón fresco a la plancha, acompañado de jugosos tomates asados que realzan su sabor suave y delicado. Una combinación perfecta de frescura y nutrición.",
+                                "rating": 5,
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826499790_platillo-2-png_1"
+                            }
+                        ],
+                        "whiteTitle": false,
+                        "textColor": "#4a5568"
+                    }
+                }
+            },
+            {
+                "id": "182np2poe",
+                "position": 4,
+                "widget": {
+                    "id": "x0knvy6b3",
+                    "name": "title",
+                    "element": {
+                        "template": 1,
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826324054_bg-rest-5-jpg_1",
+                        "title": "Playa y Arena",
+                        "backgroundColor": "",
+                        "fontSize": "72",
+                        "lineHeight": 1.5,
+                        "textColor": "#a3a3a3",
+                        "textAlign": "center",
+                        "height": "190",
+                        "fontWeight": "bold"
+                    }
+                }
+            },
+            {
+                "id": "inf7x1tew",
+                "position": 5,
+                "widget": {
+                    "id": "79l58qweo",
+                    "name": "footer",
+                    "element": {
+                        "template": "2",
+                        "textColor": "#5e5e5e",
+                        "title": "Despeguemos juntos",
+                        "titleColor": "#636363",
+                        "backgroundType": "imagen",
+                        "backgroundColor": "#f3f4f6",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826347387_bg-rest-8-jpg_1",
+                        "links": [
+                            {
+                                "text": "Inicio",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Servicios",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Acerca de",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Contacto",
+                                "url": "#"
+                            }
+                        ],
+                        "linksTitle": "Enlaces importantes",
+                        "contactInfo": "info@example.com\n+1 234 567 890",
+                        "contactTitle": "Contáctanos",
+                        "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                        "descriptionTitle": "¿Quienes somos?",
+                        "socialMedia": [
+                            {
+                                "icon": "fa-brands fa-square-facebook",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-instagram",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-twitter",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa fa-twitter-square",
+                                "url": "#"
+                            }
+                        ],
+                        "socialTitle": "Siguenos en:",
+                        "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                        "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826474626_objeto-2-png_1"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Restaurante | Artículo",
+        "image": "/img/restaurante-articulo.png",
+        "categories": [{"name": "Todas"}, {"name": "Restaurante"}],
+        "sections": [
+            {
+                "id": "p946ggrnb",
+                "position": 0,
+                "widget": {
+                    "id": "aq4wd7cd4",
+                    "name": "header-parallax",
+                    "element": {
+                        "title": "Los mejores Platillos",
+                        "description": "Disfruta de una experiencia gastronómica única en nuestro restaurante frente al mar. Saborea frescos mariscos, platos exquisitos y cócteles refrescantes mientras te relajas con la brisa marina y las vistas espectaculares.",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826347387_bg-rest-8-jpg_1",
+                        "centerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826464366_objeto-1-png_1",
+                        "buttonText": "Menú",
+                        "buttonColor": "#000000",
+                        "buttonLink": "/",
+                        "template": "2"
+                    }
+                }
+            },
+            {
+                "id": "as481xu32",
+                "position": 1,
+                "widget": {
+                    "id": "b6aj1scfs",
+                    "name": "artículo",
+                    "element": {
+                        "viewMode": false,
+                        "template": 1,
+                        "title": "Las ventajas de vivir cerca del mar",
+                        "backgroundType": "image",
+                        "backgroundColor": "#bbc3c6",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826355725_bg-rest-9-jpg_1",
+                        "description": "&lt;p>&lt;strong>&lt;em>El mar es el corazón&lt;/em>&lt;/strong>&lt;em> que late en las costas, ofreciendo no solo paisajes impresionantes, sino también una riqueza gastronómica inigualable. La brisa salada, el sonido de las olas rompiendo en la orilla, y la sensación de la arena bajo los pies crean el ambiente perfecto para disfrutar de la comida de playa. Cada rincón costero tiene su esencia y su sabor particular, pero todos comparten algo en común: la frescura incomparable de sus ingredientes.&lt;/em>&lt;/p>&lt;p>&lt;br>&lt;/p>&lt;p>&lt;em>La comida de playa es una celebración de lo simple y lo auténtico. Platos como los mariscos frescos, el pescado recién capturado y las parrilladas junto al mar ofrecen una experiencia que va más allá de lo gastronómico. Es un momento para saborear la conexión entre la tierra y el océano, donde cada bocado refleja la naturaleza que lo rodea. Los sabores del mar, combinados con ingredientes locales, son un tributo a la frescura y la sencillez que solo la costa puede ofrecer.&lt;/em>&lt;/p>&lt;p>&lt;br>&lt;/p>&lt;p>&lt;em>Desde ceviches llenos de vida hasta parrilladas de pescado a la leña, la comida de playa nos invita a relajarnos y disfrutar del presente. Los sabores ligeros y frescos se complementan a la perfección con el entorno: un atardecer sobre el mar, una bebida refrescante y el aroma de la brisa marina. Es una experiencia que alimenta tanto el cuerpo como el alma, transportándonos a un estado de tranquilidad y felicidad incomparables.&lt;/em>&lt;/p>",
+                        "pictures": [
+                            {
+                                "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826418099_cocinero-2-png_1"
+                            }
+                        ],
+                        "whiteTitle": false,
+                        "textColor": "#333333",
+                        "overlayColor": "#e0ded7",
+                        "showActionButton": true,
+                        "actionButtonText": "Ver menú",
+                        "actionButtonUrl": "/",
+                        "showFacebook": true,
+                        "showInstagram": true,
+                        "showTwitter": true,
+                        "showWhatsapp": true,
+                        "facebookAccount": "/",
+                        "instagramAccount": "/",
+                        "twitterAccount": "/",
+                        "whatsappNumber": "+1234567890"
+                    }
+                }
+            },
+            {
+                "id": "inf7x1tew",
+                "position": 2,
+                "widget": {
+                    "id": "79l58qweo",
+                    "name": "footer",
+                    "element": {
+                        "template": "2",
+                        "textColor": "#5e5e5e",
+                        "title": "Despeguemos juntos",
+                        "titleColor": "#636363",
+                        "backgroundType": "imagen",
+                        "backgroundColor": "#f3f4f6",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826347387_bg-rest-8-jpg_1",
+                        "links": [
+                            {
+                                "text": "Inicio",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Servicios",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Acerca de",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Contacto",
+                                "url": "#"
+                            }
+                        ],
+                        "linksTitle": "Enlaces importantes",
+                        "contactInfo": "info@example.com\n+1 234 567 890",
+                        "contactTitle": "Contáctanos",
+                        "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                        "descriptionTitle": "¿Quienes somos?",
+                        "socialMedia": [
+                            {
+                                "icon": "fa-brands fa-square-facebook",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-instagram",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-twitter",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa fa-twitter-square",
+                                "url": "#"
+                            }
+                        ],
+                        "socialTitle": "Siguenos en:",
+                        "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                        "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826474626_objeto-2-png_1"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Restaurante | Galería",
+        "image": "/img/restaurante-galeria.png",
+        "categories": [{"name": "Todas"}, {"name": "Restaurante"}],
+        "sections": [
+            {
+                "id": "ir1x1sc14",
+                "position": 0,
+                "widget": {
+                    "id": "gxaa5dqvs",
+                    "name": "galeria-de-imagenes",
+                    "element": {
+                        "template": 1,
+                        "images": [
+                            {
+                                "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826332237_bg-rest-6-jpg_1"
+                            },
+                            {
+                                "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826324054_bg-rest-5-jpg_1"
+                            },
+                            {
+                                "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826316751_bg-rest-4-jpg_1"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "id": "inf7x1tew",
+                "position": 1,
+                "widget": {
+                    "id": "79l58qweo",
+                    "name": "footer",
+                    "element": {
+                        "template": "2",
+                        "textColor": "#5e5e5e",
+                        "title": "Despeguemos juntos",
+                        "titleColor": "#636363",
+                        "backgroundType": "imagen",
+                        "backgroundColor": "#f3f4f6",
+                        "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826347387_bg-rest-8-jpg_1",
+                        "links": [
+                            {
+                                "text": "Inicio",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Servicios",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Acerca de",
+                                "url": "#"
+                            },
+                            {
+                                "text": "Contacto",
+                                "url": "#"
+                            }
+                        ],
+                        "linksTitle": "Enlaces importantes",
+                        "contactInfo": "info@example.com\n+1 234 567 890",
+                        "contactTitle": "Contáctanos",
+                        "description": "Somos una empresa dedicada a proporcionar soluciones innovadoras...",
+                        "descriptionTitle": "¿Quienes somos?",
+                        "socialMedia": [
+                            {
+                                "icon": "fa-brands fa-square-facebook",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-instagram",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa-square-twitter",
+                                "url": "#"
+                            },
+                            {
+                                "icon": "fa-brands fa fa-twitter-square",
+                                "url": "#"
+                            }
+                        ],
+                        "socialTitle": "Siguenos en:",
+                        "copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+                        "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727826474626_objeto-2-png_1"
+                    }
+                }
+            }
+        ]
     }
   ]
 }

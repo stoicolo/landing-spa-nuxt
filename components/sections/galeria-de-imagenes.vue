@@ -21,7 +21,7 @@
         </svg>
       </button>
   
-      <template v-else>
+      <template v-if="localImages.length !== 0">
         <div
           v-for="(image, index) in localImages"
           :key="index"

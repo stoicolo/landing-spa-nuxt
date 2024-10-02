@@ -169,6 +169,7 @@ export const useTemplateStore = defineStore('template_store', {
       if (!this.structure.page_template.sections) return;
 
       const section = this.structure.page_template.sections.find(s => s.id === sectionId);
+      debugger
       if (section) {
         const currentPosition = section.position;
         const newPosition = direction === 'up' ? currentPosition - 1 : currentPosition + 1;
