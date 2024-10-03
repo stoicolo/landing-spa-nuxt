@@ -284,10 +284,38 @@
         "id": 3,
         "name": "videos",
         "category": "basics",
-        "image": "/img/videos-preview.png",
+        "image": "/img/video-preview.png",
         "available": true,
         "element": {
-          "template": 1
+          "viewMode": false,
+          "template": 1,
+          "backgroundType": "color",
+          "backgroundColor": "#1a202c",
+          "backgroundImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727737109931_servicio-1-jpg_1",
+          "videos": [
+            {
+              "id": 1,
+              "title": "Innovación en Inteligencia Artificial",
+              "description": "Descubra cómo nuestras soluciones de IA están transformando la industria.",
+              "thumbnail": "https://img.youtube.com/vi/PQd61JpPzRg/0.jpg",
+              "youtubeId": "PQd61JpPzRg"
+            },
+            {
+              "id": 2,
+              "title": "Revolución en Energía Sostenible",
+              "description": "Explorando nuestros avances en tecnología de energía limpia.",
+              "thumbnail": "https://img.youtube.com/vi/PQd61JpPzRg/0.jpg",
+              "youtubeId": "PQd61JpPzRg"
+            },
+            {
+              "id": 3,
+              "title": "El Futuro de la Movilidad",
+              "description": "Un vistazo a nuestros proyectos de vehículos autónomos y eléctricos.",
+              "thumbnail": "https://img.youtube.com/vi/PQd61JpPzRg/0.jpg",
+              "youtubeId": "PQd61JpPzRg"
+            }
+          ],
+          "whiteTitle": true
         }
       },
       {

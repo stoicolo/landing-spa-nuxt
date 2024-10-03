@@ -176,7 +176,7 @@
   const titleRef = ref(null);
   const bgImageRef = ref(null);
   const showModalVideo = ref(false);
-  const videoId = ref('');
+  const videoId = ref('ZvDn_VTNgtM');
   
   const localTitle = ref(props.title);
   const titleInput = ref(null);

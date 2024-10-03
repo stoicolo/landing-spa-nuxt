@@ -309,7 +309,7 @@
   const localWhatsappNumber = ref(props.whatsappNumber);
   const quillEditor = ref(null);
   const showModalVideo = ref(false);
-  const videoId = ref('');
+  const videoId = ref('ZFLtFcnZfA8');
   
   const openGaleryImages = inject('openGaleryImages', () => {
       console.warn('openGaleryImages function is not available');

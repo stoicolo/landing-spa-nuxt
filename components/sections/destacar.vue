@@ -205,7 +205,7 @@
   const localButtonTextColor = ref(props.buttonTextColor);
   const localBackgroundColor = ref(props.backgroundColor);
   const showModalVideo = ref(false);
-  const videoId = ref('');
+  const videoId = ref('2tc18flnqBw');
   
   const imageContainer = ref(null);
   const parallaxImage = ref(null);
