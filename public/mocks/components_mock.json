@@ -355,6 +355,45 @@
           "copyright": "© 2024 Empresa Innovadora. Todos los derechos reservados.",
           "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727543052291_cohete-tecno-neon-png_1"
         }
+      },
+      {
+        "id": 3,
+        "name": "header-multiple",
+        "category": "basics",
+        "image": "/img/footer-preview.png",
+        "available": true,
+        "element": {
+          "viewMode": false,
+          "template": 1,
+          "title": "Innovación que Transforma el Futuro",
+          "titleColor": "#2D3748",
+          "description": "Descubra cómo nuestras soluciones tecnológicas están revolucionando industrias y mejorando vidas. Únase a nosotros en el viaje hacia un futuro más inteligente y conectado.",
+          "textColor": "#4A5568",
+          "buttonTextColor": "#FFFFFF",
+          "headerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736625859_bg-doctor-3-jpg_1",
+          "animationDuration": 3,
+          "backgroundColor": "#F7FAFC",
+          "circles": [
+            { 
+              "size": 186, 
+              "position": 20, 
+              "borderColor": "#cccccc", 
+              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1" 
+            },
+            { 
+              "size": 196, 
+              "position": 50, 
+              "borderColor": "#cccccc", 
+              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1" 
+            },
+            { 
+              "size": 104, 
+              "position": 23, 
+              "borderColor": "#cccccc", 
+              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1" 
+            }
+          ]
+        }
       }
     ]
 }
