@@ -1,7 +1,7 @@
 <template>
     <header ref="headerRef" class="dynamic-header" :style="{ backgroundColor: localBackgroundColor }">
       <div class="header-content" :class="{ 'template-1': localTemplate === 1, 'template-2': localTemplate === 2 }">
-        <div class="image-container" ref="imageContainerRef">
+        <div class="image-container" ref="imageContainerRef" :style="{ flex: `0 0 ${localImageWidth}%` }">
           <img :src="localHeaderImage" alt="Header Image" class="header-image">
         </div>
         <div class="text-content" ref="textContentRef">
@@ -17,10 +17,10 @@
             :style="{ 
                 width: `${circle.size}px`, 
                 height: `${circle.size}px`, 
-                left: `${circle.position}%`,
+                left: `${circle.positionX}%`,
+                top: `${circle.positionY}%`,
                 borderColor: circle.borderColor,
-                backgroundImage: circle.image ? `url(${circle.image})` : 'none',
-                top: `${56 + (index * 15)}%`
+                backgroundImage: circle.image ? `url(${circle.image})` : 'none'
             }">
         </div>
         </div>
@@ -100,6 +100,12 @@
             </div>
           </div>
   
+          <div class="mb-4">
+            <label for="imageWidth" class="block text-sm font-medium text-gray-700">Ancho de la Imagen Principal (%)</label>
+            <input id="imageWidth" v-model="localImageWidth" type="range" min="10" max="90" class="mt-1 block w-full">
+            <span class="text-sm text-gray-500">{{ localImageWidth }}%</span>
+          </div>
+  
           <div v-for="(circle, index) in localCircles" :key="index" class="mb-4">
             <h3 class="text-lg font-medium text-gray-700">Círculo {{ index + 1 }}</h3>
             <div class="grid grid-cols-2 gap-4">
@@ -108,10 +114,17 @@
                 <input :id="'circleSize' + index" v-model="circle.size" type="range" min="50" max="300" class="mt-1 block w-full">
                 <span class="text-sm text-gray-500">{{ circle.size }}px</span>
               </div>
-              <div>
-                <label :for="'circlePosition' + index" class="block text-sm font-medium text-gray-700">Posición Horizontal (%)</label>
-                <input :id="'circlePosition' + index" v-model="circle.position" type="range" min="0" max="100" class="mt-1 block w-full">
-                <span class="text-sm text-gray-500">{{ circle.position }}%</span>
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label :for="'circlePositionX' + index" class="block text-sm font-medium text-gray-700">Posición X (%)</label>
+                  <input :id="'circlePositionX' + index" v-model="circle.positionX" type="range" min="0" max="100" class="mt-1 block w-full">
+                  <span class="text-sm text-gray-500">{{ circle.positionX }}%</span>
+                </div>
+                <div>
+                  <label :for="'circlePositionY' + index" class="block text-sm font-medium text-gray-700">Posición Y (%)</label>
+                  <input :id="'circlePositionY' + index" v-model="circle.positionY" type="range" min="0" max="100" class="mt-1 block w-full">
+                  <span class="text-sm text-gray-500">{{ circle.positionY }}%</span>
+                </div>
               </div>
               <div>
                 <label :for="'circleBorderColor' + index" class="block text-sm font-medium text-gray-700">Color del Borde</label>
@@ -132,6 +145,7 @@
                 </div>
               </div>
             </div>
+            <hr class="my-4 border-gray-200">
           </div>
   
         </div>
@@ -181,24 +195,24 @@
     description: {
       type: String,
       default: 'Descubre nuestros increíbles productos y servicios.'
-  },
-  textColor: {
-    type: String,
-    default: '#000000'
-  },
-  buttonText: {
-    type: String,
-    default: 'Saber más'
-  },
-  buttonLink: {
-    type: String,
-    default: '#'
-  },
-  buttonColor: {
-    type: String,
-    default: '#3490dc'
-  },
-  buttonTextColor: {
+    },
+    textColor: {
+      type: String,
+      default: '#000000'
+    },
+    buttonText: {
+      type: String,
+      default: 'Saber más'
+    },
+    buttonLink: {
+      type: String,
+      default: '#'
+    },
+    buttonColor: {
+      type: String,
+      default: '#3490dc'
+    },
+    buttonTextColor: {
     type: String,
     default: '#ffffff'
   },
@@ -214,12 +228,16 @@
     type: String,
     default: '#ffffff' // Color de fondo predeterminado
   },
+  imageWidth: {
+    type: Number,
+    default: 50
+  },
   circles: {
     type: Array,
     default: () => [
-    { size: 186, position: 20, borderColor: '#cccccc', image: 'https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1' },
-    { size: 196, position: 50, borderColor: '#cccccc', image: 'https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1' },
-    { size: 104, position: 23, borderColor: '#cccccc', image: 'https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1' }
+      { size: 186, positionX: 20, positionY: 50, borderColor: '#cccccc', image: 'https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1' },
+      { size: 196, positionX: 50, positionY: 60, borderColor: '#cccccc', image: 'https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1' },
+      { size: 104, positionX: 23, positionY: 70, borderColor: '#cccccc', image: 'https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1' }
     ]
   }
 });
@@ -245,7 +263,7 @@ const localButtonColor = ref(props.buttonColor);
 const localButtonTextColor = ref(props.buttonTextColor);
 const localHeaderImage = ref(props.headerImage);
 const localBackgroundColor = ref(props.backgroundColor);
-
+const localImageWidth = ref(props.imageWidth);
 const localCircles = ref(props.circles);
 
 const isVisible = ref(false);
@@ -268,12 +286,17 @@ const handleScroll = () => {
 
   const headerRect = header.getBoundingClientRect();
   const headerBottom = headerRect.bottom;
+  const headerTop = headerRect.top;
 
   if (headerBottom <= 400) {
     // Header is out of view, animate out
     animateOut();
   } else if (scrollTop < lastScrollTop.value && !isVisible.value) {
     // Scrolling up and header is not visible, animate in
+    animateIn();
+  }
+  console.log(headerTop);
+  if (headerTop > 300) {
     animateIn();
   }
 
@@ -389,6 +412,7 @@ const saveChanges = () => {
     buttonTextColor: localButtonTextColor.value,
     headerImage: localHeaderImage.value,
     backgroundColor: localBackgroundColor.value,
+    imageWidth: localImageWidth.value,
     circles: localCircles.value
   });
   closeConfigModal();
@@ -408,6 +432,7 @@ watch(() => templateStore.structure.page_template.sections, (newSections) => {
     localButtonTextColor.value = currentSection.widget.element.buttonTextColor ?? localButtonTextColor.value;
     localHeaderImage.value = currentSection.widget.element.headerImage ?? localHeaderImage.value;
     localBackgroundColor.value = currentSection.widget.element.backgroundColor ?? localBackgroundColor.value;
+    localImageWidth.value = currentSection.widget.element.imageWidth ?? localImageWidth.value;
     localCircles.value = currentSection.widget.element.circles ?? localCircles.value;
   }
 }, { deep: true });
@@ -460,7 +485,6 @@ watch(() => localTemplate.value, (newTemplate, oldTemplate) => {
 }
 
 .image-container {
-  flex: 1;
   overflow: hidden;
   opacity: 0;
   transform: translateY(100%);
@@ -479,7 +503,7 @@ watch(() => localTemplate.value, (newTemplate, oldTemplate) => {
   flex-direction: column;
   justify-content: flex-start;
   padding: 2rem;
-  padding-top: 100px; /* Ajuste para mover el contenido 100px hacia abajo */
+  padding-top: 100px;
   opacity: 0;
   transform: translateX(-100%);
   transition: opacity 0.5s ease, transform 0.5s ease;
@@ -609,7 +633,7 @@ watch(() => localTemplate.value, (newTemplate, oldTemplate) => {
 
   .text-content {
     padding: 1rem;
-    padding-top: 80px; /* Ajuste para dispositivos móviles */
+    padding-top: 80px;
   }
 
   .title {
@@ -618,6 +642,14 @@ watch(() => localTemplate.value, (newTemplate, oldTemplate) => {
 
   .description {
     font-size: 1rem;
+  }
+
+  .circle {
+    display: none;
+  }
+
+  .text-content {
+    padding-top: 10px;
   }
 }
 </style>
