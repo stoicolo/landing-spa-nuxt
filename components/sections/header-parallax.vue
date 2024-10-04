@@ -228,7 +228,7 @@ const arrowRef = ref(null);
 const isMobile = ref(false);
 const btnRef = ref(null);
 const showModalVideo = ref(false);
-const videoId = ref('');
+const videoId = ref('xQeDHJ95nZc');
 
 const localTitle = ref(props.title);
 const localDescription = ref(props.description);

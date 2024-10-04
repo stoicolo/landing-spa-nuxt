@@ -121,7 +121,7 @@
             "position": 4,
             "widget": {
                 "id": "7h21sz9nz",
-                "name": "reseñas",
+                "name": "reviews",
                 "element": {
                     "template": "1",
                     "sectionTitle": "",
@@ -268,7 +268,7 @@
             "position": 2,
             "widget": {
                 "id": "61irm3kq5",
-                "name": "artículo",
+                "name": "article",
                 "element": {
                     "template": 1,
                     "title": "Servicio de Uñas",
@@ -392,7 +392,7 @@
             "position": 1,
             "widget": {
                 "id": "yk3mlry1o",
-                "name": "galeria-de-imagenes",
+                "name": "images-galery",
                 "element": {
                     "template": 1,
                     "images": [
@@ -510,7 +510,7 @@
             "position": 1,
             "widget": {
                 "id": "5sfzj0avi",
-                "name": "destacar",
+                "name": "banner-animate",
                 "element": {
                     "template": 1,
                     "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727737109931_servicio-1-jpg_1",
@@ -719,7 +719,7 @@
             "position": 1,
             "widget": {
                 "id": "z1ffwgz4o",
-                "name": "artículo",
+                "name": "article",
                 "element": {
                     "template": 1,
                     "title": "Los beneficios de las vacunas",
@@ -841,7 +841,7 @@
             "position": 1,
             "widget": {
                 "id": "6jnwd0m3i",
-                "name": "galeria-de-imagenes",
+                "name": "images-galery",
                 "element": {
                     "template": 1,
                     "images": [
@@ -973,7 +973,7 @@
             "position": 2,
             "widget": {
                 "id": "2kcda1896",
-                "name": "carrusel",
+                "name": "slides",
                 "element": {
                     "template": 1,
                     "sectionTitle": "",
@@ -1155,7 +1155,7 @@
             "position": 1,
             "widget": {
                 "id": "2l4kwbhvb",
-                "name": "artículo",
+                "name": "article",
                 "element": {
                     "template": 1,
                     "title": "Tecnología de Punta",
@@ -1282,7 +1282,7 @@
             "position": 1,
             "widget": {
                 "id": "dlra139rd",
-                "name": "galeria-de-imagenes",
+                "name": "images-galery",
                 "element": {
                     "template": 1,
                     "images": [
@@ -1458,7 +1458,7 @@
                 "position": 3,
                 "widget": {
                     "id": "xny25yy9p",
-                    "name": "reseñas",
+                    "name": "reviews",
                     "element": {
                         "viewMode": false,
                         "template": "1",
@@ -1499,7 +1499,7 @@
                 "position": 4,
                 "widget": {
                     "id": "tdd51y25r",
-                    "name": "destacar",
+                    "name": "banner-animate",
                     "element": {
                         "template": 1,
                         "viewMode": false,
@@ -1612,7 +1612,7 @@
             "position": 1,
             "widget": {
                 "id": "2fonbmrx6",
-                "name": "artículo",
+                "name": "article",
                 "element": {
                     "viewMode": false,
                     "template": 1,
@@ -1741,7 +1741,7 @@
                 "position": 1,
                 "widget": {
                     "id": "pzon8l5pl",
-                    "name": "galeria-de-imagenes",
+                    "name": "images-galery",
                     "element": {
                         "template": 1,
                         "images": [
@@ -1874,7 +1874,7 @@
                 "position": 2,
                 "widget": {
                     "id": "r1htqdnx1",
-                    "name": "carrusel",
+                    "name": "slides",
                     "element": {
                         "viewMode": false,
                         "template": "2",
@@ -1939,7 +1939,7 @@
                 "position": 3,
                 "widget": {
                     "id": "xvd30masz",
-                    "name": "reseñas",
+                    "name": "reviews",
                     "element": {
                         "viewMode": false,
                         "template": "2",
@@ -2087,7 +2087,7 @@
                 "position": 1,
                 "widget": {
                     "id": "b6aj1scfs",
-                    "name": "artículo",
+                    "name": "article",
                     "element": {
                         "viewMode": false,
                         "template": 1,
@@ -2192,7 +2192,7 @@
                 "position": 0,
                 "widget": {
                     "id": "gxaa5dqvs",
-                    "name": "galeria-de-imagenes",
+                    "name": "images-galery",
                     "element": {
                         "template": 1,
                         "images": [

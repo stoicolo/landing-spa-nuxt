@@ -518,7 +518,7 @@ const dividerRef = ref(null);
 const copyrightRef = ref(null);
 const imageFooterRef = ref(null);
 const showModalVideo = ref(false);
-const videoId = ref('');
+const videoId = ref('vj5UgeFStOo');
 
 const animatedElements = ref([]);
 const isAnimatingIn = ref(true);

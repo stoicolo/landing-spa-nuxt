@@ -218,7 +218,7 @@
  const localCards = ref(props.cards);
  const localWhiteTitle = ref(props.whiteTitle);
  const showModalVideo = ref(false);
- const videoId = ref('');
+ const videoId = ref('WJ3L3Tpz2tA');
 
  const localTemplate = computed(() => {
   let currentTemplate = props.template;

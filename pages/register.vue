@@ -50,6 +50,7 @@ const registerUser = async (event: Event) => {
         name: email.value,
         email: email.value,
         password: password.value,
+        role: "user",
       },
     });
 

@@ -232,7 +232,7 @@ const activeTab = ref('general');
 const isVisible = ref(false);
 const reviewsSection = ref(null);
 const showModalVideo = ref(false);
-const videoId = ref('');
+const videoId = ref('PbUVY8ijs0I');
 
 const localTemplate = computed(() => {
     let currentTemplate = props.template;

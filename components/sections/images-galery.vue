@@ -106,7 +106,7 @@
   const localImages = ref(props.images);
   const scrollTimeout = ref(null);
   const showModalVideo = ref(false);
-  const videoId = ref('');
+  const videoId = ref('6DkKubpxang');
   
   const openGaleryImages = inject('openGaleryImages', () => {
     console.warn('openGaleryImages function is not available');
