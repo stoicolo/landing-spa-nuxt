@@ -43,10 +43,10 @@ function formatComponentName(name) {
           :key="component.id"
           @click="selectComponent(component)"
           :class="{'border-4 border-blue-600': selectedComponent === component}"
-          class="component-item cursor-pointer"
+          class="component-item cursor-pointer border"
         >
           <div class="text-center font-bold text-blue-500 text-lg">
-            {{ formatComponentName(component.name) }} <span v-if="selectedComponent === component">(seleccionado)</span>
+            {{ component.title }} <span v-if="selectedComponent === component">(seleccionado)</span>
           </div>
           <img :src="component.image" alt="" class="max-h-full w-full object-cover">
         </div>

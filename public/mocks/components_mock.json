@@ -3,6 +3,7 @@
       {
         "id": 0,
         "name": "header-parallax",
+        "title": "Cabecera con Animación",
         "category": "basics",
         "image": "/img/header-parallax.png",
         "available": true,
@@ -19,8 +20,52 @@
         }
       },
       {
+        "id": 3,
+        "name": "header-multiple",
+        "title": "Banner",
+        "category": "basics",
+        "image": "/img/preview-header-multiple.png",
+        "available": true,
+        "element": {
+          "viewMode": false,
+          "template": 1,
+          "title": "Innovación que Transforma el Futuro",
+          "titleColor": "#2D3748",
+          "description": "Descubra cómo nuestras soluciones tecnológicas están revolucionando industrias y mejorando vidas. Únase a nosotros en el viaje hacia un futuro más inteligente y conectado.",
+          "textColor": "#4A5568",
+          "buttonTextColor": "#FFFFFF",
+          "headerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736625859_bg-doctor-3-jpg_1",
+          "animationDuration": 3,
+          "backgroundColor": "#F7FAFC",
+          "circles": [
+            { 
+              "size": 186, 
+              "positionX": 0, 
+              "positionY": 65,
+              "borderColor": "#cccccc", 
+              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1" 
+            },
+            { 
+              "size": 150, 
+              "positionX": 33, 
+              "positionY": 75,
+              "borderColor": "#cccccc", 
+              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1" 
+            },
+            { 
+              "size": 120, 
+              "positionX": 50,
+              "positionY": 65, 
+              "borderColor": "#cccccc", 
+              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1" 
+            }
+          ]
+        }
+      },
+      {
         "id": 1,
         "name": "cards",
+        "title": "Tarjetas",
         "category": "basics",
         "image": "/img/cards-preview.png",
         "available": true,
@@ -62,7 +107,8 @@
       },
       {
         "id": 2,
-        "name": "carrusel",
+        "name": "slides",
+        "title": "Galería en Carrousel",
         "category": "basics",
         "image": "/img/carrusel-preview.png",
         "available": true,
@@ -125,7 +171,8 @@
       },
       {
         "id": 4,
-        "name": "reseñas",
+        "name": "reviews",
+        "title": "Reseñas",
         "category": "basics",
         "image": "/img/resenas-preview.png",
         "available": true,
@@ -165,7 +212,8 @@
       },
       {
         "id": 5,
-        "name": "artículo",
+        "name": "article",
+        "title": "Artículo",
         "category": "basics",
         "image": "/img/articulo-preview.png",
         "available": true,
@@ -200,7 +248,8 @@
       },
       {
         "id": 6,
-        "name": "galeria-de-imagenes",
+        "name": "images-galery",
+        "title": "Galería de Imágenes",
         "category": "basics",
         "image": "/img/galeria-preview.png",
         "available": true,
@@ -211,6 +260,7 @@
       {
         "id": 8,
         "name": "title",
+        "title": "Título Ajustable",
         "category": "basics",
         "image": "/img/title-preview.png",
         "available": true,
@@ -231,6 +281,7 @@
       {
         "id": 8,
         "name": "contact-form",
+        "title": "Formulario de Contácto",
         "category": "basics",
         "image": "/img/contact-preview.png",
         "available": true,
@@ -260,7 +311,8 @@
       },
       {
         "id": 9,
-        "name": "destacar",
+        "name": "banner-animate",
+        "title": "Banner Animado",
         "category": "basics",
         "image": "/img/destacar-preview.png",
         "available": true,
@@ -283,6 +335,7 @@
       {
         "id": 3,
         "name": "videos",
+        "title": "Galería de Videos",
         "category": "basics",
         "image": "/img/video-preview.png",
         "available": true,
@@ -321,6 +374,7 @@
       {
         "id": 3,
         "name": "footer",
+        "title": "Pie de Página",
         "category": "basics",
         "image": "/img/footer-preview.png",
         "available": true,
@@ -354,45 +408,6 @@
           "socialTitle": "Síguenos en redes",
           "copyright": "© 2024 Empresa Innovadora. Todos los derechos reservados.",
           "footerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727543052291_cohete-tecno-neon-png_1"
-        }
-      },
-      {
-        "id": 3,
-        "name": "header-multiple",
-        "category": "basics",
-        "image": "/img/footer-preview.png",
-        "available": true,
-        "element": {
-          "viewMode": false,
-          "template": 1,
-          "title": "Innovación que Transforma el Futuro",
-          "titleColor": "#2D3748",
-          "description": "Descubra cómo nuestras soluciones tecnológicas están revolucionando industrias y mejorando vidas. Únase a nosotros en el viaje hacia un futuro más inteligente y conectado.",
-          "textColor": "#4A5568",
-          "buttonTextColor": "#FFFFFF",
-          "headerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736625859_bg-doctor-3-jpg_1",
-          "animationDuration": 3,
-          "backgroundColor": "#F7FAFC",
-          "circles": [
-            { 
-              "size": 186, 
-              "position": 20, 
-              "borderColor": "#cccccc", 
-              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1" 
-            },
-            { 
-              "size": 196, 
-              "position": 50, 
-              "borderColor": "#cccccc", 
-              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1" 
-            },
-            { 
-              "size": 104, 
-              "position": 23, 
-              "borderColor": "#cccccc", 
-              "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736731942_bg-doctor-9-jpg_1" 
-            }
-          ]
         }
       }
     ]
