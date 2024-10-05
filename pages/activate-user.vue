@@ -63,7 +63,7 @@ const activateUser = async () => {
 
 const handleScroll = (event: Event) => {
     const target = event.target as HTMLElement;
-    if (target.scrollHeight - target.scrollTop === target.clientHeight) {
+    if (target.scrollHeight - target.scrollTop < (target.clientHeight + 200)) {
         termsRead.value = true;
     }
 };
@@ -83,7 +83,7 @@ const handleScroll = (event: Event) => {
                     </h2>
                 </div>
 
-                <div class="mt-10">
+                <div class="mt-5">
                     <div v-if="showTerms" class="text-center">
                         <h3 class="text-lg font-medium text-gray-900 mb-2">Términos y Condiciones de Uso de Weblox</h3>
                         <div class="h-60 overflow-y-scroll border p-4 mb-4 text-left" @scroll="handleScroll">
@@ -227,6 +227,7 @@ const handleScroll = (event: Event) => {
                                 class="mr-2">
                             <label for="acceptTerms">He leído y acepto los Términos y Condiciones</label>
                         </div>
+                        <p v-if="!termsRead" class="mb-4"><small class="text-[#ff0048]">Debes leer todos los Términos y Condiciones para poder aceptarlos, lleva el scroll hasta abajo.</small></p>
                         <button @click="activateUser" :disabled="!termsAccepted"
                             class="w-full bg-fountain-blue-600 text-white py-2 px-4 rounded hover:bg-fountain-blue-500 disabled:opacity-50">
                             Activar Cuenta
@@ -242,15 +243,7 @@ const handleScroll = (event: Event) => {
 
                     <div v-else-if="activationSuccess" class="text-center">
                         <i class="fa fa-check-circle text-green-500 text-4xl mb-4" aria-hidden="true"></i>
-                        <h3 class="text-lg font-medium text-gray-900 mb-2">¡Bienvenido a WEBLOX!</h3>
-                        <p class="text-sm text-gray-600 mb-4">
-                            Tu cuenta ha sido activada con éxito. Ahora puedes iniciar sesión y comenzar a usar nuestros
-                            servicios.
-                        </p>
-                        <router-link to="/login"
-                            class="text-fountain-blue-600 hover:text-fountain-blue-500 font-semibold">
-                            Ir al inicio de sesión
-                        </router-link>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">...Estamos redirigiéndote, por favor espera un momento.</h3>
                     </div>
 
                     <div v-else-if="errorMessage" class="text-center">
