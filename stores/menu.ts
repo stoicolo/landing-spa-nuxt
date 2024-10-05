@@ -133,10 +133,10 @@ export const useMenuStore = defineStore('menu', {
             return parts[parts.length - 2];
         }
         return parts[0];
-    }
+      }
         try {
             //Creo todos los datos de un nuevo website
-            const newWebSite = await PageTemplateService.createWebSite(currentStore.userId, `${extractMainDomain(currentStore.domain)} - Site`, currentStore.domain, `${extractMainDomain(currentStore.domain)}-site`, { "fontFamily": "Work Sans" });
+            const newWebSite = await PageTemplateService.createWebSite(currentStore.userId, `${extractMainDomain(currentStore.domain)} - ${currentStore.userId}`, currentStore.domain, `${extractMainDomain(currentStore.domain)}-${currentStore.userId}`, { "fontFamily": "Work Sans" });
             const newPageTemplate = await PageTemplateService.createPageTemplate(currentStore.userId, []);
             const newPage = await PageTemplateService.createNewPage(currentStore.userId, newPageTemplate?.id ? newPageTemplate?.id : 0, item.menuName, newWebSite?.id);
             const newMenu = await PageTemplateService.createNewMenu(currentStore.userId, newWebSite?.id, [{...item, pageId: newPage?.id}]);
