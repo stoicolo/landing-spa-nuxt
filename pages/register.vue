@@ -10,6 +10,7 @@ const currentStore = useCurrentStore();
 
 const displayCreatingAccountModal = ref(false);
 const email = ref("");
+const phone = ref("");
 const confirmEmail = ref("");
 const password = ref("");
 const confirmPassword = ref("");
@@ -33,6 +34,7 @@ const isFormValid = computed(() =>
   isEmailValid.value &&
   isPasswordValid.value &&
   email.value &&
+  phone.value &&
   confirmEmail.value &&
   password.value &&
   confirmPassword.value
@@ -50,6 +52,7 @@ const registerUser = async (event: Event) => {
         name: email.value,
         email: email.value,
         password: password.value,
+        phoneNumber: phone.value,
         role: "user",
       },
     });
@@ -96,7 +99,6 @@ const registerUser = async (event: Event) => {
           />
         </div>
       </div>
-
       <div>
         <label for="confirm-email" class="block text-sm font-medium leading-6 text-gray-900">
           Confirmar Email
@@ -113,7 +115,22 @@ const registerUser = async (event: Event) => {
           />
         </div>
       </div>
-
+      <div>
+        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">
+          Teléfono
+        </label>
+        <div class="mt-2">
+          <input
+            v-model="phone"
+            id="phone"
+            class="focus:ring-fountain-blue-600 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+            name="phone"
+            type="phone"
+            required
+            placeholder="00000000"
+          />
+        </div>
+      </div>
       <div>
         <div class="flex items-center justify-between">
           <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
