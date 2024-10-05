@@ -133,6 +133,7 @@ class PageTemplateService {
   static async createPageTemplate(
     userId: number,
     sections: Section[],
+    categories: String[] = ["user"],
   ): Promise<PageTemplate | null> {
     try {
       let response = null;
@@ -146,6 +147,7 @@ class PageTemplateService {
         data: {
           userId,
           sections,
+          categories
         },
       });
       console.log("New Page Template Created", response.data);

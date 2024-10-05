@@ -548,6 +548,12 @@ const showConfigModal = ref(false);
 onMounted(() => {
   updateAnimatedElements();
   window.addEventListener('scroll', handleScroll);
+
+  if(!props.viewMode) {
+    animateElements(true);
+  } else {
+    animateElements(false);
+  }
 });
 
 onBeforeUnmount(() => {

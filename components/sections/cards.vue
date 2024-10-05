@@ -39,7 +39,10 @@
                 </p>
               </div>
               <div class="px-6 pb-6">
-                <a :href="card.buttonLink" class="inline-block w-full text-center py-2 px-4 rounded transition-colors duration-300" :style="{ backgroundColor: card.buttonColor, color: 'white' }">
+                <a v-if="!viewMode" class="inline-block w-full text-center py-2 px-4 rounded transition-colors duration-300" :style="{ backgroundColor: card.buttonColor, color: 'white' }">
+                  {{ card.buttonText }}
+                </a>
+                <a v-if="viewMode" :href="card.buttonLink" class="inline-block w-full text-center py-2 px-4 rounded transition-colors duration-300" :style="{ backgroundColor: card.buttonColor, color: 'white' }">
                   {{ card.buttonText }}
                 </a>
               </div>
@@ -61,7 +64,10 @@
                 </p>
               </div>
               <div class="px-6 pb-6 mt-auto">
-                <a :href="card.buttonLink" class="inline-block w-full text-center py-2 px-4 rounded transition-colors duration-300" :style="{ backgroundColor: card.buttonColor, color: 'white' }">
+                <a v-if="!viewMode" class="inline-block w-full text-center py-2 px-4 rounded transition-colors duration-300" :style="{ backgroundColor: card.buttonColor, color: 'white' }">
+                  {{ card.buttonText }}
+                </a>
+                <a v-if="viewMode" :href="card.buttonLink" class="inline-block w-full text-center py-2 px-4 rounded transition-colors duration-300" :style="{ backgroundColor: card.buttonColor, color: 'white' }">
                   {{ card.buttonText }}
                 </a>
               </div>

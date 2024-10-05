@@ -17,10 +17,14 @@
         </p>
       </div>
       <div class="action-button">
-        <a :href="localButtonLink" :style="{ backgroundColor: localButtonColor }" ref="btnRef">
+        <a v-if="viewMode" :href="localButtonLink" :style="{ backgroundColor: localButtonColor }" ref="btnRef">
           <div class="styled-input" :contenteditable="!viewMode" @input="onInputButtonText"
             @blur="updateButtonText" v-text="localButtonText"></div>
         </a>
+        <button v-if="!viewMode" :style="{ backgroundColor: localButtonColor }">
+          <div class="styled-input" :contenteditable="!viewMode" @input="onInputButtonText"
+              @blur="updateButtonText" v-text="localButtonText"></div>
+        </button>
       </div>
       <div class="arrow-down" ref="arrowRef">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -48,10 +52,16 @@
               @blur="updateDescription" v-text="localDescription"></div>
           </p>
           <div class="action-button">
-            <a :href="localButtonLink" :style="{ backgroundColor: localButtonColor }" ref="btnRef">
+            <a v-if="viewMode" :href="localButtonLink" :style="{ backgroundColor: localButtonColor }" ref="btnRef">
               <div class="styled-input" :contenteditable="!viewMode" @input="onInputButtonText"
                 @blur="updateButtonText" v-text="localButtonText"></div>
             </a>
+
+            <button v-if="!viewMode" :style="{ backgroundColor: localButtonColor }" >
+              <div class="styled-input" :contenteditable="!viewMode" @input="onInputButtonText"
+                @blur="updateButtonText" v-text="localButtonText"></div>
+            </button>
+
           </div>
         </div>
       </div>
@@ -237,6 +247,7 @@ const localCenterImage = ref(props.centerImage);
 const localButtonText = ref(props.buttonText);
 const localButtonColor = ref(props.buttonColor);
 const localButtonLink = ref(props.buttonLink);
+const localViewMode = ref(props.viewMode);
 
 const showConfigModal = ref(false);
 const currentImageType = ref('');
@@ -284,14 +295,18 @@ onMounted(() => {
   //     verticalScrollAxis: "y",
   //     horizontalScrollAxis: "x",
 
-  rellaxInstances = [
-        new Rellax(bgImageRef.value, { speed: isMobile.value ? -7.5 : 0, center: true }),
-        new Rellax(centerImageRef.value, { speed: isMobile.value ? -4.5 : -8, center: true }),
-        new Rellax(titleRef.value, { speed: isMobile.value ? -1 : -1, center: true }),
-        new Rellax(descriptionRef.value, { speed: isMobile.value ? -1 : -1, center: true }),
-        new Rellax(btnRef.value, { speed: isMobile.value ? -0.5 : -1, center: true }),
-        new Rellax(arrowRef.value, { speed: isMobile.value ? -0.5 : 1, center: true })
-      ];
+  if(props.viewMode){
+    setTimeout(() => {
+      rellaxInstances = [
+            new Rellax(bgImageRef.value, { speed: isMobile.value ? -7.5 : 0, center: true }),
+            new Rellax(centerImageRef.value, { speed: isMobile.value ? -4.5 : -8, center: true }),
+            new Rellax(titleRef.value, { speed: isMobile.value ? -1 : -1, center: true }),
+            new Rellax(descriptionRef.value, { speed: isMobile.value ? -1 : -1, center: true }),
+            new Rellax(btnRef.value, { speed: isMobile.value ? -0.5 : -1, center: true }),
+            new Rellax(arrowRef.value, { speed: isMobile.value ? -0.5 : 1, center: true })
+          ];
+    }, 1000);
+  }
 
 });
 
@@ -471,7 +486,7 @@ const closeModalVideo = () => {
   z-index: 10;
 }
 
-.action-button a {
+.action-button a, .action-button button {
   display: inline-block;
   padding: 10px 20px;
   border-radius: 5px;
