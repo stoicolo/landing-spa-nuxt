@@ -172,7 +172,7 @@ const executeInjectedMethod = (methodName: string | undefined) => {
     return iconMap[iconName as keyof typeof iconMap];
   };
   
-  const isMenuOpen = ref(false);
+  const isMenuOpen = ref(true);
   const isAddMenuItemModalOpen = ref(false);
   const selectedParentItem = ref(null);
   

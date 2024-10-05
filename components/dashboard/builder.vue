@@ -11,21 +11,21 @@
             </div>
             
             <div class="flex items-center space-x-2">
-                <button @click="changeToSiteView" class="inline-flex items-center px-2 py-1 text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500">
+                <button @click="changeToSiteView" class="inline-flex items-center px-2 py-2 text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500">
                 <svg class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                 </svg>
-                Pantalla Completa
+                Ir al Sitio Web
                 </button>
 
-                <button @click="useTemplate" class="animate-pulse relative inline-flex items-center px-2 py-1 text-xs font-medium rounded text-black bg-orange-600 hover:bg-orange-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500 overflow-hidden group">
+                <button @click="useTemplate" class="relative inline-flex items-center px-2 py-2 text-xs font-medium rounded text-white bg-orange-600 hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500 overflow-hidden group">
                 <svg class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                 </svg>
                 Usar Plantilla
                 </button>
                 
-                <button @click="() => saveModal = !saveModal" :disabled="loading" class="inline-flex items-center px-2 py-1 text-xs font-medium rounded text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500" :class="{ 'opacity-50 cursor-not-allowed': loading }">
+                <button @click="() => saveModal = !saveModal" :disabled="loading" class="inline-flex items-center px-2 py-2 text-xs font-medium rounded text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500" :class="{ 'opacity-50 cursor-not-allowed': loading }">
                 <svg v-if="!loading" class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
                 </svg>
@@ -36,14 +36,14 @@
                 {{ loading ? 'Guardando...' : 'Guardar' }}
                 </button>
                 
-                <button @click="() => saveBackupModal = !saveBackupModal" :disabled="loading" class="inline-flex items-center px-2 py-1 text-xs font-medium rounded text-yellow-700 bg-yellow-100 hover:bg-yellow-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-yellow-500" :class="{ 'opacity-50 cursor-not-allowed': loading }">
+                <button @click="() => saveBackupModal = !saveBackupModal" :disabled="loading" class="inline-flex items-center px-2 py-2 text-xs font-medium rounded text-yellow-700 bg-yellow-100 hover:bg-yellow-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-yellow-500" :class="{ 'opacity-50 cursor-not-allowed': loading }">
                 <svg class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
                 </svg>
                 Respaldo
                 </button>
                 
-                <button @click="publishLastChanges" :disabled="loading" class="inline-flex items-center px-2 py-1 text-xs font-medium rounded text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-green-500" :class="{ 'opacity-50 cursor-not-allowed': loading }">
+                <button @click="publishLastChanges" :disabled="loading" class="inline-flex items-center px-2 py-2 text-xs font-medium rounded text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-green-500" :class="{ 'opacity-50 cursor-not-allowed': loading }">
                 <svg class="mr-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
@@ -331,9 +331,20 @@ function useTemplate() {
 }
 
 function changeToSiteView() {
-    //TODO: arreglar este comportamiento
-  fullscreen.value = !fullscreen.value;
-  emit('change-to-full-screen', fullscreen.value);
+    const domain = currentStore.domain;
+    if (domain) {
+        // Open a new window with the current domain
+        window.open(`https://${domain}`, '_blank');
+    } else {
+        console.error('Domain not found in currentStore');
+        $toaster.show({
+            title: "Error",
+            description: "No se pudo abrir la vista del sitio. Dominio no encontrado.",
+            delay: 3,
+            position: "top-right",
+            type: "error"
+        });
+    }
 }
 
 function getComponent(widgetName, element) {
