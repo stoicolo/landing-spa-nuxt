@@ -253,6 +253,7 @@ import { useTemplateStore } from '~/stores/template';
 import { useCurrentStore } from '~/stores/current';
 import axios from 'axios';
 import modalViewVideos from '~/components/helpers/modalViewVideos.vue';
+import PageTemplateService from '~/services/page_template';
 
 const props = defineProps({
   id: {
@@ -531,10 +532,9 @@ async function submitForm() {
 
   if (Object.keys(errors.value).length === 0) {
     try {
-      const response = await axios.post('/api/sendContactForm', {
-        ...formData.value,
-        receiverEmail: localReceiverEmail.value
-      });
+      const domain = window.location.hostname;
+
+      const response = await PageTemplateService.sendEmailContactForm(localReceiverEmail.value, formData.value.email, formData.value.name, formData.value.phone, formData.value.message, domain);
       
       if (response.data.success) {
         alert('Mensaje enviado con éxito');

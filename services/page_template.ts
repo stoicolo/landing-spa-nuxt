@@ -1025,6 +1025,28 @@ class PageTemplateService {
       throw error;
     }
   }
+
+  //TODO: SACAR A CONTAC FORM SERVICE
+
+  static async sendEmailContactForm(receptorEmail: string, clientEmail: string, name: string, phone: string, message: string, domain: string) {
+    try {
+      const cleanAxios = this.createCleanAxiosInstance();
+      await cleanAxios.post(
+        `/users/send-contact-form-response-email`,
+        {
+          receptorEmail,
+          clientEmail,
+          name,
+          phone,
+          message,
+          domain
+        }
+      );
+    } catch (error) {
+      console.error("Error sending email contact form:", error);
+      throw error;
+    }
+  }
 }
 
 if (process.client) {
