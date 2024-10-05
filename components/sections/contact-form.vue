@@ -534,14 +534,10 @@ async function submitForm() {
     try {
       const domain = window.location.hostname;
 
-      const response = await PageTemplateService.sendEmailContactForm(localReceiverEmail.value, formData.value.email, formData.value.name, formData.value.phone, formData.value.message, domain);
-      
-      if (response.data.success) {
-        alert('Mensaje enviado con éxito');
-        formData.value = { name: '', email: '', phoneCode: '', phone: '', message: '' };
-      } else {
-        alert('Error al enviar el mensaje');
-      }
+      await PageTemplateService.sendEmailContactForm(localReceiverEmail.value, formData.value.email, formData.value.name, formData.value.phone, formData.value.message, domain);
+
+      alert('Mensaje enviado con éxito');
+
     } catch (error) {
       console.error('Error:', error);
       alert('Error al enviar el mensaje');
