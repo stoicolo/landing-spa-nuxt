@@ -126,9 +126,22 @@ export const useMenuStore = defineStore('menu', {
     async createFirstPageAndMenuItem(item: MenuItem) {
       const { useCurrentStore } = await import('~/stores/current');
       const currentStore = useCurrentStore();
+      function extractMainDomain(url: string) {
+        // Remove protocol and www if present
+        let domain = url.replace(/^(https?:\/\/)?(www\.)?/, '');
+        // Split by dots and take the first part
+        let parts = domain.split('.');
+        // If we have more than 2 parts, take the second-to-last
+        // This handles cases like 'subdomain.weblox.io'
+        if (parts.length > 2) {
+            return parts[parts.length - 2];
+        }
+        // Otherwise, take the first part
+        return parts[0];
+    }
         try {
             //Creo todos los datos de un nuevo website
-            const newWebSite = await PageTemplateService.createWebSite(currentStore.userId, `${currentStore.domain} - Site`, currentStore.domain, `${currentStore.domain}-site`, { "fontFamily": "Work Sans" });
+            const newWebSite = await PageTemplateService.createWebSite(currentStore.userId, `${extractMainDomain(currentStore.domain)} - Site`, currentStore.domain, `${currentStore.domain}-site`, { "fontFamily": "Work Sans" });
             const newPageTemplate = await PageTemplateService.createPageTemplate(currentStore.userId, []);
             const newPage = await PageTemplateService.createNewPage(currentStore.userId, newPageTemplate?.id ? newPageTemplate?.id : 0, item.menuName, newWebSite?.id);
             const newMenu = await PageTemplateService.createNewMenu(currentStore.userId, newWebSite?.id, [{...item, pageId: newPage?.id}]);
