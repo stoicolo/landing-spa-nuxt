@@ -247,7 +247,7 @@ async function createNewPageAndPageTemplate() {
             //If page not exist, create new page
             menuStore.createFirstPageAndMenuItem({
                 menuName: "Inicio",
-                href: `/builder/${pageId.value}`,
+                href: "",
                 slug: "inicio",
                 order: 0
             });
