@@ -82,7 +82,6 @@ export const useMenuStore = defineStore('menu', {
     },
 
     async addMenuItem(item: MenuItem) {
-      debugger;
       const { useCurrentStore } = await import('~/stores/current');
       const currentStore = useCurrentStore();
       let newPageTemplate;
@@ -100,7 +99,6 @@ export const useMenuStore = defineStore('menu', {
       }
       try {
         //Creo un nuevo item en el menu, se lo asigno al menu y redirijo a la pagina de builder
-        debugger;
         newItemMenu = await PageTemplateService.updateMenuItem(currentStore.websiteId, currentStore.menuHeaderId, newPage?.id, item);
 
         if(newItemMenu){

@@ -344,7 +344,6 @@ const localBackgroundType = ref(props.backgroundType);
 const localBackgroundColor = ref(props.backgroundColor);
 const localBackgroundImage = ref(props.backgroundImage);
 const localSlides = ref(props.slides);
-debugger;
 const currentSlide = ref(0);
 const localSectionTitleColor = ref(props.localSectionTitleColor);
 const showModalVideo = ref(false);

@@ -199,7 +199,6 @@ const removeImage = async (index: number) => {
 
 const useImage = () => {
   const selected = selectedImage.value;
-  debugger;
   if (selected) {
     currentStore.setLastACurrentImg(selected.imageExternalUrl);
     templateStore.updateWidgetInSection(currentStore.section.id, {
