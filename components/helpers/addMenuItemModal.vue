@@ -8,7 +8,7 @@
           <input v-model="menuItem.menuName" id="name" type="text" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
         </div>
         <div>
-          <label for="href" class="block text-sm font-medium text-gray-700">Slug</label>
+          <label for="href" class="block text-sm font-medium text-gray-700">URL de la nueva página</label>
           <input v-model="menuItem.slug" id="href" type="text" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
         </div>
         <div class="flex justify-end space-x-4 mt-5">

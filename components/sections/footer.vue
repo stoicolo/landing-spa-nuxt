@@ -787,8 +787,7 @@ watch(() => templateStore.structure.page_template.sections, (newSections) => {
 // Watch for changes in the selected image
 
 watch(() => currentStore.selectedImage, (newImage) => {
-  if (currentStore.sectionId === props.id) {
-    debugger
+  if (currentStore.sectionId === props.id) {   
     if (currentStore.sectionProp === "backgroundImage") {
       localBackgroundImage.value = newImage;
       localBackgroundType.value = 'imagen';
