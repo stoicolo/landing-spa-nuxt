@@ -192,10 +192,7 @@ export const useMenuStore = defineStore('menu', {
 
     async updateMenuItem(item: MenuItem) {
       const { useCurrentStore } = await import('~/stores/current');
-      const currentStore = useCurrentStore();
       try {
-        //await PageTemplateService.updateMenuItem(currentStore.websiteId, currentStore.menuHeaderId, item.href?.split('/').pop() || '', item);
-        
         const index = this.menu.findIndex(menuItem => menuItem.href === item.href);
         if (index !== -1) {
           this.menu[index] = { ...item };
