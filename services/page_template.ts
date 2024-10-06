@@ -1047,6 +1047,40 @@ class PageTemplateService {
       throw error;
     }
   }
+
+  //TODO: SACAR A UN SERVICIO DE LEGAL AGREEMENTS
+
+  static async getLastTermsAndConditions() {
+    try {
+      const cleanAxios = this.createCleanAxiosInstance();
+      const list = await cleanAxios.get(
+        `/legal_agreements/last/terms`
+      );
+
+      return list;
+    } catch (error) {
+      console.error("Error sending email contact form:", error);
+      throw error;
+    }
+  }
+
+  static async sendAceptedTermsAndConditions(legalAgreementId: number, userId: number, agreed: boolean, agreementDate: string) {
+    try {
+      const cleanAxios = this.createCleanAxiosInstance();
+      await cleanAxios.post(
+        `/legal_agreement_histories`,
+        {
+          legalAgreementId,
+          userId,
+          agreed,
+          agreementDate
+        }
+      );
+    } catch (error) {
+      console.error("Error sending terms", error);
+      throw error;
+    }
+  }
 }
 
 if (process.client) {
