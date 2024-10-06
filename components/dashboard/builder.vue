@@ -264,6 +264,16 @@ async function createNewPageAndPageTemplate() {
         const routeId = parseInt(route.params.id);
         
         if (routeId) {
+
+            const token = localStorage.getItem('accessToken');
+            const getWebsite = await $fetch(`${apiBaseUrl}/websites/id/${response.user.id}`, {
+              method: "GET",
+              headers: {
+                "Authorization": `Bearer ${token}`
+              }
+            });
+
+            currentStore.setWebsiteId(getWebsite.id);
             
             const [publishHistory, menusResponse] = await Promise.all([
                 PageTemplateService.getPublishHistoryByWebsiteId(currentStore.websiteId),

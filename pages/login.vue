@@ -74,15 +74,6 @@ const loginUser = async (event: Event) => {
 
       currentStore.setUserRole(response.user.role);
       currentStore.setUserId(parseInt(response.user.id));
-
-      const getWebsite: any = await $fetch(`${apiBaseUrl}/websites/id/${response.user.id}`, {
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${response.tokens.access.token}`
-        }
-      });
-
-      currentStore.setWebsiteId(getWebsite.id);
       
       // Redirect to dashboard if all is ok
       navigateTo("/builder/0");
