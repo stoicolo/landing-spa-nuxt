@@ -84,8 +84,9 @@
   </div>
 
   <!-- Modal de configuración -->
-  <div v-if="showConfigModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1001]">
-    <div class="bg-white p-6 rounded-lg w-3/4 max-w-4xl">
+  <div v-if="showConfigModal" class="fixed inset-0 bg-black bg-opacity-20 flex items-center justify-center z-[1001]">
+    <div class="instruction-scroll">También puedes hacer scroll fuera del modal.</div>
+    <div class="bg-white p-6 rounded-lg w-3/4 max-w-4xl custom-modal">
       <h2 class="text-2xl font-bold mb-4">Configuración del Parallax Header</h2>
 
       <div class="mb-4">
@@ -100,7 +101,7 @@
           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>
       </div>
 
-      <div class="flex flex-col md:flex-row gap-4 mb-4">
+      <div class="flex flex-col gap-4 mb-4">
     <div class="flex-1 min-w-[200px]">
       <label for="buttonText" class="block text-sm font-medium text-gray-700 mb-1">Texto del botón</label>
       <input 
@@ -663,5 +664,23 @@ const closeModalVideo = () => {
   .template-2 .center-image {
     margin-bottom: 2rem;
   }
+}
+
+.custom-modal {
+  left: 40px;
+  position: absolute;
+  top: 40px;
+  width: 500px;
+  max-height: 560px;
+  overflow-y: scroll;
+}
+.instruction-scroll {
+  position: absolute;
+  top: 10px;
+  left: 552px;
+  color: white;
+  background: black;
+  padding: 20px;
+  border-radius: 20px;
 }
 </style>

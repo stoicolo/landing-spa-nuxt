@@ -43,7 +43,8 @@
   
     <!-- Modal de configuración -->
     <div v-if="showConfigModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1001]">
-      <div class="bg-white rounded-lg w-11/12 max-w-4xl h-[90vh] flex flex-col">
+      <div class="instruction-scroll">También puedes hacer scroll fuera del modal.</div>
+      <div class="bg-white rounded-lg w-11/12 max-w-4xl h-[90vh] flex flex-col custom-modal">
         <div class="p-6 overflow-y-auto flex-grow">
           <h2 class="text-2xl font-bold mb-4">Configuración del Header Dinámico</h2>
   
@@ -651,5 +652,23 @@ watch(() => localTemplate.value, (newTemplate, oldTemplate) => {
   .text-content {
     padding-top: 10px;
   }
+}
+
+.custom-modal {
+  left: 40px;
+  position: absolute;
+  top: 40px;
+  max-width: 500px !important;
+  max-height: 560px;
+  overflow-y: scroll;
+}
+.instruction-scroll {
+  position: absolute;
+  top: 10px;
+  left: 552px;
+  color: white;
+  background: black;
+  padding: 20px;
+  border-radius: 20px;
 }
 </style>
