@@ -46,6 +46,7 @@
   });
 
   onMounted(() => {
+    debugger;
     if (props.editingItem) {
       menuItem.value = { ...props.editingItem };
       isEditing.value = true;
@@ -68,6 +69,7 @@
   });
 
   const confirmAction = async () => {
+    debugger;
     try {
       if (isEditing.value) {
         await menuStore.updateMenuItem(menuItem.value);

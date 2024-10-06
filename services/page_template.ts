@@ -513,7 +513,7 @@ class PageTemplateService {
 
       const itemData = {
         websiteId,
-        menuHeaderId,
+        menuHeaderId: menuHeaderId,
         pageId,
         href: `/builder/${pageId}`,
         ...item,
