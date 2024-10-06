@@ -271,10 +271,11 @@
   
     <!-- Modal de configuración -->
     <div v-if="showConfigModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1001]">
-  <div class="bg-white p-6 rounded-lg w-3/4 max-w-4xl my-8">
+  <div class="instruction-scroll">También puedes hacer scroll fuera del modal.</div>
+  <div class="bg-white p-6 rounded-lg w-3/4 max-w-4xl my-8 custom-modal">
     <h2 class="text-2xl font-bold mb-4">Configuración del Footer</h2>
 
-    <div class="max-h-[calc(100vh-200px)] overflow-y-auto pr-4">
+    <div class="pr-4">
       <div class="mb-4">
           <label class="block text-sm font-medium text-gray-700 mb-2">Fondo de la sección</label>
           <div class="flex items-center space-x-4">
@@ -973,5 +974,23 @@ const closeModalVideo = () => {
     .grid {
         grid-template-columns: 1fr;
     }
+}
+
+.custom-modal {
+  left: 40px;
+  position: absolute;
+  top: 40px;
+  max-width: 500px !important;
+  max-height: 560px;
+  overflow-y: scroll;
+}
+.instruction-scroll {
+  position: absolute;
+  top: 10px;
+  left: 552px;
+  color: white;
+  background: black;
+  padding: 20px;
+  border-radius: 20px;
 }
 </style>

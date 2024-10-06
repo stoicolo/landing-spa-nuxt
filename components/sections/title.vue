@@ -31,7 +31,8 @@
     
     <!-- Modal de configuración -->
     <div v-if="showConfigModal" class="config-modal">
-      <div class="modal-content">
+      <div class="instruction-scroll">También puedes hacer scroll fuera del modal.</div>
+      <div class="modal-content custom-modal">
         <h2>Configuración del Título</h2>
   
         <div class="config-item">
@@ -571,5 +572,22 @@ h1 {
   .title-text {
     font-size: 24px !important;
   }
+}
+.custom-modal {
+  left: 40px;
+  position: absolute;
+  top: 40px;
+  max-width: 500px !important;
+  max-height: 560px;
+  overflow-y: scroll;
+}
+.instruction-scroll {
+  position: absolute;
+  top: 10px;
+  left: 552px;
+  color: white;
+  background: black;
+  padding: 20px;
+  border-radius: 20px;
 }
   </style>
