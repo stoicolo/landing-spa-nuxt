@@ -76,10 +76,12 @@ const fileInput = ref(null);
 const categories = ref([]);
 const newCategory = ref('');
 
+const websiteId = ref(0);
+
 onMounted(async () => {
     await menuStore.initializeStore();
-    const websiteId = await PageTemplateService.getWebSite(currentStore.userId);
-    const menusResponse = await PageTemplateService.getMenuList(websiteId.id, currentStore.userId);
+    websiteId.value = await PageTemplateService.getWebSite(currentStore.userId);
+    const menusResponse = await PageTemplateService.getMenuList(websiteId.value.id, currentStore.userId);
     const userRole = decrypt(localStorage.getItem('getNumByTicket'), 3);
     currentStore.setUserRole(userRole);
     //TODO: Change this to a more secure way to validate the user role (wirking on image gallery, admin page)
@@ -269,7 +271,7 @@ async function uploadImage() {
   try {
     await PageTemplateService.saveImageiDriveAdmins(
       formData,
-      currentStore.websiteId,
+      websiteId.value.id,
       currentStore.userId,
       selectedCategories.value
     );
