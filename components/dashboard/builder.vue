@@ -225,6 +225,7 @@ onMounted(async () => {
     } else {
         pageId.value = parseInt(route.params.id);
     }
+
     await createNewPageAndPageTemplate();
     if(pageId.value) {
         await templateStore.loadTemplateStructure(pageId.value, userStore.id);
@@ -265,13 +266,8 @@ async function createNewPageAndPageTemplate() {
         
         if (routeId) {
 
-            const token = localStorage.getItem('accessToken');
-            const getWebsite = await $fetch(`${apiBaseUrl}/websites/id/${response.user.id}`, {
-              method: "GET",
-              headers: {
-                "Authorization": `Bearer ${token}`
-              }
-            });
+            
+            const getWebsite = await PageTemplateService.getWebSite(currentStore.userId);
 
             currentStore.setWebsiteId(getWebsite.id);
             

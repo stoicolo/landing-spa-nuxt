@@ -2,7 +2,7 @@ export const useCurrentStore = defineStore("current", {
     state: () => ({
       userId: 0,
       userRole: "",
-      websiteId: 1,
+      websiteId: 0,
       pageId: 0,
       menuHeaderId: 0,
       pageTemplateId: 0,
