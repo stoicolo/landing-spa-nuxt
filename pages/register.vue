@@ -79,7 +79,18 @@ const registerUser = async (event: Event) => {
 </script>
 
 <template>
-  <div class="flex h-screen min-h-full flex-1 flex-col items-center justify-center">
+  <div class="flex flex-1 flex-col items-center justify-center py-10">
+    <div>
+      <div class="flex items-center mt-10 mb-4">
+        <img
+          class="h-28 w-auto"
+          src="/img/logo-weblox.png"
+          alt="Footprint Initiative"
+        />
+        <span class="ml-1 text-[32px]">WEBLOX</span>
+      </div>
+    </div>
+
     <h1>Bienvenido, regístrate y sé parte de weblox</h1>
 
     <form class="mt-8 space-y-6 md:w-96">
