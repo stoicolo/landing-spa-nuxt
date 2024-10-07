@@ -721,7 +721,7 @@ class PageTemplateService {
         `${PageTemplateService.baseURL}/public_websites/domain/${domain}`,
       );
 
-      return website.data ? website.data[0] : null;
+      return website.data ? website.data : null;
     } catch (error) {
       console.error("Error fetching public website:", error);
       return null;
