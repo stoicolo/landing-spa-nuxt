@@ -311,6 +311,8 @@
   const quillEditor = ref(null);
   const showModalVideo = ref(false);
   const videoId = ref('ZFLtFcnZfA8');
+
+  const saveTemplate = inject('saveTemplate');
   
   const openGaleryImages = inject('openGaleryImages', () => {
       console.warn('openGaleryImages function is not available');
@@ -401,6 +403,7 @@ const sanitizedContent = computed(() => {
   function saveChangesAndClose() {
       saveChanges();
       closeConfigModal();
+      saveTemplate();
   }
   
   function updateTitle(event) {

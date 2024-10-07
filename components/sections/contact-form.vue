@@ -370,6 +370,8 @@ const localWhatsAppNumber = ref(props.whatsAppNumber);
 const showModalVideo = ref(false);
 const videoId = ref('DUGKn2PAXUg');
 
+const saveTemplate = inject('saveTemplate');
+
 const formData = ref({
   name: '',
   email: '',
@@ -461,6 +463,7 @@ function saveChanges() {
 function saveChangesAndClose() {
   saveChanges();
   closeConfigModal();
+  saveTemplate();
 }
 
 function updateSectionTitle(event) {

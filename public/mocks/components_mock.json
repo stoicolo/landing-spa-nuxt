@@ -15,7 +15,7 @@
           "centerImage": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727736862108_doctor-7-png_1",
           "buttonText": "Ver más",
           "buttonColor": "#000000",
-          "buttonLink": "/",
+          "buttonLink": "",
           "template": 1
         }
       },
@@ -83,7 +83,7 @@
               "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727737109931_servicio-1-jpg_1",
               "buttonText": "Más detalles",
               "buttonColor": "#4A5568",
-              "buttonLink": "/consultoria"
+              "buttonLink": ""
             },
             {
               "title": "Soluciones Tecnológicas",
@@ -91,7 +91,7 @@
               "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727737109931_servicio-1-jpg_1",
               "buttonText": "Explorar opciones",
               "buttonColor": "#718096",
-              "buttonLink": "/tecnologia"
+              "buttonLink": ""
             },
             {
               "title": "Análisis de Datos",
@@ -99,7 +99,7 @@
               "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727737109931_servicio-1-jpg_1",
               "buttonText": "Solicitar demo",
               "buttonColor": "#2D3748",
-              "buttonLink": "/analisis"
+              "buttonLink": ""
             }
           ],
           "whiteTitle": false
@@ -126,7 +126,7 @@
               "description": "Exploramos nuevas fronteras en el desarrollo de sistemas avanzados. Nuestros proyectos incluyen tecnologías que mejoran la eficiencia y sostenibilidad en diversos campos.",
               "buttonText": "Más información",
               "buttonColor": "#4A5568",
-              "buttonLink": "#",
+              "buttonLink": "",
               "showImage": true,
               "showTitle": true,
               "showDescription": true,
@@ -141,7 +141,7 @@
               "description": "Cada desafío es una oportunidad para crecer. Nuestro enfoque se centra en aprender de cada experiencia para mejorar constantemente nuestros procesos y soluciones.",
               "buttonText": "Descubrir",
               "buttonColor": "#718096",
-              "buttonLink": "#",
+              "buttonLink": "",
               "showImage": true,
               "showTitle": true,
               "showDescription": true,
@@ -156,7 +156,7 @@
               "description": "Impulsamos el progreso a través de la creatividad y la visión. Trabajamos en soluciones innovadoras que abordan los desafíos actuales y futuros de nuestra sociedad.",
               "buttonText": "Explorar",
               "buttonColor": "#2D3748",
-              "buttonLink": "#",
+              "buttonLink": "",
               "showImage": true,
               "showTitle": true,
               "showDescription": true,
@@ -322,7 +322,7 @@
           "title": "Innovación en Cada Paso",
           "description": "Descubra cómo nuestras soluciones tecnológicas están transformando industrias y mejorando vidas. Con un enfoque centrado en la innovación y la excelencia, estamos construyendo el futuro hoy.",
           "buttonText": "Explorar Soluciones",
-          "buttonUrl": "/soluciones",
+          "buttonUrl": "",
           "image": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727626296974_bg-beauty-5-jpg_1",
           "titleColor": "#ffffff",
           "titleWeight": "bold",
@@ -388,11 +388,11 @@
           "backgroundColor": "#8c929e",
           "backgroundImage": "",
           "links": [
-            { "text": "Inicio", "url": "/" },
-            { "text": "Servicios", "url": "/" },
-            { "text": "Sobre nosotros", "url": "/" },
-            { "text": "Contacto", "url": "/" },
-            { "text": "Blog", "url": "/" }
+            { "text": "Inicio", "url": "" },
+            { "text": "Servicios", "url": "" },
+            { "text": "Sobre nosotros", "url": "" },
+            { "text": "Contacto", "url": "" },
+            { "text": "Blog", "url": "" }
           ],
           "linksTitle": "Navegación",
           "contactInfo": "contacto@empresa.com\n+1 555 123 4567\nCalle Principal 123, Ciudad",

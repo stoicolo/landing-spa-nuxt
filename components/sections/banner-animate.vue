@@ -10,12 +10,20 @@
           <span v-else>{{ localDescription }}</span>
         </p>
         <a 
+          v-if="viewMode"
           :href="localButtonUrl"
           :style="{ backgroundColor: localButtonColor, color: localButtonTextColor }"
           class="action-button"
         >
           {{ localButtonText }}
         </a>
+        <div 
+          v-if="!viewMode"
+          :style="{ backgroundColor: localButtonColor, color: localButtonTextColor }"
+          class="action-button"
+        >
+          {{ localButtonText }}
+        </div>
       </div>
       <div class="image-container" ref="imageContainer">
         <img :src="localImage" alt="Parallax Image" ref="parallaxImage">
@@ -86,7 +94,7 @@
           </label>
           
           <label>
-            URL del Botón:
+            URL del Botón: <small>Debes tener otras páginas creadas y usar la URL respectiva, o bien utilizar una URL de un sitio externo como https://www.otraweb.com.</small>
             <input v-model="localButtonUrl" @input="saveChanges" type="text" placeholder="https://...">
           </label>
           
@@ -129,7 +137,7 @@
   </template>
   
   <script setup>
-  import { ref, computed, watch, inject, onMounted, onUnmounted } from 'vue';
+  import { ref, watch, inject, onMounted, onUnmounted } from 'vue';
   import { useTemplateStore } from '~/stores/template';
   import { useCurrentStore } from '~/stores/current';
   import modalViewVideos from '~/components/helpers/modalViewVideos.vue';
@@ -145,48 +153,37 @@
       default: false
     },
     title: {
-      type: String,
-      default: 'Título de la Sección'
+      type: String
     },
     description: {
-      type: String,
-      default: 'Descripción de la sección con efecto parallax.'
+      type: String
     },
     buttonText: {
-      type: String,
-      default: 'Acción'
+      type: String
     },
     buttonUrl: {
-      type: String,
-      default: '#'
+      type: String
     },
     image: {
-      type: String,
-      default: ''
+      type: String
     },
     titleColor: {
-      type: String,
-      default: '#000000'
+      type: String
     },
     titleWeight: {
       type: String,
-      default: 'normal'
     },
     descriptionColor: {
-      type: String,
-      default: '#333333'
+      type: String
     },
     buttonColor: {
-      type: String,
-      default: '#007bff'
+      type: String
     },
     buttonTextColor: {
-      type: String,
-      default: '#ffffff'
+      type: String
     },
     backgroundColor: {
-      type: String,
-      default: '#f8f9fa'
+      type: String
     }
   });
   
@@ -207,6 +204,8 @@
   const localBackgroundColor = ref(props.backgroundColor);
   const showModalVideo = ref(false);
   const videoId = ref('2tc18flnqBw');
+
+  const saveTemplate = inject('saveTemplate');
   
   const imageContainer = ref(null);
   const parallaxImage = ref(null);
@@ -218,17 +217,17 @@
   watch(() => templateStore.structure.page_template.sections, (newSections) => {
     const currentSection = newSections.find(section => section.id === props.id);
     if (currentSection && currentSection.widget.element) {
-      localTitle.value = currentSection.widget.element.title || props.title;
-      localDescription.value = currentSection.widget.element.description || props.description;
-      localButtonText.value = currentSection.widget.element.buttonText || props.buttonText;
-      localButtonUrl.value = currentSection.widget.element.buttonUrl || props.buttonUrl;
-      localImage.value = currentSection.widget.element.image || props.image;
-      localTitleColor.value = currentSection.widget.element.titleColor || props.titleColor;
-      localTitleWeight.value = currentSection.widget.element.titleWeight || props.titleWeight;
-      localDescriptionColor.value = currentSection.widget.element.descriptionColor || props.descriptionColor;
-      localButtonColor.value = currentSection.widget.element.buttonColor || props.buttonColor;
-      localButtonTextColor.value = currentSection.widget.element.buttonTextColor || props.buttonTextColor;
-      localBackgroundColor.value = currentSection.widget.element.backgroundColor || props.backgroundColor;
+      localTitle.value = currentSection.widget.element.title || "";
+      localDescription.value = currentSection.widget.element.description || "";
+      localButtonText.value = currentSection.widget.element.buttonText || "";
+      localButtonUrl.value = currentSection.widget.element.buttonUrl || "";
+      localImage.value = currentSection.widget.element.image || "";
+      localTitleColor.value = currentSection.widget.element.titleColor || "";
+      localTitleWeight.value = currentSection.widget.element.titleWeight || "";
+      localDescriptionColor.value = currentSection.widget.element.descriptionColor || "";
+      localButtonColor.value = currentSection.widget.element.buttonColor || "";
+      localButtonTextColor.value = currentSection.widget.element.buttonTextColor || "";
+      localBackgroundColor.value = currentSection.widget.element.backgroundColor || "";
     }
   }, { deep: true, immediate: true });
   
@@ -259,6 +258,7 @@
   function saveChangesAndClose() {
     saveChanges();
     closeConfigModal();
+    saveTemplate();
   }
   
   function updateTitle(event) {

@@ -69,7 +69,7 @@
       visible.value = true;
       setTimeout(() => {
         visible.value = false;
-      }, props.delay * 1000 || 3000);
+      }, props.delay * 300 || 300);
     });
   });
   </script>

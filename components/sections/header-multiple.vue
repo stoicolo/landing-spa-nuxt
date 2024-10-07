@@ -155,7 +155,7 @@
           <button @click="closeConfigModal" class="mr-3 px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
             Cancelar
           </button>
-          <button @click="saveChanges" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700">
+          <button @click="saveAndClose" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700">
             Guardar cambios
           </button>
         </div>
@@ -252,6 +252,8 @@ const textContentRef = ref(null);
 const showConfigModal = ref(false);
 const showModalVideo = ref(false);
 const videoId = ref('xQeDHJ95nZc');
+
+const saveTemplate = inject('saveTemplate');
 
 const localTemplate = ref(props.template);
 const localTitle = ref(props.title);
@@ -416,8 +418,13 @@ const saveChanges = () => {
     imageWidth: localImageWidth.value,
     circles: localCircles.value
   });
-  closeConfigModal();
 };
+
+const saveAndClose = () => {
+  saveChanges();
+  closeConfigModal();
+  saveTemplate();
+}
 
 watch(() => templateStore.structure.page_template.sections, (newSections) => {
   const currentSection = newSections.find(section => section.id === props.id);

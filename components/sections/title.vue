@@ -11,7 +11,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
     </button>
-    <div class="parallax-title" ref="titleRef" :style="{ height: `${localHeight}px` }">
+    <div class="parallax-title" ref="componentRef" :style="{ height: `${localHeight}px` }">
       <div v-if="localBackgroundImage" class="background-image" ref="bgImageRef" :style="backgroundImageStyle"></div>
       <div v-else class="background-color" :style="{ backgroundColor: localBackgroundColor }"></div>
       <div class="title-container" :style="titleContainerStyle">
@@ -107,7 +107,7 @@
   
         <div class="modal-actions">
           <button @click="closeConfigModal">Cancelar</button>
-          <button @click="saveChanges">Guardar cambios</button>
+          <button @click="saveAndClose">Guardar cambios</button>
         </div>
       </div>
     </div>
@@ -173,10 +173,12 @@
   const templateStore = useTemplateStore();
   const currentStore = useCurrentStore();
   
-  const titleRef = ref(null);
+  const componentRef = ref(null);
   const bgImageRef = ref(null);
   const showModalVideo = ref(false);
   const videoId = ref('ZvDn_VTNgtM');
+
+  const saveTemplate = inject('saveTemplate');
   
   const localTitle = ref(props.title);
   const titleInput = ref(null);
@@ -189,6 +191,9 @@
   const localTextAlign = ref(props.textAlign);
   const localHeight = ref(props.height);
   const localFontWeight = ref(props.fontWeight);
+  
+  let scrollListener = null;
+  let resizeObserver = null;
   
   const showConfigModal = ref(false);
   
@@ -218,18 +223,22 @@
   
   onMounted(() => {
     if (titleInput.value) {   
-        titleInput.value.innerHTML = convertEntityToBr(localTitle.value);
+      titleInput.value.innerHTML = convertEntityToBr(localTitle.value);
     }
+    
     if (localBackgroundImage.value && bgImageRef.value) {
-      setTimeout(() => {
-        rellaxInstanceTitle = new Rellax(bgImageRef.value, { speed: -7, center: true, horizontal:false, vertical:true });
-      }, 1000);
+      scrollListener = window.addEventListener('scroll', handleScroll);
+      resizeObserver = new ResizeObserver(handleResize);
+      resizeObserver.observe(document.body);
     }
   });
   
   onBeforeUnmount(() => {
-    if (rellaxInstanceTitle) {
-      rellaxInstanceTitle.destroy();
+    if (scrollListener) {
+      window.removeEventListener('scroll', handleScroll);
+    }
+    if (resizeObserver) {
+      resizeObserver.disconnect();
     }
   });
 
@@ -244,11 +253,39 @@
     
     return decodedString;
   }
+
+  const handleScroll = () => {
+    if (bgImageRef.value && componentRef.value) {
+      const rect = componentRef.value.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      if (rect.top < windowHeight && rect.bottom > 0) {
+        const scrollPercentage = (windowHeight - rect.top) / (windowHeight + rect.height);
+        const maxMove = rect.height * 0.4;
+        let moveAmount = maxMove * scrollPercentage;
+        
+        moveAmount = Math.max(0, Math.min(moveAmount, maxMove));
+        
+        bgImageRef.value.style.transform = `translateY(-${moveAmount}px)`;
+      }
+    }
+  };
+
+  const handleResize = () => {
+    handleScroll();
+  };
   
   const backgroundImageStyle = computed(() => {
     return {
       backgroundImage: `url(${localBackgroundImage.value})`,
       transition: 'transform 0.5s ease-out',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '1500px',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
     }
   });
 
@@ -344,6 +381,12 @@ function updateTitle() {
       console.error('openGaleryImages function is not available');
     }
   }
+
+  const saveAndClose = () => {
+    saveChanges();
+    saveTemplate();
+    closeConfigModal();
+  }
   
   function saveChanges() {
     templateStore.updateWidgetInSection(props.id, {
@@ -357,17 +400,16 @@ function updateTitle() {
       height: localHeight.value,
       fontWeight: localFontWeight.value
     });
-    closeConfigModal();
   
-    // Actualizar o crear instancia de Rellax según sea necesario
+    // Actualizar el evento de scroll según sea necesario
     if (localBackgroundType.value === 'image') {
-      if (!rellaxInstanceTitle) {
-        rellaxInstanceTitle = new Rellax(bgImageRef.value, { speed: -7, center: true });
+      if (!scrollListener) {
+        scrollListener = window.addEventListener('scroll', handleScroll);
       }
     } else {
-      if (rellaxInstanceTitle) {
-        rellaxInstanceTitle.destroy();
-        rellaxInstanceTitle = null;
+      if (scrollListener) {
+        window.removeEventListener('scroll', handleScroll);
+        scrollListener = null;
       }
     }
   }
@@ -428,6 +470,7 @@ function updateTitle() {
 .background-image {
   background-size: cover;
   background-position: center;
+  will-change: transform;
 }
 
 h1 {

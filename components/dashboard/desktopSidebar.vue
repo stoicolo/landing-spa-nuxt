@@ -69,7 +69,10 @@
                                   ]"
                                   :target="menuItem.target"
                                 >
-                                  {{ menuItem.menuName }}
+                                <div class="flex flex-col">
+                                  <span>{{ menuItem.menuName }}</span>
+                                  <small class="text-sm text-gray-500">(url:/{{ menuItem.slug }})</small>
+                                </div>
                               </span>
                           </div>
                           <ul v-if="menuItem.subitems" class="mt-1 space-y-1">
