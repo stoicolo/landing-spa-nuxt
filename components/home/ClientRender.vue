@@ -95,18 +95,32 @@ onMounted(async () => {
 })
 
 const decodeJWT = (token) => {
-  try {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
+  // Separar el token en sus tres partes
+  const [headerB64, payloadB64, signature] = token.split('.');
 
-    return JSON.parse(jsonPayload);
-  } catch (error) {
-    console.error("Error decoding token:", error);
-    return null;
-  }
+  // Decodificar el payload
+  function base64UrlDecode(str) {
+    // Convertir Base64Url a Base64 estándar
+    let output = str.replace(/-/g, '+').replace(/_/g, '/');
+        switch (output.length % 4) {
+          case 0:
+            break;
+          case 2:
+            output += '==';
+            break;
+          case 3:
+            output += '=';
+            break;
+          default:
+            throw new Error('Base64Url de longitud ilegal');
+        }
+        return decodeURIComponent(escape(atob(output)));
+      }
+
+      // Decodificar y parsear el payload
+      const payload = JSON.parse(base64UrlDecode(payloadB64));
+
+      return payload;
 }
 
 watch(fontFamily, (newFont) => {
