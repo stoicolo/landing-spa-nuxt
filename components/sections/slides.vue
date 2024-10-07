@@ -66,10 +66,8 @@
                                     <span v-else>{{ slide.description }}</span>
                                 </p>
                                 <div class="inline-flex">
-                                    <a 
-                                        v-if="slide.showButton" 
-                                        :href="viewMode ? slide.buttonLink : '#'"
-                                        @click.prevent="!viewMode"
+                                    <div 
+                                        v-if="slide.showButton && !viewMode"
                                         class="cursor-pointer w-auto inline-flex items-center text-center py-2 px-16 rounded-xl border transition-colors duration-300 whitespace-nowrap hover:brightness-125" 
                                         :style="{ 
                                             borderColor: slide.buttonColor,
@@ -78,14 +76,24 @@
                                         }"
                                         >
                                         <span 
-                                            v-if="!viewMode" 
                                             @input="updateSlideButtonText($event, index)" 
                                             @blur="saveChanges" 
                                             contenteditable
                                         >
                                             {{ slide.buttonText }}
                                         </span>
-                                        <span v-else>{{ slide.buttonText }}</span>
+                                    </div>
+                                    <a 
+                                        v-if="slide.showButton && viewMode"
+                                        class="cursor-pointer w-auto inline-flex items-center text-center py-2 px-16 rounded-xl border transition-colors duration-300 whitespace-nowrap hover:brightness-125"
+                                        :style="{ 
+                                            borderColor: slide.buttonColor,
+                                            backgroundColor:  slide.buttonColor,
+                                            color: slide.buttonTextColor 
+                                        }"
+                                        :href="slide.buttonLink"
+                                       >
+                                        <span>{{ slide.buttonText }}</span>
                                     </a>
                                 </div>
 
@@ -242,7 +250,7 @@
                         <input v-model="slide.titleColor" @input="saveChanges" type="color" class="p-1 w-full">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Descripción</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Descripción <small class="text-[#f0b163]">Máx 300 caracteres</small></label>
                         <textarea v-model="slide.description" @input="saveChanges" class="p-2 w-full border rounded" rows="3" maxlength="200"></textarea>
                         <label class="block text-sm font-medium text-gray-700 mt-2 mb-1">Color de descripción</label>
                         <input v-model="slide.descriptionColor" @input="saveChanges" type="color" class="p-1 w-full">
@@ -263,9 +271,9 @@
                         </div>
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Dirección (URL)</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Dirección (URL) <small>Debes tener otras páginas creadas y usar la URL respectiva, o bien utilizar una URL de un sitio externo como https://www.otraweb.com.</small></label>
                         <input v-model="slide.buttonLink" @input="saveChanges" type="text"
-                            class="p-2 w-full border rounded" placeholder="https://...">
+                            class="p-2 w-full border rounded" placeholder="https://wwww.urlexterna.com ó /url-interna">
                     </div>
                 </div>
                 <button @click="removeSlide(index)"
@@ -349,6 +357,8 @@ const currentSlide = ref(0);
 const localSectionTitleColor = ref(props.localSectionTitleColor);
 const showModalVideo = ref(false);
 const videoId = ref('-ZwLpZiTdmk');
+
+const saveTemplate = inject('saveTemplate');
 
 const localTemplate = computed(() => {
     let currentTemplate = props.template;
@@ -435,6 +445,7 @@ function saveChanges() {
 
 function saveChangesAndClose() {
     saveChanges();
+    saveTemplate();
     closeConfigModal();
 }
 

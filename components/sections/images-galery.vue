@@ -107,6 +107,7 @@
   const scrollTimeout = ref(null);
   const showModalVideo = ref(false);
   const videoId = ref('6DkKubpxang');
+  const saveTemplate = inject('saveTemplate');
   
   const openGaleryImages = inject('openGaleryImages', () => {
     console.warn('openGaleryImages function is not available');
@@ -141,6 +142,7 @@
   
   const saveChangesAndClose = () => {
     saveChanges();
+    saveTemplate();
     closeConfigModal();
   };
   

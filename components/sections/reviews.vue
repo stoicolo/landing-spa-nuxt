@@ -235,6 +235,8 @@ const reviewsSection = ref(null);
 const showModalVideo = ref(false);
 const videoId = ref('PbUVY8ijs0I');
 
+const saveTemplate = inject('saveTemplate');
+
 const localTemplate = computed(() => {
     let currentTemplate = props.template;
     templateStore.structure.page_template.sections.forEach((section) => {
@@ -310,6 +312,7 @@ function saveChanges() {
 
 function saveChangesAndClose() {
     saveChanges();
+    saveTemplate();
     closeConfigModal();
 }
 

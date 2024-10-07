@@ -164,7 +164,7 @@
 
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, provide } from 'vue';
 import { useRoute } from 'vue-router'
 import ComponentsSelector from '~/components/dashboard/componentsSelector.vue';
 import { useTemplateStore } from '~/stores/template';
@@ -555,4 +555,6 @@ const openModalVideo = () => {
 const closeModalVideo = () => {
     showModalVideo.value = false;
 }
+
+provide('saveTemplate', saveTemplate);
 </script>

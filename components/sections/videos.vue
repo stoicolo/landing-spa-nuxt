@@ -225,6 +225,8 @@ const showVideoModal = ref(false);
 const currentVideoId = ref('');
 const currentVideoIndex = ref(0);
 
+const saveTemplate = inject('saveTemplate');
+
 // Inyectar la función para abrir el modal de imágenes
 const openGaleryImages = inject('openGaleryImages', () => {
   console.warn('openGaleryImages function is not available');
@@ -296,6 +298,7 @@ function saveChanges() {
 
 function saveChangesAndClose() {
   saveChanges();
+  saveTemplate();
   closeConfigModal();
 }
 

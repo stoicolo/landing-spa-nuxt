@@ -322,6 +322,7 @@
 
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700">Enlaces</label>
+        <small>Debes tener otras páginas creadas y usar la URL respectiva, o bien utilizar una URL de un sitio externo como https://www.otraweb.com.</small>
         <div v-for="(link, index) in localLinks" :key="index" class="flex items-center mt-2">
           <input type="text" v-model="link.text" placeholder="Texto del enlace"
             class="mr-2 block w-1/2 rounded-md border-gray-300 shadow-sm">
@@ -520,6 +521,8 @@ const copyrightRef = ref(null);
 const imageFooterRef = ref(null);
 const showModalVideo = ref(false);
 const videoId = ref('vj5UgeFStOo');
+
+const saveTemplate = inject('saveTemplate');
 
 const animatedElements = ref([]);
 const isAnimatingIn = ref(true);
@@ -738,6 +741,7 @@ const updateBackgroundImage = () => {
 const saveChangesBtn = () => {
     saveChanges();
     closeConfigModal();
+    saveTemplate();
 };
 
 const saveChanges = () => {

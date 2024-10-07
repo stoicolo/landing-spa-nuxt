@@ -123,7 +123,7 @@
     </div>
     
     <div class="flex-1 min-w-[200px]">
-      <label for="buttonLink" class="block text-sm font-medium text-gray-700 mb-1">Enlace del botón</label>
+      <label for="buttonLink" class="block text-sm font-medium text-gray-700 mb-1">Dirección (URL) <small>Debes tener otras páginas creadas y usar la URL respectiva, o bien utilizar una URL de un sitio externo como https://www.otraweb.com.</small></label>
       <input 
         type="text" 
         id="buttonLink" 
@@ -173,7 +173,7 @@
           class="mr-3 px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
           Cancelar
         </button>
-        <button @click="saveChanges"
+        <button @click="saveAndClose"
           class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
           Guardar cambios
         </button>
@@ -240,6 +240,8 @@ const isMobile = ref(false);
 const btnRef = ref(null);
 const showModalVideo = ref(false);
 const videoId = ref('xQeDHJ95nZc');
+
+const saveTemplate = inject('saveTemplate');
 
 const localTitle = ref(props.title);
 const localDescription = ref(props.description);
@@ -413,7 +415,12 @@ function saveChanges() {
     buttonColor: localButtonColor.value,
     buttonLink: localButtonLink.value
   });
+}
+
+const saveAndClose = () => {
+  saveChanges();
   closeConfigModal();
+  saveTemplate();
 }
 
 const openModalVideo = () => {
