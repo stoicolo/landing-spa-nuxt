@@ -272,8 +272,8 @@ async function createNewPageAndPageTemplate() {
             currentStore.setWebsiteId(getWebsite.id);
             
             const [publishHistory, menusResponse] = await Promise.all([
-                PageTemplateService.getPublishHistoryByWebsiteId(currentStore.websiteId),
-                PageTemplateService.getMenuList(currentStore.websiteId, currentStore.userId)
+                PageTemplateService.getPublishHistoryByWebsiteId(getWebsite.id),
+                PageTemplateService.getMenuList(getWebsite.id, currentStore.userId)
             ]);
 
             currentStore.setPageId(pageId.value);
