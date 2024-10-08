@@ -85,11 +85,13 @@ const showEditModal = ref(false);
 const itemToDelete = ref(null);
 const editingItem = ref(null);
 const addPosition = ref('');
+const websiteId = ref(0);
 
 onMounted(async () => {
   await menuStore.initializeStore();
   await menuStore.loadMenu();
-  const menusResponse = await PageTemplateService.getMenuList(currentStore.websiteId, currentStore.userId);
+  websiteId.value = await PageTemplateService.getWebSite(currentStore.userId);
+  const menusResponse = await PageTemplateService.getMenuList(websiteId.value[0].id, currentStore.userId);
   menuStore.setMenuList(menusResponse.menuDetails);
   await loadMyMenu();
   changeActiveItemMenu();
