@@ -334,7 +334,7 @@ class PageTemplateService {
 
       response = await axios({
         method: "Get",
-        url: `${PageTemplateService.baseURL}/websites/id/${websiteId}`,
+        url: `${PageTemplateService.baseURL}/websites/user/${websiteId}`,
         headers: {
           Authorization: `Bearer ${PageTemplateService.authToken}`,
         },
