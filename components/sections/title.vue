@@ -284,7 +284,7 @@
       left: 0,
       width: '100%',
       height: '1500px',
-      backgroundSize: 'cover',
+      backgroundSize: 'contain',
       backgroundPosition: 'center',
     }
   });

@@ -642,7 +642,7 @@ const closeModalVideo = () => {
 /* Media queries */
 @media (max-width: 768px) {
   .parallax-hero {
-    height: 100vh;
+    height: auto;
   }
 
   .center-image {
@@ -660,6 +660,7 @@ const closeModalVideo = () => {
 
   .template-2 .content-wrapper {
     flex-direction: column;
+    padding-bottom: 40px;
   }
 
   .template-2 .center-image,
@@ -670,6 +671,10 @@ const closeModalVideo = () => {
 
   .template-2 .center-image {
     margin-bottom: 2rem;
+  }
+
+  .template-2 .center-image img{
+    margin-top: 20px;
   }
 }
 
