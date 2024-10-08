@@ -81,7 +81,7 @@ const websiteId = ref(0);
 onMounted(async () => {
     await menuStore.initializeStore();
     websiteId.value = await PageTemplateService.getWebSite(currentStore.userId);
-    const menusResponse = await PageTemplateService.getMenuList(websiteId.value.id, currentStore.userId);
+    const menusResponse = await PageTemplateService.getMenuList(websiteId.value[0].id, currentStore.userId);
     const userRole = decrypt(localStorage.getItem('getNumByTicket'), 3);
     currentStore.setUserRole(userRole);
     //TODO: Change this to a more secure way to validate the user role (wirking on image gallery, admin page)

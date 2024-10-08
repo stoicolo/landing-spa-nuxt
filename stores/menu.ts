@@ -20,7 +20,6 @@ interface MenuItem {
 export const useMenuStore = defineStore('menu', {
   state: () => ({
     navigation: [
-      { menuName: "Dashboard", href: "/builder/1", iconName: "HomeIcon", current: false, order: 0 },
       { menuName: "Respaldos", href: "/backups", iconName: "DocumentDuplicateIcon", current: false, order: 1 },
       { menuName: "Galería de Imagenes", iconName: "PhotoIcon", current: false, method: "openGaleryImages", order: 2 },
       { menuName: "Editar Menús", href: "/menus", iconName: "PencilSquareIcon", current: false, order: 3 },
