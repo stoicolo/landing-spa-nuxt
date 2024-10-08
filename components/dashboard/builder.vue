@@ -267,7 +267,7 @@ async function createNewPageAndPageTemplate() {
         if (routeId) {
 
             
-            const getWebsite = await PageTemplateService.getWebSite(currentStore.userId);
+            const getWebsite = await PageTemplateService.getWebSite(currentStore.websiteId);
 
             currentStore.setWebsiteId(getWebsite.id);
             
