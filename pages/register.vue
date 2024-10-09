@@ -11,6 +11,7 @@ const currentStore = useCurrentStore();
 const displayCreatingAccountModal = ref(false);
 const email = ref("");
 const phone = ref("");
+const name = ref("");
 const confirmEmail = ref("");
 const password = ref("");
 const confirmPassword = ref("");
@@ -36,6 +37,7 @@ const isFormValid = computed(() =>
   isPasswordValid.value &&
   email.value &&
   phone.value &&
+  name.value &&
   confirmEmail.value &&
   password.value &&
   confirmPassword.value
@@ -51,7 +53,7 @@ const registerUser = async (event: Event) => {
     const response: any = await $fetch(`${apiBaseUrl}/auth/register`, {
       method: "POST",
       body: {
-        name: email.value,
+        name: name.value,
         email: email.value,
         password: password.value,
         phoneNumber: phone.value,
@@ -97,6 +99,22 @@ const registerUser = async (event: Event) => {
     <h1>Bienvenido, regístrate y sé parte de weblox</h1>
 
     <form class="mt-8 space-y-6 md:w-96">
+      <div>
+        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">
+          Nombre
+        </label>
+        <div class="mt-2">
+          <input
+            v-model="name"
+            id="name"
+            class="focus:ring-fountain-blue-600 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+            name="name"
+            type="text"
+            required
+            placeholder="Nombre"
+          />
+        </div>
+      </div>
       <div>
         <label for="email" class="block text-sm font-medium leading-6 text-gray-900">
           Dirección de Email
