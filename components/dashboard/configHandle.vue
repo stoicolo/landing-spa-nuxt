@@ -91,7 +91,7 @@
   const isLoading = ref(false);
 
   onMounted(async () => {
-    config.value = await PageTemplateService.getWebSite(currentStore.websiteId); 
+    config.value = await PageTemplateService.getWebSite(currentStore.userId); 
 
     if(Object.keys(config.value.websiteGlobalConfig).length > 0){
       if(config.value.websiteGlobalConfig.logo){
