@@ -271,7 +271,7 @@ async function uploadImage() {
   try {
     await PageTemplateService.saveImageiDriveAdmins(
       formData,
-      websiteId.value.id,
+      websiteId.value[0].id,
       currentStore.userId,
       selectedCategories.value
     );
