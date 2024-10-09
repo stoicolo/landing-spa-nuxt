@@ -683,7 +683,7 @@ const closeModalVideo = () => {
   position: absolute;
   top: 40px;
   width: 500px;
-  max-height: 560px;
+  height: 80vh;
   overflow-y: scroll;
 }
 .instruction-scroll {
