@@ -102,6 +102,8 @@ onMounted(async () => {
   await menuStore.loadMenu();
   websiteId.value = await PageTemplateService.getWebSite(currentStore.userId);
   const menusResponse = await PageTemplateService.getMenuList(websiteId.value[0].id, currentStore.userId);
+  const menuHeaderLoaded = await PageTemplateService.getMenuHeader(currentStore.userId, currentStore.websiteId);
+  currentStore.setMenuHeaderId(menuHeaderLoaded[0].id);
   menuStore.setMenuList(menusResponse.menuDetails);
   await loadMyMenu();
   changeActiveItemMenu();
@@ -186,7 +188,6 @@ function onEndDrag(draggedItem) {
   });
 
   menuStore.saveMenuDB(menuItems.value);
-  console.log(menuItems.value);
 }
 
 async function publishLastChanges() {
