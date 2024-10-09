@@ -328,13 +328,13 @@ class PageTemplateService {
     }
   }
 
-  static async getWebSite(websiteId: number): Promise<any | null> {
+  static async getWebSite(userId: number): Promise<any | null> {
     try {
       let response = null;
 
       response = await axios({
         method: "Get",
-        url: `${PageTemplateService.baseURL}/websites/user/${websiteId}`,
+        url: `${PageTemplateService.baseURL}/websites/user/${userId}`,
         headers: {
           Authorization: `Bearer ${PageTemplateService.authToken}`,
         },
