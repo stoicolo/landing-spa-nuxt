@@ -44,9 +44,11 @@ export const useMenuStore = defineStore('menu', {
     async loadMenu() {
       const { useCurrentStore } = await import('~/stores/current');
       const currentStore = useCurrentStore();
-      //Si no existe un menuHeaderId en el currentStore, lo busco y lo guardo
-      const menuHeaderLoaded = await PageTemplateService.getMenuHeader(currentStore.userId, currentStore.websiteId);
-      currentStore.setMenuHeaderId(menuHeaderLoaded[0].id);
+      if (!currentStore.menuHeaderId) {
+        //Si no existe un menuHeaderId en el currentStore, lo busco y lo guardo
+        const menuHeaderLoaded = await PageTemplateService.getMenuHeader(currentStore.userId, currentStore.websiteId);
+        currentStore.setMenuHeaderId(menuHeaderLoaded[0].id);
+      }
     },
 
     setActiveMenu(path: string) {
