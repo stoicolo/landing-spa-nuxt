@@ -1081,6 +1081,25 @@ class PageTemplateService {
       throw error;
     }
   }
+
+  static async sendSubdomainRequest(subdomainUrl: string, paymentsProviderUrl: string, clientName: string, clientEmail: string, userId: number) {
+    try {
+      const cleanAxios = this.createCleanAxiosInstance();
+      await cleanAxios.post(
+        `/users/send-subdomain-email`,
+        {
+          subdomainUrl,
+          paymentsProviderUrl,
+          clientName,
+          clientEmail,
+          userId
+        }
+      );
+    } catch (error) {
+      console.error("Error sending subdomain request", error);
+      throw error;
+    }
+  }
 }
 
 if (process.client) {
