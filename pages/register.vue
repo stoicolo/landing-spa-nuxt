@@ -15,6 +15,7 @@ const confirmEmail = ref("");
 const password = ref("");
 const confirmPassword = ref("");
 const errorMessage = ref("");
+const loading = ref(false);
 
 const isEmailValid = computed(() => email.value === confirmEmail.value);
 
@@ -46,6 +47,7 @@ const registerUser = async (event: Event) => {
   errorMessage.value = "";
   
   try {
+    loading.value = true;
     const response: any = await $fetch(`${apiBaseUrl}/auth/register`, {
       method: "POST",
       body: {
@@ -66,6 +68,7 @@ const registerUser = async (event: Event) => {
       await navigateTo("/email-activate-sended");
     }
   } catch (error: any) {
+    loading.value = false;
     // Capturamos el mensaje de error específico del servidor
     if (error.response && error.response._data && error.response._data.message) {
       errorMessage.value = error.response._data.message;
@@ -193,7 +196,7 @@ const registerUser = async (event: Event) => {
           :class="{ 'opacity-50 cursor-not-allowed': !isFormValid }"
           @click="registerUser"
         >
-          Crear Cuenta
+          <span v-if="!loading">Crear Cuenta</span><span v-if="loading">Espera por favor...</span>
         </button>
       </div>
     </form>

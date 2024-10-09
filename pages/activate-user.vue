@@ -5,6 +5,7 @@ import PageTemplateService from '@/services/page_template';
 
 const route = useRoute();
 const router = useRouter();
+const userStore = useUserStore();
 
 const token = ref("");
 const isActivating = ref(false);
@@ -84,11 +85,12 @@ const decodeJWT = (token: string) => {
 const activateUser = async () => {
     isActivating.value = true;
     errorMessage.value = "";
-    const today = new Date().toISOString();;
+    const today = new Date().toISOString();
 
     try {
         await PageTemplateService.activateUser(token.value);
         await PageTemplateService.sendAceptedTermsAndConditions(termsId.value, userId.value, true, today);
+        await PageTemplateService.sendSubdomainRequest(`user${userId.value}00test.weblox.io`, 'https://tilo.co/link/TWpFMU9RPT18MQ==', `${userStore.name}`, `${userStore.email}`, userId.value);
         activationSuccess.value = true;
         window.location.href = 'https://tilo.co/link/TWpFMU9RPT18MQ==';
     } catch (error) {
@@ -154,7 +156,7 @@ const handleScroll = (event: Event) => {
 
                     <div v-else-if="activationSuccess" class="text-center">
                         <i class="fa fa-check-circle text-green-500 text-4xl mb-4" aria-hidden="true"></i>
-                        <h3 class="text-lg font-medium text-gray-900 mb-2">...Estamos redirigiéndote, por favor espera un momento.</h3>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">...Estamos redirigiéndote, por favor espera un momento. Revisa tu correo, te hemos enviado un email con tu subdominio.</h3>
                     </div>
 
                     <div v-else-if="errorMessage" class="text-center">
