@@ -983,9 +983,9 @@ const closeModalVideo = () => {
 .custom-modal {
   left: 40px;
   position: absolute;
-  top: 40px;
+  top: 20px;
   max-width: 500px !important;
-  max-height: 560px;
+  height: 80vh;
   overflow-y: scroll;
 }
 .instruction-scroll {

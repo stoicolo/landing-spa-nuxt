@@ -666,7 +666,7 @@ watch(() => localTemplate.value, (newTemplate, oldTemplate) => {
   position: absolute;
   top: 40px;
   max-width: 500px !important;
-  max-height: 560px;
+  height: 80vh;
   overflow-y: scroll;
 }
 .instruction-scroll {
