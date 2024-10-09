@@ -621,7 +621,7 @@ class PageTemplateService {
 
   //TODO: Sacar esto a un servicio de WEBSITE
   static async createPublishRequest(
-    websiteDomain: string,
+    domain: string,
     websiteId: number,
     userId: number,
     menuHeaderId: number,
@@ -638,7 +638,7 @@ class PageTemplateService {
           Authorization: `Bearer ${PageTemplateService.authToken}`,
         },
         data: {
-          websiteDomain,
+          domain,
           websiteId,
           userId,
           menuHeaderId,
