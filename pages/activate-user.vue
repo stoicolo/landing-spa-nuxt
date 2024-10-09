@@ -90,7 +90,7 @@ const activateUser = async () => {
     try {
         await PageTemplateService.activateUser(token.value);
         await PageTemplateService.sendAceptedTermsAndConditions(termsId.value, userId.value, true, today);
-        await PageTemplateService.sendSubdomainRequest(`user${userId.value}00test.weblox.io`, 'https://tilo.co/link/TWpFMU9RPT18MQ==', `${userStore.name}`, `${userStore.email}`, userId.value);
+        await PageTemplateService.sendSubdomainRequest(`editor${userId.value}00trial.weblox.io`, 'https://tilo.co/link/TWpFMU9RPT18MQ==', `${userStore.name}`, `${userStore.email}`, userId.value);
         activationSuccess.value = true;
         window.location.href = 'https://tilo.co/link/TWpFMU9RPT18MQ==';
     } catch (error) {
