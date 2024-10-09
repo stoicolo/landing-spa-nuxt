@@ -73,7 +73,7 @@ export const useMenuStore = defineStore('menu', {
           pageId: item.pageId,
           order: item.order,
           slug: item.slug,
-          hidden: item.hidden
+          hidden: item.hidden === null ? false : item.hidden
         }
       });
       await PageTemplateService.updateAllMenu(currentStore.menuHeaderId, itemsToSave);

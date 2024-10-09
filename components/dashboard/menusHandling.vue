@@ -2,6 +2,14 @@
   <div class="bg-gray-100 p-6 rounded-lg shadow-lg">
     <div class="flex justify-between items-center mb-6">
       <h2 class="text-2xl font-bold text-gray-800">Menú</h2>
+    <div class="flex justify-center mb-4">
+      <button @click="publishLastChanges" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full flex items-center transition duration-300 ease-in-out transform hover:scale-105">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg>
+        Publicar Cambios
+      </button>
+    </div>
       <!-- Botón de agregar superior -->
     <div class="flex justify-center mb-4">
       <button @click="openAddModal('top')" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full flex items-center transition duration-300 ease-in-out transform hover:scale-105">
@@ -86,6 +94,8 @@ const itemToDelete = ref(null);
 const editingItem = ref(null);
 const addPosition = ref('');
 const websiteId = ref(0);
+
+const { $toaster } = useNuxtApp();
 
 onMounted(async () => {
   await menuStore.initializeStore();
@@ -177,5 +187,26 @@ function onEndDrag(draggedItem) {
 
   menuStore.saveMenuDB(menuItems.value);
   console.log(menuItems.value);
+}
+
+async function publishLastChanges() {
+    const domain = currentStore.domain;
+    const publishHistoryId = currentStore.publishHistoryId;
+    const isActive = true;
+    const publishedAt = JSON.stringify(Date());
+    await PageTemplateService.changeActiveSite(
+                publishHistoryId,
+                domain,
+                isActive,
+                true,
+                publishedAt
+            );
+    $toaster.show({
+        title: "Publicado",
+        description: "Se han publicado los cambios.",
+        delay: 3,
+        position: "top-right",
+        type: "success"
+    });
 }
 </script>
