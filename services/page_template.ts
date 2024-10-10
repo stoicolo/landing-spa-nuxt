@@ -424,6 +424,27 @@ class PageTemplateService {
     }
   }
 
+  static async deletePage(
+    pageId: number,
+  ): Promise<any | null> {
+    try {
+      let response = null;
+
+      response = await axios({
+        method: "Delete",
+        url: `${PageTemplateService.baseURL}/pages/id/${pageId}`,
+        headers: {
+          Authorization: `Bearer ${PageTemplateService.authToken}`,
+        },
+      });
+      console.log("Page deleted", response.data);
+      return response ? response.data : null;
+    } catch (error) {
+      console.error("Error deleting page:", error);
+      return null;
+    }
+  }
+
   //TODO: SACAR ESTA LOGICA A UN NUEVO SERVICIO DE MENU SERVICE
 
   static async createNewMenu(
