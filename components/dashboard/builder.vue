@@ -202,7 +202,7 @@ const pageId = ref(null);
 const showConfigModal = ref(false);
 const currentSectionId = ref(null);
 const showModalVideo = ref(false);
-const videoId = ref('');
+const videoId = ref('PQd61JpPzRg');
 
 function openConfigModal(sectionId) {
   currentSectionId.value = sectionId;
