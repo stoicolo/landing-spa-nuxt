@@ -101,6 +101,7 @@ onMounted(async () => {
   const menusResponse = await PageTemplateService.getMenuList(websiteId.value[0].id, currentStore.userId);
   const menuHeaderLoaded = await PageTemplateService.getMenuHeader(currentStore.userId, websiteId.value[0].id);
   currentStore.setMenuHeaderId(menuHeaderLoaded[0].id);
+  currentStore.setWebsiteId(websiteId.value[0].id);
   menuStore.setMenuList(menusResponse.menuDetails);
   await loadMyMenu();
   changeActiveItemMenu();
