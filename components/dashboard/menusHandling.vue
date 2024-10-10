@@ -37,7 +37,7 @@
               class="flex-grow text-lg text-gray-700"
               :class="route.path === element.href ? 'font-semibold' : ''"
             >
-              {{ element.menuName }}
+              {{ element.menuName }} <span v-if="loading">cargando...</span>
             </a>
             <div class="flex space-x-2">
               <button @click="hideItem(element)" class="text-blue-500 hover:text-blue-700 transition-colors duration-200">
@@ -91,6 +91,7 @@ const itemToDelete = ref(null);
 const editingItem = ref(null);
 const addPosition = ref('');
 const websiteId = ref(0);
+const loading = ref(false);
 
 const { $toaster } = useNuxtApp();
 
@@ -153,10 +154,13 @@ function showDeleteConfirmation(item) {
 async function confirmDelete() {
   if (itemToDelete.value) {
     try {
+      loading.value = true;
       await menuStore.deleteMenuItem(itemToDelete.value);
       console.log('Item borrado:', itemToDelete.value);
+      loading.value = false;
     } catch (error) {
       console.error('Error al eliminar el ítem del menú:', error);
+      loading.value = false;
     }
   }
   showModal.value = false;
