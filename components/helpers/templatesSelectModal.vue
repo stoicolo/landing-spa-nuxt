@@ -137,7 +137,7 @@
   const confirmUseTemplate = async () => {
     showConfirmDialog.value = false
     try {
-      await PageTemplateService.updatePageTemplate(currentStore.pageId, selectedTemplate.value.sections)
+      await PageTemplateService.updatePageTemplate(currentStore.pageTemplateId, selectedTemplate.value.sections)
       emit('close')
     } catch (error) {
       console.error('Error updating template:', error)
