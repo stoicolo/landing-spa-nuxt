@@ -114,7 +114,7 @@ class PageTemplateService {
 
       if (page) {
         response = await axios.get<PageTemplate>(
-          `${PageTemplateService.baseURL}/page_templates/${page?.id}`,
+          `${PageTemplateService.baseURL}/page_templates/${page?.templateId}`,
           config,
         );
       } else {
