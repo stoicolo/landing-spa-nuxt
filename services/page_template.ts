@@ -160,6 +160,7 @@ class PageTemplateService {
 
   // Actualizar un template existente
   static async updatePageTemplate(
+    userId: number,
     id: number,
     sections: Section[],
   ): Promise<PageTemplate | null> {
@@ -173,6 +174,8 @@ class PageTemplateService {
       };
 
       const data = { sections: [...sections] };
+
+      const page = await this.fetchPage(userId, id);
 
       // Realizar la petición PATCH y obtener directamente la propiedad data del resultado
       const axiosResponse = await axios.patch<PageTemplate>(
