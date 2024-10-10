@@ -97,7 +97,6 @@ const { $toaster } = useNuxtApp();
 
 onMounted(async () => {
   await menuStore.initializeStore();
-  await menuStore.loadMenu();
   websiteId.value = await PageTemplateService.getWebSite(currentStore.userId);
   const menusResponse = await PageTemplateService.getMenuList(websiteId.value[0].id, currentStore.userId);
   const menuHeaderLoaded = await PageTemplateService.getMenuHeader(currentStore.userId, websiteId.value[0].id);
