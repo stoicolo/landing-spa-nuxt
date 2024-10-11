@@ -166,13 +166,16 @@ export const useMenuStore = defineStore('menu', {
       });
     },
 
-    async deleteMenuItem(item: MenuItem) {
+    async deleteMenuItem(item: MenuItem, userId: number) {
       const { useCurrentStore } = await import('~/stores/current');
       const currentStore = useCurrentStore();
       try {
         // Llamar al servicio para eliminar el ítem del menú en la base de datos
+        debugger;
+        const page = await PageTemplateService.fetchPage(userId, item.pageId ? item.pageId : 0);
         await PageTemplateService.deleteMenuBulkOfItems(currentStore.websiteId, currentStore.menuHeaderId, [item.pageId]);
         await PageTemplateService.deletePage(item.pageId ? item.pageId : 0);
+        await PageTemplateService.deletePageTemplate(page?.templateId ? page?.templateId : 0);
         
         // Eliminar el ítem del estado local
         this.menu = this.menu.filter(menuItem => menuItem.href !== item.href);

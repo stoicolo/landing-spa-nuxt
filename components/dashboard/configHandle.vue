@@ -82,26 +82,57 @@
   import { ref, inject, watch } from 'vue';
   import PageTemplateService from '~/services/page_template';
   import { useCurrentStore } from '~/stores/current';
+  import { useRoute } from 'vue-router';
+  import { useMenuStore } from '~/stores/menu';
   import Spinner from '@/components/helpers/spinner.vue';
   
+  const menuStore = useMenuStore();
   const logoPreview = ref(null)
-  const selectedFont = ref('')
+  const selectedFont = ref('');
+  const route = useRoute();
   const currentStore = useCurrentStore();
   const config = ref({});
   const isLoading = ref(false);
+  const configuration = ref([]);
+  const websiteId = ref(0);
+
+  const { $toaster } = useNuxtApp();
 
   onMounted(async () => {
-    config.value = await PageTemplateService.getWebSite(currentStore.userId); 
+    await menuStore.initializeStore();
+    currentStore.setUserId(JSON.parse(localStorage.getItem("user")).id);
+    websiteId.value = await PageTemplateService.getWebSite(currentStore.userId);
+    
+    currentStore.setWebsiteId(websiteId.value[0].id);
+    currentStore.setDomain(websiteId.value[0].domain);
 
-    if(Object.keys(config.value.websiteGlobalConfig).length > 0){
-      if(config.value.websiteGlobalConfig.logo){
-        logoPreview.value = config.value.websiteGlobalConfig.logo;
+    const publishHistory = await PageTemplateService.getPublishHistoryByWebsiteId(currentStore.websiteId);
+    const latestPublishHistory = publishHistory[0];
+    currentStore.setPublishHistoryId(latestPublishHistory.id);
+    
+    config.value = await PageTemplateService.getWebSite(currentStore.userId);
+    const menusResponse = await PageTemplateService.getMenuList(websiteId.value[0].id, currentStore.userId);
+    const menuHeaderLoaded = await PageTemplateService.getMenuHeader(currentStore.userId, websiteId.value[0].id);
+    currentStore.setMenuHeaderId(menuHeaderLoaded[0].id);
+    configuration.value = config.value[0];
+    menuStore.setMenuList(menusResponse.menuDetails);
+    changeActiveItemMenu();
+
+    if(Object.keys(configuration.value.websiteGlobalConfig).length > 0){
+      if(configuration.value.websiteGlobalConfig.logo){
+        logoPreview.value = configuration.value.websiteGlobalConfig.logo;
       } else {
         logoPreview.value = currentStore.lastACurrentImg;
       }
-      selectedFont.value = config.value.websiteGlobalConfig.fontFamily;
+      selectedFont.value = configuration.value.websiteGlobalConfig.fontFamily;
     }
   });
+
+  function changeActiveItemMenu() {
+    if (route.path) {
+      menuStore.setActiveMenu(route.path);
+    }
+  }
 
   const openGaleryImages = inject('openGaleryImages', () => {
     console.warn('openGaleryImages function is not available');
@@ -122,7 +153,7 @@
   
   const saveConfiguration = async () => {
     isLoading.value = true;
-    await PageTemplateService.updateWebSite(config.value.websiteName, {"fontFamily": selectedFont.value, "logo": logoPreview.value}, currentStore.websiteId);
+    await PageTemplateService.updateWebSite(configuration.value.websiteName, {"fontFamily": selectedFont.value, "logo": logoPreview.value}, currentStore.websiteId);
     const domain = currentStore.domain;
     const publishHistoryId = currentStore.publishHistoryId;
     const isActive = true;
@@ -134,8 +165,14 @@
                 true,
                 publishedAt
             );
-    console.log('Configuration saved');
     isLoading.value = false;
+    $toaster.show({
+        title: "Publicado",
+        description: "Se han publicado los cambios.",
+        delay: 3,
+        position: "top-right",
+        type: "success"
+    });
   }
   </script>
   <style lang="scss">

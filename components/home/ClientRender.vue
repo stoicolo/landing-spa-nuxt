@@ -77,6 +77,7 @@ const fetchWebsiteData = async () => {
   try {
     const encriptedDomain = await PageTemplateService.fetchClientSiteByDomain(window.location.host);
     const decoded = decodeJWT(encriptedDomain);
+    console.log("decoded", decoded);
     website.value = decoded.data[0];
   } catch (error) {
     console.error('Error fetching website data:', error)
