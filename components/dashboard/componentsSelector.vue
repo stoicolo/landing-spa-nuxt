@@ -2,10 +2,12 @@
 import { ref } from 'vue';
 import { useComponentsStore } from '~/stores/components';
 import { computed } from '@vue/reactivity';
+import Spinner from '@/components/helpers/spinner.vue'
 
 const componentsStore = useComponentsStore();
 const selectedComponent = ref(null);
 componentsStore.loadComponentStructure();
+const isLoading = computed(() => componentsStore.components.isLoading);
 
 const components = computed(() => {
   console.log(componentsStore.components);
@@ -61,6 +63,9 @@ function formatComponentName(name) {
         </button>
       </div>
     </div>
+  </div>
+  <div v-if="isLoading" class="flex items-center justify-center min-h-screen">
+      <Spinner />
   </div>
 </template>
 

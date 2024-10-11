@@ -155,7 +155,7 @@ async function confirmDelete() {
   if (itemToDelete.value) {
     try {
       loading.value = true;
-      await menuStore.deleteMenuItem(itemToDelete.value);
+      await menuStore.deleteMenuItem(itemToDelete.value, currentStore.userId);
       console.log('Item borrado:', itemToDelete.value);
       loading.value = false;
     } catch (error) {
