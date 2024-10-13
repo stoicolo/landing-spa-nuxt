@@ -48,7 +48,7 @@ const logout = async () => {
     await PageTemplateService.logout();
     router.push('/login');
   }catch(error){
-    console.log("Error trying to logout");
+    console.error("Error trying to logout");
   }
 };
 

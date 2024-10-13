@@ -10,7 +10,6 @@ componentsStore.loadComponentStructure();
 const isLoading = computed(() => componentsStore.components.isLoading);
 
 const components = computed(() => {
-  console.log(componentsStore.components);
   return componentsStore.components.components
 });
 

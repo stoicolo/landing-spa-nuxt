@@ -96,7 +96,6 @@
     isConfirmationModalOpen.value = false;
     try {
         await PageTemplateService.removeBackupById(backupIdSelected.value);
-        console.log('Backup deleted successfully');
         backupsList.value = await PageTemplateService.getBackups(userStore.id);
     } catch (error) {
         console.error('Error during backup deletion:', error);
@@ -114,7 +113,6 @@
         pageId.value = pagesList.value?.find(p => p.pageName === backupToRestore.pageName);
         try {
             await PageTemplateService.updatePageTemplate(templateIdSelected.value, backupToRestore.sections);
-            console.log('Backup restored successfully');
             router.push('/builder/' + JSON.stringify(pageId.value.id));
         } catch (error) {
             console.error('Error restoring backup:', error);

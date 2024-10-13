@@ -150,7 +150,6 @@ class PageTemplateService {
           categories
         },
       });
-      console.log("New Page Template Created", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error creating page template:", error);
@@ -221,7 +220,6 @@ class PageTemplateService {
         data,
         config,
       );
-      console.log("Backups List", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error getting backups list:", error);
@@ -289,7 +287,6 @@ class PageTemplateService {
           pageTemplateBackupId: backupId,
         },
       });
-      console.log("Backups List", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error delete backups by id:", error);
@@ -323,7 +320,6 @@ class PageTemplateService {
           websiteGlobalConfig,
         },
       });
-      console.log("New Site Created", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error creating site:", error);
@@ -342,7 +338,6 @@ class PageTemplateService {
           Authorization: `Bearer ${PageTemplateService.authToken}`,
         },
       });
-      console.log("Success Getting Site", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error getting site:", error);
@@ -369,7 +364,6 @@ class PageTemplateService {
           websiteGlobalConfig,
         },
       });
-      console.log("Site updated", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error updating site:", error);
@@ -385,7 +379,7 @@ class PageTemplateService {
     try {
       listPages = await this.fetchPagesListByUserId(userId);
     } catch (error) {
-      console.log("No hay paginas para este usuario");
+      console.error("No hay paginas para este usuario");
     }
 
     if (listPages) {
@@ -419,7 +413,6 @@ class PageTemplateService {
           websiteId,
         },
       });
-      console.log("New Page Created", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error creating page:", error);
@@ -440,7 +433,6 @@ class PageTemplateService {
           Authorization: `Bearer ${PageTemplateService.authToken}`,
         },
       });
-      console.log("Page deleted", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error deleting page:", error);
@@ -470,7 +462,6 @@ class PageTemplateService {
           menuDetails,
         },
       });
-      console.log("New Menu Created", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error creating menu:", error);
@@ -496,7 +487,6 @@ class PageTemplateService {
           websiteId,
         },
       });
-      console.log("Get Menu Header Success", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error getting menu header:", error);
@@ -518,7 +508,6 @@ class PageTemplateService {
           menuHeaderId,
         },
       });
-      console.log("Get Menu Success", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error getting menu:", error);
@@ -551,7 +540,6 @@ class PageTemplateService {
         },
         data: itemData,
       });
-      console.log("Update Menu Success", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error updating menu:", error);
@@ -579,7 +567,6 @@ class PageTemplateService {
         },
         data: itemData,
       });
-      console.log("Update Menu Success", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error updating menu:", error);
@@ -605,7 +592,6 @@ class PageTemplateService {
           userId,
         },
       });
-      console.log("Get Menu List Success", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error getting menu list:", error);
@@ -635,7 +621,6 @@ class PageTemplateService {
         },
         data: itemData,
       });
-      console.log("Delete Menu Bulk Success", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error Delete Menu Bulk menu:", error);
@@ -671,7 +656,6 @@ class PageTemplateService {
           publishedAt: new Date().toISOString(),
         },
       });
-      console.log("Publish Request Created", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error creating publish request:", error);
@@ -695,7 +679,6 @@ class PageTemplateService {
           websiteId,
         },
       });
-      console.log("Getting PublishHistory Success", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error Getting PublishHistory:", error);
@@ -727,7 +710,6 @@ class PageTemplateService {
           publishedAt,
         },
       });
-      console.log("Change Active Site Success", response.data);
       return response ? response.data : null;
     } catch (error) {
       console.error("Error changing active site:", error);
@@ -766,7 +748,6 @@ class PageTemplateService {
           Authorization: `Bearer ${PageTemplateService.authToken}`,
         },
       });
-      console.log("Getting images Success", response.data);
       return response.data;
     } catch (error) {
       console.error("Getting images Error:", error);
@@ -780,7 +761,6 @@ class PageTemplateService {
         method: "GET",
         url: `../mocks/backgrounds_images.json`,
       });
-      console.log("Getting backgrounds Success", response.data);
       return response.data;
     } catch (error) {
       console.error("Getting backgrounds Error:", error);
@@ -809,7 +789,6 @@ class PageTemplateService {
         },
         data: formData,
       });
-      console.log("Uploading image Success", response.data);
       await axios({
         method: "PATCH",
         url: `${PageTemplateService.baseURL}/media/images?mediaId=${response.data.data.id}`,
@@ -840,7 +819,6 @@ class PageTemplateService {
           Authorization: `Bearer ${PageTemplateService.authToken}`,
         },
       });
-      console.log("Getting images by categories Success", response.data);
       return response.data;
     } catch (error) {
       console.error("Getting images by categories Error:", error);
@@ -870,7 +848,6 @@ class PageTemplateService {
         },
         data: formData,
       });
-      console.log("Uploading image Success", response.data);
       await axios({
         method: "PATCH",
         url: `${PageTemplateService.baseURL}/media/images?mediaId=${response.data.data.id}`, //TODO: Cambiar por el id de la imagen
@@ -901,7 +878,6 @@ class PageTemplateService {
           imageIds,
         },
       });
-      console.log("Deleting image Success", response.data);
       return response.data;
     } catch (error) {
       console.error("Error Deleting image:", error);

@@ -398,7 +398,6 @@ async function saveTemplate() {
 }
 
 async function handleSaveBackup(name) {
-    console.log(name);
     saveBackupModal.value = !saveBackupModal.value;
     const getCurrentTemplateSections = templateStore.structure.page_template.sections;
     const templateId = templateStore.structure.page_template.id;
@@ -461,7 +460,6 @@ async function publishWebSite() {
     const menuHeaderId = currentStore.menuHeaderId;
     const publishHistoryId = currentStore.publishHistoryId;
     
-    console.log(publishHistoryId, "publishHistoryId");
     if(!publishHistoryId){
             const resPublish = await PageTemplateService.createPublishRequest(
                  domain,
