@@ -298,7 +298,7 @@ const handleScroll = () => {
     // Scrolling up and header is not visible, animate in
     animateIn();
   }
-  console.log(headerTop);
+
   if (headerTop > 300) {
     animateIn();
   }

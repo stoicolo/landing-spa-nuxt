@@ -131,12 +131,31 @@ const menuItems = computed(() => {
 });
 
 function editItem(item) {
-  console.log('Editar item:', item);
+  if(item.menuName === 'Inicio'){
+    $toaster.show({
+      title: "Error",
+      description: "No puedes editar el ítem de Inicio.",
+      delay: 3,
+      position: "top-right",
+      type: "error"
+    });
+    return;
+  }
   editingItem.value = item;
   showEditModal.value = true;
 }
 
 async function hideItem(item) {
+  if(item.menuName === 'Inicio'){
+    $toaster.show({
+      title: "Error",
+      description: "No puedes ocultar el ítem de Inicio.",
+      delay: 3,
+      position: "top-right",
+      type: "error"
+    });
+    return;
+  }
   await menuStore.updateMenuItem({...item, hidden: !item.hidden});
 }
 
@@ -147,6 +166,16 @@ function openAddModal(position) {
 }
 
 function showDeleteConfirmation(item) {
+  if(item.menuName === 'Inicio'){
+    $toaster.show({
+      title: "Error",
+      description: "No puedes eliminar el ítem de Inicio.",
+      delay: 3,
+      position: "top-right",
+      type: "error"
+    });
+    return;
+  }
   itemToDelete.value = item;
   showModal.value = true;
 }
@@ -156,7 +185,6 @@ async function confirmDelete() {
     try {
       loading.value = true;
       await menuStore.deleteMenuItem(itemToDelete.value, currentStore.userId);
-      console.log('Item borrado:', itemToDelete.value);
       loading.value = false;
     } catch (error) {
       console.error('Error al eliminar el ítem del menú:', error);

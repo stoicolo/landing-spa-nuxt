@@ -175,12 +175,10 @@ export const useTemplateStore = defineStore('template_store', {
         const newPosition = direction === 'up' ? currentPosition - 1 : currentPosition + 1;
         
         if (direction === 'up' && currentPosition === 0) {
-          console.log('Cannot move up. It is the first element.');
           return;
         }
         
         if (direction === 'down' && currentPosition === this.structure.page_template.sections.length - 1) {
-          console.log('Cannot move down. It is the last element.');
           return;
         }
         

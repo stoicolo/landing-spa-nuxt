@@ -171,7 +171,6 @@ export const useMenuStore = defineStore('menu', {
       const currentStore = useCurrentStore();
       try {
         // Llamar al servicio para eliminar el ítem del menú en la base de datos
-        debugger;
         const page = await PageTemplateService.fetchPage(userId, item.pageId ? item.pageId : 0);
         await PageTemplateService.deleteMenuBulkOfItems(currentStore.websiteId, currentStore.menuHeaderId, [item.id]);
         await PageTemplateService.deletePage(item.pageId ? item.pageId : 0);
