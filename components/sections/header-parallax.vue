@@ -8,12 +8,26 @@
       </div>
       <div class="text-container">
         <h1 class="title" ref="titleRef">
-          <div class="styled-input styled-input-h1" :contenteditable="!viewMode" @input="onInputTitle"
-            @blur="updateTitle" v-text="localTitle"></div>
+          <textarea
+            v-if="!viewMode"
+            class="styled-textarea styled-textarea-h1"
+            :value="localTitle"
+            @input="onInputTitle"
+            @blur="updateTitle"
+            v-auto-grow
+          ></textarea>
+          <div v-else class="styled-input styled-input-h1" v-text="localTitle"></div>
         </h1>
         <p class="description" ref="descriptionRef">
-          <div class="styled-input styled-input-p" :contenteditable="!viewMode" @input="onInputDescription"
-            @blur="updateDescription" v-text="localDescription"></div>
+          <textarea
+            v-if="!viewMode"
+            class="styled-textarea styled-textarea-p"
+            :value="localDescription"
+            @input="onInputDescription"
+            @blur="updateDescription"
+            v-auto-grow
+          ></textarea>
+          <div v-else class="styled-input styled-input-p" v-text="localDescription"></div>
         </p>
       </div>
       <div class="action-button">
@@ -44,12 +58,26 @@
         </div>
         <div class="text-container">
           <h1 class="title" ref="titleRef">
-            <div class="styled-input styled-input-h1" :contenteditable="!viewMode" @input="onInputTitle"
-              @blur="updateTitle" v-text="localTitle"></div>
+            <textarea
+              v-if="!viewMode"
+              class="styled-textarea styled-textarea-h1"
+              :value="localTitle"
+              @input="onInputTitle"
+              @blur="updateTitle"
+              v-auto-grow
+            ></textarea>
+            <div v-else class="styled-input styled-input-h1" v-text="localTitle"></div>
           </h1>
           <p class="description" ref="descriptionRef">
-            <div class="styled-input styled-input-p" :contenteditable="!viewMode" @input="onInputDescription"
-              @blur="updateDescription" v-text="localDescription"></div>
+            <textarea
+              v-if="!viewMode"
+              class="styled-textarea styled-textarea-p"
+              :value="localDescription"
+              @input="onInputDescription"
+              @blur="updateDescription"
+              v-auto-grow
+            ></textarea>
+            <div v-else class="styled-input styled-input-p" v-text="localDescription"></div>
           </p>
           <div class="action-button">
             <a v-if="viewMode" :href="localButtonLink" :style="{ backgroundColor: localButtonColor }" ref="btnRef">
@@ -333,16 +361,43 @@ function checkIfMobile() {
   updateRellaxSpeeds();
 }
 
+const vAutoGrow = {
+  //This is a custom directive
+  mounted(el) {
+    el.style.overflow = 'hidden';
+    el.style.resize = 'none';
+    el.style.boxSizing = 'border-box';
+    
+    const resize = () => {
+      el.style.height = '40px';
+      el.style.height = `${el.scrollHeight}px`;
+    };
+    
+    el.__resizeListener = resize;
+    el.addEventListener('input', resize);
+    
+    // we need to call resize in the next tick to get the correct scrollHeight
+    setTimeout(resize, 0);
+  },
+  updated(el) {
+    // we need to call resize in the next tick to get the correct scrollHeight
+    el.__resizeListener();
+  },
+  unmounted(el) {
+    el.removeEventListener('input', el.__resizeListener);
+  }
+};
+
 function onInputTitle(event) {
-  localTitle.value = event.target.innerText;
+  localTitle.value = event.target.value;
+}
+
+function onInputDescription(event) {
+  localDescription.value = event.target.value;
 }
 
 function onInputButtonText(event) {
   localButtonText.value = event.target.innerText;
-}
-
-function onInputDescription(event) {
-  localDescription.value = event.target.innerText;
 }
 
 function updateTitle() {
@@ -430,6 +485,8 @@ const openModalVideo = () => {
 const closeModalVideo = () => {
   showModalVideo.value = false;
 }
+
+
 </script>
 
 <style scoped>
@@ -590,6 +647,39 @@ const closeModalVideo = () => {
   }
 }
 
+.styled-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: inherit;
+  text-align: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  resize: none;
+  font-family: inherit;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  min-height: 0;
+}
+
+.styled-textarea:focus {
+  outline: none;
+  border-bottom: 1px solid white;
+}
+
+.styled-textarea-h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.styled-textarea-p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
 /* Template 2 specific styles */
 .template-2 .hero-content {
   height: 100%;
@@ -637,6 +727,10 @@ const closeModalVideo = () => {
 
 .template-2 .styled-input-p {
   font-size: 1.2rem;
+}
+
+.template-2 .styled-textarea {
+  text-align: left;
 }
 
 /* Media queries */
@@ -695,4 +789,5 @@ const closeModalVideo = () => {
   padding: 20px;
   border-radius: 20px;
 }
+
 </style>

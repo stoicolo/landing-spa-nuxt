@@ -370,6 +370,7 @@ function getComponent(widgetName, element) {
 }
 
 async function saveTemplate() {
+    debugger;
     const getCurrentTemplateSections = templateStore.structure.page_template.sections;
     const templateId = templateStore.structure.page_template.id;
     //Llamada a servicio de guardar
@@ -541,8 +542,8 @@ async function handleConfirmSave() {
     saveModal.value = false;
 }
 
-function handleCancelSave() {
-    saveTemplate();
+async function handleCancelSave() {
+    await saveTemplate();
     saveModal.value = false;
 }
 
