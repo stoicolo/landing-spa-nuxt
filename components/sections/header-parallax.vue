@@ -3,39 +3,48 @@
     <!-- Template 1 -->
     <div v-if="Number(localTemplate) === 1" class="hero-content">
       <div class="background-image" ref="bgImageRef" :style="backgroundImageStyle"></div>
-      <div class="center-image" ref="centerImageRef">
+      
+      <div v-if="localCenterImage" class="center-image" ref="centerImageRef" :style="centerImageStyle">
         <img :src="localCenterImage" alt="Center Image">
       </div>
+      
       <div class="text-container">
-        <h1 class="title" ref="titleRef">
+        <!-- Nueva imagen opcional antes del título -->
+        <div v-if="localTopImage" class="top-image" ref="topImageRef" :style="topImageStyle">
+          <img :src="localTopImage" alt="Top Image">
+        </div>
+        
+        <h1 class="title" ref="titleRef" :style="titleStyle">
           <textarea
             v-if="!viewMode"
             class="styled-textarea styled-textarea-h1"
             :value="localTitle"
             @input="onInputTitle"
             @blur="updateTitle"
+            :style="titleStyle"
             v-auto-grow
           ></textarea>
-          <div v-else class="styled-input styled-input-h1" v-text="localTitle"></div>
+          <div v-else class="styled-input styled-input-h1" :style="titleStyle" v-text="localTitle"></div>
         </h1>
-        <p class="description" ref="descriptionRef">
+        <p class="description" ref="descriptionRef" :style="descriptionStyle">
           <textarea
             v-if="!viewMode"
             class="styled-textarea styled-textarea-p"
             :value="localDescription"
             @input="onInputDescription"
             @blur="updateDescription"
+            :style="descriptionStyle"
             v-auto-grow
           ></textarea>
-          <div v-else class="styled-input styled-input-p" v-text="localDescription"></div>
+          <div v-else class="styled-input styled-input-p" :style="descriptionStyle" v-text="localDescription"></div>
         </p>
       </div>
       <div class="action-button">
-        <a v-if="viewMode" :href="localButtonLink" :style="{ backgroundColor: localButtonColor }" ref="btnRef">
+        <a v-if="viewMode" :href="localButtonLink" :style="buttonStyle" ref="btnRef">
           <div class="styled-input" :contenteditable="!viewMode" @input="onInputButtonText"
             @blur="updateButtonText" v-text="localButtonText"></div>
         </a>
-        <button v-if="!viewMode" :style="{ backgroundColor: localButtonColor }">
+        <button v-if="!viewMode" :style="buttonStyle">
           <div class="styled-input" :contenteditable="!viewMode" @input="onInputButtonText"
               @blur="updateButtonText" v-text="localButtonText"></div>
         </button>
@@ -51,45 +60,50 @@
 
     <!-- Template 2 -->
     <div v-if="Number(localTemplate) === 2" class="hero-content template-2">
-      <div class="background-image" ref="bgImageRef" :style="{ backgroundImage: `url(${localBackgroundImage})` }"></div>
+      <div class="background-image" ref="bgImageRef" :style="backgroundImageStyle"></div>
       <div class="content-wrapper">
-        <div class="center-image" ref="centerImageRef">
+        <div v-if="localCenterImage" class="center-image" ref="centerImageRef" :style="centerImageStyle">
           <img :src="localCenterImage" alt="Center Image">
         </div>
         <div class="text-container">
-          <h1 class="title" ref="titleRef">
+          <!-- Nueva imagen opcional antes del título -->
+          <div v-if="localTopImage" class="top-image" ref="topImageRef" :style="topImageStyle">
+            <img :src="localTopImage" alt="Top Image">
+          </div>
+          
+          <h1 class="title" ref="titleRef" :style="titleStyle">
             <textarea
               v-if="!viewMode"
               class="styled-textarea styled-textarea-h1"
               :value="localTitle"
               @input="onInputTitle"
               @blur="updateTitle"
+              :style="titleStyle"
               v-auto-grow
             ></textarea>
-            <div v-else class="styled-input styled-input-h1" v-text="localTitle"></div>
+            <div v-else class="styled-input styled-input-h1" :style="titleStyle" v-text="localTitle"></div>
           </h1>
-          <p class="description" ref="descriptionRef">
+          <p class="description" ref="descriptionRef" :style="descriptionStyle">
             <textarea
               v-if="!viewMode"
               class="styled-textarea styled-textarea-p"
               :value="localDescription"
               @input="onInputDescription"
               @blur="updateDescription"
+              :style="descriptionStyle"
               v-auto-grow
             ></textarea>
-            <div v-else class="styled-input styled-input-p" v-text="localDescription"></div>
+            <div v-else class="styled-input styled-input-p" :style="descriptionStyle" v-text="localDescription"></div>
           </p>
           <div class="action-button">
-            <a v-if="viewMode" :href="localButtonLink" :style="{ backgroundColor: localButtonColor }" ref="btnRef">
+            <a v-if="viewMode" :href="localButtonLink" :style="buttonStyle" ref="btnRef">
               <div class="styled-input" :contenteditable="!viewMode" @input="onInputButtonText"
                 @blur="updateButtonText" v-text="localButtonText"></div>
             </a>
-
-            <button v-if="!viewMode" :style="{ backgroundColor: localButtonColor }" >
+            <button v-if="!viewMode" :style="buttonStyle">
               <div class="styled-input" :contenteditable="!viewMode" @input="onInputButtonText"
-                @blur="updateButtonText" v-text="localButtonText"></div>
+                  @blur="updateButtonText" v-text="localButtonText"></div>
             </button>
-
           </div>
         </div>
       </div>
@@ -104,10 +118,10 @@
       </svg>
     </button>
     <button v-if="!viewMode" @click="openModalVideo" class="video-button">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
     </button>
   </div>
 
@@ -115,52 +129,74 @@
   <div v-if="showConfigModal" class="fixed inset-0 bg-black bg-opacity-20 flex items-center justify-center z-[1001]">
     <div class="instruction-scroll">También puedes hacer scroll fuera del modal.</div>
     <div class="bg-white p-6 rounded-lg w-3/4 max-w-4xl custom-modal">
-      <h2 class="text-2xl font-bold mb-4">Configuración del Parallax Header</h2>
-
+      <!-- Título -->
       <div class="mb-4">
         <label for="title" class="block text-sm font-medium text-gray-700">Título</label>
-        <input type="text" id="title" v-model="localTitle"
-          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+        <textarea id="title" v-model="localTitle" rows="3"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>
+        <div class="mt-2">
+          <label class="block text-sm font-medium text-gray-700">Color del título</label>
+          <input type="color" v-model="localTitleColor" class="mt-1 w-full h-10">
+        </div>
+        <div class="mt-2">
+          <label class="block text-sm font-medium text-gray-700">Tamaño del título</label>
+          <input type="range" v-model="localTitleSize" min="1" max="5" step="0.1" class="mt-1 w-full">
+          <div class="text-sm text-gray-500 mt-1">{{ localTitleSize }}rem</div>
+        </div>
       </div>
 
+      <!-- Descripción -->
       <div class="mb-4">
         <label for="description" class="block text-sm font-medium text-gray-700">Descripción</label>
         <textarea id="description" v-model="localDescription" rows="3"
           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>
+        <div class="mt-2">
+          <label class="block text-sm font-medium text-gray-700">Color de la descripción</label>
+          <input type="color" v-model="localDescriptionColor" class="mt-1 w-full h-10">
+        </div>
+        <div class="mt-2">
+          <label class="block text-sm font-medium text-gray-700">Tamaño de la descripción</label>
+          <input type="range" v-model="localDescriptionSize" min="0.8" max="2" step="0.1" class="mt-1 w-full">
+          <div class="text-sm text-gray-500 mt-1">{{ localDescriptionSize }}rem</div>
+        </div>
       </div>
 
-      <div class="flex flex-col gap-4 mb-4">
-    <div class="flex-1 min-w-[200px]">
-      <label for="buttonText" class="block text-sm font-medium text-gray-700 mb-1">Texto del botón</label>
-      <input 
-        type="text" 
-        id="buttonText" 
-        v-model="localButtonText"
-        class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-      >
-    </div>
-    
-    <div class="flex-1 min-w-[200px]">
-      <label for="buttonColor" class="block text-sm font-medium text-gray-700 mb-1">Color del botón</label>
-      <input 
-        type="color" 
-        id="buttonColor" 
-        v-model="localButtonColor"
-        class="w-full h-10 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-      >
-    </div>
-    
-    <div class="flex-1 min-w-[200px]">
-      <label for="buttonLink" class="block text-sm font-medium text-gray-700 mb-1">Dirección (URL) <small>Debes tener otras páginas creadas y usar la URL respectiva, o bien utilizar una URL de un sitio externo como https://www.otraweb.com.</small></label>
-      <input 
-        type="text" 
-        id="buttonLink" 
-        v-model="localButtonLink"
-        class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-      >
-    </div>
-  </div>
+      <!-- Botón -->
+      <div class="mb-4">
+        <label for="buttonText" class="block text-sm font-medium text-gray-700">Texto del botón</label>
+        <input type="text" id="buttonText" v-model="localButtonText"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+        <div class="mt-2">
+          <label class="block text-sm font-medium text-gray-700">Color de fondo del botón</label>
+          <input type="color" v-model="localButtonColor" class="mt-1 w-full h-10">
+        </div>
+        <div class="mt-2">
+          <label class="block text-sm font-medium text-gray-700">Color de texto del botón</label>
+          <input type="color" v-model="localButtonTextColor" class="mt-1 w-full h-10">
+        </div>
+        <div class="mt-2">
+          <label class="block text-sm font-medium text-gray-700">Tamaño del botón</label>
+          <input type="range" v-model="localButtonSize" min="0.8" max="2" step="0.1" class="mt-1 w-full">
+          <div class="text-sm text-gray-500 mt-1">{{ localButtonSize }}rem</div>
+        </div>
+        <div class="mt-2">
+          <label class="block text-sm font-medium text-gray-700">Tamaño del texto del botón</label>
+          <input type="range" v-model="localButtonTextSize" min="0.8" max="2" step="0.1" class="mt-1 w-full">
+          <div class="text-sm text-gray-500 mt-1">{{ localButtonTextSize }}rem</div>
+        </div>
+        <div class="mt-2">
+          <label class="block text-sm font-medium text-gray-700">Transparencia inicial del botón</label>
+          <input type="range" v-model="localButtonOpacity" min="0" max="0.9" step="0.1" class="mt-1 w-full">
+          <div class="text-sm text-gray-500 mt-1">{{ localButtonOpacity }}</div>
+        </div>
+        <div class="mt-2">
+          <label for="buttonLink" class="block text-sm font-medium text-gray-700">Dirección (URL) Debes tener otras páginas creadas y usar la URL respectiva, o bien utilizar una URL de un sitio externo como https://www.otraweb.com.</label>
+          <input type="text" id="buttonLink" v-model="localButtonLink"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+        </div>
+      </div>
 
+      <!-- Imagen de fondo -->
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700">Imagen de fondo</label>
         <div class="mt-1 flex items-center">
@@ -179,6 +215,7 @@
         </div>
       </div>
 
+      <!-- Imagen central -->
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700">Imagen central</label>
         <div class="mt-1 flex items-center">
@@ -193,6 +230,42 @@
             class="ml-5 bg-blue-500 py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-white hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             Seleccionar imagen
           </button>
+          <button type="button" @click="removeCenterImage"
+            class="ml-2 bg-red-500 py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-white hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+            Eliminar imagen
+          </button>
+        </div>
+        <div class="mt-2">
+          <label class="block text-sm font-medium text-gray-700">Tamaño de la imagen central</label>
+          <input type="range" v-model="localCenterImageSize" min="5" max="100" step="1" class="mt-1 w-full">
+          <div class="text-sm text-gray-500 mt-1">{{ localCenterImageSize }}%</div>
+        </div>
+      </div>
+
+      <!-- Nueva imagen encima del título -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Imagen encima del título</label>
+        <div class="mt-1 flex items-center">
+          <span class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
+            <img v-if="localTopImage" :src="localTopImage" alt="Top" class="h-full w-full object-cover">
+            <svg v-else class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </span>
+          <button type="button" @click="openImageModal('top')"
+            class="ml-5 bg-blue-500 py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-white hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Seleccionar imagen
+          </button>
+          <button type="button" @click="removeTopImage"
+            class="ml-2 bg-red-500 py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-white hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+            Eliminar imagen
+          </button>
+        </div>
+        <div class="mt-2">
+          <label class="block text-sm font-medium text-gray-700">Tamaño de la imagen encima del título</label>
+          <input type="range" v-model="localTopImageSize" min="5" max="100" step="1" class="mt-1 w-full">
+          <div class="text-sm text-gray-500 mt-1">{{ localTopImageSize }}%</div>
         </div>
       </div>
 
@@ -252,6 +325,39 @@ const props = defineProps({
   },
   buttonLink: {
     type: String,
+  },
+  titleColor: {
+    type: String
+  },
+  titleSize: {
+    type: Number
+  },
+  descriptionColor: {
+    type: String
+  },
+  descriptionSize: {
+    type: Number
+  },
+  buttonTextSize: {
+    type: Number
+  },
+  buttonTextColor: {
+    type: String
+  },
+  buttonSize: {
+    type: Number
+  },
+  buttonOpacity: {
+    type: Number
+  },
+  centerImageSize: {
+    type: Number
+  },
+  topImage: {
+    type: String
+  },
+  topImageSize: {
+    type: Number
   }
 });
 
@@ -280,6 +386,19 @@ const localButtonColor = ref(props.buttonColor);
 const localButtonLink = ref(props.buttonLink);
 const localViewMode = ref(props.viewMode);
 
+// Nuevas propiedades
+const localTitleColor = ref(props.titleColor);
+const localTitleSize = ref(props.titleSize);
+const localDescriptionColor = ref(props.descriptionColor);
+const localDescriptionSize = ref(props.descriptionSize);
+const localButtonTextSize = ref(props.buttonTextSize);
+const localButtonOpacity = ref(props.buttonOpacity);
+const localCenterImageSize = ref(props.centerImageSize);
+const localTopImage = ref(props.topImage);
+const localTopImageSize = ref(props.topImageSize);
+const localButtonTextColor = ref(props.buttonTextColor);
+const localButtonSize = ref(props.buttonSize);
+
 const showConfigModal = ref(false);
 const currentImageType = ref('');
 
@@ -296,16 +415,29 @@ const localTemplate = computed(() => {
 });
 
 watch(() => templateStore.structure.page_template.sections, (newSections) => {
-  
   const currentSection = newSections.find(section => section.id === props.id);
   if (currentSection) {
-    localTitle.value = currentSection.widget.element.title;
-    localDescription.value = currentSection.widget.element.description;
-    localBackgroundImage.value = currentSection.widget.element.backgroundImage;
-    localCenterImage.value = currentSection.widget.element.centerImage;
-    localButtonText.value = currentSection.widget.element.buttonText;
-    localButtonColor.value = currentSection.widget.element.buttonColor;
-    localButtonLink.value = currentSection.widget.element.buttonLink;
+    // Propiedades existentes
+    localTitle.value = currentSection.widget.element.title || localTitle.value;
+    localDescription.value = currentSection.widget.element.description || localDescription.value;
+    localBackgroundImage.value = currentSection.widget.element.backgroundImage || localBackgroundImage.value;
+    localCenterImage.value = currentSection.widget.element.centerImage || localCenterImage.value;
+    localButtonText.value = currentSection.widget.element.buttonText || localButtonText.value;
+    localButtonColor.value = currentSection.widget.element.buttonColor || localButtonColor.value;
+    localButtonLink.value = currentSection.widget.element.buttonLink || localButtonLink.value;
+    
+    // Nuevas propiedades
+    localTitleColor.value = currentSection.widget.element.titleColor || localTitleColor.value;
+    localTitleSize.value = currentSection.widget.element.titleSize || localTitleSize.value;
+    localDescriptionColor.value = currentSection.widget.element.descriptionColor || localDescriptionColor.value;
+    localDescriptionSize.value = currentSection.widget.element.descriptionSize || localDescriptionSize.value;
+    localButtonTextColor.value = currentSection.widget.element.buttonTextColor || localButtonTextColor.value;
+    localButtonSize.value = currentSection.widget.element.buttonSize || localButtonSize.value;
+    localButtonTextSize.value = currentSection.widget.element.buttonTextSize || localButtonTextSize.value;
+    localButtonOpacity.value = currentSection.widget.element.buttonOpacity || localButtonOpacity.value;
+    localCenterImageSize.value = currentSection.widget.element.centerImageSize || localCenterImageSize.value;
+    localTopImage.value = currentSection.widget.element.topImage || localTopImage.value;
+    localTopImageSize.value = currentSection.widget.element.topImageSize || localTopImageSize.value;
   }
 }, { deep: true });
 
@@ -313,32 +445,18 @@ onMounted(() => {
   checkIfMobile();
   window.addEventListener('resize', checkIfMobile);
 
-  //     speed: -2,
-	//     verticalSpeed: null,
-	//     horizontalSpeed: null,
-  //     breakpoints: [576, 768, 1201],
-  //     center: false,
-  //     wrapper: null,
-  //     relativeToWrapper: false,
-  //     round: true,
-  //     vertical: true,
-  //     horizontal: false,
-  //     verticalScrollAxis: "y",
-  //     horizontalScrollAxis: "x",
-
   if(props.viewMode){
     setTimeout(() => {
       rellaxInstances = [
-            new Rellax(bgImageRef.value, { speed: isMobile.value ? -7.5 : 0, center: true }),
-            new Rellax(centerImageRef.value, { speed: isMobile.value ? -4.5 : -8, center: true }),
-            new Rellax(titleRef.value, { speed: isMobile.value ? -1 : -1, center: true }),
-            new Rellax(descriptionRef.value, { speed: isMobile.value ? -1 : -1, center: true }),
-            new Rellax(btnRef.value, { speed: isMobile.value ? -0.5 : -1, center: true }),
-            new Rellax(arrowRef.value, { speed: isMobile.value ? -0.5 : 1, center: true })
-          ];
+        new Rellax(bgImageRef.value, { speed: isMobile.value ? -7.5 : 0, center: true }),
+        new Rellax(centerImageRef.value, { speed: isMobile.value ? -4.5 : -8, center: true }),
+        new Rellax(titleRef.value, { speed: isMobile.value ? -1 : -1, center: true }),
+        new Rellax(descriptionRef.value, { speed: isMobile.value ? -1 : -1, center: true }),
+        new Rellax(btnRef.value, { speed: isMobile.value ? -0.5 : -1, center: true }),
+        new Rellax(arrowRef.value, { speed: isMobile.value ? -0.5 : 1, center: true })
+      ];
     }, 1000);
   }
-
 });
 
 onBeforeUnmount(() => {
@@ -350,11 +468,37 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', checkIfMobile);
 });
 
-const backgroundImageStyle = computed(() => {
-  return {
-    backgroundImage: `url(${localBackgroundImage.value})`
-  }
-});
+const backgroundImageStyle = computed(() => ({
+  backgroundImage: `url(${localBackgroundImage.value})`
+}));
+
+const titleStyle = computed(() => ({
+  color: localTitleColor.value,
+  fontSize: `${localTitleSize.value}rem`
+}));
+
+const descriptionStyle = computed(() => ({
+  color: localDescriptionColor.value,
+  fontSize: `${localDescriptionSize.value}rem`
+}));
+
+const buttonStyle = computed(() => ({
+  backgroundColor: localButtonColor.value,
+  color: localButtonTextColor.value,
+  fontSize: `${localButtonTextSize.value}rem`,
+  padding: `${localButtonSize.value * 0.5}rem ${localButtonSize.value}rem`,
+  opacity: localButtonOpacity.value
+}));
+
+const centerImageStyle = computed(() => ({
+  width: `${localCenterImageSize.value}%`,
+  maxWidth: '100%',
+}));
+
+const topImageStyle = computed(() => ({
+  width: `${localTopImageSize.value}%`,
+  maxWidth: '100%',
+}));
 
 function checkIfMobile() {
   isMobile.value = window.innerWidth <= 768;
@@ -362,7 +506,6 @@ function checkIfMobile() {
 }
 
 const vAutoGrow = {
-  //This is a custom directive
   mounted(el) {
     el.style.overflow = 'hidden';
     el.style.resize = 'none';
@@ -376,11 +519,9 @@ const vAutoGrow = {
     el.__resizeListener = resize;
     el.addEventListener('input', resize);
     
-    // we need to call resize in the next tick to get the correct scrollHeight
     setTimeout(resize, 0);
   },
   updated(el) {
-    // we need to call resize in the next tick to get the correct scrollHeight
     el.__resizeListener();
   },
   unmounted(el) {
@@ -449,15 +590,24 @@ function openImageModal(type) {
   currentImageType.value = type;
   if (type === 'background') {
     currentStore.setSectionProp("backgroundImage");
-  }
-  if (type === 'center') {
+  } else if (type === 'center') {
     currentStore.setSectionProp("centerImage");
+  } else if (type === 'top') {
+    currentStore.setSectionProp("topImage");
   }
   if (openGaleryImages) {
     openGaleryImages();
   } else {
     console.error('openGaleryImages function is not available');
   }
+}
+
+function removeCenterImage() {
+  localCenterImage.value = null;
+}
+
+function removeTopImage() {
+  localTopImage.value = null;
 }
 
 function saveChanges() {
@@ -468,7 +618,18 @@ function saveChanges() {
     centerImage: localCenterImage.value,
     buttonText: localButtonText.value,
     buttonColor: localButtonColor.value,
-    buttonLink: localButtonLink.value
+    buttonLink: localButtonLink.value,
+    buttonTextColor: localButtonTextColor.value,
+    buttonSize: localButtonSize.value,
+    titleColor: localTitleColor.value,
+    titleSize: localTitleSize.value,
+    descriptionColor: localDescriptionColor.value,
+    descriptionSize: localDescriptionSize.value,
+    buttonTextSize: localButtonTextSize.value,
+    buttonOpacity: localButtonOpacity.value,
+    centerImageSize: localCenterImageSize.value,
+    topImage: localTopImage.value,
+    topImageSize: localTopImageSize.value
   });
 }
 
@@ -479,13 +640,12 @@ const saveAndClose = () => {
 }
 
 const openModalVideo = () => {
-    showModalVideo.value = true;
-  };
+  showModalVideo.value = true;
+};
 
 const closeModalVideo = () => {
   showModalVideo.value = false;
 }
-
 
 </script>
 
@@ -527,10 +687,24 @@ const closeModalVideo = () => {
   margin-bottom: -8rem;
 }
 
-.center-image img {
+.center-image img, .top-image img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Top image styles */
+.top-image {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 1rem;
+}
+
+.top-image img {
   width: 100%;
   height: auto;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* Text container styles */
@@ -641,10 +815,10 @@ const closeModalVideo = () => {
   cursor: pointer;
   transition: background-color 0.3s ease;
   z-index: 2;
+}
 
-  &:hover {
-    background-color: rgba(255, 255, 255, 1);
-  }
+.video-button:hover {
+  background-color: rgba(255, 255, 255, 1);
 }
 
 .styled-textarea {
@@ -733,6 +907,26 @@ const closeModalVideo = () => {
   text-align: left;
 }
 
+/* Modal styles */
+.custom-modal {
+  left: 40px;
+  position: absolute;
+  top: 40px;
+  width: 500px;
+  height: 80vh;
+  overflow-y: scroll;
+}
+
+.instruction-scroll {
+  position: absolute;
+  top: 10px;
+  left: 552px;
+  color: white;
+  background: black;
+  padding: 20px;
+  border-radius: 20px;
+}
+
 /* Media queries */
 @media (max-width: 768px) {
   .parallax-hero {
@@ -767,27 +961,8 @@ const closeModalVideo = () => {
     margin-bottom: 2rem;
   }
 
-  .template-2 .center-image img{
+  .template-2 .center-image img {
     margin-top: 20px;
   }
 }
-
-.custom-modal {
-  left: 40px;
-  position: absolute;
-  top: 40px;
-  width: 500px;
-  height: 80vh;
-  overflow-y: scroll;
-}
-.instruction-scroll {
-  position: absolute;
-  top: 10px;
-  left: 552px;
-  color: white;
-  background: black;
-  padding: 20px;
-  border-radius: 20px;
-}
-
 </style>
