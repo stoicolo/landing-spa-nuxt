@@ -16,7 +16,18 @@
           "buttonText": "Ver más",
           "buttonColor": "#000000",
           "buttonLink": "",
-          "template": 1
+          "template": 1,
+          "titleColor": "#ffffff",
+          "titleSize": 3,
+          "descriptionColor": "#ffffff",
+          "descriptionSize": 1.2,
+          "buttonTextSize": 1,
+          "buttonTextColor": "#ffffff",
+          "buttonSize": 1,
+          "buttonOpacity": 0.7,
+          "centerImageSize": 100,
+          "topImage": null,
+          "topImageSize": 100
         }
       },
       {
