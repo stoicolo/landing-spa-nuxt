@@ -111,12 +111,12 @@ const handleScroll = (event: Event) => {
 
 <template>
     <div class="flex h-screen min-h-full flex-1">
-        <div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
-            <div class="mx-auto w-full max-w-sm lg:w-96">
+        <div class="flex flex-1 flex-col px-8 py-4 sm:px-6 lg:flex-none lg:w-[70%] lg:px-8 xl:px-8">
+            <div class="mx-auto w-full">
                 <div>
-                    <div class="flex items-center">
-                        <img class="h-28 w-auto" src="/img/logo-weblox.png" alt="Footprint Initiative" />
-                        <span class="ml-1 text-[32px]">WEBLOX</span>
+                    <div class="flex items-center justify-center">
+                        <img class="h-10 w-auto" src="/img/logo-weblox.png" alt="Footprint Initiative" />
+                        <span class="ml-1 text-[24px]">WEBLOX</span>
                     </div>
                     <h2 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
                         Activación de Cuenta <i class="fa fa-user-plus" aria-hidden="true"></i>
@@ -124,6 +124,12 @@ const handleScroll = (event: Event) => {
                 </div>
 
                 <div class="mt-5">
+                    <small>Nota: Cuando actives tu cuenta recibirás un enlace por email para crear tu página web en Weblox, como por ejemplo: editor000trial.weblox.io/login. Desde esa dirección podrás acceder a la plataforma y comenzar a diseñar tu sitio web. Tendrás un periodo gratuito de 3 días para explorar todas las funcionalidades. Pasado este tiempo, deberás adquirir Weblox para continuar utilizando el servicio.
+
+Si deseas vincular un nombre real a tu sitio, como www.tusitioweb.com, deberás seguir las instrucciones de configuración por parte de soporte técnico.</small>
+                </div>
+
+                <div class="mt-5 px-16 py-4">
                     <div v-if="showTerms" class="text-center">
                         <h3 class="text-lg font-medium text-gray-900 mb-2">Términos y Condiciones de Uso de Weblox</h3>
                         <div v-if="isLoadingAgreement" class="text-center">
@@ -142,7 +148,7 @@ const handleScroll = (event: Event) => {
                         </div>
                         <p v-if="!termsRead" class="mb-4"><small class="text-[#ff0048]">Debes leer todos los Términos y Condiciones para poder aceptarlos, lleva el scroll hasta abajo.</small></p>
                         <button @click="activateUser" :disabled="!termsAccepted"
-                            class="w-full bg-fountain-blue-600 text-white py-2 px-4 rounded hover:bg-fountain-blue-500 disabled:opacity-50">
+                            class="w-[200px] bg-fountain-blue-600 text-white py-2 px-4 rounded hover:bg-fountain-blue-500 disabled:opacity-50">
                             Activar Cuenta
                         </button>
                     </div>
@@ -159,7 +165,7 @@ const handleScroll = (event: Event) => {
                         <h3 class="text-lg font-medium text-gray-900 mb-2">...Estamos redirigiéndote, por favor espera un momento. Revisa tu correo, te hemos enviado un email con tu subdominio.</h3>
                     </div>
 
-                    <div v-else-if="errorMessage" class="text-center">
+                    <div v-else-if="errorMessage" class="text-center mt-4">
                         <i class="fa fa-exclamation-circle text-red-500 text-4xl mb-4" aria-hidden="true"></i>
                         <h3 class="text-lg font-medium text-gray-900 mb-2">Error de Activación</h3>
                         <p class="text-sm text-red-600 mb-4">
