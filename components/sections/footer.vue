@@ -116,7 +116,7 @@
                   </h3>
                   <div class="flex space-x-4 text-4xl">
                     <a v-for="(social, index) in localSocialMedia" :key="index" :href="social.url" :style="{ color: localTextColor }" class="hover:text-gray-300 transition-transform duration-300 hover:-translate-y-1">
-                      <font-awesome-icon :icon="social.icon"/>
+                      <font-awesome-icon v-if="social.icon" :icon="social.icon"/>
                     </a>
                   </div>
                 </div>
@@ -217,13 +217,13 @@
                   </h3>
                   <div class="flex space-x-4 text-4xl">
                     <a v-for="(social, index) in localSocialMedia" :key="index" :href="social.url" :style="{ color: localTextColor }" class="hover:text-gray-300 transition-transform duration-300 hover:-translate-y-1">
-                      <font-awesome-icon :icon="social.icon"/>
+                      <font-awesome-icon v-if="social.icon" :icon="social.icon"/>
                     </a>
                   </div>
                 </div>
 
                 <!-- Image Footer -->
-                <div ref="imageFooterRef" class="animated-element footer-column relative overflow-hidden h-48">
+                <div ref="imageFooterRef" class="animated-element footer-column relative overflow-hidden h-48 p-5">
                   <img 
                     :src="localFooterImage" 
                     alt="Footer Image" 
@@ -914,7 +914,8 @@ const closeModalVideo = () => {
 
 .footer-column {
   position: relative;
-  padding: 0 20px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .footer-column::after {
