@@ -32,6 +32,7 @@ const password = ref("");
 const isLoggingIn = ref(false);
 
 const loginButtonText = ref("Iniciar Sesion");
+const errorMsj = ref("");
 
 function encrypt(text: string, shift: number) {
   return text.split('').map(char => {
@@ -78,10 +79,18 @@ const loginUser = async (event: Event) => {
       // Redirect to dashboard if all is ok
       navigateTo("/builder/0");
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error("error while login in: ", error);
     isLoggingIn.value = false;
     loginButtonText.value = "Ocurrio un error, intentalo otra vez";
+    
+    if (error.response && error.response._data) {
+      errorMsj.value = error.response._data.message || "Error desconocido";
+    } else if (error.message) {
+      errorMsj.value = error.message;
+    } else {
+      errorMsj.value = "Ocurrió un error durante el inicio de sesión";
+    }
   }
 };
 </script>
@@ -160,6 +169,9 @@ const loginUser = async (event: Event) => {
                 >
                   {{ loginButtonText }}
                 </button>
+              </div>
+              <div v-if="errorMsj" class="text-red-600 text-sm mt-2">
+                {{ errorMsj }}
               </div>
               <div class="flex justify-center">
                 <NuxtLink

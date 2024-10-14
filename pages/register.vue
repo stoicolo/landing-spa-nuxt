@@ -12,6 +12,8 @@ const displayCreatingAccountModal = ref(false);
 const email = ref("");
 const phone = ref("");
 const name = ref("");
+const cupon = ref("");
+const cuponError = ref("");
 const confirmEmail = ref("");
 const password = ref("");
 const confirmPassword = ref("");
@@ -28,9 +30,28 @@ const passwordRequirements = computed(() => [
   { text: "Al menos un caracter especial", met: /[!@#$%^&*(),.?":{}|<>]/.test(password.value) }
 ]);
 
+const validateCupon = (value: string) => {
+  if (value === "") return true;
+  const regex = /^[A-Z0-9]{8,}$/;
+  return regex.test(value);
+};
+
+const isCuponValid = computed(() => {
+  if (cupon.value === "") return true;
+  return validateCupon(cupon.value);
+});
+
 const isPasswordValid = computed(() => 
   passwordRequirements.value.every(req => req.met) && password.value === confirmPassword.value
 );
+
+const handleCuponChange = () => {
+  if (cupon.value && !isCuponValid.value) {
+    cuponError.value = "El cupón debe ser alfanumérico, tener al menos 8 caracteres y estar en mayúsculas.";
+  } else {
+    cuponError.value = "";
+  }
+};
 
 const isFormValid = computed(() =>
   isEmailValid.value &&
@@ -40,7 +61,8 @@ const isFormValid = computed(() =>
   name.value &&
   confirmEmail.value &&
   password.value &&
-  confirmPassword.value
+  confirmPassword.value &&
+  isCuponValid.value
 );
 
 const registerUser = async (event: Event) => {
@@ -57,6 +79,7 @@ const registerUser = async (event: Event) => {
         email: email.value,
         password: password.value,
         phoneNumber: phone.value,
+        cupon: cupon.value ? cupon.value : "",
         role: "user",
       },
     });
@@ -200,6 +223,25 @@ const registerUser = async (event: Event) => {
             class="focus:ring-fountain-blue-600 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
           />
         </div>
+      </div>
+
+      <div>
+        <label for="cupon" class="block text-sm font-medium leading-6 text-gray-900">
+          Cupón de Descuento <small>(opcional)</small>
+        </label>
+        <div class="mt-2">
+          <input
+            v-model="cupon"
+            id="cupon"
+            class="focus:ring-fountain-blue-600 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+            :class="{ 'border-red-500': cuponError }"
+            name="cupon"
+            type="text"
+            placeholder="Cupón ejemplo: WX2021"
+            @input="handleCuponChange"
+          />
+        </div>
+        <p v-if="cuponError" class="mt-2 text-sm text-red-600">{{ cuponError }}</p>
       </div>
 
       <div v-if="errorMessage" class="text-red-600 text-sm mt-2">
