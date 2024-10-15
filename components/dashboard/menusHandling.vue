@@ -100,6 +100,9 @@ onMounted(async () => {
   websiteId.value = await PageTemplateService.getWebSite(currentStore.userId);
   const menusResponse = await PageTemplateService.getMenuList(websiteId.value[0].id, currentStore.userId);
   const menuHeaderLoaded = await PageTemplateService.getMenuHeader(currentStore.userId, websiteId.value[0].id);
+  const website = await PageTemplateService.getPublishHistoryByWebsiteId(websiteId.value[0].id);
+  currentStore.setPublishHistoryId(website[0].id);
+  currentStore.setDomain(website[0].domain);
   currentStore.setMenuHeaderId(menuHeaderLoaded[0].id);
   currentStore.setWebsiteId(websiteId.value[0].id);
   menuStore.setMenuList(menusResponse.menuDetails);
