@@ -250,6 +250,7 @@ class PageTemplateService {
         sections: [...sections],
         backupName: backupName,
         pageTemplateId: pageTemplateId,
+        pageId: pageId,
         pageName: page?.pageName,
         categories: [...categories]
       };
