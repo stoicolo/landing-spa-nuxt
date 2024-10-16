@@ -79,7 +79,7 @@ const registerUser = async (event: Event) => {
         email: email.value,
         password: password.value,
         phoneNumber: phone.value,
-        cupon: cupon.value ? cupon.value : "",
+        coupon: cupon.value ? cupon.value : "",
         role: "user",
       },
     });
