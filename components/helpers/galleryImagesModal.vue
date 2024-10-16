@@ -55,12 +55,13 @@
           </div>
 
           <div v-else-if="activeMenu !== 'gallery'" class="grid grid-cols-3 gap-4 mb-4">
-            <div v-for="(background, index) in images" :key="index" class="relative">
+            <div v-for="(image, index) in images" :key="index" class="relative">
               <img 
-                :src="background.imageExternalUrl" 
+                v-if="image.id"
+                :src="image.imageExternalUrl" 
                 @click="selectImage(index)"
                 class="w-full h-32 object-cover rounded cursor-pointer" 
-                :class="{ 'border-4 border-blue-500': background.selected }"
+                :class="{ 'border-4 border-blue-500': image.selected }"
               >
             </div>
           </div>
@@ -93,7 +94,7 @@ import Spinner from '@/components/helpers/spinner.vue'
 
 const isOpen = ref(false);
 const isLoading = ref(false);
-const images = ref<Array<{ imageExternalUrl: string; imageExternalId: string; selected: boolean, id: string }>>([])
+const images = ref<Array<{ imageExternalUrl: string; imageExternalId: string; selected: boolean, id: string, categories: string[] }>>([])
 const errorMessage = ref('')
 const selectedImage = computed(() => images.value.find(img => img.selected))
 const templateStore = useTemplateStore();
@@ -218,7 +219,14 @@ const loadImagesByCategory = async (menuId: string) => {
     const selectedItem = menuItems.find(item => item.id === menuId);
     if (selectedItem) {
       const fetchedImages = await PageTemplateService.getImagesByCategories(selectedItem.categories);
-      images.value = fetchedImages.map((img: any) => ({ ...img, selected: false }));
+      if (userRole.value === "admin") {
+        images.value = fetchedImages.map((img: any) => ({ ...img, selected: false }));
+      } else {
+        images.value = fetchedImages
+        .filter((img: any) => img.categories.every((category: string) => category !== 'admin'))
+        .map((img: any) => ({ ...img, selected: false }));
+      }
+      console.log(images.value);
     }
   } catch (error) {
     console.error('Error al cargar las imágenes:', error);

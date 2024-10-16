@@ -148,7 +148,7 @@
               <input v-model="card.buttonColor" @input="saveChanges" type="color" class="p-1 w-full">
             </div>
             <div class="md:col-span-2">
-              <label class="block text-sm font-medium text-gray-700 mb-1">URL del botón</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1">URL del botón <small>Debes tener otras páginas creadas y usar la URL respectiva, o bien utilizar una URL de un sitio externo como https://www.otraweb.com.</small></label>
               <input v-model="card.buttonLink" @input="saveChanges" type="text" class="p-2 w-full border rounded" placeholder="https://...">
             </div>
           </div>
