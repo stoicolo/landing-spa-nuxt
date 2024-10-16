@@ -329,26 +329,26 @@
   watch(() => templateStore.structure.page_template.sections, (newSections) => {
       const currentSection = newSections.find(section => section.id === props.id);
       if (currentSection && currentSection.widget.element) {
-          localTitle.value = currentSection.widget.element.title || 'Título del Artículo';
-          localBackgroundType.value = currentSection.widget.element.backgroundType || 'color';
-          localBackgroundColor.value = currentSection.widget.element.backgroundColor || '#ffffff';
-          localBackgroundImage.value = currentSection.widget.element.backgroundImage || '';
-          localDescription.value = currentSection.widget.element.description || 'Descripción del artículo...';
-          localPictures.value = currentSection.widget.element.pictures || [];
-          localWhiteTitle.value = currentSection.widget.element.whiteTitle || false;
-          localTextColor.value = currentSection.widget.element.textColor || '#333333';
-          localOverlayColor.value = currentSection.widget.element.overlayColor || 'rgba(0, 0, 0, 0.5)';
-          localShowActionButton.value = currentSection.widget.element.showActionButton || false;
-          localActionButtonText.value = currentSection.widget.element.actionButtonText || 'Nombre del botón';
-          localActionButtonUrl.value = currentSection.widget.element.actionButtonUrl || '/url-del-boton';
+          localTitle.value = currentSection.widget.element.title;
+          localBackgroundType.value = currentSection.widget.element.backgroundType;
+          localBackgroundColor.value = currentSection.widget.element.backgroundColor;
+          localBackgroundImage.value = currentSection.widget.element.backgroundImage;
+          localDescription.value = currentSection.widget.element.description;
+          localPictures.value = currentSection.widget.element.pictures;
+          localWhiteTitle.value = currentSection.widget.element.whiteTitle;
+          localTextColor.value = currentSection.widget.element.textColor;
+          localOverlayColor.value = currentSection.widget.element.overlayColor;
+          localShowActionButton.value = currentSection.widget.element.showActionButton;
+          localActionButtonText.value = currentSection.widget.element.actionButtonText;
+          localActionButtonUrl.value = currentSection.widget.element.actionButtonUrl;
           localShowFacebook.value = currentSection.widget.element.showFacebook !== undefined ? currentSection.widget.element.showFacebook : true;
           localShowInstagram.value = currentSection.widget.element.showInstagram !== undefined ? currentSection.widget.element.showInstagram : true;
           localShowTwitter.value = currentSection.widget.element.showTwitter !== undefined ? currentSection.widget.element.showTwitter : true;
           localShowWhatsapp.value = currentSection.widget.element.showWhatsapp !== undefined ? currentSection.widget.element.showWhatsapp : true;
-          localFacebookAccount.value = currentSection.widget.element.facebookAccount || '';
-          localInstagramAccount.value = currentSection.widget.element.instagramAccount || '';
-          localTwitterAccount.value = currentSection.widget.element.twitterAccount || '';
-          localWhatsappNumber.value = currentSection.widget.element.whatsappNumber || '';
+          localFacebookAccount.value = currentSection.widget.element.facebookAccount;
+          localInstagramAccount.value = currentSection.widget.element.instagramAccount;
+          localTwitterAccount.value = currentSection.widget.element.twitterAccount;
+          localWhatsappNumber.value = currentSection.widget.element.whatsappNumber;
       }
   }, { deep: true, immediate: true });
   
