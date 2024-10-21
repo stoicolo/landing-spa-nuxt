@@ -229,8 +229,11 @@ const loadImagesByCategory = async (menuId: string) => {
         }
         console.log(images.value);
       } else {
+        //TODO: create ne endpoint to get images by website and category
         const fetchedImages = await PageTemplateService.getListOfImagesByWebsite(currentStore.websiteId);
-        images.value = fetchedImages.map((img: any) => ({ ...img, selected: false }));
+        images.value = fetchedImages
+        .filter((img: any) => img.categories.every((category: string) => category === 'gallery'))
+        .map((img: any) => ({ ...img, selected: false }));
       }
     }
   } catch (error) {
