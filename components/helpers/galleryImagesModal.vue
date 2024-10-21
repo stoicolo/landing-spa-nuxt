@@ -218,15 +218,20 @@ const loadImagesByCategory = async (menuId: string) => {
   try {
     const selectedItem = menuItems.find(item => item.id === menuId);
     if (selectedItem) {
-      const fetchedImages = await PageTemplateService.getImagesByCategories(selectedItem.categories);
-      if (userRole.value === "admin") {
-        images.value = fetchedImages.map((img: any) => ({ ...img, selected: false }));
+      if(activeMenu.value !== "gallery") {
+        const fetchedImages = await PageTemplateService.getImagesByCategories(selectedItem.categories);
+        if (userRole.value === "admin") {
+          images.value = fetchedImages.map((img: any) => ({ ...img, selected: false }));
+        } else {
+          images.value = fetchedImages
+          .filter((img: any) => img.categories.every((category: string) => category !== 'admin'))
+          .map((img: any) => ({ ...img, selected: false }));
+        }
+        console.log(images.value);
       } else {
-        images.value = fetchedImages
-        .filter((img: any) => img.categories.every((category: string) => category !== 'admin'))
-        .map((img: any) => ({ ...img, selected: false }));
+        const fetchedImages = await PageTemplateService.getListOfImagesByWebsite(currentStore.websiteId);
+        images.value = fetchedImages.map((img: any) => ({ ...img, selected: false }));
       }
-      console.log(images.value);
     }
   } catch (error) {
     console.error('Error al cargar las imágenes:', error);
