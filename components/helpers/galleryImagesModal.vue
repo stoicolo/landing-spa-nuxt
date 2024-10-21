@@ -232,7 +232,7 @@ const loadImagesByCategory = async (menuId: string) => {
         //TODO: create ne endpoint to get images by website and category
         const fetchedImages = await PageTemplateService.getListOfImagesByWebsite(currentStore.websiteId);
         images.value = fetchedImages
-        .filter((img: any) => img.categories.every((category: string) => category === 'gallery'))
+        .filter((img: any) => img.categories.every((category: string) => category === 'user'))
         .map((img: any) => ({ ...img, selected: false }));
       }
     }
