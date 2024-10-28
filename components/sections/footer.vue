@@ -320,15 +320,31 @@
           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
       </div>
 
+      <!-- Links Section in Modal -->
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700">Enlaces</label>
         <small>Debes tener otras páginas creadas y usar la URL respectiva, o bien utilizar una URL de un sitio externo como https://www.otraweb.com.</small>
+        
         <div v-for="(link, index) in localLinks" :key="index" class="flex items-center mt-2">
           <input type="text" v-model="link.text" placeholder="Texto del enlace"
-            class="mr-2 block w-1/2 rounded-md border-gray-300 shadow-sm">
+            class="mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm">
           <input type="text" v-model="link.url" placeholder="URL del enlace"
-            class="block w-1/2 rounded-md border-gray-300 shadow-sm">
+            class="block w-1/3 rounded-md border-gray-300 shadow-sm">
+          <button @click="removeLink(index)" 
+            class="ml-2 p-2 text-red-600 hover:text-red-800">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
         </div>
+        
+        <button @click="addNewLink" 
+          class="mt-2 flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+          </svg>
+          Agregar enlace
+        </button>
       </div>
 
       <div class="mb-4">
@@ -361,14 +377,40 @@
           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
       </div>
 
+      <!-- Social Media Section in Modal -->
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700">Redes Sociales</label>
         <div v-for="(social, index) in localSocialMedia" :key="index" class="flex items-center mt-2">
-          <input type="text" v-model="social.icon" placeholder="Clase del ícono"
-            class="mr-2 block w-1/2 rounded-md border-gray-300 shadow-sm">
-          <input type="text" v-model="social.url" placeholder="URL de la red social"
-            class="block w-1/2 rounded-md border-gray-300 shadow-sm">
+          <select v-model="social.icon" 
+            class="mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm">
+            <option v-for="option in socialIconOptions" 
+              :key="option.value" 
+              :value="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+          
+          <input type="text" 
+            :placeholder="social.icon === 'fa-brands fa-whatsapp' ? 'Número de WhatsApp' : 'URL red social'"
+            :value="social.url"
+            @input="(e) => updateSocialMediaUrl(social, e.target.value)"
+            class="block w-1/3 rounded-md border-gray-300 shadow-sm">
+          
+          <button @click="removeSocialMedia(index)" 
+            class="ml-2 p-2 text-red-600 hover:text-red-800">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
         </div>
+        
+        <button @click="addNewSocialMedia"
+          class="mt-2 flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+          </svg>
+          Agregar red social
+        </button>
       </div>
 
       <div class="mb-4">
@@ -505,6 +547,15 @@ const BACKGROUND_TYPES = {
   COLOR: 'color',
   IMAGE: 'imagen',
 };
+
+const socialIconOptions = [
+  { label: 'Facebook', value: 'fa-brands fa-square-facebook' },
+  { label: 'Instagram', value: 'fa-brands fa-square-instagram' },
+  { label: 'Twitter', value: 'fa-brands fa-square-twitter' },
+  { label: 'LinkedIn', value: 'fa-brands fa-linkedin' },
+  { label: 'YouTube', value: 'fa-brands fa-youtube' },
+  { label: 'WhatsApp', value: 'fa-brands fa-whatsapp' }
+];
 
 const templateStore = useTemplateStore();
 const currentStore = useCurrentStore();
@@ -810,6 +861,43 @@ const openModalVideo = () => {
 const closeModalVideo = () => {
   showModalVideo.value = false;
 }
+
+const addNewLink = () => {
+  localLinks.value.push({ text: 'Nuevo enlace', url: '#' });
+  saveChanges();
+};
+
+const removeLink = (index) => {
+  localLinks.value.splice(index, 1);
+  saveChanges();
+};
+
+const addNewSocialMedia = () => {
+  localSocialMedia.value.push({ icon: socialIconOptions[0].value, url: '' });
+  saveChanges();
+};
+
+const removeSocialMedia = (index) => {
+  localSocialMedia.value.splice(index, 1);
+  saveChanges();
+};
+
+const formatWhatsAppUrl = (phoneNumber) => {
+  // Remove any non-numeric characters
+  const cleaned = phoneNumber.replace(/\D/g, '');
+  return `https://wa.me/${cleaned}`;
+};
+
+const updateSocialMediaUrl = (social, url) => {
+  if (social.icon === 'fa-brands fa-whatsapp') {
+    social.url = formatWhatsAppUrl(url);
+  } else {
+    social.url = url;
+  }
+  saveChanges();
+};
+
+
 </script>
 <style scoped>
 .footer {
