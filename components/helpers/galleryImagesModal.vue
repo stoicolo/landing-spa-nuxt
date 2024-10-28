@@ -111,6 +111,7 @@ const menuItems = [
   { id: 'belleza', label: 'Belleza', categories: ['belleza'] },
   { id: 'vehiculos', label: 'Vehículos', categories: ['vehiculos'] },
   { id: 'restaurante', label: 'Restaurante', categories: ['restaurante'] },
+  { id: 'gym', label: 'Gimnacio', categories: ['gym'] },
 ]
 
 const open = () => {
@@ -227,6 +228,7 @@ const loadImagesByCategory = async (menuId: string) => {
           .filter((img: any) => img.categories.every((category: string) => category !== 'admin'))
           .map((img: any) => ({ ...img, selected: false }));
         }
+        isLoading.value = false;
         console.log(images.value);
       } else {
         //TODO: create ne endpoint to get images by website and category
@@ -234,6 +236,7 @@ const loadImagesByCategory = async (menuId: string) => {
         images.value = fetchedImages
         .filter((img: any) => img.categories.every((category: string) => category === 'user'))
         .map((img: any) => ({ ...img, selected: false }));
+        isLoading.value = false;
       }
     }
   } catch (error) {
@@ -261,7 +264,11 @@ function decrypt(text: string, shift: number) {
 }
 
 onMounted(async () => {
-  await loadImagesByCategory('gallery');
+  const loadImagesWithDelay = async () => {
+    await loadImagesByCategory('gallery');
+  };
+  
+  setTimeout(loadImagesWithDelay, 1000);
   const userRole = decrypt(localStorage.getItem('getNumByTicket') || '', 3);
   currentStore.setUserRole(userRole);
 });
