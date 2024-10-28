@@ -6,14 +6,16 @@
           <div v-if="Number(localTemplate) === 1" class="py-10 px-20">
               <!-- Main title -->
               <h2 ref="titleFooterRef" class="text-8xl font-bold mb-8 text-left animated-element big-title">
-                <div 
-                  class="styled-input styled-input-h2" 
-                  :contenteditable="!viewMode" 
-                  @input="onInputTitle" 
-                  @blur="updateTitle" 
+                <textarea
+                  v-if="!viewMode"
+                  class="styled-textarea styled-textarea-h2"
+                  :value="localTitle"
+                  @input="onInputTitle"
+                  @blur="updateTitle"
                   :style="{ color: localTitleColor }"
-                  v-text="localTitle"
-                ></div>
+                  v-auto-grow
+                ></textarea>
+                <div v-else class="styled-input" :style="{ color: localTitleColor }" v-text="localTitle"></div>
               </h2>
               
               <!-- Columns container -->
@@ -92,14 +94,16 @@
                       v-text="localDescriptionTitle"
                     ></div>
                   </h3>
-                  <div 
-                    class="styled-input" 
-                    :contenteditable="!viewMode" 
-                    @input="onInputDescription" 
-                    @blur="updateDescription" 
+                  <textarea
+                    v-if="!viewMode"
+                    class="styled-textarea"
+                    :value="localDescription"
+                    @input="onInputDescription"
+                    @blur="updateDescription"
                     :style="{ color: localTextColor }"
-                    v-text="localDescription"
-                  ></div>
+                    v-auto-grow
+                  ></textarea>
+                  <div v-else class="styled-input" :style="{ color: localTextColor }" v-text="localDescription"></div>
                 </div>
                 
                 <!-- Social Media -->
@@ -296,11 +300,21 @@
             </button>
           </div>
         </div>
-      <div class="mb-4">
+        <div class="mb-4">
         <label for="title" class="block text-sm font-medium text-gray-700">Título</label>
-        <input type="text" id="title" v-model="localTitle"
-          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-      </div>
+          <textarea 
+            id="title" 
+            v-model="localTitle"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            v-auto-grow
+            @input="onInputTitle"
+            @blur="updateTitle"
+          ></textarea>
+          <div class="mt-2">
+            <label class="block text-sm font-medium text-gray-700">Color del título</label>
+            <input type="color" v-model="localTitleColor" class="mt-1 w-full h-10">
+          </div>
+        </div>
 
       <div class="mb-4">
         <label for="titleColor" class="block text-sm font-medium text-gray-700">Color del Título</label>
@@ -320,15 +334,31 @@
           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
       </div>
 
+      <!-- Links Section in Modal -->
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700">Enlaces</label>
         <small>Debes tener otras páginas creadas y usar la URL respectiva, o bien utilizar una URL de un sitio externo como https://www.otraweb.com.</small>
+        
         <div v-for="(link, index) in localLinks" :key="index" class="flex items-center mt-2">
           <input type="text" v-model="link.text" placeholder="Texto del enlace"
-            class="mr-2 block w-1/2 rounded-md border-gray-300 shadow-sm">
+            class="mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm">
           <input type="text" v-model="link.url" placeholder="URL del enlace"
-            class="block w-1/2 rounded-md border-gray-300 shadow-sm">
+            class="block w-1/3 rounded-md border-gray-300 shadow-sm">
+          <button @click="removeLink(index)" 
+            class="ml-2 p-2 text-red-600 hover:text-red-800">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
         </div>
+        
+        <button @click="addNewLink" 
+          class="mt-2 flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+          </svg>
+          Agregar enlace
+        </button>
       </div>
 
       <div class="mb-4">
@@ -356,19 +386,57 @@
       </div>
 
       <div class="mb-4">
+        <label for="description" class="block text-sm font-medium text-gray-700">Descripción</label>
+        <textarea 
+          id="description" 
+          v-model="localDescription"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          v-auto-grow
+          @input="onInputDescription"
+          @blur="updateDescription"
+        ></textarea>
+      </div>
+
+      <div class="mb-4">
         <label for="socialTitle" class="block text-sm font-medium text-gray-700">Título de Redes Sociales</label>
         <input type="text" id="socialTitle" v-model="localSocialTitle"
           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
       </div>
 
+      <!-- Social Media Section in Modal -->
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700">Redes Sociales</label>
         <div v-for="(social, index) in localSocialMedia" :key="index" class="flex items-center mt-2">
-          <input type="text" v-model="social.icon" placeholder="Clase del ícono"
-            class="mr-2 block w-1/2 rounded-md border-gray-300 shadow-sm">
-          <input type="text" v-model="social.url" placeholder="URL de la red social"
-            class="block w-1/2 rounded-md border-gray-300 shadow-sm">
+          <select v-model="social.icon" 
+            class="mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm">
+            <option v-for="option in socialIconOptions" 
+              :key="option.value" 
+              :value="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+          
+          <input type="text" 
+            :placeholder="social.icon === 'fa-brands fa-whatsapp' ? 'Número de WhatsApp' : 'URL red social'"
+            :value="social.url"
+            @input="(e) => updateSocialMediaUrl(social, e.target.value)"
+            class="block w-1/3 rounded-md border-gray-300 shadow-sm">
+          
+          <button @click="removeSocialMedia(index)" 
+            class="ml-2 p-2 text-red-600 hover:text-red-800">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
         </div>
+        
+        <button @click="addNewSocialMedia"
+          class="mt-2 flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+          </svg>
+          Agregar red social
+        </button>
       </div>
 
       <div class="mb-4">
@@ -506,6 +574,15 @@ const BACKGROUND_TYPES = {
   IMAGE: 'imagen',
 };
 
+const socialIconOptions = [
+  { label: 'Facebook', value: 'fa-brands fa-square-facebook' },
+  { label: 'Instagram', value: 'fa-brands fa-square-instagram' },
+  { label: 'Twitter', value: 'fa-brands fa-square-twitter' },
+  { label: 'LinkedIn', value: 'fa-brands fa-linkedin' },
+  { label: 'YouTube', value: 'fa-brands fa-youtube' },
+  { label: 'WhatsApp', value: 'fa-brands fa-whatsapp' }
+];
+
 const templateStore = useTemplateStore();
 const currentStore = useCurrentStore();
 
@@ -599,8 +676,32 @@ watch(() => localTemplate.value, (newTemplate, oldTemplate) => {
   }
 });
 
+const vAutoGrow = {
+  mounted(el) {
+    el.style.overflow = 'hidden';
+    el.style.resize = 'none';
+    el.style.boxSizing = 'border-box';
+    
+    const resize = () => {
+      el.style.height = '40px';
+      el.style.height = `${el.scrollHeight}px`;
+    };
+    
+    el.__resizeListener = resize;
+    el.addEventListener('input', resize);
+    
+    setTimeout(resize, 0);
+  },
+  updated(el) {
+    el.__resizeListener();
+  },
+  unmounted(el) {
+    el.removeEventListener('input', el.__resizeListener);
+  }
+};
+
 const onInputTitle = (event) => {
-  localTitle.value = event.target.innerText;
+  localTitle.value = event.target.value;
   saveChanges();
 };
 
@@ -625,7 +726,7 @@ const onInputDescriptionTitle = (event) => {
 };
 
 const onInputDescription = (event) => {
-  localDescription.value = event.target.innerText;
+  localDescription.value = event.target.value;
   saveChanges();
 };
 
@@ -810,6 +911,43 @@ const openModalVideo = () => {
 const closeModalVideo = () => {
   showModalVideo.value = false;
 }
+
+const addNewLink = () => {
+  localLinks.value.push({ text: 'Nuevo enlace', url: '#' });
+  saveChanges();
+};
+
+const removeLink = (index) => {
+  localLinks.value.splice(index, 1);
+  saveChanges();
+};
+
+const addNewSocialMedia = () => {
+  localSocialMedia.value.push({ icon: socialIconOptions[0].value, url: '' });
+  saveChanges();
+};
+
+const removeSocialMedia = (index) => {
+  localSocialMedia.value.splice(index, 1);
+  saveChanges();
+};
+
+const formatWhatsAppUrl = (phoneNumber) => {
+  // Remove any non-numeric characters
+  const cleaned = phoneNumber.replace(/\D/g, '');
+  return `https://wa.me/${cleaned}`;
+};
+
+const updateSocialMediaUrl = (social, url) => {
+  if (social.icon === 'fa-brands fa-whatsapp') {
+    social.url = formatWhatsAppUrl(url);
+  } else {
+    social.url = url;
+  }
+  saveChanges();
+};
+
+
 </script>
 <style scoped>
 .footer {
@@ -997,5 +1135,31 @@ const closeModalVideo = () => {
   background: black;
   padding: 20px;
   border-radius: 20px;
+}
+
+.styled-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: inherit;
+  text-align: inherit;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  resize: none;
+  font-family: inherit;
+  padding: 0;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.styled-textarea:focus {
+  outline: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.styled-textarea-h2 {
+  font-size: inherit;
+  font-weight: bold;
+  text-align: left;
 }
 </style>
