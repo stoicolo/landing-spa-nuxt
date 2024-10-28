@@ -6,14 +6,16 @@
           <div v-if="Number(localTemplate) === 1" class="py-10 px-20">
               <!-- Main title -->
               <h2 ref="titleFooterRef" class="text-8xl font-bold mb-8 text-left animated-element big-title">
-                <div 
-                  class="styled-input styled-input-h2" 
-                  :contenteditable="!viewMode" 
-                  @input="onInputTitle" 
-                  @blur="updateTitle" 
+                <textarea
+                  v-if="!viewMode"
+                  class="styled-textarea styled-textarea-h2"
+                  :value="localTitle"
+                  @input="onInputTitle"
+                  @blur="updateTitle"
                   :style="{ color: localTitleColor }"
-                  v-text="localTitle"
-                ></div>
+                  v-auto-grow
+                ></textarea>
+                <div v-else class="styled-input" :style="{ color: localTitleColor }" v-text="localTitle"></div>
               </h2>
               
               <!-- Columns container -->
@@ -92,14 +94,16 @@
                       v-text="localDescriptionTitle"
                     ></div>
                   </h3>
-                  <div 
-                    class="styled-input" 
-                    :contenteditable="!viewMode" 
-                    @input="onInputDescription" 
-                    @blur="updateDescription" 
+                  <textarea
+                    v-if="!viewMode"
+                    class="styled-textarea"
+                    :value="localDescription"
+                    @input="onInputDescription"
+                    @blur="updateDescription"
                     :style="{ color: localTextColor }"
-                    v-text="localDescription"
-                  ></div>
+                    v-auto-grow
+                  ></textarea>
+                  <div v-else class="styled-input" :style="{ color: localTextColor }" v-text="localDescription"></div>
                 </div>
                 
                 <!-- Social Media -->
@@ -296,11 +300,21 @@
             </button>
           </div>
         </div>
-      <div class="mb-4">
+        <div class="mb-4">
         <label for="title" class="block text-sm font-medium text-gray-700">Título</label>
-        <input type="text" id="title" v-model="localTitle"
-          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-      </div>
+          <textarea 
+            id="title" 
+            v-model="localTitle"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            v-auto-grow
+            @input="onInputTitle"
+            @blur="updateTitle"
+          ></textarea>
+          <div class="mt-2">
+            <label class="block text-sm font-medium text-gray-700">Color del título</label>
+            <input type="color" v-model="localTitleColor" class="mt-1 w-full h-10">
+          </div>
+        </div>
 
       <div class="mb-4">
         <label for="titleColor" class="block text-sm font-medium text-gray-700">Color del Título</label>
@@ -369,6 +383,18 @@
         <label for="description" class="block text-sm font-medium text-gray-700">Descripción</label>
         <textarea id="description" v-model="localDescription" rows="3"
           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
+      </div>
+
+      <div class="mb-4">
+        <label for="description" class="block text-sm font-medium text-gray-700">Descripción</label>
+        <textarea 
+          id="description" 
+          v-model="localDescription"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          v-auto-grow
+          @input="onInputDescription"
+          @blur="updateDescription"
+        ></textarea>
       </div>
 
       <div class="mb-4">
@@ -650,8 +676,32 @@ watch(() => localTemplate.value, (newTemplate, oldTemplate) => {
   }
 });
 
+const vAutoGrow = {
+  mounted(el) {
+    el.style.overflow = 'hidden';
+    el.style.resize = 'none';
+    el.style.boxSizing = 'border-box';
+    
+    const resize = () => {
+      el.style.height = '40px';
+      el.style.height = `${el.scrollHeight}px`;
+    };
+    
+    el.__resizeListener = resize;
+    el.addEventListener('input', resize);
+    
+    setTimeout(resize, 0);
+  },
+  updated(el) {
+    el.__resizeListener();
+  },
+  unmounted(el) {
+    el.removeEventListener('input', el.__resizeListener);
+  }
+};
+
 const onInputTitle = (event) => {
-  localTitle.value = event.target.innerText;
+  localTitle.value = event.target.value;
   saveChanges();
 };
 
@@ -676,7 +726,7 @@ const onInputDescriptionTitle = (event) => {
 };
 
 const onInputDescription = (event) => {
-  localDescription.value = event.target.innerText;
+  localDescription.value = event.target.value;
   saveChanges();
 };
 
@@ -1085,5 +1135,31 @@ const updateSocialMediaUrl = (social, url) => {
   background: black;
   padding: 20px;
   border-radius: 20px;
+}
+
+.styled-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: inherit;
+  text-align: inherit;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  resize: none;
+  font-family: inherit;
+  padding: 0;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.styled-textarea:focus {
+  outline: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.styled-textarea-h2 {
+  font-size: inherit;
+  font-weight: bold;
+  text-align: left;
 }
 </style>
