@@ -23,6 +23,10 @@ const isLoadingAgreement = ref(true);
 const userId = ref(0);
 const termsId = ref(0);
 
+const showActivationPopup = ref(false);
+const showScrollWarningPopup = ref(false);
+const trialUrl = ref("");
+
 onMounted(async () => {
     token.value = route.query.token as string;
     const tokenDecoded = decodeJWT(token.value);
@@ -82,6 +86,22 @@ const decodeJWT = (token: string) => {
   }
 }
 
+const closePopup = (type: 'activation' | 'warning') => {
+    if (type === 'activation') {
+        showActivationPopup.value = false;
+    } else {
+        showScrollWarningPopup.value = false;
+    }
+};
+
+const handleNavigation = (type: 'buy' | 'trial') => {
+    if (type === 'buy') {
+        window.location.href = 'https://tilo.co/link/TWpFMU9RPT18MQ==';
+    } else {
+        window.location.href = `${trialUrl.value}/login`;
+    }
+};
+
 const activateUser = async () => {
     isActivating.value = true;
     errorMessage.value = "";
@@ -92,7 +112,8 @@ const activateUser = async () => {
         await PageTemplateService.sendAceptedTermsAndConditions(termsId.value, userId.value, true, today);
         await PageTemplateService.sendSubdomainRequest(`editor${userId.value}00trial.weblox.io`, 'https://tilo.co/link/TWpFMU9RPT18MQ==', `${userStore.name}`, `${userStore.email}`, userId.value);
         activationSuccess.value = true;
-        window.location.href = 'https://tilo.co/link/TWpFMU9RPT18MQ==';
+        trialUrl.value = `editor${userId.value}00trial.weblox.io`;
+        showActivationPopup.value = true;
     } catch (error) {
         console.error("Error al activar la cuenta:", error);
         errorMessage.value = "Error al activar la cuenta. Por favor, intente nuevamente refrescando o solicite un nuevo enlace de activación.";
@@ -106,6 +127,15 @@ const handleScroll = (event: Event) => {
     if (target.scrollHeight - target.scrollTop < (target.clientHeight + 200)) {
         termsRead.value = true;
     }
+};
+
+const handleTermsAcceptance = () => {
+    if (!termsRead.value) {
+        termsAccepted.value = false;
+        showScrollWarningPopup.value = true;
+        return;
+    }
+    termsAccepted.value = !termsAccepted.value;
 };
 </script>
 
@@ -142,8 +172,13 @@ Si deseas vincular un nombre real a tu sitio, como www.tusitioweb.com, deberás 
                             <p>No se pudieron cargar los Términos y Condiciones. Por favor, intente nuevamente. Refresque el navegador.</p>
                         </div>
                         <div class="flex items-center justify-center mb-4">
-                            <input type="checkbox" id="acceptTerms" v-model="termsAccepted" :disabled="!termsRead"
-                                class="mr-2">
+                            <input 
+                                type="checkbox" 
+                                id="acceptTerms" 
+                                :checked="termsAccepted"
+                                @change="handleTermsAcceptance"
+                                class="mr-2"
+                            >
                             <label for="acceptTerms">He leído y acepto los Términos y Condiciones</label>
                         </div>
                         <p v-if="!termsRead" class="mb-4"><small class="text-[#ff0048]">Debes leer todos los Términos y Condiciones para poder aceptarlos, lleva el scroll hasta abajo.</small></p>
@@ -171,6 +206,56 @@ Si deseas vincular un nombre real a tu sitio, como www.tusitioweb.com, deberás 
                         <p class="text-sm text-red-600 mb-4">
                             {{ errorMessage }}
                         </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Popup de Advertencia de Scroll -->
+        <div v-if="showScrollWarningPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white p-6 rounded-lg shadow-xl max-w-md">
+                <div class="text-center">
+                    <i class="fa fa-exclamation-circle text-yellow-500 text-4xl mb-4"></i>
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">
+                        Lectura Incompleta
+                    </h3>
+                    <p class="text-gray-600 mb-6">
+                        Debes leer los términos y condiciones completamente antes de poder aceptarlos. 
+                        Por favor, desliza hasta el final del documento.
+                    </p>
+                    <button 
+                        @click="closePopup('warning')"
+                        class="bg-fountain-blue-600 text-white py-2 px-6 rounded hover:bg-fountain-blue-500"
+                    >
+                        Entendido
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup de Activación Exitosa -->
+        <div v-if="showActivationPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white p-6 rounded-lg shadow-xl max-w-md">
+                <div class="text-center">
+                    <i class="fa fa-check-circle text-green-500 text-4xl mb-4"></i>
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">
+                        ¡Cuenta Activada Exitosamente!
+                    </h3>
+                    <p class="text-gray-600 mb-6">
+                        Tu cuenta ha sido activada. ¿Qué te gustaría hacer ahora?
+                    </p>
+                    <div class="flex flex-col space-y-4">
+                        <button 
+                            @click="handleNavigation('buy')"
+                            class="bg-fountain-blue-600 text-white py-2 px-6 rounded hover:bg-fountain-blue-500"
+                        >
+                            Comprar Weblox
+                        </button>
+                        <button 
+                            @click="handleNavigation('trial')"
+                            class="border border-fountain-blue-600 text-fountain-blue-600 py-2 px-6 rounded hover:bg-gray-50"
+                        >
+                            Ir a mi sitio de prueba
+                        </button>
                     </div>
                 </div>
             </div>
