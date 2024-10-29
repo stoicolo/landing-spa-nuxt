@@ -15,15 +15,27 @@
   
       <div class="container">
         <h2 :class="{ 'white-title': localWhiteTitle }">
-          <span v-if="!viewMode" @input="updateTitle($event)" @blur="saveChanges" contenteditable>{{ localTitle }}</span>
+          <textarea
+            v-if="!viewMode"
+            class="styled-textarea styled-textarea-h2"
+            :value="localTitle"
+            @input="updateTitle($event)"
+            @blur="saveChanges"
+            :style="{ color: localTextColor }"
+            v-auto-grow
+          ></textarea>
           <span v-else>{{ localTitle }}</span>
         </h2>
   
         <div class="article-content">
           <div class="images-container" v-if="localPictures.length > 0">
             <div v-for="(picture, index) in localPictures" :key="index" class="article-image">
-                <img :src="picture.image || '/img/default-image.jpg'" :alt="`Imagen ${index + 1}`">
-                <div class="image-overlay" :style="{ backgroundColor: localOverlayColor }"></div>
+              <img :src="picture.image || '/img/default-image.jpg'" :alt="`Imagen ${index + 1}`">
+              <div 
+                v-if="localOverlay" 
+                class="image-overlay" 
+                :style="{ backgroundColor: localOverlayColor }"
+              ></div>
             </div>
           </div>
           <div class="text-content" :style="{ color: localTextColor }">
@@ -47,7 +59,7 @@
                 <font-awesome-icon icon="fa-brands fa-square-instagram"/>
             </button>
             <button v-if="localShowTwitter" @click="shareOnTwitter" class="share-button twitter">
-                <font-awesome-icon icon="fa-brands fa-square-twitter"/>
+                <font-awesome-icon icon="fa-brands fa-square-x-twitter"/>
             </button>
             <button v-if="localShowWhatsapp" @click="shareOnWhatsapp" class="share-button whatsapp">
                 <font-awesome-icon icon="fa-brands fa-whatsapp"/>
@@ -88,7 +100,13 @@
             </div>
             <div class="form-group">
               <label>Título del artículo</label>
-              <input v-model="localTitle" @input="saveChanges" type="text" placeholder="Ingrese el título del artículo">
+              <textarea
+                v-model="localTitle"
+                @input="saveChanges"
+                class="styled-textarea"
+                placeholder="Ingrese el título del artículo"
+                v-auto-grow
+              ></textarea>
               <div class="white-title-option">
                 <input type="checkbox" id="whiteTitleCheckbox" v-model="localWhiteTitle" @change="saveChanges">
                 <label for="whiteTitleCheckbox">Título color blanco</label>
@@ -126,8 +144,24 @@
               <i class="fas fa-plus"></i> Agregar imagen
             </button>
             <div class="form-group">
-              <label>Color de superposición en hover</label>
-              <input v-model="localOverlayColor" @input="updateOverlayColor" type="color">
+              <div class="overlay-toggle mb-4 mt-4">
+                <input 
+                  type="checkbox" 
+                  id="showOverlay" 
+                  v-model="localOverlay" 
+                  @change="saveChanges"
+                >
+                <label for="showOverlay" class="ml-2">Mostrar efecto overlay en hover</label>
+              </div>
+              
+              <template v-if="localOverlay">
+                <label>Color de superposición en hover</label>
+                <input 
+                  v-model="localOverlayColor" 
+                  @input="updateOverlayColor" 
+                  type="color"
+                >
+              </template>
             </div>
           </div>
   
@@ -233,6 +267,10 @@
           type: String,
           default: '#333333'
       },
+      overlay: {
+          type: Boolean,
+          default: true
+      },
       overlayColor: {
           type: String,
           default: 'rgba(0, 0, 0, 0.5)'
@@ -296,6 +334,7 @@
   const localPictures = ref(props.pictures);
   const localWhiteTitle = ref(props.whiteTitle);
   const localTextColor = ref(props.textColor);
+  const localOverlay = ref(props.overlay);
   const localOverlayColor = ref(props.overlayColor);
   const localShowActionButton = ref(props.showActionButton);
   const localActionButtonText = ref(props.actionButtonText);
@@ -337,6 +376,7 @@
           localPictures.value = currentSection.widget.element.pictures;
           localWhiteTitle.value = currentSection.widget.element.whiteTitle;
           localTextColor.value = currentSection.widget.element.textColor;
+          localOverlay.value = currentSection.widget.element.overlay !== undefined ? currentSection.widget.element.overlay : true;
           localOverlayColor.value = currentSection.widget.element.overlayColor;
           localShowActionButton.value = currentSection.widget.element.showActionButton;
           localActionButtonText.value = currentSection.widget.element.actionButtonText;
@@ -351,6 +391,30 @@
           localWhatsappNumber.value = currentSection.widget.element.whatsappNumber;
       }
   }, { deep: true, immediate: true });
+
+  const vAutoGrow = {
+  mounted(el) {
+    el.style.overflow = 'hidden';
+    el.style.resize = 'none';
+    el.style.boxSizing = 'border-box';
+    
+    const resize = () => {
+      el.style.height = '40px';
+      el.style.height = `${el.scrollHeight}px`;
+    };
+    
+    el.__resizeListener = resize;
+    el.addEventListener('input', resize);
+    
+    setTimeout(resize, 0);
+  },
+  updated(el) {
+    el.__resizeListener();
+  },
+  unmounted(el) {
+    el.removeEventListener('input', el.__resizeListener);
+  }
+};
   
   function openConfigModal() {
       showConfigModal.value = true;
@@ -385,6 +449,7 @@ const sanitizedContent = computed(() => {
           pictures: localPictures.value,
           whiteTitle: localWhiteTitle.value,
           textColor: localTextColor.value,
+          overlay: localOverlay.value,
           overlayColor: localOverlayColor.value,
           showActionButton: localShowActionButton.value,
           actionButtonText: localActionButtonText.value,
@@ -407,8 +472,8 @@ const sanitizedContent = computed(() => {
   }
   
   function updateTitle(event) {
-      localTitle.value = event.target.innerText;
-      saveChanges();
+    localTitle.value = event.target.value;
+    saveChanges();
   }
   
   function updateDescription(event) {
@@ -1083,5 +1148,47 @@ const sanitizedContent = computed(() => {
   background: black;
   padding: 20px;
   border-radius: 20px;
+}
+
+.styled-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: inherit;
+  text-align: inherit;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  resize: none;
+  font-family: inherit;
+  padding: 0;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.styled-textarea:focus {
+  outline: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.styled-textarea-h2 {
+  font-size: inherit;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+}
+
+.overlay-toggle {
+  display: flex;
+  align-items: center;
+  
+  input[type="checkbox"] {
+    margin-right: 8px;
+  }
+  
+  label {
+    font-weight: normal;
+    margin: 0 !important;
+    cursor: pointer;
+  }
 }
 </style>
