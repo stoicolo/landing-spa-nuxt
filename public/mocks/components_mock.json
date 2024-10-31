@@ -384,6 +384,57 @@
       },
       {
         "id": 3,
+        "name": "brands",
+        "title": "Carrusel de Marcas",
+        "category": "basics",
+        "image": "/img/brands-preview.png",
+        "available": true,
+        "element": {
+          "viewMode": false,
+          "title": "Nuestras Marcas",
+          "showTitle": true,
+          "titleFontSize": 32,
+          "titleColor": "#000000",
+          "titleAlign": "center",
+          "componentHeight": 400,
+          "carouselHeight": 200,
+          "showControls": true,
+          "autoPlay": true,
+          "autoPlaySpeed": 3000,
+          "images": [
+            {
+              "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540208729_audi-tecno-neon-png_1",
+              "alt": "Marca 1"
+            },
+            {
+              "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540208729_audi-tecno-neon-png_1",
+              "alt": "Marca 2"
+            },
+            {
+              "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540208729_audi-tecno-neon-png_1",
+              "alt": "Marca 2"
+            },
+            {
+              "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540208729_audi-tecno-neon-png_1",
+              "alt": "Marca 2"
+            },
+            {
+              "url": "https://a0x7.c18.e2-5.dev/weblox-v1/weblox-v1/images/1727540208729_audi-tecno-neon-png_1",
+              "alt": "Marca 2"
+            }
+          ],
+          "showButton": false,
+          "buttonText": "Contáctanos",
+          "buttonType": "url",
+          "buttonUrl": "",
+          "phoneNumber": "",
+          "backgroundType": "color",
+          "backgroundImage": "",
+          "backgroundColor": "#ffffff"
+        }
+      },
+      {
+        "id": 3,
         "name": "footer",
         "title": "Pie de Página",
         "category": "basics",
