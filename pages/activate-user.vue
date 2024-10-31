@@ -98,7 +98,7 @@ const handleNavigation = (type: 'buy' | 'trial') => {
     if (type === 'buy') {
         window.location.href = 'https://tilo.co/link/TWpFMU9RPT18MQ==';
     } else {
-        window.location.href = `${trialUrl.value}/login`;
+        window.location.href = `https://${trialUrl.value}/login`;
     }
 };
 
