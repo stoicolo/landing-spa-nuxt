@@ -23,7 +23,6 @@ interface TokenPayload {
 const route = useRoute();
 
 const token = ref("");
-const decodedToken = ref<TokenPayload | null>(null);
 const isActivating = ref(false);
 const activationSuccess = ref(false);
 const errorMessage = ref("");
@@ -47,10 +46,14 @@ const trialUrl = ref("");
 
 onMounted(async () => {
     token.value = route.query.token as string;
-    decodedToken.value = decodeJWT(token.value);
-    userId.value = decodedToken.value?.data.id || 0;
-    userName.value = decodedToken.value?.data.name || '';
-    userEmail.value = decodedToken.value?.data.email || '';
+    const decoded = decodeJWT(token.value);
+    if (!decoded || !decoded.data) {
+        errorMessage.value = "Token inválido. Por favor, solicite un nuevo enlace de activación.";
+        return;
+    }
+    userId.value = decoded.data.id;
+    userName.value = decoded.data.name;
+    userEmail.value = decoded.data.email;
 
     if (!token.value) {
         errorMessage.value = "Token no válido o faltante. Por favor, solicite un nuevo enlace de activación.";
