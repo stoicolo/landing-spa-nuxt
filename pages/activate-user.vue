@@ -95,14 +95,27 @@ const decodeHTMLEntities = (text: string) => {
 }
 
 const decodeJWT = (token: string) => {
+    debugger;
   try {
+    // Tomamos la segunda parte del token (payload)
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
+    
+    // Decodificamos el base64
+    const decodedPayload = atob(base64);
+    
+    // Convertimos el resultado a UTF-8
+    const jsonPayload = decodeURIComponent(
+      Array.from(decodedPayload)
+        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
 
-    return JSON.parse(jsonPayload);
+    // Parseamos el JSON
+    const parsed = JSON.parse(jsonPayload);
+    
+    // Si el resultado tiene una estructura anidada con 'data', la retornamos
+    return parsed;
   } catch (error) {
     console.error("Error decoding token:", error);
     return null;
