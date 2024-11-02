@@ -113,6 +113,7 @@ const closePopup = (type: 'activation' | 'warning') => {
     if (type === 'activation') {
         showActivationPopup.value = false;
     } else {
+        termsAccepted.value = false;
         showScrollWarningPopup.value = false;
     }
 };
@@ -158,7 +159,7 @@ const handleTermsAcceptance = () => {
         showScrollWarningPopup.value = true;
         return;
     }
-    termsAccepted.value = !termsAccepted.value;
+    termsAccepted.value = true;
 };
 </script>
 
