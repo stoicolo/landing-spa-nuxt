@@ -3,11 +3,27 @@ import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import PageTemplateService from '@/services/page_template';
 
+interface TokenPayload {
+  data: {
+    isEmailVerified: boolean;
+    id: number;
+    name: string;
+    email: string;
+    password: string;
+    phoneNumber: string;
+    role: string;
+    updatedAt: string;
+    createdAt: string;
+  };
+  iat: number;
+  exp: number;
+  type: string;
+}
+
 const route = useRoute();
-const router = useRouter();
-const userStore = useUserStore();
 
 const token = ref("");
+const decodedToken = ref<TokenPayload | null>(null);
 const isActivating = ref(false);
 const activationSuccess = ref(false);
 const errorMessage = ref("");
@@ -21,6 +37,8 @@ const userBrowser = ref("");
 const legalAgreement = ref("");
 const isLoadingAgreement = ref(true);
 const userId = ref(0);
+const userName = ref('');
+const userEmail = ref('');
 const termsId = ref(0);
 
 const showActivationPopup = ref(false);
@@ -29,8 +47,10 @@ const trialUrl = ref("");
 
 onMounted(async () => {
     token.value = route.query.token as string;
-    const tokenDecoded = decodeJWT(token.value);
-    userId.value = tokenDecoded.sub;
+    decodedToken.value = decodeJWT(token.value);
+    userId.value = decodedToken.value?.data.id || 0;
+    userName.value = decodedToken.value?.data.name || '';
+    userEmail.value = decodedToken.value?.data.email || '';
 
     if (!token.value) {
         errorMessage.value = "Token no válido o faltante. Por favor, solicite un nuevo enlace de activación.";
@@ -110,7 +130,7 @@ const activateUser = async () => {
     try {
         await PageTemplateService.activateUser(token.value);
         await PageTemplateService.sendAceptedTermsAndConditions(termsId.value, userId.value, true, today);
-        await PageTemplateService.sendSubdomainRequest(`editor${userId.value}00trial.weblox.io`, 'https://tilo.co/link/TWpFMU9RPT18MQ==', `${userStore.name}`, `${userStore.email}`, userId.value);
+        await PageTemplateService.sendSubdomainRequest(`editor${userId.value}00trial.weblox.io`, 'https://tilo.co/link/TWpFMU9RPT18MQ==', `${userName.value}`, `${userEmail.value}`, userId.value);
         activationSuccess.value = true;
         trialUrl.value = `editor${userId.value}00trial.weblox.io`;
         showActivationPopup.value = true;
