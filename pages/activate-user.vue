@@ -3,23 +3,6 @@ import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import PageTemplateService from '@/services/page_template';
 
-interface TokenPayload {
-  data: {
-    isEmailVerified: boolean;
-    id: number;
-    name: string;
-    email: string;
-    password: string;
-    phoneNumber: string;
-    role: string;
-    updatedAt: string;
-    createdAt: string;
-  };
-  iat: number;
-  exp: number;
-  type: string;
-}
-
 const route = useRoute();
 
 const token = ref("");
@@ -166,13 +149,17 @@ const handleScroll = (event: Event) => {
     }
 };
 
-const handleTermsAcceptance = () => {
-    if (!termsRead.value) {
-        termsAccepted.value = false;
+const handleTermsAcceptance = (event: Event) => {
+    const checkbox = event.target as HTMLInputElement;
+    
+    if (!termsRead.value && checkbox.checked) {
+        checkbox.checked = false;
         showScrollWarningPopup.value = true;
+        termsAccepted.value = false;
         return;
     }
-    termsAccepted.value = true;
+    
+    termsAccepted.value = checkbox.checked;
 };
 </script>
 
