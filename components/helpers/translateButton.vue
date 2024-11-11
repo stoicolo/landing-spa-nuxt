@@ -37,7 +37,7 @@
   </template>
   
   <script setup>
-  import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
+  import { ref, onMounted, onUnmounted, watch } from 'vue'
   import { useRoute } from 'vue-router'
   
   const route = useRoute()
@@ -45,9 +45,6 @@
   const currentLanguage = ref('es')
   const languageMenuRef = ref(null)
   let translatorInitialized = false
-  let initializationAttempts = 0
-  const MAX_INITIALIZATION_ATTEMPTS = 3
-  const isChangingLanguage = ref(false)
   
   const languages = {
     'es': { 
@@ -92,13 +89,7 @@
   }
   
   const initializeTranslator = () => {
-    return new Promise((resolve, reject) => {
-      if (initializationAttempts >= MAX_INITIALIZATION_ATTEMPTS) {
-        reject(new Error('Se alcanzó el número máximo de intentos de inicialización'))
-        return
-      }
-  
-      initializationAttempts++
+    return new Promise((resolve) => {
       cleanupTranslator()
   
       window.googleTranslateElementInit2 = function() {
@@ -114,120 +105,36 @@
       const script = document.createElement('script')
       script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2'
       script.async = true
-      script.onerror = () => {
-        cleanupTranslator()
-        reject(new Error('Error al cargar el script del traductor'))
-      }
       document.body.appendChild(script)
     })
-  }
-  
-  const checkTranslatorHealth = () => {
-    const combo = document.querySelector('.goog-te-combo')
-    return combo && typeof window.google !== 'undefined'
   }
   
   const toggleLanguageMenu = () => {
     showLanguageMenu.value = !showLanguageMenu.value
   }
   
-  const clearGoogleTranslateCookies = () => {
-    const domain = window.location.hostname
-    const domains = [
-      domain,
-      `.${domain}`,
-      `www.${domain}`,
-      `.www.${domain}`,
-    ]
-    
-    domains.forEach(d => {
-      document.cookie = `googtrans=;domain=${d};path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT`
-      document.cookie = `googtrans=;domain=${d};path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;secure`
-      document.cookie = `googtrans=;domain=${d};path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;sameSite=none;secure`
-    })
-  }
-  
-  const setCookie = (name, value) => {
-    const domain = window.location.hostname
-    clearGoogleTranslateCookies()
-    
-    const cookieOptions = [
-      `domain=${domain}`,
-      `domain=.${domain}`,
-      `domain=www.${domain}`,
-      `domain=.www.${domain}`
-    ]
-  
-    cookieOptions.forEach(option => {
-      document.cookie = `${name}=${value};${option};path=/`
-      document.cookie = `${name}=${value};${option};path=/;secure`
-      document.cookie = `${name}=${value};${option};path=/;sameSite=none;secure`
-    })
-  }
-  
   const changeLanguage = async (lang) => {
-    if (currentLanguage.value === lang || isChangingLanguage.value) return
+    if (currentLanguage.value === lang) return
     
     try {
-      isChangingLanguage.value = true
-      
-      if (!checkTranslatorHealth()) {
+      if (!translatorInitialized) {
         await initializeTranslator()
         await new Promise(resolve => setTimeout(resolve, 500))
       }
   
-      clearGoogleTranslateCookies()
-      
-      if (lang === 'es') {
-        setCookie('googtrans', '/es/es')
-      } else {
-        setCookie('googtrans', `/es/${lang}`)
+      const combo = document.querySelector('.goog-te-combo')
+      if (combo) {
+        combo.value = lang
+        combo.dispatchEvent(new Event('change'))
       }
   
       currentLanguage.value = lang
       localStorage.setItem('selectedLanguage', lang)
-      localStorage.setItem('lastLanguageChange', Date.now().toString())
-      
-      location.reload()
     } catch (error) {
-      console.error('Error cambiando el idioma:', error)
-      isChangingLanguage.value = false
+      console.error('Error changing language:', error)
     }
     
     showLanguageMenu.value = false
-  }
-  
-  // Observador de la ruta
-  watch(() => route.path, async () => {
-    if (typeof window !== 'undefined' && !isChangingLanguage.value) {
-      await nextTick()
-      const savedLanguage = localStorage.getItem('selectedLanguage')
-      const lastChange = localStorage.getItem('lastLanguageChange')
-      const now = Date.now()
-      
-      // Solo aplicar el idioma si han pasado más de 2 segundos desde el último cambio
-      if (savedLanguage && (!lastChange || now - parseInt(lastChange) > 2000)) {
-        try {
-          setCookie('googtrans', savedLanguage === 'es' ? '/es/es' : `/es/${savedLanguage}`)
-        } catch (error) {
-          console.error('Error al reaplicar la traducción después de la navegación:', error)
-        }
-      }
-    }
-  })
-  
-  // Monitoreo de actividad
-  let inactivityTimer
-  const INACTIVITY_TIMEOUT = 30000 // 30 segundos
-  
-  const resetInactivityTimer = () => {
-    if (inactivityTimer) clearTimeout(inactivityTimer)
-    inactivityTimer = setTimeout(async () => {
-      if (!checkTranslatorHealth()) {
-        initializationAttempts = 0
-        await initializeTranslator()
-      }
-    }, INACTIVITY_TIMEOUT)
   }
   
   const handleClickOutside = (event) => {
@@ -236,62 +143,47 @@
     }
   }
   
+  // Reset to Spanish on route change
+  watch(() => route.path, async () => {
+    currentLanguage.value = 'es'
+    cleanupTranslator()
+    translatorInitialized = false
+  })
+  
   onMounted(async () => {
     if (typeof window !== 'undefined') {
-      const savedLanguage = localStorage.getItem('selectedLanguage')
-      if (savedLanguage) {
-        currentLanguage.value = savedLanguage
-        setCookie('googtrans', savedLanguage === 'es' ? '/es/es' : `/es/${savedLanguage}`)
-      }
-  
-      try {
-        await initializeTranslator()
-      } catch (error) {
-        console.error('Error al inicializar el traductor:', error)
-      }
-  
       document.addEventListener('click', handleClickOutside)
-      document.addEventListener('mousemove', resetInactivityTimer)
-      document.addEventListener('keypress', resetInactivityTimer)
     }
   })
   
   onUnmounted(() => {
     if (typeof window !== 'undefined') {
       document.removeEventListener('click', handleClickOutside)
-      document.removeEventListener('mousemove', resetInactivityTimer)
-      document.removeEventListener('keypress', resetInactivityTimer)
-      if (inactivityTimer) clearTimeout(inactivityTimer)
     }
   })
   </script>
   
   <style>
-  /* Ocultar el tooltip específico de Google Translate */
   #goog-gt-tt {
     display: none !important;
   }
   
-  /* Ocultar otros tooltips y elementos relacionados */
   .goog-tooltip, 
   .goog-tooltip:hover, 
   .goog-te-balloon-frame {
     display: none !important;
   }
   
-  /* Evitar resaltados y estilos no deseados */
   .goog-text-highlight {
     background-color: transparent !important;
     box-shadow: none !important;
     border: none !important;
   }
   
-  /* Evitar que se muestren los atributos title en los elementos */
   *[title] {
     position: static !important;
   }
   
-  /* Evitar que el texto sea resaltado o subrayado */
   body * {
     user-select: none;
     -webkit-user-select: none;
@@ -299,30 +191,25 @@
     text-decoration: none !important;
   }
   
-  /* Ajustar estilos para no ocultar elementos esenciales de Google Translate */
   .goog-te-banner-frame {
     display: none !important;
   }
   
-  /* Ajustar el estilo del selector de idioma */
   .goog-te-combo {
     margin: 0 !important;
     font-size: 0 !important;
     opacity: 0;
   }
   
-  /* Evitar que el cuerpo de la página se desplace */
   body {
     top: 0 !important;
     position: static !important;
   }
   
-  /* Ocultar la barra superior de Google Translate */
   .skiptranslate {
     display: none !important;
   }
   
-  /* Asegurarse de que el menú desplegable esté por encima de otros elementos */
   .goog-te-menu-frame {
     box-shadow: none !important;
     -webkit-box-shadow: none !important;
