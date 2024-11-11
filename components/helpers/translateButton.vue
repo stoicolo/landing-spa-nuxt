@@ -47,6 +47,7 @@
   let translatorInitialized = false
   let initializationAttempts = 0
   const MAX_INITIALIZATION_ATTEMPTS = 3
+  const isChangingLanguage = ref(false)
   
   const languages = {
     'es': { 
@@ -90,28 +91,6 @@
     translatorInitialized = false
   }
   
-  const waitForTranslator = () => {
-    return new Promise((resolve, reject) => {
-      let attempts = 0
-      const maxAttempts = 50 // 5 segundos máximo (100ms x 50)
-      
-      const checkCombo = setInterval(() => {
-        const combo = document.querySelector('.goog-te-combo')
-        attempts++
-        
-        if (combo) {
-          clearInterval(checkCombo)
-          resolve(combo)
-        }
-        
-        if (attempts >= maxAttempts) {
-          clearInterval(checkCombo)
-          reject('Timeout esperando al traductor')
-        }
-      }, 100)
-    })
-  }
-  
   const initializeTranslator = () => {
     return new Promise((resolve, reject) => {
       if (initializationAttempts >= MAX_INITIALIZATION_ATTEMPTS) {
@@ -152,49 +131,67 @@
     showLanguageMenu.value = !showLanguageMenu.value
   }
   
-  // Función para establecer la cookie 'googtrans' con el dominio y path correctos
+  const clearGoogleTranslateCookies = () => {
+    const domain = window.location.hostname
+    const domains = [
+      domain,
+      `.${domain}`,
+      `www.${domain}`,
+      `.www.${domain}`,
+    ]
+    
+    domains.forEach(d => {
+      document.cookie = `googtrans=;domain=${d};path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT`
+      document.cookie = `googtrans=;domain=${d};path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;secure`
+      document.cookie = `googtrans=;domain=${d};path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;sameSite=none;secure`
+    })
+  }
+  
   const setCookie = (name, value) => {
     const domain = window.location.hostname
-    const cookieString = `${name}=${value};domain=${domain};path=/;`
-    document.cookie = cookieString
+    clearGoogleTranslateCookies()
+    
+    const cookieOptions = [
+      `domain=${domain}`,
+      `domain=.${domain}`,
+      `domain=www.${domain}`,
+      `domain=.www.${domain}`
+    ]
+  
+    cookieOptions.forEach(option => {
+      document.cookie = `${name}=${value};${option};path=/`
+      document.cookie = `${name}=${value};${option};path=/;secure`
+      document.cookie = `${name}=${value};${option};path=/;sameSite=none;secure`
+    })
   }
   
   const changeLanguage = async (lang) => {
-    if (currentLanguage.value === lang) return
+    if (currentLanguage.value === lang || isChangingLanguage.value) return
     
     try {
+      isChangingLanguage.value = true
+      
       if (!checkTranslatorHealth()) {
         await initializeTranslator()
         await new Promise(resolve => setTimeout(resolve, 500))
       }
   
+      clearGoogleTranslateCookies()
+      
       if (lang === 'es') {
-        // Establecer la cookie 'googtrans' para restablecer al idioma original
         setCookie('googtrans', '/es/es')
-  
-        // Recargar la página para aplicar los cambios
-        location.reload()
       } else {
-        // Establecer la cookie 'googtrans' al nuevo idioma
         setCookie('googtrans', `/es/${lang}`)
-  
-        // Recargar la página para aplicar la traducción
-        location.reload()
       }
   
       currentLanguage.value = lang
       localStorage.setItem('selectedLanguage', lang)
-  
+      localStorage.setItem('lastLanguageChange', Date.now().toString())
+      
+      location.reload()
     } catch (error) {
       console.error('Error cambiando el idioma:', error)
-      // Intentar recuperación
-      try {
-        await initializeTranslator()
-        await new Promise(resolve => setTimeout(resolve, 1000))
-        await changeLanguage(lang) // Reintentar una vez
-      } catch (retryError) {
-        console.error('Error al recuperar el traductor:', retryError)
-      }
+      isChangingLanguage.value = false
     }
     
     showLanguageMenu.value = false
@@ -202,19 +199,19 @@
   
   // Observador de la ruta
   watch(() => route.path, async () => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && !isChangingLanguage.value) {
       await nextTick()
       const savedLanguage = localStorage.getItem('selectedLanguage')
-      if (savedLanguage && savedLanguage !== 'es') {
+      const lastChange = localStorage.getItem('lastLanguageChange')
+      const now = Date.now()
+      
+      // Solo aplicar el idioma si han pasado más de 2 segundos desde el último cambio
+      if (savedLanguage && (!lastChange || now - parseInt(lastChange) > 2000)) {
         try {
-          setCookie('googtrans', `/es/${savedLanguage}`)
-          location.reload()
+          setCookie('googtrans', savedLanguage === 'es' ? '/es/es' : `/es/${savedLanguage}`)
         } catch (error) {
           console.error('Error al reaplicar la traducción después de la navegación:', error)
         }
-      } else if (savedLanguage === 'es') {
-        setCookie('googtrans', '/es/es')
-        location.reload()
       }
     }
   })
@@ -244,6 +241,7 @@
       const savedLanguage = localStorage.getItem('selectedLanguage')
       if (savedLanguage) {
         currentLanguage.value = savedLanguage
+        setCookie('googtrans', savedLanguage === 'es' ? '/es/es' : `/es/${savedLanguage}`)
       }
   
       try {
@@ -318,5 +316,15 @@
     top: 0 !important;
     position: static !important;
   }
-  </style>
   
+  /* Ocultar la barra superior de Google Translate */
+  .skiptranslate {
+    display: none !important;
+  }
+  
+  /* Asegurarse de que el menú desplegable esté por encima de otros elementos */
+  .goog-te-menu-frame {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+  }
+  </style>
