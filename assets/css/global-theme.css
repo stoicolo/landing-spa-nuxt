@@ -139,3 +139,43 @@
     font-weight: bold;
   }
   
+  /* Estilos para dispositivos móviles */
+@media (max-width: 640px) {
+  .goog-te-menu2 {
+    max-height: 80vh !important;
+    overflow-y: auto !important;
+  }
+}
+
+/* Mejoras visuales para el selector de idioma */
+.goog-te-menu2-item div, .goog-te-menu2-item:link div, .goog-te-menu2-item:visited div, .goog-te-menu2-item:active div {
+  color: #374151 !important;
+  padding: 8px 16px !important;
+}
+
+.goog-te-menu2-item:hover div {
+  background-color: #F3F4F6 !important;
+}
+
+.goog-te-menu2-item-selected div {
+  background-color: #E5E7EB !important;
+}
+
+.goog-te-banner-frame.skiptranslate,
+.goog-te-gadget-icon {
+  display: none !important;
+}
+
+.goog-te-gadget-simple {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+/* Asegurarse de que el selector de Google permanezca oculto */
+.VIpgJd-ZVi9od-l4eHX-hSRGPd,
+.VIpgJd-ZVi9od-ORHb-OEVmcd {
+  display: none !important;
+}
