@@ -70,7 +70,8 @@ const config = ref({})
 const fontFamily = ref('');
 const logoSrc = ref('');
 
-const route = useRoute()
+const route = useRoute();
+const { $initTenantConfig } = useNuxtApp();
 
 const fetchWebsiteData = async () => {
   isLoading.value = true
@@ -78,6 +79,30 @@ const fetchWebsiteData = async () => {
     const encriptedDomain = await PageTemplateService.fetchClientSiteByDomain(window.location.host);
     const decoded = decodeJWT(encriptedDomain);
     website.value = decoded.data[0];
+
+    // Inicializar configuración del tenant
+    if (website.value?.websiteId) {
+      const tenantConfig = $initTenantConfig(website.value.websiteId)
+      
+      // Actualizar SEO metadata
+      if (tenantConfig?.seo) {
+        useHead({
+          title: tenantConfig.seo.title,
+          meta: [
+            { name: 'description', content: tenantConfig.seo.description }
+          ]
+        })
+
+        useSeoMeta({
+          title: tenantConfig.seo.title,
+          ogTitle: tenantConfig.seo.title,
+          description: tenantConfig.seo.description,
+          ogDescription: tenantConfig.seo.description,
+          ogImage: tenantConfig.seo.ogImage,
+          twitterCard: "summary_large_image"
+        })
+      }
+    }
   } catch (error) {
     console.error('Error fetching website data:', error)
   } finally {
