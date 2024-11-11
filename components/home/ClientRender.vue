@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="fixed bottom-20 right-4 z-50"><TranslateButton class="ml-4" /></div>
     <!-- Menú responsive -->
     <Menu :menuItems="website?.content?.menu" :logoSrc="logoSrc || 'img/weblox-logo-name.png'" />
 
@@ -7,7 +8,7 @@
     <div v-if="isLoading" class="flex items-center justify-center min-h-screen">
       <Spinner />
     </div>
-
+    
     <!-- Contenido de la página -->
     <div v-else-if="website?.isActive">
       <template v-for="(section, index) in currentPageSections" :key="section.id" v-memo="[section.position, viewMode]">
@@ -62,6 +63,7 @@ import { defineAsyncComponent } from 'vue'
 import Menu from '@/components/helpers/mainMenuClient.vue'
 import PageTemplateService from '@/services/page_template'
 import Spinner from '@/components/helpers/spinner.vue'
+import TranslateButton from '@/components/helpers/translateButton.vue'
 
 const website = ref(null)
 const viewMode = ref('preview')

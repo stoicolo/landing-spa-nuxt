@@ -52,7 +52,7 @@ export default defineNuxtConfig({
     '~/plugins/init-page-template-service',
     '~/plugins/fontawesome.js',
     '~/plugins/axios.js',
-    '~/plugins/tenant-config'
+    '~/plugins/tenant-config',
   ],
 
   i18n: {
