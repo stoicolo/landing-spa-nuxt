@@ -152,59 +152,86 @@
     showLanguageMenu.value = !showLanguageMenu.value
   }
   
-  const setCookie = (name, value, days) => {
-    let expires = ''
-    if (days) {
-      const date = new Date()
-      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000))
-      expires = '; expires=' + date.toUTCString()
-    }
-    document.cookie = name + '=' + (value || '')  + expires + '; path=/'
-  }
-  
-  const getCookie = (name) => {
-    const nameEQ = name + '='
-    const ca = document.cookie.split(';')
-    for(let i=0;i < ca.length;i++) {
-      let c = ca[i]
-      while (c.charAt(0)==' ') c = c.substring(1,c.length)
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length)
-    }
-    return null
+  // Función para establecer la cookie 'googtrans' con el dominio y path correctos
+  const setCookie = (name, value) => {
+    const domain = window.location.hostname
+    const cookieString = `${name}=${value};domain=${domain};path=/;`
+    document.cookie = cookieString
   }
   
   const changeLanguage = async (lang) => {
     if (currentLanguage.value === lang) return
     
     try {
-      // Establecer la cookie de Google Translate
-      setCookie('googtrans', `/auto/${lang}`, 1)
-      setCookie('googtrans', `/auto/${lang}`, 1, 'translate.google.com')
+      if (!checkTranslatorHealth()) {
+        await initializeTranslator()
+        await new Promise(resolve => setTimeout(resolve, 500))
+      }
+  
+      if (lang === 'es') {
+        // Establecer la cookie 'googtrans' para restablecer al idioma original
+        setCookie('googtrans', '/es/es')
+  
+        // Recargar la página para aplicar los cambios
+        location.reload()
+      } else {
+        // Establecer la cookie 'googtrans' al nuevo idioma
+        setCookie('googtrans', `/es/${lang}`)
+  
+        // Recargar la página para aplicar la traducción
+        location.reload()
+      }
   
       currentLanguage.value = lang
       localStorage.setItem('selectedLanguage', lang)
   
-      // Recargar la página para que se aplique la traducción
-      location.reload()
     } catch (error) {
       console.error('Error cambiando el idioma:', error)
+      // Intentar recuperación
+      try {
+        await initializeTranslator()
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        await changeLanguage(lang) // Reintentar una vez
+      } catch (retryError) {
+        console.error('Error al recuperar el traductor:', retryError)
+      }
     }
+    
+    showLanguageMenu.value = false
   }
   
+  // Observador de la ruta
   watch(() => route.path, async () => {
     if (typeof window !== 'undefined') {
       await nextTick()
       const savedLanguage = localStorage.getItem('selectedLanguage')
       if (savedLanguage && savedLanguage !== 'es') {
-        setCookie('googtrans', `/auto/${savedLanguage}`, 1)
-        setCookie('googtrans', `/auto/${savedLanguage}`, 1, 'translate.google.com')
+        try {
+          setCookie('googtrans', `/es/${savedLanguage}`)
+          location.reload()
+        } catch (error) {
+          console.error('Error al reaplicar la traducción después de la navegación:', error)
+        }
       } else if (savedLanguage === 'es') {
-        setCookie('googtrans', '', -1)
-        setCookie('googtrans', '', -1, 'translate.google.com')
+        setCookie('googtrans', '/es/es')
+        location.reload()
       }
-      location.reload()
     }
   })
+  
+  // Monitoreo de actividad
+  let inactivityTimer
+  const INACTIVITY_TIMEOUT = 30000 // 30 segundos
+  
+  const resetInactivityTimer = () => {
+    if (inactivityTimer) clearTimeout(inactivityTimer)
+    inactivityTimer = setTimeout(async () => {
+      if (!checkTranslatorHealth()) {
+        initializationAttempts = 0
+        await initializeTranslator()
+      }
+    }, INACTIVITY_TIMEOUT)
+  }
   
   const handleClickOutside = (event) => {
     if (languageMenuRef.value && !languageMenuRef.value.contains(event.target)) {
@@ -226,12 +253,17 @@
       }
   
       document.addEventListener('click', handleClickOutside)
+      document.addEventListener('mousemove', resetInactivityTimer)
+      document.addEventListener('keypress', resetInactivityTimer)
     }
   })
   
   onUnmounted(() => {
     if (typeof window !== 'undefined') {
       document.removeEventListener('click', handleClickOutside)
+      document.removeEventListener('mousemove', resetInactivityTimer)
+      document.removeEventListener('keypress', resetInactivityTimer)
+      if (inactivityTimer) clearTimeout(inactivityTimer)
     }
   })
   </script>
