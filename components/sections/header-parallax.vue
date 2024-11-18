@@ -934,7 +934,7 @@ const closeModalVideo = () => {
   }
 
   .center-image {
-    width: 250px;
+    width: 250px !important;
     height: 380px;
   }
 
