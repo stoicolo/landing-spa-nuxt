@@ -12,7 +12,7 @@ export const tenantConfig = {
       id: 'G-TQLFYKPMRK'
     }
   },
-  65: {  // websiteId: 2
+  26: {
     seo: {
       title: "Taitii Tours - Golfo Dulce Costa Rica",
       description: "We are a Costa Rican company born from the need to promote the local economy and preserve our natural heritage through eco-tourism, using funds for the maintenance and protection of nature in Golfo Dulce.",
