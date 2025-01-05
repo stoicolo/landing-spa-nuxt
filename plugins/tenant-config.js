@@ -19,7 +19,7 @@ export const tenantConfig = {
       ogImage: "/img/tenant2_logo.png",
     },
     analytics: {
-      id: 'G-XXXXXXXXX2'
+      id: 'G-HNN1G3PXYB'
     }
   }
   // Agregar más tenants según necesites
