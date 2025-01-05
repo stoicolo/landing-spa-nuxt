@@ -23,8 +23,9 @@ export const useMenuStore = defineStore('menu', {
       { menuName: "Respaldos", href: "/backups", iconName: "DocumentDuplicateIcon", current: false, order: 1 },
       { menuName: "Galería de Imagenes", iconName: "PhotoIcon", current: false, method: "openGaleryImages", order: 2 },
       { menuName: "Editar Menús", href: "/menus", iconName: "PencilSquareIcon", current: false, order: 3 },
-      { menuName: "Configuración", href: "/config", iconName: "UsersIcon", current: false, order: 4 },
-      { menuName: "Menu", href: "#", iconName: "Bars3Icon", current: false, order: 5 },
+      { menuName: "Blog", href: "/blog", iconName: "BookOpenIcon", current: false, order: 4 },
+      { menuName: "Configuración", href: "/config", iconName: "UsersIcon", current: false, order: 5 },
+      { menuName: "Menu", href: "#", iconName: "Bars3Icon", current: false, order: 6 },
       { menuName: "Salir", iconName: "ArrowLeftCircleIcon", method: "logout", current: false, order: 7 },
     ] as MenuItem[],
     menu: [] as MenuItem[]

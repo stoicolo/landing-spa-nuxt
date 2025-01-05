@@ -1098,6 +1098,81 @@ class PageTemplateService {
       throw error;
     }
   }
+
+  /**
+ * Obtener todos los posts por tipo.
+ * @param userId ID del usuario.
+ * @param type Tipo de contenido (blog, product, etc.).
+ * @returns Lista de posts.
+ */
+static async getArticlesByUserId (userId: number) {
+  try {
+    const response = await axios.get(`${PageTemplateService.baseURL}/articles/user/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener los articles:', error);
+    throw error;
+  }
+};
+
+/**
+ * Crear un nuevo post.
+ * @param articleData Datos del post a crear.
+ * @returns El post creado.
+ */
+static async createArticle (articleData: {
+  name: string;
+  description: string;
+  price?: number;
+  userId: number;
+  type: string;
+}) {
+  try {
+    const response = await axios.post(`${PageTemplateService.baseURL}/articles`, articleData);
+    return response.data;
+  } catch (error) {
+    console.error('Error al crear el post:', error);
+    throw error;
+  }
+};
+
+/**
+ * Actualizar un article existente.
+ * @param articleId ID del post a actualizar.
+ * @param articleData Datos actualizados del post.
+ * @returns El post actualizado.
+ */
+static async updateArticle (
+  articleId: string,
+  articleData: {
+    name?: string;
+    description?: string;
+    price?: number;
+  }
+) {
+  try {
+    const response = await axios.patch(`${PageTemplateService.baseURL}/articles/${articleId}`, articleData);
+    return response.data;
+  } catch (error) {
+    console.error('Error al actualizar el article:', error);
+    throw error;
+  }
+};
+
+/**
+ * Eliminar un post por ID.
+ * @param articleId ID del post a eliminar.
+ * @returns Mensaje de éxito.
+ */
+static async deleteArticle (articleId: string) {
+  try {
+    const response = await axios.delete(`${PageTemplateService.baseURL}/articles/${articleId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error al eliminar el article:', error);
+    throw error;
+  }
+};
 }
 
 if (process.client) {
