@@ -26,7 +26,7 @@ interface Page {
 }
 
 class PageTemplateService {
-  private static authToken: string = "";
+  public static authToken: string = "";
   public static baseURL: string = "";
 
   private static createCleanAxiosInstance(): AxiosInstance {
@@ -288,83 +288,6 @@ class PageTemplateService {
       return response ? response.data : null;
     } catch (error) {
       console.error("Error delete backups by id:", error);
-      return null;
-    }
-  }
-
-  //TODO: SACAR ESTA LOGICA A UN NUEVO SERVICIO DE WEBPAGE SERVICE
-
-  static async createWebSite(
-    userId: number,
-    websiteName: string,
-    domain: string,
-    slug: string,
-    websiteGlobalConfig: any,
-  ): Promise<any | null> {
-    try {
-      let response = null;
-
-      response = await axios({
-        method: "Post",
-        url: `${PageTemplateService.baseURL}/websites/`,
-        headers: {
-          Authorization: `Bearer ${PageTemplateService.authToken}`,
-        },
-        data: {
-          userId,
-          websiteName,
-          domain,
-          slug,
-          websiteGlobalConfig,
-        },
-      });
-      return response ? response.data : null;
-    } catch (error) {
-      console.error("Error creating site:", error);
-      return null;
-    }
-  }
-
-  static async getWebSite(userId: number): Promise<any | null> {
-    try {
-      let response = null;
-
-      response = await axios({
-        method: "Get",
-        url: `${PageTemplateService.baseURL}/websites/user/${userId}`,
-        headers: {
-          Authorization: `Bearer ${PageTemplateService.authToken}`,
-        },
-      });
-      return response ? response.data : null;
-    } catch (error) {
-      console.error("Error getting site:", error);
-      return null;
-    }
-  }
-
-  static async updateWebSite(
-    websiteName: string,
-    websiteGlobalConfig: any,
-    websiteId: number,
-  ): Promise<any | null> {
-    try {
-      let response = null;
-
-      response = await axios({
-        method: "Patch",
-        url: `${PageTemplateService.baseURL}/websites/id/${websiteId}`,
-        headers: {
-          Authorization: `Bearer ${PageTemplateService.authToken}`,
-        },
-        data: {
-          websiteName,
-          websiteGlobalConfig,
-        },
-      });
-      return response ? response.data : null;
-    } catch (error) {
-      console.error("Error updating site:", error);
       return null;
     }
   }
@@ -1100,7 +1023,7 @@ class PageTemplateService {
   }
 }
 
-if (process.client) {
+if (import.meta.client) {
   PageTemplateService.initAuthToken();
 }
 

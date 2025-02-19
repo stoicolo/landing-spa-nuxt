@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import PageTemplateService from '@/services/page_template';
+import WebSiteService from '~/services/website';
 
 //TODO: Crear un modelo separado
 interface MenuItem {
@@ -135,7 +136,7 @@ export const useMenuStore = defineStore('menu', {
       }
         try {
             //Creo todos los datos de un nuevo website
-            const newWebSite = await PageTemplateService.createWebSite(currentStore.userId, `${extractMainDomain(currentStore.domain)} - ${currentStore.userId}`, currentStore.domain, `${extractMainDomain(currentStore.domain)}-${currentStore.userId}`, { "fontFamily": "Work Sans" });
+            const newWebSite = await WebSiteService.createWebSite(currentStore.userId, `${extractMainDomain(currentStore.domain)} - ${currentStore.userId}`, currentStore.domain, `${extractMainDomain(currentStore.domain)}-${currentStore.userId}`, { "fontFamily": "Work Sans" });
             const newPageTemplate = await PageTemplateService.createPageTemplate(currentStore.userId, []);
             const newPage = await PageTemplateService.createNewPage(currentStore.userId, newPageTemplate?.id ? newPageTemplate?.id : 0, item.menuName, newWebSite?.id);
             const newMenu = await PageTemplateService.createNewMenu(currentStore.userId, newWebSite?.id, [{...item, href: `/builder/${newPage?.id}`, pageId: newPage?.id}]);

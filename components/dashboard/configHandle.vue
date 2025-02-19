@@ -81,6 +81,7 @@
   <script setup>
   import { ref, inject, watch } from 'vue';
   import PageTemplateService from '~/services/page_template';
+  import WebSiteService from '~/services/website';
   import { useCurrentStore } from '~/stores/current';
   import { useRoute } from 'vue-router';
   import { useMenuStore } from '~/stores/menu';
@@ -101,7 +102,7 @@
   onMounted(async () => {
     await menuStore.initializeStore();
     currentStore.setUserId(JSON.parse(localStorage.getItem("user")).id);
-    websiteId.value = await PageTemplateService.getWebSite(currentStore.userId);
+    websiteId.value = await WebSiteService.getWebSite(currentStore.userId);
     
     currentStore.setWebsiteId(websiteId.value[0].id);
     currentStore.setDomain(websiteId.value[0].domain);
@@ -110,7 +111,7 @@
     const latestPublishHistory = publishHistory[0];
     currentStore.setPublishHistoryId(latestPublishHistory.id);
     
-    config.value = await PageTemplateService.getWebSite(currentStore.userId);
+    config.value = await WebSiteService.getWebSite(currentStore.userId);
     const menusResponse = await PageTemplateService.getMenuList(websiteId.value[0].id, currentStore.userId);
     const menuHeaderLoaded = await PageTemplateService.getMenuHeader(currentStore.userId, websiteId.value[0].id);
     currentStore.setMenuHeaderId(menuHeaderLoaded[0].id);
@@ -153,7 +154,7 @@
   
   const saveConfiguration = async () => {
     isLoading.value = true;
-    await PageTemplateService.updateWebSite(configuration.value.websiteName, {"fontFamily": selectedFont.value, "logo": logoPreview.value}, currentStore.websiteId);
+    await WebSiteService.updateWebSite(configuration.value.websiteName, {"fontFamily": selectedFont.value, "logo": logoPreview.value}, currentStore.websiteId);
     const domain = currentStore.domain;
     const publishHistoryId = currentStore.publishHistoryId;
     const isActive = true;

@@ -52,6 +52,7 @@
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import PageTemplateService from '@/services/page_template';
+import WebSiteService from '~/services/website';
 import ConfirmationModal from '~/components/helpers/confirmationModal.vue';
 import { useUserStore } from '~/stores/user';
 import { useMenuStore } from '~/stores/menu';
@@ -75,7 +76,7 @@ const websiteId = ref(0);
 
 onMounted(async () => {
   await menuStore.initializeStore();
-  websiteId.value = await PageTemplateService.getWebSite(currentStore.userId);
+  websiteId.value = await WebSiteService.getWebSite(currentStore.userId);
   const menusResponse = await PageTemplateService.getMenuList(websiteId.value[0].id, currentStore.userId);
   menuStore.setMenuList(menusResponse.menuDetails);
   backupsList.value = await PageTemplateService.getBackups(userStore.id);
