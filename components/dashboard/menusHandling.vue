@@ -80,6 +80,7 @@ import ConfirmationModal from '~/components/helpers/confirmationModal.vue';
 import MenuItemModal from '~/components/helpers/addMenuItemModal.vue';
 import draggable from 'vuedraggable';
 import PageTemplateService from '@/services/page_template';
+import WebSiteService from '~/services/website';
 import { useCurrentStore } from '~/stores/current';
 
 const menuStore = useMenuStore();
@@ -97,7 +98,7 @@ const { $toaster } = useNuxtApp();
 
 onMounted(async () => {
   await menuStore.initializeStore();
-  websiteId.value = await PageTemplateService.getWebSite(currentStore.userId);
+  websiteId.value = await WebSiteService.getWebSite(currentStore.userId);
   const menusResponse = await PageTemplateService.getMenuList(websiteId.value[0].id, currentStore.userId);
   const menuHeaderLoaded = await PageTemplateService.getMenuHeader(currentStore.userId, websiteId.value[0].id);
   const website = await PageTemplateService.getPublishHistoryByWebsiteId(websiteId.value[0].id);

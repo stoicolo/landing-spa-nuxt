@@ -61,6 +61,7 @@ import { useMenuStore } from '~/stores/menu';
 import { useCurrentStore } from '~/stores/current';
 import { useRouter, useRoute } from 'vue-router';
 import PageTemplateService from '@/services/page_template';
+import WebSiteService from '~/services/website';
 
 const menuStore = useMenuStore();
 const currentStore = useCurrentStore();
@@ -80,7 +81,7 @@ const websiteId = ref(0);
 
 onMounted(async () => {
     await menuStore.initializeStore();
-    websiteId.value = await PageTemplateService.getWebSite(currentStore.userId);
+    websiteId.value = await WebSiteService.getWebSite(currentStore.userId);
     const menusResponse = await PageTemplateService.getMenuList(websiteId.value[0].id, currentStore.userId);
     const userRole = decrypt(localStorage.getItem('getNumByTicket'), 3);
     currentStore.setUserRole(userRole);

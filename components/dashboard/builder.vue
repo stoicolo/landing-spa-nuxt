@@ -172,6 +172,7 @@ import { useMenuStore } from '~/stores/menu';
 import { useUserStore } from '~/stores/user';
 import { useCurrentStore } from '~/stores/current';
 import PageTemplateService from '@/services/page_template';
+import WebSiteService from '~/services/website';
 import ConfirmationModal from '~/components/helpers/confirmationModal.vue';
 import SaveBackupModal from '~/components/helpers/saveBackupModal.vue';
 import TemplatesSelectModal from '~/components/helpers/templatesSelectModal.vue';
@@ -267,7 +268,7 @@ async function createNewPageAndPageTemplate() {
         if (routeId) {
 
             
-            const getWebsite = await PageTemplateService.getWebSite(currentStore.userId);
+            const getWebsite = await WebSiteService.getWebSite(currentStore.userId);
 
             currentStore.setWebsiteId(getWebsite[0].id);
             
