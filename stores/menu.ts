@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import PageTemplateService from '@/services/page_template';
-import WebSiteService from '~/services/website';
+import WebSiteService from '~/services/website.service';
+import NavigationService from '~/services/navigation.service';
 
 //TODO: Crear un modelo separado
 interface MenuItem {
@@ -47,7 +48,7 @@ export const useMenuStore = defineStore('menu', {
       const currentStore = useCurrentStore();
       if (!currentStore.menuHeaderId) {
         //Si no existe un menuHeaderId en el currentStore, lo busco y lo guardo
-        const menuHeaderLoaded = await PageTemplateService.getMenuHeader(currentStore.userId, currentStore.websiteId);
+        const menuHeaderLoaded = await NavigationService.getMenuHeader(currentStore.userId, currentStore.websiteId);
         currentStore.setMenuHeaderId(menuHeaderLoaded[0].id);
       }
     },
@@ -77,7 +78,7 @@ export const useMenuStore = defineStore('menu', {
           hidden: item.hidden === null ? false : item.hidden
         }
       });
-      await PageTemplateService.updateAllMenu(currentStore.menuHeaderId, itemsToSave);
+      await NavigationService.updateAllMenu(currentStore.menuHeaderId, itemsToSave);
       this.setMenuList(items);
     },
 
@@ -99,7 +100,7 @@ export const useMenuStore = defineStore('menu', {
       }
       try {
         //Creo un nuevo item en el menu, se lo asigno al menu y redirijo a la pagina de builder
-        newItemMenu = await PageTemplateService.updateMenuItem(currentStore.websiteId, currentStore.menuHeaderId, newPage?.id, item);
+        newItemMenu = await NavigationService.updateMenuItem(currentStore.websiteId, currentStore.menuHeaderId, newPage?.id, item);
 
         if(newItemMenu){
           //Agrego el nuevo item al menu y asigno el href con el id de la pagina creada
@@ -139,7 +140,7 @@ export const useMenuStore = defineStore('menu', {
             const newWebSite = await WebSiteService.createWebSite(currentStore.userId, `${extractMainDomain(currentStore.domain)} - ${currentStore.userId}`, currentStore.domain, `${extractMainDomain(currentStore.domain)}-${currentStore.userId}`, { "fontFamily": "Work Sans" });
             const newPageTemplate = await PageTemplateService.createPageTemplate(currentStore.userId, []);
             const newPage = await PageTemplateService.createNewPage(currentStore.userId, newPageTemplate?.id ? newPageTemplate?.id : 0, item.menuName, newWebSite?.id);
-            const newMenu = await PageTemplateService.createNewMenu(currentStore.userId, newWebSite?.id, [{...item, href: `/builder/${newPage?.id}`, pageId: newPage?.id}]);
+            const newMenu = await NavigationService.createNewMenu(currentStore.userId, newWebSite?.id, [{...item, href: `/builder/${newPage?.id}`, pageId: newPage?.id}]);
             
             //Seteo todos los valores en el current store
             currentStore.setWebsiteId(newWebSite?.id);
@@ -173,7 +174,7 @@ export const useMenuStore = defineStore('menu', {
       try {
         // Llamar al servicio para eliminar el ítem del menú en la base de datos
         const page = await PageTemplateService.fetchPage(userId, item.pageId ? item.pageId : 0);
-        await PageTemplateService.deleteMenuBulkOfItems(currentStore.websiteId, currentStore.menuHeaderId, [item.id]);
+        await NavigationService.deleteMenuBulkOfItems(currentStore.websiteId, currentStore.menuHeaderId, [item.id]);
         await PageTemplateService.deletePage(item.pageId ? item.pageId : 0);
         await PageTemplateService.deletePageTemplate(page?.templateId ? page?.templateId : 0);
         
