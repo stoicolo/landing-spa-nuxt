@@ -61,7 +61,8 @@ import { useMenuStore } from '~/stores/menu';
 import { useCurrentStore } from '~/stores/current';
 import { useRouter, useRoute } from 'vue-router';
 import PageTemplateService from '@/services/page_template';
-import WebSiteService from '~/services/website';
+import WebSiteService from '~/services/website.service';
+import NavigationService from '~/services/navigation.service';
 
 const menuStore = useMenuStore();
 const currentStore = useCurrentStore();
@@ -82,7 +83,7 @@ const websiteId = ref(0);
 onMounted(async () => {
     await menuStore.initializeStore();
     websiteId.value = await WebSiteService.getWebSite(currentStore.userId);
-    const menusResponse = await PageTemplateService.getMenuList(websiteId.value[0].id, currentStore.userId);
+    const menusResponse = await NavigationService.getMenuList(websiteId.value[0].id, currentStore.userId);
     const userRole = decrypt(localStorage.getItem('getNumByTicket'), 3);
     currentStore.setUserRole(userRole);
     //TODO: Change this to a more secure way to validate the user role (wirking on image gallery, admin page)

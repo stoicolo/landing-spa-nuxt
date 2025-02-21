@@ -81,7 +81,8 @@
   <script setup>
   import { ref, inject, watch } from 'vue';
   import PageTemplateService from '~/services/page_template';
-  import WebSiteService from '~/services/website';
+  import WebSiteService from '~/services/website.service';
+  import NavigationService from '~/services/navigation.service';
   import { useCurrentStore } from '~/stores/current';
   import { useRoute } from 'vue-router';
   import { useMenuStore } from '~/stores/menu';
@@ -112,8 +113,8 @@
     currentStore.setPublishHistoryId(latestPublishHistory.id);
     
     config.value = await WebSiteService.getWebSite(currentStore.userId);
-    const menusResponse = await PageTemplateService.getMenuList(websiteId.value[0].id, currentStore.userId);
-    const menuHeaderLoaded = await PageTemplateService.getMenuHeader(currentStore.userId, websiteId.value[0].id);
+    const menusResponse = await NavigationService.getMenuList(websiteId.value[0].id, currentStore.userId);
+    const menuHeaderLoaded = await NavigationService.getMenuHeader(currentStore.userId, websiteId.value[0].id);
     currentStore.setMenuHeaderId(menuHeaderLoaded[0].id);
     configuration.value = config.value[0];
     menuStore.setMenuList(menusResponse.menuDetails);

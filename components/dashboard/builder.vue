@@ -172,7 +172,8 @@ import { useMenuStore } from '~/stores/menu';
 import { useUserStore } from '~/stores/user';
 import { useCurrentStore } from '~/stores/current';
 import PageTemplateService from '@/services/page_template';
-import WebSiteService from '~/services/website';
+import NavigationService from '~/services/navigation.service';
+import WebSiteService from '~/services/website.service';
 import ConfirmationModal from '~/components/helpers/confirmationModal.vue';
 import SaveBackupModal from '~/components/helpers/saveBackupModal.vue';
 import TemplatesSelectModal from '~/components/helpers/templatesSelectModal.vue';
@@ -274,7 +275,7 @@ async function createNewPageAndPageTemplate() {
             
             const [publishHistory, menusResponse] = await Promise.all([
                 PageTemplateService.getPublishHistoryByWebsiteId(currentStore.websiteId),
-                PageTemplateService.getMenuList(currentStore.websiteId, currentStore.userId)
+                NavigationService.getMenuList(currentStore.websiteId, currentStore.userId)
             ]);
 
             currentStore.setPageId(pageId.value);
